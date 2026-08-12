@@ -156,6 +156,13 @@ export default function Page() {
 
   const closeMenu = () => setMenuOpen(false)
 
+  const navTo = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault()
+    closeMenu()
+    const el = document.querySelector(href)
+    if (el) el.scrollIntoView({ behavior: 'smooth' })
+  }
+
   const handleField = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }))
 
@@ -173,7 +180,7 @@ export default function Page() {
         </a>
         <nav className={menuOpen ? 'open' : ''} aria-label="Main navigation">
           {[['About', '#about'], ['Why Egypt', '#vision'], ['Destinations', '#destinations'], ['Experiences', '#experiences'], ['Services', '#services'], ['How It Works', '#process'], ['Contact', '#contact']].map(([item, href]) => (
-            <a key={item} href={href} onClick={closeMenu}>{item}</a>
+            <a key={item} href={href} onClick={(e) => navTo(e, href)}>{item}</a>
           ))}
         </nav>
         <div className="nav-actions">
@@ -205,43 +212,43 @@ export default function Page() {
       </section>
 
       {/* VISION */}
+      {/* VISION / INTRO — Sarasvvati style */}
       <section id="vision" className="section vision">
-        <div className="section-label reveal">01 / WHY EGYPT</div>
+        <div className="section-label reveal" style={{ marginBottom: 32 }}>01 / WHY EGYPT</div>
+        <h2 className="vision-statement reveal">
+          You already know how you want your guests to feel.<br />
+          <em>We know how to make it happen in Egypt.</em>
+        </h2>
         <div className="vision-grid">
           <div className="vision-copy reveal">
-            <p className="eyebrow">The Nefertiti way</p>
-            <h2>{t.visionTitle.split('\n').map((line, i) => <span key={i}>{line}<br /></span>)}</h2>
+            <p className="eyebrow" style={{ marginBottom: 16 }}>THE NEFERTITI WAY</p>
             <p>{t.visionText}</p>
             <a href="#about" className="text-link">{t.philosophy} <ArrowUpRight size={16} /></a>
           </div>
-          <div className="vision-image reveal">
-            <img src={images.vision} alt="Outdoor yoga by the Nile" />
-          </div>
-        </div>
-      </section>
-
-      {/* STATS */}
-      <section className="section stats">
-        <div className="stats-grid reveal">
-          <div className="stats-headline">
-            <h2>{t.statsHeadline.split('\n').map((line, i) => <span key={i}>{line}<br /></span>)}</h2>
-          </div>
-          <div className="stats-numbers">
-            <div className="stat-block reveal">
-              <span className="stat-num">20+</span>
-              <span className="stat-label">Years of event production experience</span>
+          <div className="vision-right">
+            <div className="vision-image reveal">
+              <img src={images.vision} alt="Outdoor yoga by the Nile" />
             </div>
-            <div className="stat-block reveal delay-1">
-              <span className="stat-num">5</span>
-              <span className="stat-label">Destinations across Egypt</span>
-            </div>
-            <div className="stat-block reveal delay-2">
-              <span className="stat-num">100%</span>
-              <span className="stat-label">Bespoke — no two retreats are the same</span>
+            <div className="vision-stats reveal">
+              <div className="vision-stat">
+                <span className="vision-stat-num">20+</span>
+                <span className="vision-stat-label">Years of event production</span>
+              </div>
+              <div className="vision-stat">
+                <span className="vision-stat-num">5</span>
+                <span className="vision-stat-label">Destinations across Egypt</span>
+              </div>
+              <div className="vision-stat">
+                <span className="vision-stat-num">100%</span>
+                <span className="vision-stat-label">Bespoke — no two retreats alike</span>
+              </div>
+              <div className="vision-stat">
+                <span className="vision-stat-num">∞</span>
+                <span className="vision-stat-label">Possibilities for your retreat</span>
+              </div>
             </div>
           </div>
         </div>
-        <div className="stats-divider" />
       </section>
 
       {/* DESTINATIONS */}
