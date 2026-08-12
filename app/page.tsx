@@ -197,11 +197,11 @@ export default function Page() {
       )}
     <main>
       {/* NAV */}
-      <header className={`site-nav ${scrolled ? 'is-scrolled' : ''}`}>
+      <header className={`site-nav ${scrolled ? 'is-scrolled' : ''} ${menuOpen ? 'menu-open' : ''}`}>
         <a href="#top" className="brand" onClick={closeMenu}>
           <img src={images.logo} alt="Nefertiti Luxury Retreat Producer" />
         </a>
-        <nav className={menuOpen ? 'open' : ''} aria-label="Main navigation">
+        <nav className={`site-links ${menuOpen ? 'open' : ''}`} aria-label="Main navigation">
           {[['About', '#about'], ['Why Egypt', '#vision'], ['Destinations', '#destinations'], ['Experiences', '#experiences'], ['Services', '#services'], ['How It Works', '#process'], ['Contact', '#contact']].map(([item, href]) => (
             <a key={item} href={href} onClick={(e) => navTo(e, href)}>{item}</a>
           ))}
