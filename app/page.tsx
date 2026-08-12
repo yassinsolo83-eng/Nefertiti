@@ -25,51 +25,61 @@ const copy = {
     heroSupport: 'From the Pyramids to the Red Sea, we design, plan and produce your retreat around your vision, your practice and your people.',
     explore: 'CREATE YOUR RETREAT',
     inquire: 'BOOK A DISCOVERY CALL',
-    visionTitle: 'A different kind of escape',
-    visionText: 'We believe the most memorable journeys are felt before they are understood. A morning by the Nile. A gong vibrating through a sun-warmed room. A table set beneath the stars. Every detail is an invitation back to yourself.',
-    philosophy: 'Rooted in place. Designed around you.',
+    visionTitle: 'YOU HAVE THE VISION.\nWE HAVE EGYPT.',
+    visionText: 'You already know how you want your guests to feel. You know your practice. You know your community. You know the transformation you want to create. What you need is a trusted team on the ground who understands retreats, events, hospitality and Egypt. That is where we come in.',
+    philosophy: 'DISCOVER OUR STORY',
+    statsHeadline: 'Retreats are deeply personal.\nThat\'s why we treat every one\nas if it were our own.',
     destinations: 'ONE COUNTRY. ENDLESS POSSIBILITIES.',
     destinationLabel: 'WHERE WE CREATE',
     destinationText: 'From Cairo to Siwa, from the Red Sea to the desert — each destination carries its own energy, rhythm and possibility.',
     experiences: 'MORE THAN ACTIVITIES. MOMENTS WITH MEANING.',
-    experienceText: "We select experiences according to your retreat's theme and objectives.",
-    bespoke: 'You take care of your people. We take care of the retreat.',
+    experienceText: 'We select experiences according to your retreat\'s theme and objectives.',
+    bespoke: 'You take care of your people.\nWe take care of the retreat.',
     bespokeLabel: 'HOW WE WORK',
     bespokeText: 'Choose the level of support that fits your experience.',
-    process: "FROM 'WHAT IF?' TO 'WELCOME TO EGYPT.'",
+    process: 'FROM \'WHAT IF?\' TO \'WELCOME TO EGYPT.\'',
     founder: 'THE FOUNDER',
-    founderText: "I've always believed retreats are deeply personal. After experiencing retreats myself, I began to understand the difference between taking a holiday and intentionally stepping away from everyday life. Egypt has always been part of my story. And after years of working around events, experiences and international communities, one question kept coming back to me: why aren't more wellness leaders bringing their communities here? That's why I created Nefertiti.",
+    founderText: 'I\'ve always believed retreats are deeply personal. After experiencing retreats myself, I began to understand the difference between taking a holiday and intentionally stepping away from everyday life. Egypt has always been part of my story. And after years of working around events, experiences and international communities, one question kept coming back to me: why aren\'t more wellness leaders bringing their communities here? That\'s why I created Nefertiti.',
     founderName: 'Azza',
     founderRole: 'Founder & Retreat Producer',
     cta: 'YOUR COMMUNITY IS READY.\nWHERE WILL YOU TAKE THEM NEXT?',
-    ctaText: "Tell us what you teach, who you serve and what you dream of creating. We'll show you what that could look like in Egypt.",
-    contact: "LET'S CREATE YOUR RETREAT",
+    ctaText: 'Tell us what you teach, who you serve and what you dream of creating. We\'ll show you what that could look like in Egypt.',
+    contact: 'LET\'S CREATE YOUR RETREAT',
+    formTitle: 'START YOUR RETREAT ENQUIRY',
+    formSubmit: 'LET\'S CREATE IT',
+    formAlt: 'or email us directly at hello@nefertitiretreats.com',
   },
   it: {
-    nav: ['About', 'Why Egypt', 'Destinations', 'Experiences', 'Services', 'How It Works', 'Contact'],
-    eyebrow: 'Produttrice di ritiri di lusso · Egitto e oltre',
+    nav: ['Chi siamo', 'Perché l\'Egitto', 'Destinazioni', 'Esperienze', 'Servizi', 'Come funziona', 'Contatti'],
+    eyebrow: 'Produzione di ritiri di lusso · Egitto & oltre',
+    hero: 'CREA IL TUO RITIRO IN EGITTO',
+    heroText: 'Produzione di ritiri su misura per coach del benessere, facilitatori e leader trasformazionali che vogliono creare qualcosa di indimenticabile per la loro community.',
     heroSupport: 'Dalle Piramidi al Mar Rosso, progettiamo, pianifichiamo e produciamo il tuo ritiro intorno alla tua visione, alla tua pratica e alle tue persone.',
-    hero: 'Dove il corpo ricorda come essere libero.',
-    heroText: 'Nefertiti crea ritiri immersivi in cui rituali antichi, benessere contemporaneo e la bellezza elementare dell’Egitto si incontrano.',
-    explore: 'Esplora il mondo',
-    inquire: 'Progetta il tuo ritiro',
-    visionTitle: 'Una fuga diversa',
-    visionText: 'Crediamo che i viaggi più memorabili si sentano prima di essere compresi. Un mattino sul Nilo. Un gong in una stanza scaldata dal sole. Una tavola sotto le stelle. Ogni dettaglio è un invito a tornare a te.',
-    philosophy: 'Radicati nel luogo. Disegnati intorno a te.',
-    destinations: 'I luoghi che conosciamo a memoria',
-    destinationText: 'Dal ritmo del Cairo al silenzio di Siwa, creiamo accesso ai paesaggi e agli spazi più evocativi dell’Egitto.',
-    experiences: 'Rituali per una vita più piena',
-    experienceText: 'Non attività da spuntare, ma momenti capaci di cambiare la forma di una giornata — e a volte, la tua.',
-    bespoke: 'Il tuo ritiro, a colori pieni',
-    bespokeText: 'Per gruppi privati, brand consapevoli e comunità curiose, componiamo incontri completamente personali.',
-    process: 'Un modo attento di lavorare',
-    founder: 'Una nota dalla fondatrice',
-    founderText: 'Nefertiti è nata da una convinzione semplice: l’Egitto non è uno sfondo. È una fonte viva di ritmo, accoglienza e meraviglia. Il mio lavoro è unire le persone, i luoghi e i rituali giusti in un flusso indimenticabile.',
-    founderName: 'Nefertiti El-Mahdy',
-    founderRole: 'Fondatrice e produttrice creativa',
-    cta: 'Facciamo spazio alla meraviglia.',
-    ctaText: 'Raccontaci cosa immagini. Ti aiuteremo a portarlo in un luogo bellissimo.',
-    contact: 'Inizia una conversazione',
+    explore: 'CREA IL TUO RITIRO',
+    inquire: 'PRENOTA UNA CALL CONOSCITIVA',
+    visionTitle: 'TU HAI LA VISIONE.\nNOI ABBIAMO L\'EGITTO.',
+    visionText: 'Sai già come vuoi che si sentano i tuoi ospiti. Conosci la tua pratica. Conosci la tua community. Conosci la trasformazione che vuoi creare. Ciò di cui hai bisogno è un team fidato sul posto che comprenda ritiri, eventi, ospitalità e Egitto. Ed è qui che entriamo in gioco.',
+    philosophy: 'SCOPRI LA NOSTRA STORIA',
+    statsHeadline: 'I ritiri sono profondamente personali.\nPer questo trattiamo ogni uno\ncome se fosse il nostro.',
+    destinations: 'UN PAESE. INFINITE POSSIBILITÀ.',
+    destinationLabel: 'DOVE CREIAMO',
+    destinationText: 'Dal Cairo a Siwa, dal Mar Rosso al deserto — ogni destinazione porta la propria energia, ritmo e possibilità.',
+    experiences: 'NON SEMPLICI ATTIVITÀ. MOMENTI CON SIGNIFICATO.',
+    experienceText: 'Selezioniamo le esperienze in base al tema e agli obiettivi del tuo ritiro.',
+    bespoke: 'Tu ti prendi cura delle tue persone.\nNoi ci prendiamo cura del ritiro.',
+    bespokeLabel: 'COME LAVORIAMO',
+    bespokeText: 'Scegli il livello di supporto che si adatta alla tua esperienza.',
+    process: 'DA \'E SE?\' A \'BENVENUTI IN EGITTO.\'',
+    founder: 'LA FONDATRICE',
+    founderText: 'Ho sempre creduto che i ritiri siano profondamente personali. Dopo aver vissuto ritiri in prima persona, ho capito la differenza tra una vacanza e un distacco intenzionale dalla vita quotidiana. L\'Egitto è sempre stato parte della mia storia. E dopo anni di lavoro nel mondo degli eventi e delle esperienze internazionali, una domanda continuava a tornarmi: perché non più leader del benessere portano le loro community qui? Per questo ho creato Nefertiti.',
+    founderName: 'Azza',
+    founderRole: 'Fondatrice & Retreat Producer',
+    cta: 'LA TUA COMMUNITY È PRONTA.\nDOVE LA PORTERAI?',
+    ctaText: 'Raccontaci cosa insegni, chi servi e cosa sogni di creare. Ti mostreremo come potrebbe diventare realtà in Egitto.',
+    contact: 'CREIAMO IL TUO RITIRO',
+    formTitle: 'INIZIA LA TUA RICHIESTA',
+    formSubmit: 'CREIAMOLO INSIEME',
+    formAlt: 'oppure scrivici a hello@nefertitiretreats.com',
   },
 }
 
@@ -89,49 +99,28 @@ const experiences = [
   { title: 'Egyptian beauty workshops', text: 'Natural oils, herbs and traditional skincare rituals.', image: images.resort },
 ]
 
-export default function Page() {
-  const [lang, setLang] = useState<'en' | 'it'>('en')
-  const [menuOpen, setMenuOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
-  const t = copy[lang]
+const serviceTiers = [
+  {
+    num: 'I',
+    title: 'RETREAT CONSULTATION',
+    desc: 'For coaches who have an idea but need help turning it into a viable retreat.',
+    items: ['Discovery session', 'Destination consultation', 'Concept development', 'Preliminary itinerary', 'Venue recommendations', 'Budget framework'],
+  },
+  {
+    num: 'II',
+    title: 'RETREAT DESIGN & PLANNING',
+    desc: 'For coaches who want us to develop the complete retreat with them.',
+    items: ['Everything in Consultation', 'Detailed itinerary', 'Accommodation sourcing', 'Hotel negotiations', 'Transportation', 'Activity sourcing', 'Wellness suppliers', 'Budget management'],
+  },
+  {
+    num: 'III',
+    title: 'FULL RETREAT PRODUCTION',
+    desc: 'Our complete end-to-end service. You arrive and lead. We manage the experience.',
+    items: ['Complete design', 'Hotel management', 'Airport transfers', 'Supplier management', 'On-site production', 'Photography coordination', 'Multilingual support'],
+  },
+]
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24)
-    window.addEventListener('scroll', onScroll)
-    const observer = new IntersectionObserver((entries) => entries.forEach((entry) => entry.isIntersecting && entry.target.classList.add('is-visible')), { threshold: 0.12 })
-    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el))
-    return () => { window.removeEventListener('scroll', onScroll); observer.disconnect() }
-  }, [])
-
-  const closeMenu = () => setMenuOpen(false)
-
-  return (
-    <main>
-      <header className={`site-nav ${scrolled ? 'is-scrolled' : ''}`}>
-        <a href="#top" className="brand" onClick={closeMenu}><img src={images.logo} alt="Nefertiti Luxury Retreat Producer" /></a>
-        <nav className={menuOpen ? 'open' : ''} aria-label="Main navigation">
-          {[['About', '#about'], ['Why Egypt', '#vision'], ['Destinations', '#destinations'], ['Experiences', '#experiences'], ['Services', '#services'], ['How It Works', '#process'], ['Contact', '#contact']].map(([item, href]) => <a key={item} href={href} onClick={closeMenu}>{item}</a>)}
-        </nav>
-        <div className="nav-actions"><button className="lang" onClick={() => setLang(lang === 'en' ? 'it' : 'en')} aria-label="Switch language">{lang === 'en' ? 'IT' : 'EN'}</button><button className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)} aria-label={menuOpen ? 'Close menu' : 'Open menu'}>{menuOpen ? <X /> : <Menu />}</button></div>
-      </header>
-
-      <section id="top" className="hero">
-        <img src={images.hero} alt="Yoga retreat by the Nile under flowing ribbons" className="hero-image" />
-        <div className="hero-shade" />
-        <div className="hero-content reveal"><p className="eyebrow">{t.eyebrow}</p><h1>{t.hero}</h1><p className="hero-copy">{t.heroText}</p><p className="hero-copy">{t.heroSupport}</p><div className="hero-buttons"><a className="button button-gold" href="#destinations">{t.explore}<ArrowUpRight size={16} /></a><a className="button button-ghost" href="#contact">{t.inquire}</a></div></div>
-        <p className="hero-caption">06° 03′ N · 31° 14′ E<br /><span>Made with presence</span></p>
-        <a href="#vision" className="scroll-cue">Scroll to discover <span>↓</span></a>
-      </section>
-
-      <section id="vision" className="section vision"><div className="section-label reveal">01 / {t.nav[0]}</div><div className="vision-grid"><div className="vision-copy reveal"><p className="eyebrow">The Nefertiti way</p><h2>{t.visionTitle}</h2><p>{t.visionText}</p><a href="#experiences" className="text-link">{t.philosophy} <ArrowUpRight size={16} /></a></div><div className="vision-image reveal"><img src={images.vision} alt="Outdoor yoga by the Nile" /></div></div></section>
-
-      <section id="destinations" className="section destinations"><div className="section-heading reveal"><div className="section-label">02 / {t.destinationLabel}</div><h2>{t.destinations}</h2><p>{t.destinationText}</p></div><div className="destination-grid">{destinations.map((item, i) => <article className={`destination-card reveal delay-${i + 1}`} key={item.title}><img src={item.image} alt={item.title} /><div className="card-overlay"><p>{item.meta}</p><h3>{item.title}</h3><ArrowUpRight size={18} /></div></article>)}</div></section>
-
-      <section id="experiences" className="section experiences"><div className="section-heading reveal"><div className="section-label">03 / Experiences</div><h2>{t.experiences}</h2><p>{t.experienceText}</p></div><div className="experience-list">{experiences.map((item, i) => <article className="experience-row reveal" key={item.title}><span className="experience-number">0{i + 1}</span><div><h3>{item.title}</h3><p>{item.text}</p></div><img src={item.image} alt={item.title} /></article>)}</div></section>
-
-      <section id="services" className="bespoke"><div className="bespoke-image"><img src={images.hero} alt="Guests practicing yoga outdoors" /></div><div className="bespoke-copy reveal"><p className="eyebrow">{t.bespokeLabel}</p><h2>{t.bespoke}</h2><p>{t.bespokeText}</p><div className="service-tags"><span>Tier I — RETREAT CONSULTATION<br />For coaches who have an idea but need help turning it into a viable retreat.<br />Includes: Discovery session · Destination consultation · Concept development · Preliminary itinerary · Venue recommendations · Budget framework</span><span>Tier II — RETREAT DESIGN &amp; PLANNING<br />For coaches who want us to develop the complete retreat with them.<br />Includes: Everything in Consultation + Detailed itinerary · Accommodation sourcing · Hotel negotiations · Transportation · Activity sourcing · Wellness suppliers · Budget management</span><span>Tier III — FULL RETREAT PRODUCTION<br />Our complete end-to-end service. You arrive and lead. We manage the experience.<br />Includes: Complete design · Hotel management · Airport transfers · Supplier management · On-site production · Photography coordination · Multilingual support</span></div><a href="#contact" className="button button-light">DISCUSS YOUR RETREAT<ArrowUpRight size={16} /></a></div></section>
-
-      <section id="process" className="section process"><div className="section-heading reveal"><div className="section-label">04 / How It Works</div><h2>{t.process}</h2></div><div className="process-grid">{[
+const steps = [
   ["LET'S TALK", 'Tell us about your practice, community, preferred dates, group size and budget.'],
   ['WE UNDERSTAND YOUR VISION', 'We explore what you want your guests to feel, learn and experience.'],
   ['WE CREATE THE CONCEPT', 'We recommend destinations, accommodation and experiences that fit your retreat.'],
@@ -140,13 +129,394 @@ export default function Page() {
   ['YOU BRING YOUR COMMUNITY', 'You focus on preparing your programme and your guests.'],
   ['WELCOME TO EGYPT', 'Our team receives you and manages the retreat on the ground.'],
   ['YOU LEAD. WE PRODUCE.', 'You focus on what you do best. We remain behind the scenes.'],
-].map(([step, text], i) => <div className="process-step reveal" key={step}><span>{String(i + 1).padStart(2, '0')}</span><h3>{step}</h3><p>{text}</p></div>)}</div><a href="#contact" className="text-link">START WITH A DISCOVERY CALL <ArrowUpRight size={16} /></a></section>
+]
 
-      <section id="about" className="section founder"><div className="founder-image reveal"><img src={images.founder} alt="DJ performing at a waterfront event" /></div><div className="founder-copy reveal"><div className="section-label">05 / {t.founder}</div><p className="eyebrow">{t.founder}</p><h2>{t.founderText}</h2><p className="founder-name">{t.founderName}<br /><span>{t.founderRole}</span></p><a href="#contact" className="text-link">LET&apos;S TALK ABOUT YOUR IDEA →</a></div></section>
+export default function Page() {
+  const [lang, setLang] = useState<'en' | 'it'>('en')
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+  const [formData, setFormData] = useState({
+    name: '', email: '', whatsapp: '', country: '', website: '',
+    practice: '', guests: '', dates: '', destination: '', budget: '',
+    hosted: '', vision: '',
+  })
+  const [formSent, setFormSent] = useState(false)
+  const t = copy[lang]
 
-      <section id="contact" className="contact"><div className="contact-inner reveal"><p className="eyebrow">Nefertiti Luxury Retreat Producer</p><h2>{t.cta.split('\n').map((line) => <span key={line}>{line}<br /></span>)}</h2><p>{t.ctaText}</p><a className="button button-gold" href="mailto:hello@nefertitiretreats.com">{t.contact}<ArrowUpRight size={16} /></a><a className="text-link" href="mailto:hello@nefertitiretreats.com">or BOOK A DISCOVERY CALL</a></div></section>
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24)
+    window.addEventListener('scroll', onScroll)
+    const observer = new IntersectionObserver(
+      (entries) => entries.forEach((entry) => entry.isIntersecting && entry.target.classList.add('is-visible')),
+      { threshold: 0.1 }
+    )
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el))
+    return () => { window.removeEventListener('scroll', onScroll); observer.disconnect() }
+  }, [])
 
-      <footer><div className="footer-brand"><img src={images.logo} alt="Nefertiti Luxury Retreat Producer" /><p>You lead the transformation. We create the experience.</p><p>Based between Egypt &amp; Italy.</p></div><div className="footer-links"><div><p className="footer-label">Navigate</p><a href="#about">About</a><a href="#vision">Why Egypt</a><a href="#destinations">Destinations</a><a href="#experiences">Experiences</a><a href="#services">Services</a><a href="#process">How It Works</a><a href="#faq">FAQ</a><a href="#contact">Contact</a></div><div><p className="footer-label">Contact</p><a href="mailto:hello@nefertitiretreats.com"><Mail size={14} /> hello@nefertitiretreats.com</a><p><MapPin size={14} /> Cairo · Siwa · Everywhere</p><a href="#top"><Camera size={14} /> Instagram</a></div></div><div className="footer-bottom"><span>© 2026 Nefertiti Retreats</span><span>Made with presence</span></div></footer>
+  const closeMenu = () => setMenuOpen(false)
+
+  const handleField = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+
+  const handleSubmit = (e: React.MouseEvent) => {
+    e.preventDefault()
+    setFormSent(true)
+  }
+
+  return (
+    <main>
+      {/* NAV */}
+      <header className={`site-nav ${scrolled ? 'is-scrolled' : ''}`}>
+        <a href="#top" className="brand" onClick={closeMenu}>
+          <img src={images.logo} alt="Nefertiti Luxury Retreat Producer" />
+        </a>
+        <nav className={menuOpen ? 'open' : ''} aria-label="Main navigation">
+          {[['About', '#about'], ['Why Egypt', '#vision'], ['Destinations', '#destinations'], ['Experiences', '#experiences'], ['Services', '#services'], ['How It Works', '#process'], ['Contact', '#contact']].map(([item, href]) => (
+            <a key={item} href={href} onClick={closeMenu}>{item}</a>
+          ))}
+        </nav>
+        <div className="nav-actions">
+          <button className="lang" onClick={() => setLang(lang === 'en' ? 'it' : 'en')} aria-label="Switch language">
+            {lang === 'en' ? 'IT' : 'EN'}
+          </button>
+          <button className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)} aria-label={menuOpen ? 'Close menu' : 'Open menu'}>
+            {menuOpen ? <X /> : <Menu />}
+          </button>
+        </div>
+      </header>
+
+      {/* HERO */}
+      <section id="top" className="hero">
+        <img src={images.hero} alt="Yoga retreat by the Nile under flowing ribbons" className="hero-image" />
+        <div className="hero-shade" />
+        <div className="hero-content reveal">
+          <p className="eyebrow">{t.eyebrow}</p>
+          <h1>{t.hero}</h1>
+          <p className="hero-copy">{t.heroText}</p>
+          <p className="hero-copy">{t.heroSupport}</p>
+          <div className="hero-buttons">
+            <a className="button button-gold" href="#contact">{t.explore}<ArrowUpRight size={16} /></a>
+            <a className="button button-ghost" href="#contact">{t.inquire}</a>
+          </div>
+        </div>
+        <p className="hero-caption">06° 03′ N · 31° 14′ E<br /><span>Made with presence</span></p>
+        <a href="#vision" className="scroll-cue">Scroll to discover <span>↓</span></a>
+      </section>
+
+      {/* VISION */}
+      <section id="vision" className="section vision">
+        <div className="section-label reveal">01 / WHY EGYPT</div>
+        <div className="vision-grid">
+          <div className="vision-copy reveal">
+            <p className="eyebrow">The Nefertiti way</p>
+            <h2>{t.visionTitle.split('\n').map((line, i) => <span key={i}>{line}<br /></span>)}</h2>
+            <p>{t.visionText}</p>
+            <a href="#about" className="text-link">{t.philosophy} <ArrowUpRight size={16} /></a>
+          </div>
+          <div className="vision-image reveal">
+            <img src={images.vision} alt="Outdoor yoga by the Nile" />
+          </div>
+        </div>
+      </section>
+
+      {/* STATS */}
+      <section className="section stats">
+        <div className="stats-grid reveal">
+          <div className="stats-headline">
+            <h2>{t.statsHeadline.split('\n').map((line, i) => <span key={i}>{line}<br /></span>)}</h2>
+          </div>
+          <div className="stats-numbers">
+            <div className="stat-block reveal">
+              <span className="stat-num">20+</span>
+              <span className="stat-label">Years of event production experience</span>
+            </div>
+            <div className="stat-block reveal delay-1">
+              <span className="stat-num">5</span>
+              <span className="stat-label">Destinations across Egypt</span>
+            </div>
+            <div className="stat-block reveal delay-2">
+              <span className="stat-num">100%</span>
+              <span className="stat-label">Bespoke — no two retreats are the same</span>
+            </div>
+          </div>
+        </div>
+        <div className="stats-divider" />
+      </section>
+
+      {/* DESTINATIONS */}
+      <section id="destinations" className="section destinations">
+        <div className="section-heading reveal">
+          <div className="section-label">02 / {t.destinationLabel}</div>
+          <div>
+            <h2>{t.destinations}</h2>
+            <p>{t.destinationText}</p>
+          </div>
+        </div>
+        <div className="destination-grid">
+          {destinations.map((item, i) => (
+            <article className={`destination-card reveal delay-${i + 1}`} key={item.title}>
+              <img src={item.image} alt={item.title} />
+              <div className="card-overlay">
+                <p>{item.meta}</p>
+                <h3>{item.title}</h3>
+                <ArrowUpRight size={18} />
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      {/* EXPERIENCES */}
+      <section id="experiences" className="section experiences">
+        <div className="section-heading reveal">
+          <div className="section-label">03 / EXPERIENCES</div>
+          <div>
+            <h2>{t.experiences}</h2>
+            <p>{t.experienceText}</p>
+          </div>
+        </div>
+        <div className="experience-list">
+          {experiences.map((item, i) => (
+            <article className="experience-row reveal" key={item.title}>
+              <span className="experience-number">0{i + 1}</span>
+              <div className="experience-text">
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
+              </div>
+              <img src={item.image} alt={item.title} />
+            </article>
+          ))}
+        </div>
+        <a href="#contact" className="text-link" style={{ marginTop: 48 }}>DESIGN MY EXPERIENCE <ArrowUpRight size={16} /></a>
+      </section>
+
+      {/* SERVICES */}
+      <section id="services" className="bespoke">
+        <div className="bespoke-image">
+          <img src={images.hero} alt="Guests practicing yoga outdoors" />
+        </div>
+        <div className="bespoke-copy reveal">
+          <p className="eyebrow">{t.bespokeLabel}</p>
+          <h2>{t.bespoke.split('\n').map((line, i) => <span key={i}>{line}<br /></span>)}</h2>
+          <p>{t.bespokeText}</p>
+          <div className="service-tiers">
+            {serviceTiers.map((tier) => (
+              <div className="service-tier" key={tier.num}>
+                <div className="tier-header">
+                  <span className="tier-num">{tier.num}</span>
+                  <span className="tier-title">{tier.title}</span>
+                </div>
+                <p className="tier-desc">{tier.desc}</p>
+                <ul className="tier-list">
+                  {tier.items.map((item) => <li key={item}>{item}</li>)}
+                </ul>
+              </div>
+            ))}
+          </div>
+          <a href="#contact" className="button button-light">DISCUSS YOUR RETREAT<ArrowUpRight size={16} /></a>
+        </div>
+      </section>
+
+      {/* HOW IT WORKS */}
+      <section id="process" className="section process">
+        <div className="section-heading reveal">
+          <div className="section-label">04 / HOW IT WORKS</div>
+          <h2>{t.process}</h2>
+        </div>
+        <div className="process-grid">
+          {steps.map(([step, text], i) => (
+            <div className="process-step reveal" key={step}>
+              <span>{String(i + 1).padStart(2, '0')}</span>
+              <h3>{step}</h3>
+              <p>{text}</p>
+            </div>
+          ))}
+        </div>
+        <a href="#contact" className="text-link">START WITH A DISCOVERY CALL <ArrowUpRight size={16} /></a>
+      </section>
+
+      {/* FOUNDER */}
+      <section id="about" className="section founder">
+        <div className="founder-image reveal">
+          <img src={images.founder} alt="Founder at a waterfront event" />
+        </div>
+        <div className="founder-copy reveal">
+          <div className="section-label">05 / {t.founder}</div>
+          <p className="eyebrow">{t.founder}</p>
+          <h2>{t.founderText}</h2>
+          <p className="founder-name">
+            {t.founderName}<br />
+            <span>{t.founderRole}</span>
+          </p>
+          <a href="#contact" className="text-link">LET&apos;S TALK ABOUT YOUR IDEA <ArrowUpRight size={16} /></a>
+        </div>
+      </section>
+
+      {/* FINAL CTA */}
+      <section className="cta-band">
+        <div className="cta-band-inner reveal">
+          <h2>{t.cta.split('\n').map((line) => <span key={line}>{line}<br /></span>)}</h2>
+          <p>{t.ctaText}</p>
+          <a className="button button-dark" href="#contact">{t.contact}<ArrowUpRight size={16} /></a>
+        </div>
+      </section>
+
+      {/* CONTACT FORM */}
+      <section id="contact" className="contact-section">
+        <img src={images.resort} alt="Retreat venue" className="contact-bg" />
+        <div className="contact-overlay" />
+        <div className="contact-inner reveal">
+          <p className="eyebrow" style={{ color: 'var(--gold)', marginBottom: 14 }}>NEFERTITI LUXURY RETREAT PRODUCER</p>
+          <h2 className="contact-headline">Your retreat could start<br />with one conversation.</h2>
+          <p className="contact-sub">You don&apos;t need to have everything figured out. Tell us what you teach, who you serve and what you&apos;d love them to experience.</p>
+
+          {formSent ? (
+            <div className="form-success">
+              <h3>Thank you.</h3>
+              <p>We&apos;ve received your enquiry and will be in touch within 48 hours.</p>
+            </div>
+          ) : (
+            <div className="contact-form">
+              <p className="form-label">{t.formTitle}</p>
+
+              <div className="form-row">
+                <div className="form-field full">
+                  <label>Your Name</label>
+                  <input name="name" value={formData.name} onChange={handleField} placeholder="Your full name" />
+                </div>
+              </div>
+
+              <div className="form-row two">
+                <div className="form-field">
+                  <label>Email Address</label>
+                  <input name="email" type="email" value={formData.email} onChange={handleField} placeholder="your@email.com" />
+                </div>
+                <div className="form-field">
+                  <label>WhatsApp Number</label>
+                  <input name="whatsapp" value={formData.whatsapp} onChange={handleField} placeholder="+1 234 567 890" />
+                </div>
+              </div>
+
+              <div className="form-row two">
+                <div className="form-field">
+                  <label>Country</label>
+                  <input name="country" value={formData.country} onChange={handleField} placeholder="Your country" />
+                </div>
+                <div className="form-field">
+                  <label>Website or Instagram</label>
+                  <input name="website" value={formData.website} onChange={handleField} placeholder="@handle or website.com" />
+                </div>
+              </div>
+
+              <div className="form-row">
+                <div className="form-field full">
+                  <label>Type of Wellness Practice</label>
+                  <select name="practice" value={formData.practice} onChange={handleField}>
+                    <option value="">Select your practice</option>
+                    <option>Yoga</option>
+                    <option>Meditation</option>
+                    <option>Breathwork</option>
+                    <option>Sound Healing</option>
+                    <option>Women&apos;s Coaching</option>
+                    <option>Life Coaching</option>
+                    <option>Fitness</option>
+                    <option>Nutrition</option>
+                    <option>Psychology / Therapy</option>
+                    <option>Leadership Coaching</option>
+                    <option>Corporate Wellness</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="form-row two">
+                <div className="form-field">
+                  <label>Estimated Number of Guests</label>
+                  <input name="guests" value={formData.guests} onChange={handleField} placeholder="e.g. 10–15" />
+                </div>
+                <div className="form-field">
+                  <label>Preferred Dates</label>
+                  <input name="dates" value={formData.dates} onChange={handleField} placeholder="e.g. March 2026" />
+                </div>
+              </div>
+
+              <div className="form-row two">
+                <div className="form-field">
+                  <label>Preferred Destination</label>
+                  <select name="destination" value={formData.destination} onChange={handleField}>
+                    <option value="">Select destination</option>
+                    <option>Cairo & Giza</option>
+                    <option>Red Sea</option>
+                    <option>Desert</option>
+                    <option>Siwa</option>
+                    <option>Fayoum</option>
+                    <option>Multi-destination</option>
+                    <option>Not sure yet</option>
+                  </select>
+                </div>
+                <div className="form-field">
+                  <label>Approximate Budget per Guest</label>
+                  <input name="budget" value={formData.budget} onChange={handleField} placeholder="e.g. €1,500–2,500" />
+                </div>
+              </div>
+
+              <div className="form-row">
+                <div className="form-field full">
+                  <label>Have You Hosted a Retreat Before?</label>
+                  <select name="hosted" value={formData.hosted} onChange={handleField}>
+                    <option value="">Select an option</option>
+                    <option>Yes, several times</option>
+                    <option>Yes, once or twice</option>
+                    <option>No — it will be my first time</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="form-row">
+                <div className="form-field full">
+                  <label>Tell Us About Your Retreat Vision</label>
+                  <textarea name="vision" value={formData.vision} onChange={handleField} placeholder="Share as much or as little as you like..." rows={4} />
+                </div>
+              </div>
+
+              <button className="form-submit" onClick={handleSubmit}>{t.formSubmit} <ArrowUpRight size={16} /></button>
+              <p className="form-alt">{t.formAlt}</p>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* FOOTER */}
+      <footer>
+        <div className="footer-brand">
+          <img src={images.logo} alt="Nefertiti Luxury Retreat Producer" />
+          <p>You lead the transformation. We create the experience.</p>
+          <p>Based between Egypt &amp; Italy.</p>
+        </div>
+        <div className="footer-links">
+          <div>
+            <p className="footer-label">Navigate</p>
+            <a href="#about">About</a>
+            <a href="#vision">Why Egypt</a>
+            <a href="#destinations">Destinations</a>
+            <a href="#experiences">Experiences</a>
+            <a href="#services">Services</a>
+            <a href="#process">How It Works</a>
+            <a href="#contact">Contact</a>
+          </div>
+          <div>
+            <p className="footer-label">Contact</p>
+            <a href="mailto:hello@nefertitiretreats.com"><Mail size={14} /> hello@nefertitiretreats.com</a>
+            <p><MapPin size={14} /> Cairo · Siwa · Everywhere</p>
+            <a href="#top"><Camera size={14} /> Instagram</a>
+          </div>
+        </div>
+        <div className="footer-bottom">
+          <span>© 2026 Nefertiti Retreats</span>
+          <span>Made with presence</span>
+        </div>
+      </footer>
     </main>
   )
 }
