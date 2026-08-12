@@ -141,9 +141,15 @@ export default function Page() {
     hosted: '', vision: '',
   })
   const [formSent, setFormSent] = useState(false)
+  const [introLeaving, setIntroLeaving] = useState(false)
+  const [introGone, setIntroGone] = useState(false)
   const t = copy[lang]
 
   useEffect(() => {
+    // Intro screen timer
+    const t1 = setTimeout(() => setIntroLeaving(true), 2400)
+    const t2 = setTimeout(() => setIntroGone(true), 3200)
+
     const onScroll = () => setScrolled(window.scrollY > 24)
     window.addEventListener('scroll', onScroll)
     const observer = new IntersectionObserver(
@@ -151,7 +157,11 @@ export default function Page() {
       { threshold: 0.1 }
     )
     document.querySelectorAll('.reveal').forEach((el) => observer.observe(el))
-    return () => { window.removeEventListener('scroll', onScroll); observer.disconnect() }
+    return () => {
+      clearTimeout(t1); clearTimeout(t2)
+      window.removeEventListener('scroll', onScroll)
+      observer.disconnect()
+    }
   }, [])
 
   const closeMenu = () => setMenuOpen(false)
@@ -172,6 +182,19 @@ export default function Page() {
   }
 
   return (
+    <>
+      {/* INTRO SCREEN */}
+      {!introGone && (
+        <div className={`intro-screen ${introLeaving ? 'intro-leaving' : ''}`}>
+          <div className="intro-panel intro-panel-top" />
+          <div className="intro-content">
+            <img src={images.logo} alt="Nefertiti" className="intro-logo" />
+            <p className="intro-tagline">You lead the transformation.<br />We create the experience.</p>
+            <div className="intro-bar"><div className="intro-bar-fill" /></div>
+          </div>
+          <div className="intro-panel intro-panel-bottom" />
+        </div>
+      )}
     <main>
       {/* NAV */}
       <header className={`site-nav ${scrolled ? 'is-scrolled' : ''}`}>
@@ -525,5 +548,6 @@ export default function Page() {
         </div>
       </footer>
     </main>
+    </>
   )
 }
