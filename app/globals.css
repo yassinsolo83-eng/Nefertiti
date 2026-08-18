@@ -101,14 +101,15 @@ h2, h3 { font-family: 'Cormorant Garamond', serif; }
   letter-spacing: .18em; color: var(--gold);
   font-family: 'Montserrat', sans-serif; font-weight: 400;
 }
+/* hero eyebrow sits on the image — give it a shadow so the gold stays legible */
+.hero .eyebrow { text-shadow: 0 1px 8px rgba(20,8,8,.7), 0 0 2px rgba(20,8,8,.6); }
 .hero h1 {
   margin: 16px 0 22px;
   font-family: 'Cormorant Garamond', serif;
   font-size: clamp(52px, 8vw, 110px);
   font-weight: 500; line-height: .96; letter-spacing: -.02em;
-  text-shadow: 0 2px 24px rgba(20,8,8,.55), 0 1px 4px rgba(20,8,8,.4);
 }
-.hero-copy { max-width: 480px; font-size: 14px; line-height: 1.85; opacity: .88; text-shadow: 0 1px 12px rgba(20,8,8,.5); }
+.hero-copy { max-width: 480px; font-size: 14px; line-height: 1.85; opacity: .88; }
 .hero-copy + .hero-copy { margin-top: 10px; }
 .hero-buttons { display: flex; gap: 12px; margin-top: 28px; flex-wrap: wrap; }
 
