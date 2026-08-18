@@ -41,6 +41,18 @@ h2, h3 { font-family: 'Cormorant Garamond', serif; }
   padding: 22px 5vw; color: #fff;
   transition: background .35s, color .35s, padding .35s;
 }
+/* subtle top scrim so white nav content stays legible over a bright hero */
+.site-nav::before {
+  content: ''; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(to bottom, rgba(20,8,8,.45), transparent);
+  pointer-events: none; transition: opacity .35s;
+}
+.site-nav.is-scrolled::before { opacity: 0; }
+/* keep the logo + hamburger readable on any background */
+.site-nav .brand img { filter: drop-shadow(0 1px 6px rgba(0,0,0,.55)); }
+.site-nav.is-scrolled .brand img { filter: none; }
+.site-nav .menu-toggle { filter: drop-shadow(0 1px 4px rgba(0,0,0,.5)); }
+.site-nav.is-scrolled .menu-toggle { filter: none; }
 .site-nav.is-scrolled {
   padding-block: 12px; color: var(--foreground);
   background: rgba(243,240,232,.96); backdrop-filter: blur(14px);
