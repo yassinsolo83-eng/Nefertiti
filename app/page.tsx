@@ -5,6 +5,7 @@ import { ArrowUpRight, Menu, X, Camera, Mail, MapPin } from 'lucide-react'
 
 const images = {
   logo: '/nefertiti-logo.png',
+  logoDark: '/nefertiti-logo-dark.png',
   hero: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/rs%3Dw_984%2Ch_1749-rKfCp42avy5gbGj4dM9sBkVg3ml9Vy.webp',
   vision: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/rs%3Dw_984%2Ch_1312-yhHGcLxbtC04mHWk2vOjX0Z3EjmrE5.webp',
   cairo: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/900x600-1-50-130274e45d077f1d2dea84dec9156332-AuyATzxMn5KXFCvsvitJBwOPW3dXJ3.jpg',
@@ -225,7 +226,7 @@ export default function Page() {
       {/* NAV */}
       <header className={`site-nav ${scrolled ? 'is-scrolled' : ''} ${menuOpen ? 'menu-open' : ''} ${introDone ? '' : 'nav-hidden'}`}>
         <a href="#top" className="brand" onClick={closeMenu}>
-          <img src={images.logo} alt="Nefertiti Luxury Retreat Producer" />
+          <img src={images.logoDark} alt="Nefertiti Luxury Retreat Producer" />
         </a>
         <nav className={`site-links ${menuOpen ? 'open' : ''}`} aria-label="Main navigation">
           {[['About', '#about'], ['Why Egypt', '#vision'], ['Destinations', '#destinations'], ['Experiences', '#experiences'], ['Services', '#services'], ['How It Works', '#process'], ['Contact', '#contact']].map(([item, href]) => (
