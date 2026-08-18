@@ -322,16 +322,16 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
 /* logo + tagline, centred above the keyhole */
 .kh-ui {
   position: absolute; top: 50%; left: 50%; z-index: 16;
-  transform: translate(-50%, calc(-50% - 300px));
-  display: flex; flex-direction: column; align-items: center; gap: 20px;
-  text-align: center; pointer-events: none; width: 90%; max-width: 460px;
+  transform: translate(-50%, calc(-50% - 260px));
+  display: flex; flex-direction: column; align-items: center; gap: 18px;
+  text-align: center; pointer-events: none;
 }
 .kh-logo { width: 170px; }
 .kh-tagline {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 16px; font-style: italic;
-  color: rgba(255,255,255,.62);
-  text-align: center; line-height: 1.6; letter-spacing: .02em;
+  font-size: 15px; font-style: italic;
+  color: rgba(255,255,255,.6);
+  text-align: center; line-height: 1.7; letter-spacing: .02em;
   white-space: nowrap;
 }
 .kh-hint {
