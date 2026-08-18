@@ -304,7 +304,7 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
 /* The hero sits inside a tall track; scrolling through it drives the keyhole
    opening. Once fully open, .kh-done collapses the track to normal flow. */
 .kh-track { height: 300vh; position: relative; }
-.kh-stage { position: sticky; top: 0; height: 100vh; overflow: hidden; background: #120707; }
+.kh-stage { position: sticky; top: 0; height: 100vh; overflow: hidden; background: #2E1840; }
 
 /* the hero fills the stage */
 .kh-stage .hero { position: absolute; inset: 0; min-height: 100%; }
