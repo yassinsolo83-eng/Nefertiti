@@ -271,15 +271,21 @@ export default function Page() {
               <defs>
                 <mask id="kh-mask">
                   <rect width="1000" height="1000" fill="white" />
-                  <path id="kh-hole" fill="black" fillRule="evenodd"
-                    transform="translate(500 500) scale(2) translate(-50 -50)"
-                    d="M50 8 C41 8 34 15 34 24 C34 31 38 37 44 40 L44 44 L30 44 L30 54 L44 54 L44 92 L56 92 L56 54 L70 54 L70 44 L56 44 L56 40 C62 37 66 31 66 24 C66 15 59 8 50 8 Z M50 18 C53 18 56 21 56 24 C56 27 53 30 50 30 C47 30 44 27 44 24 C44 21 47 18 50 18 Z" />
+                  <g id="kh-hole" transform="translate(500 500) scale(2) translate(-50 -50)" fill="black">
+                    <path d="M45 46 L55 46 L53.5 95 L46.5 95 Z" />
+                    <path d="M46 49 L22 45 Q17 44.5 17 47.5 L17 53 Q17 56 22 55.5 L46 54 Z" />
+                    <path d="M54 49 L78 45 Q83 44.5 83 47.5 L83 53 Q83 56 78 55.5 L54 54 Z" />
+                    <path fillRule="evenodd" d="M50 5 C37 5 28 16 28 29 C28 40 35 48 46 51 L46 44 C40 41.5 37 36 37 29 C37 21 43 14 50 14 C57 14 63 21 63 29 C63 36 60 41.5 54 44 L54 51 C65 48 72 40 72 29 C72 16 63 5 50 5 Z" />
+                  </g>
                 </mask>
               </defs>
               <rect id="kh-dark" width="1000" height="1000" fill="#120707" mask="url(#kh-mask)" />
-              <path id="kh-ring" fill="none" stroke="#F1D288" strokeWidth="1.2" fillRule="evenodd"
-                transform="translate(500 500) scale(2) translate(-50 -50)"
-                d="M50 8 C41 8 34 15 34 24 C34 31 38 37 44 40 L44 44 L30 44 L30 54 L44 54 L44 92 L56 92 L56 54 L70 54 L70 44 L56 44 L56 40 C62 37 66 31 66 24 C66 15 59 8 50 8 Z M50 18 C53 18 56 21 56 24 C56 27 53 30 50 30 C47 30 44 27 44 24 C44 21 47 18 50 18 Z" />
+              <g id="kh-ring" transform="translate(500 500) scale(2) translate(-50 -50)" fill="none" stroke="#F1D288" strokeWidth="1.2">
+                <path d="M45 46 L55 46 L53.5 95 L46.5 95 Z" />
+                <path d="M46 49 L22 45 Q17 44.5 17 47.5 L17 53 Q17 56 22 55.5 L46 54 Z" />
+                <path d="M54 49 L78 45 Q83 44.5 83 47.5 L83 53 Q83 56 78 55.5 L54 54 Z" />
+                <path d="M50 5 C37 5 28 16 28 29 C28 40 35 48 46 51 L46 44 C40 41.5 37 36 37 29 C37 21 43 14 50 14 C57 14 63 21 63 29 C63 36 60 41.5 54 44 L54 51 C65 48 72 40 72 29 C72 16 63 5 50 5 Z" />
+              </g>
             </svg>
             <div id="kh-ui" className="kh-ui">
               <img src={images.logo} alt="Nefertiti" className="kh-logo" />
