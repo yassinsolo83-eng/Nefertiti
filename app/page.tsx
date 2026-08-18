@@ -249,7 +249,6 @@ export default function Page() {
             <img src={images.hero} alt="Yoga retreat by the Nile under flowing ribbons" className="hero-image" />
             <div className="hero-shade" />
             <div className="hero-content reveal">
-              <p className="eyebrow">{t.eyebrow}</p>
               <h1>{t.hero}</h1>
               <p className="hero-copy">{t.heroText}</p>
               <p className="hero-copy">{t.heroSupport}</p>
@@ -258,7 +257,6 @@ export default function Page() {
                 <a className="button button-ghost" href="#contact">{t.inquire}</a>
               </div>
             </div>
-            <p className="hero-caption">06° 03′ N · 31° 14′ E<br /><span>Made with presence</span></p>
           </section>
 
           {/* Keyhole overlay — fades to none once the intro completes */}
