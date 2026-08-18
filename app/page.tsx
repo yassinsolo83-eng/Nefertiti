@@ -165,22 +165,27 @@ export default function Page() {
       const range = track.offsetHeight - window.innerHeight
       const p = clamp(-rect.top / range, 0, 1)
 
-      const s = MIN + (MAX - MIN) * smooth(p)
+      // keyhole finishes opening at 75% of the track; the last 25% holds the
+      // hero fully revealed (a beat of pause) before the site scrolls on.
+      const OPEN_AT = 0.75
+      const op = clamp(p / OPEN_AT, 0, 1)
+
+      const s = MIN + (MAX - MIN) * smooth(op)
       const tf = `translate(500 500) scale(${s}) translate(-50 -50)`
       hole.setAttribute('transform', tf)
       ring.setAttribute('transform', tf)
 
-      // clean finish: fade dark overlay out in last 6%
-      const darkOp = p > 0.94 ? clamp(1 - (p - 0.94) / 0.06, 0, 1) : 1
+      // clean finish: fade dark overlay out as the keyhole completes
+      const darkOp = op > 0.92 ? clamp(1 - (op - 0.92) / 0.08, 0, 1) : 1
       darkRect.setAttribute('opacity', String(darkOp))
 
-      const uiOp = clamp(1 - p / 0.35, 0, 1)
+      const uiOp = clamp(1 - op / 0.45, 0, 1)
       if (ui) ui.style.opacity = String(uiOp)
       ring.setAttribute('opacity', String(uiOp))
       if (hint) hint.style.opacity = String(uiOp)
 
-      // once fully open, drop the intro overlay from the DOM
-      setIntroDone(p >= 1)
+      // overlay is fully out once the keyhole finishes opening
+      setIntroDone(op >= 1)
     }
 
     const onScroll = () => {
