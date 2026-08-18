@@ -375,6 +375,9 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
     display: flex !important;
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
     z-index: 90;
     flex-direction: column;
     align-items: flex-start;
@@ -384,6 +387,7 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
     background-color: #5B233E;
     font-size: 20px;
     letter-spacing: .06em;
+    overflow-y: auto;
   }
   .site-links.open a { color: #fff; opacity: .9; font-size: 20px; }
   .menu-toggle { display: block; position: relative; z-index: 95; }
