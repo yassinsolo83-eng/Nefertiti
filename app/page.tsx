@@ -6,6 +6,7 @@ import { ArrowUpRight, Menu, X, Camera, Mail, MapPin } from 'lucide-react'
 const images = {
   logo: '/nefertiti-logo.png',
   logoDark: '/nefertiti-logo-dark.png',
+  heroMain: '/hero-shirodhara.webp',
   hero: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/rs%3Dw_984%2Ch_1749-rKfCp42avy5gbGj4dM9sBkVg3ml9Vy.webp',
   vision: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/rs%3Dw_984%2Ch_1312-yhHGcLxbtC04mHWk2vOjX0Z3EjmrE5.webp',
   cairo: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/900x600-1-50-130274e45d077f1d2dea84dec9156332-AuyATzxMn5KXFCvsvitJBwOPW3dXJ3.jpg',
@@ -252,7 +253,7 @@ export default function Page() {
       <div id="kh-track" className="kh-track">
         <div className="kh-stage">
           <section id="top" className="hero">
-            <img src={images.hero} alt="Yoga retreat by the Nile under flowing ribbons" className="hero-image" />
+            <img src={images.heroMain} alt="Shirodhara oil ritual — Ayurvedic retreat" className="hero-image" />
             <div className="hero-shade" />
             <div className="hero-content reveal">
               <h1>{t.hero}</h1>
@@ -273,13 +274,13 @@ export default function Page() {
                   <rect width="1000" height="1000" fill="white" />
                   <path id="kh-hole" fill="black" fillRule="evenodd"
                     transform="translate(500 500) scale(2) translate(-50 -50)"
-                    d="M50 4 C39 4 30 14 30 27 C30 36 35 43 44 46 L44 48 L28 48 Q30 53 28 58 L44 58 L44 92 L56 92 L56 58 L72 58 Q70 53 72 48 L56 48 L56 46 C65 43 70 36 70 27 C70 14 61 4 50 4 Z M50 15 C55 15 59 20 59 27 C59 34 55 39 50 39 C45 39 41 34 41 27 C41 20 45 15 50 15 Z" />
+                    d="M50 2 C40 2 31 12 31 27 C31 37 36 44 44 47 L44 49 L30 49 Q33 53.5 30 58 L44 58 L44 93 L56 93 L56 58 L70 58 Q67 53.5 70 49 L56 49 L56 47 C64 44 69 37 69 27 C69 12 60 2 50 2 Z M50 14 C54 14 58 20 58 27 C58 34 54 40 50 40 C46 40 42 34 42 27 C42 20 46 14 50 14 Z" />
                 </mask>
               </defs>
               <rect id="kh-dark" width="1000" height="1000" fill="#2E1840" mask="url(#kh-mask)" />
               <path id="kh-ring" fill="none" stroke="#F1D288" strokeWidth="1.2" fillRule="evenodd"
                 transform="translate(500 500) scale(2) translate(-50 -50)"
-                d="M50 4 C39 4 30 14 30 27 C30 36 35 43 44 46 L44 48 L28 48 Q30 53 28 58 L44 58 L44 92 L56 92 L56 58 L72 58 Q70 53 72 48 L56 48 L56 46 C65 43 70 36 70 27 C70 14 61 4 50 4 Z M50 15 C55 15 59 20 59 27 C59 34 55 39 50 39 C45 39 41 34 41 27 C41 20 45 15 50 15 Z" />
+                d="M50 2 C40 2 31 12 31 27 C31 37 36 44 44 47 L44 49 L30 49 Q33 53.5 30 58 L44 58 L44 93 L56 93 L56 58 L70 58 Q67 53.5 70 49 L56 49 L56 47 C64 44 69 37 69 27 C69 12 60 2 50 2 Z M50 14 C54 14 58 20 58 27 C58 34 54 40 50 40 C46 40 42 34 42 27 C42 20 46 14 50 14 Z" />
             </svg>
             <div id="kh-ui" className="kh-ui">
               <img src={images.logo} alt="Nefertiti" className="kh-logo" />
