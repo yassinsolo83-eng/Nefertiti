@@ -326,7 +326,7 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
   display: flex; flex-direction: column; align-items: center; gap: 16px;
   text-align: center; pointer-events: none;
 }
-.kh-logo { width: 120px; filter: brightness(0) invert(1); }
+.kh-logo { width: 120px; }
 .kh-tagline {
   font-family: 'Cormorant Garamond', serif;
   font-size: 15px; font-style: italic;
