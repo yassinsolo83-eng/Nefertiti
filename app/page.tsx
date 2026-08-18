@@ -271,15 +271,15 @@ export default function Page() {
               <defs>
                 <mask id="kh-mask">
                   <rect width="1000" height="1000" fill="white" />
-                  <path id="kh-hole" fill="black"
+                  <path id="kh-hole" fill="black" fillRule="evenodd"
                     transform="translate(500 500) scale(2) translate(-50 -50)"
-                    d="M50 20 a17 17 0 0 1 17 17 a17 17 0 0 1 -9 15 L64 84 L36 84 L42 52 A17 17 0 0 1 33 37 A17 17 0 0 1 50 20 Z" />
+                    d="M50 8 C41 8 34 15 34 24 C34 31 38 37 44 40 L44 44 L30 44 L30 54 L44 54 L44 92 L56 92 L56 54 L70 54 L70 44 L56 44 L56 40 C62 37 66 31 66 24 C66 15 59 8 50 8 Z M50 18 C53 18 56 21 56 24 C56 27 53 30 50 30 C47 30 44 27 44 24 C44 21 47 18 50 18 Z" />
                 </mask>
               </defs>
               <rect id="kh-dark" width="1000" height="1000" fill="#120707" mask="url(#kh-mask)" />
-              <path id="kh-ring" fill="none" stroke="#C7A25A" strokeWidth="1.4"
+              <path id="kh-ring" fill="none" stroke="#F1D288" strokeWidth="1.2" fillRule="evenodd"
                 transform="translate(500 500) scale(2) translate(-50 -50)"
-                d="M50 20 a17 17 0 0 1 17 17 a17 17 0 0 1 -9 15 L64 84 L36 84 L42 52 A17 17 0 0 1 33 37 A17 17 0 0 1 50 20 Z" />
+                d="M50 8 C41 8 34 15 34 24 C34 31 38 37 44 40 L44 44 L30 44 L30 54 L44 54 L44 92 L56 92 L56 54 L70 54 L70 44 L56 44 L56 40 C62 37 66 31 66 24 C66 15 59 8 50 8 Z M50 18 C53 18 56 21 56 24 C56 27 53 30 50 30 C47 30 44 27 44 24 C44 21 47 18 50 18 Z" />
             </svg>
             <div id="kh-ui" className="kh-ui">
               <img src={images.logo} alt="Nefertiti" className="kh-logo" />
