@@ -14,13 +14,13 @@
 
 :root {
   --background: #F3F0E8;
-  --foreground: #442030;
-  --primary: #5B233E;
+  --foreground: #6B6B4F;
+  --primary: #8D4C65;
   --primary-foreground: #F3F0E8;
-  --gold: #C7A25A;
-  --plum: #442030;
-  --rose: #B88B92;
-  --navy: #2D4A67;
+  --gold: #F1D288;
+  --plum: #6B6B4F;
+  --rose: #B1B695;
+  --navy: #567A91;
   --muted: #E8E3D8;
   --muted-fg: #7a5c65;
   --border: #D4C8B8;
@@ -322,16 +322,17 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
 /* logo + tagline, centred above the keyhole */
 .kh-ui {
   position: absolute; top: 50%; left: 50%; z-index: 16;
-  transform: translate(-50%, calc(-50% - 225px));
-  display: flex; flex-direction: column; align-items: center; gap: 16px;
-  text-align: center; pointer-events: none;
+  transform: translate(-50%, calc(-50% - 300px));
+  display: flex; flex-direction: column; align-items: center; gap: 20px;
+  text-align: center; pointer-events: none; width: 90%; max-width: 460px;
 }
-.kh-logo { width: 120px; }
+.kh-logo { width: 170px; }
 .kh-tagline {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 15px; font-style: italic;
-  color: rgba(255,255,255,.6);
-  text-align: center; line-height: 1.7; letter-spacing: .02em;
+  font-size: 16px; font-style: italic;
+  color: rgba(255,255,255,.62);
+  text-align: center; line-height: 1.6; letter-spacing: .02em;
+  white-space: nowrap;
 }
 .kh-hint {
   position: absolute; bottom: 14%; left: 50%; transform: translateX(-50%);
@@ -348,8 +349,8 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
 /* on small screens the keyhole opens over a shorter track */
 @media (max-width: 860px) {
   .kh-track { height: 280vh; }
-  .kh-ui { transform: translate(-50%, calc(-50% - 180px)); }
-  .kh-logo { width: 96px; }
+  .kh-ui { transform: translate(-50%, calc(-50% - 250px)); }
+  .kh-logo { width: 130px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .kh-track { height: 100vh; }
@@ -384,7 +385,7 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
     justify-content: center;
     gap: 30px;
     padding: 12vw 8vw;
-    background-color: #5B233E;
+    background-color: #8D4C65;
     font-size: 20px;
     letter-spacing: .06em;
     overflow-y: auto;
