@@ -141,25 +141,63 @@ export default function Page() {
     hosted: '', vision: '',
   })
   const [formSent, setFormSent] = useState(false)
-  const [introLeaving, setIntroLeaving] = useState(false)
-  const [introGone, setIntroGone] = useState(false)
+  const [introDone, setIntroDone] = useState(false)
   const t = copy[lang]
 
   useEffect(() => {
-    // Intro screen timer
-    const t1 = setTimeout(() => setIntroLeaving(true), 2400)
-    const t2 = setTimeout(() => setIntroGone(true), 3200)
+    // ── KEYHOLE INTRO — scroll-driven open/close ──
+    const track = document.getElementById('kh-track')
+    const hole = document.getElementById('kh-hole')
+    const ring = document.getElementById('kh-ring')
+    const darkRect = document.getElementById('kh-dark')
+    const ui = document.getElementById('kh-ui')
+    const hint = document.getElementById('kh-hint')
 
-    const onScroll = () => setScrolled(window.scrollY > 24)
-    window.addEventListener('scroll', onScroll)
+    const MIN = 2.0   // small visible keyhole at start
+    const MAX = 42    // large enough to fully clear the viewport at end of track
+    const clamp = (v: number, a: number, b: number) => Math.min(b, Math.max(a, v))
+    const smooth = (x: number) => x * x * (3 - 2 * x)
+
+    const updateKeyhole = () => {
+      if (!track || !hole || !ring || !darkRect) return
+      const rect = track.getBoundingClientRect()
+      const range = track.offsetHeight - window.innerHeight
+      const p = clamp(-rect.top / range, 0, 1)
+
+      const s = MIN + (MAX - MIN) * smooth(p)
+      const tf = `translate(500 500) scale(${s}) translate(-50 -50)`
+      hole.setAttribute('transform', tf)
+      ring.setAttribute('transform', tf)
+
+      // clean finish: fade dark overlay out in last 6%
+      const darkOp = p > 0.94 ? clamp(1 - (p - 0.94) / 0.06, 0, 1) : 1
+      darkRect.setAttribute('opacity', String(darkOp))
+
+      const uiOp = clamp(1 - p / 0.35, 0, 1)
+      if (ui) ui.style.opacity = String(uiOp)
+      ring.setAttribute('opacity', String(uiOp))
+      if (hint) hint.style.opacity = String(uiOp)
+
+      // once fully open, drop the intro overlay from the DOM
+      setIntroDone(p >= 1)
+    }
+
+    const onScroll = () => {
+      setScrolled(window.scrollY > 24)
+      updateKeyhole()
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', updateKeyhole)
+    updateKeyhole()
+
     const observer = new IntersectionObserver(
       (entries) => entries.forEach((entry) => entry.isIntersecting && entry.target.classList.add('is-visible')),
       { threshold: 0.1 }
     )
     document.querySelectorAll('.reveal').forEach((el) => observer.observe(el))
     return () => {
-      clearTimeout(t1); clearTimeout(t2)
       window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', updateKeyhole)
       observer.disconnect()
     }
   }, [])
@@ -183,21 +221,9 @@ export default function Page() {
 
   return (
     <>
-      {/* INTRO SCREEN */}
-      {!introGone && (
-        <div className={`intro-screen ${introLeaving ? 'intro-leaving' : ''}`}>
-          <div className="intro-panel intro-panel-top" />
-          <div className="intro-content">
-            <img src={images.logo} alt="Nefertiti" className="intro-logo" />
-            <p className="intro-tagline">You lead the transformation.<br />We create the experience.</p>
-            <div className="intro-bar"><div className="intro-bar-fill" /></div>
-          </div>
-          <div className="intro-panel intro-panel-bottom" />
-        </div>
-      )}
     <main>
       {/* NAV */}
-      <header className={`site-nav ${scrolled ? 'is-scrolled' : ''} ${menuOpen ? 'menu-open' : ''}`}>
+      <header className={`site-nav ${scrolled ? 'is-scrolled' : ''} ${menuOpen ? 'menu-open' : ''} ${introDone ? '' : 'nav-hidden'}`}>
         <a href="#top" className="brand" onClick={closeMenu}>
           <img src={images.logo} alt="Nefertiti Luxury Retreat Producer" />
         </a>
@@ -216,23 +242,49 @@ export default function Page() {
         </div>
       </header>
 
-      {/* HERO */}
-      <section id="top" className="hero">
-        <img src={images.hero} alt="Yoga retreat by the Nile under flowing ribbons" className="hero-image" />
-        <div className="hero-shade" />
-        <div className="hero-content reveal">
-          <p className="eyebrow">{t.eyebrow}</p>
-          <h1>{t.hero}</h1>
-          <p className="hero-copy">{t.heroText}</p>
-          <p className="hero-copy">{t.heroSupport}</p>
-          <div className="hero-buttons">
-            <a className="button button-gold" href="#contact">{t.explore}<ArrowUpRight size={16} /></a>
-            <a className="button button-ghost" href="#contact">{t.inquire}</a>
+      {/* HERO + KEYHOLE INTRO — scroll-driven reveal */}
+      <div id="kh-track" className="kh-track">
+        <div className="kh-stage">
+          <section id="top" className="hero">
+            <img src={images.hero} alt="Yoga retreat by the Nile under flowing ribbons" className="hero-image" />
+            <div className="hero-shade" />
+            <div className="hero-content reveal">
+              <p className="eyebrow">{t.eyebrow}</p>
+              <h1>{t.hero}</h1>
+              <p className="hero-copy">{t.heroText}</p>
+              <p className="hero-copy">{t.heroSupport}</p>
+              <div className="hero-buttons">
+                <a className="button button-gold" href="#contact">{t.explore}<ArrowUpRight size={16} /></a>
+                <a className="button button-ghost" href="#contact">{t.inquire}</a>
+              </div>
+            </div>
+            <p className="hero-caption">06° 03′ N · 31° 14′ E<br /><span>Made with presence</span></p>
+          </section>
+
+          {/* Keyhole overlay — fades to none once the intro completes */}
+          <div className={`kh-overlay ${introDone ? 'kh-open' : ''}`}>
+            <svg className="kh-svg" preserveAspectRatio="xMidYMid slice" viewBox="0 0 1000 1000" aria-hidden="true">
+              <defs>
+                <mask id="kh-mask">
+                  <rect width="1000" height="1000" fill="white" />
+                  <path id="kh-hole" fill="black"
+                    transform="translate(500 500) scale(2) translate(-50 -50)"
+                    d="M50 20 a17 17 0 0 1 17 17 a17 17 0 0 1 -9 15 L64 84 L36 84 L42 52 A17 17 0 0 1 33 37 A17 17 0 0 1 50 20 Z" />
+                </mask>
+              </defs>
+              <rect id="kh-dark" width="1000" height="1000" fill="#120707" mask="url(#kh-mask)" />
+              <path id="kh-ring" fill="none" stroke="#C7A25A" strokeWidth="1.4"
+                transform="translate(500 500) scale(2) translate(-50 -50)"
+                d="M50 20 a17 17 0 0 1 17 17 a17 17 0 0 1 -9 15 L64 84 L36 84 L42 52 A17 17 0 0 1 33 37 A17 17 0 0 1 50 20 Z" />
+            </svg>
+            <div id="kh-ui" className="kh-ui">
+              <img src={images.logo} alt="Nefertiti" className="kh-logo" />
+              <p className="kh-tagline">You lead the transformation.<br />We create the experience.</p>
+            </div>
+            <div id="kh-hint" className="kh-hint">Scroll to enter <span>↓</span></div>
           </div>
         </div>
-        <p className="hero-caption">06° 03′ N · 31° 14′ E<br /><span>Made with presence</span></p>
-        <a href="#vision" className="scroll-cue">Scroll to discover <span>↓</span></a>
-      </section>
+      </div>
 
       {/* VISION */}
       {/* VISION / INTRO — Sarasvvati style */}
