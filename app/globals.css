@@ -18,6 +18,7 @@
   --primary: #8D4C65;
   --primary-foreground: #F3F0E8;
   --gold: #F1D288;
+  --gold-deep: #B8923D;
   --plum: #6B6B4F;
   --rose: #B1B695;
   --navy: #567A91;
@@ -81,9 +82,16 @@ h2, h3 { font-family: 'Cormorant Garamond', serif; }
 }
 .eyebrow, .section-label, .footer-label {
   font-size: 10px; text-transform: uppercase;
-  letter-spacing: .18em; color: var(--gold);
+  letter-spacing: .18em; color: var(--gold-deep);
   font-family: 'Montserrat', sans-serif; font-weight: 400;
 }
+/* on dark sections, labels use the bright gold */
+.destinations .section-label,
+.destinations .footer-label,
+.bespoke .eyebrow,
+.bespoke .section-label,
+footer .footer-label,
+.contact .form-label { color: var(--gold); }
 .hero h1 {
   margin: 16px 0 22px;
   font-family: 'Cormorant Garamond', serif;
@@ -196,7 +204,7 @@ h3 { font-size: 26px; line-height: 1.15; font-weight: 500; }
   transition: background .2s;
 }
 .experience-row:hover { background: rgba(199,162,90,.06); padding-left: 8px; }
-.experience-number { color: var(--gold); font-size: 11px; letter-spacing: .1em; }
+.experience-number { color: var(--gold-deep); font-size: 11px; letter-spacing: .1em; }
 .experience-text h3 { font-size: 28px; margin-bottom: 8px; }
 .experience-text p { color: var(--muted-fg); }
 .experience-row img { width: 190px; height: 125px; object-fit: cover; }
@@ -226,20 +234,20 @@ h3 { font-size: 26px; line-height: 1.15; font-weight: 500; }
   display: grid; grid-template-columns: repeat(4, 1fr); gap: 4vw;
   border-top: 1px solid var(--border); padding-top: 30px; margin-bottom: 48px;
 }
-.process-step span { color: var(--gold); font-size: 11px; letter-spacing: .1em; }
+.process-step span { color: var(--gold-deep); font-size: 11px; letter-spacing: .1em; }
 .process-step h3 { margin: 26px 0 12px; font-size: 14px; text-transform: uppercase; letter-spacing: .08em; font-family: 'Montserrat', sans-serif; font-weight: 500; }
 .process-step p { color: var(--muted-fg); line-height: 1.85; font-size: 12px; }
 
 /* ── FOUNDER ── */
-.founder { display: grid; grid-template-columns: 1fr 1fr; background: var(--rose); color: #fff; }
+.founder { display: grid; grid-template-columns: 1fr 1fr; background: var(--rose); color: var(--plum); }
 .founder-image { overflow: hidden; min-height: 580px; }
 .founder-image img { width: 100%; height: 100%; object-fit: cover; }
 .founder-copy { display: flex; flex-direction: column; justify-content: center; padding: 8vw 7vw; }
-.founder-copy .section-label { color: rgba(255,255,255,.55); margin-bottom: 14px; }
+.founder-copy .section-label { color: rgba(68,48,32,.6); margin-bottom: 14px; }
 .founder-copy h2 { font-size: clamp(18px, 2.2vw, 30px); margin: 20px 0 28px; line-height: 1.75; font-weight: 400; font-style: italic; }
-.founder-name { color: rgba(255,255,255,.75); line-height: 1.8; font-size: 12px; }
-.founder-name span { display: block; color: rgba(255,255,255,.5); font-size: 10px; text-transform: uppercase; letter-spacing: .12em; margin-top: 4px; }
-.founder-copy .text-link { color: #fff; border-color: rgba(255,255,255,.45); margin-top: 28px; }
+.founder-name { color: rgba(68,48,32,.85); line-height: 1.8; font-size: 12px; }
+.founder-name span { display: block; color: rgba(68,48,32,.6); font-size: 10px; text-transform: uppercase; letter-spacing: .12em; margin-top: 4px; }
+.founder-copy .text-link { color: var(--plum); border-color: rgba(68,48,32,.45); margin-top: 28px; }
 
 /* ── CTA BAND ── */
 .cta-band { background: var(--gold); padding: 120px 8vw; text-align: center; }
