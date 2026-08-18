@@ -49,7 +49,12 @@ h2, h3 { font-family: 'Cormorant Garamond', serif; }
 }
 .site-nav.is-scrolled::before { opacity: 0; }
 /* keep the logo + hamburger readable on any background */
-.site-nav .brand img { filter: drop-shadow(0 1px 6px rgba(0,0,0,.55)); }
+/* over the hero (not scrolled): logo turns white so it reads on the image */
+.site-nav .brand img {
+  filter: brightness(0) invert(1) drop-shadow(0 1px 6px rgba(0,0,0,.45));
+  transition: filter .35s;
+}
+/* once scrolled (light nav bg): logo returns to full colour */
 .site-nav.is-scrolled .brand img { filter: none; }
 .site-nav .menu-toggle { filter: drop-shadow(0 1px 4px rgba(0,0,0,.5)); }
 .site-nav.is-scrolled .menu-toggle { filter: none; }
@@ -101,8 +106,9 @@ h2, h3 { font-family: 'Cormorant Garamond', serif; }
   font-family: 'Cormorant Garamond', serif;
   font-size: clamp(52px, 8vw, 110px);
   font-weight: 500; line-height: .96; letter-spacing: -.02em;
+  text-shadow: 0 2px 24px rgba(20,8,8,.55), 0 1px 4px rgba(20,8,8,.4);
 }
-.hero-copy { max-width: 480px; font-size: 14px; line-height: 1.85; opacity: .88; }
+.hero-copy { max-width: 480px; font-size: 14px; line-height: 1.85; opacity: .88; text-shadow: 0 1px 12px rgba(20,8,8,.5); }
 .hero-copy + .hero-copy { margin-top: 10px; }
 .hero-buttons { display: flex; gap: 12px; margin-top: 28px; flex-wrap: wrap; }
 
