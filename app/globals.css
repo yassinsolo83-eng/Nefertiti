@@ -322,7 +322,7 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
 /* logo + tagline, centred above the keyhole */
 .kh-ui {
   position: absolute; top: 50%; left: 50%; z-index: 16;
-  transform: translate(-50%, calc(-50% - 260px));
+  transform: translate(-50%, calc(-50% - 300px));
   display: flex; flex-direction: column; align-items: center; gap: 18px;
   text-align: center; pointer-events: none;
 }
