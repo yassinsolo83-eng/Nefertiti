@@ -269,7 +269,6 @@ const steps = [
 ]
 
 export default function Page() {
-  const [lang, setLang] = useState<'en' | 'it'>('en')
   const [menuOpen, setMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [activeDestId, setActiveDestId] = useState<string | null>(null)
@@ -280,7 +279,24 @@ export default function Page() {
   })
   const [formSent, setFormSent] = useState(false)
   const [introDone, setIntroDone] = useState(false)
-  const t = copy[lang]
+  const t = copy.en
+
+  // Google Translate control — restricted to EN/IT only
+  const setGoogleLang = (target: 'en' | 'it') => {
+    const domain = window.location.hostname
+    const cookieDomains = ['', domain, '.' + domain]
+    if (target === 'en') {
+      // clear the translate cookie to return to the original (English)
+      cookieDomains.forEach(d => {
+        document.cookie = `googtrans=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/${d ? ';domain=' + d : ''}`
+      })
+    } else {
+      cookieDomains.forEach(d => {
+        document.cookie = `googtrans=/en/it;path=/${d ? ';domain=' + d : ''}`
+      })
+    }
+    window.location.reload()
+  }
 
   useEffect(() => {
     // ── KEYHOLE INTRO — scroll-driven open/close ──
@@ -383,9 +399,11 @@ export default function Page() {
           ))}
         </nav>
         <div className="nav-actions">
-          <button className="lang" onClick={() => setLang(lang === 'en' ? 'it' : 'en')} aria-label="Switch language">
-            {lang === 'en' ? 'IT' : 'EN'}
-          </button>
+          <div className="lang-switch">
+            <button className="lang" onClick={() => setGoogleLang('en')} aria-label="English">EN</button>
+            <span className="lang-sep">/</span>
+            <button className="lang" onClick={() => setGoogleLang('it')} aria-label="Italiano">IT</button>
+          </div>
           <button className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)} aria-label={menuOpen ? 'Close menu' : 'Open menu'}>
             {menuOpen ? <X /> : <Menu />}
           </button>
@@ -846,6 +864,7 @@ export default function Page() {
         </div>
         <div className="footer-bottom">
           <span>© 2026 Nefertiti Retreats</span>
+          <span className="notranslate">Translations powered by Google · Traduzioni offerte da Google</span>
           <span>Made with presence</span>
         </div>
       </footer>
