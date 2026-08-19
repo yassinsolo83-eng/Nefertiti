@@ -327,21 +327,14 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
   z-index: 15; display: block; pointer-events: none;
 }
 
-/* logo + tagline, centred above the keyhole */
+/* logo, centred above the Ankh */
 .kh-ui {
   position: absolute; top: 50%; left: 50%; z-index: 16;
-  transform: translate(-50%, calc(-50% - 300px));
-  display: flex; flex-direction: column; align-items: center; gap: 18px;
+  transform: translate(-50%, calc(-50% - 330px));
+  display: flex; flex-direction: column; align-items: center;
   text-align: center; pointer-events: none;
 }
-.kh-logo { width: 170px; }
-.kh-tagline {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 15px; font-style: italic;
-  color: rgba(255,255,255,.6);
-  text-align: center; line-height: 1.7; letter-spacing: .02em;
-  white-space: nowrap;
-}
+.kh-logo { width: 200px; filter: drop-shadow(0 4px 20px rgba(0,0,0,.35)); }
 .kh-hint {
   position: absolute; bottom: 14%; left: 50%; transform: translateX(-50%);
   z-index: 16; font-size: 10px; letter-spacing: .18em; text-transform: uppercase;
@@ -357,8 +350,8 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
 /* on small screens the keyhole opens over a shorter track */
 @media (max-width: 860px) {
   .kh-track { height: 280vh; }
-  .kh-ui { transform: translate(-50%, calc(-50% - 250px)); }
-  .kh-logo { width: 130px; }
+  .kh-ui { transform: translate(-50%, calc(-50% - 270px)); }
+  .kh-logo { width: 150px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .kh-track { height: 100vh; }
