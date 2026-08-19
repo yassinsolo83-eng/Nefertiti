@@ -56,7 +56,17 @@ h2, h3 { font-family: 'Cormorant Garamond', serif; }
 .site-links a { opacity: .85; transition: opacity .2s; }
 .site-links a:hover { opacity: .45; }
 .nav-actions { display: flex; align-items: center; gap: 16px; flex-shrink: 0; }
-.lang { border: 0; background: transparent; color: inherit; font-size: 10px; letter-spacing: .12em; font-weight: 500; padding: 4px 8px; }
+.lang-switch { display: flex; align-items: center; gap: 2px; }
+.lang { border: 0; background: transparent; color: inherit; font-size: 10px; letter-spacing: .12em; font-weight: 500; padding: 4px 6px; cursor: pointer; opacity: .7; transition: opacity .2s; }
+.lang:hover { opacity: 1; }
+.lang-sep { font-size: 10px; opacity: .4; }
+
+/* Google Translate — hide its default UI, keep only our buttons */
+#google_translate_element { position: absolute; width: 0; height: 0; overflow: hidden; opacity: 0; pointer-events: none; }
+.goog-te-banner-frame, .skiptranslate { display: none !important; }
+body { top: 0 !important; }
+.goog-tooltip, .goog-tooltip:hover { display: none !important; }
+.goog-text-highlight { background: none !important; box-shadow: none !important; }
 .menu-toggle { display: none; border: 0; background: transparent; color: inherit; padding: 4px; }
 
 /* ── HERO — Sarasvvati style ── */
