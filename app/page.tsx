@@ -155,7 +155,7 @@ export default function Page() {
     const ui = document.getElementById('kh-ui')
     const hint = document.getElementById('kh-hint')
 
-    const MIN = 2.0   // small visible keyhole at start
+    const MIN = 3.2   // larger visible Ankh at start
     const MAX = 42    // large enough to fully clear the viewport at end of track
     const clamp = (v: number, a: number, b: number) => Math.min(b, Math.max(a, v))
     const smooth = (x: number) => x * x * (3 - 2 * x)
@@ -257,8 +257,6 @@ export default function Page() {
             <div className="hero-shade" />
             <div className="hero-content reveal">
               <h1>{t.hero}</h1>
-              <p className="hero-copy">{t.heroText}</p>
-              <p className="hero-copy">{t.heroSupport}</p>
               <div className="hero-buttons">
                 <a className="button button-gold" href="#contact">{t.explore}<ArrowUpRight size={16} /></a>
                 <a className="button button-ghost" href="#contact">{t.inquire}</a>
@@ -273,13 +271,13 @@ export default function Page() {
                 <mask id="kh-mask">
                   <rect width="1000" height="1000" fill="white" />
                   <path id="kh-hole" fill="black" fillRule="evenodd"
-                    transform="translate(500 500) scale(2) translate(-50 -50)"
+                    transform="translate(500 500) scale(3.2) translate(-50 -50)"
                     d="M50 2 C40 2 31 12 31 27 C31 37 36 44 44 47 L44 49 L30 49 Q33 53.5 30 58 L44 58 L44 93 L56 93 L56 58 L70 58 Q67 53.5 70 49 L56 49 L56 47 C64 44 69 37 69 27 C69 12 60 2 50 2 Z M50 14 C54 14 58 20 58 27 C58 34 54 40 50 40 C46 40 42 34 42 27 C42 20 46 14 50 14 Z" />
                 </mask>
               </defs>
               <rect id="kh-dark" width="1000" height="1000" fill="#2E1840" mask="url(#kh-mask)" />
               <path id="kh-ring" fill="none" stroke="#F1D288" strokeWidth="1.2" fillRule="evenodd"
-                transform="translate(500 500) scale(2) translate(-50 -50)"
+                transform="translate(500 500) scale(3.2) translate(-50 -50)"
                 d="M50 2 C40 2 31 12 31 27 C31 37 36 44 44 47 L44 49 L30 49 Q33 53.5 30 58 L44 58 L44 93 L56 93 L56 58 L70 58 Q67 53.5 70 49 L56 49 L56 47 C64 44 69 37 69 27 C69 12 60 2 50 2 Z M50 14 C54 14 58 20 58 27 C58 34 54 40 50 40 C46 40 42 34 42 27 C42 20 46 14 50 14 Z" />
             </svg>
             <div id="kh-ui" className="kh-ui">
