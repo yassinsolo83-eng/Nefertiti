@@ -259,15 +259,15 @@ h3 { font-size: 26px; line-height: 1.15; font-weight: 500; }
 /* More destinations */
 .dest-more-section { margin-top: 56px; }
 .dest-more-label { display: block; font-size: 10px; text-transform: uppercase; letter-spacing: .18em; color: var(--gold); margin-bottom: 18px; }
-.dest-more-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 3px; }
-.dest-more-card { position: relative; min-height: 240px; overflow: hidden; }
-.dest-more-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(.55); transition: transform .7s, filter .7s; }
-.dest-more-card:hover img { transform: scale(1.05); filter: brightness(.45); }
-.dest-more-body { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: 16px 18px; z-index: 1; }
-.dest-more-body h3 { font-size: 18px; color: #fff; margin-bottom: 3px; line-height: 1.15; }
-.dest-more-body > p { font-size: 11px; color: rgba(243,240,232,.62); font-style: italic; font-family: 'Cormorant Garamond', serif; margin-bottom: 8px; }
-.dest-more-tags { display: flex; flex-wrap: wrap; gap: 4px; }
-.dest-more-tags span { font-size: 9px; padding: 3px 7px; background: rgba(241,210,136,.15); color: var(--gold); letter-spacing: .05em; }
+.dest-more-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 4px; }
+.dest-more-card { position: relative; min-height: 300px; overflow: hidden; display: block; text-decoration: none; }
+.dest-more-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(.6); transition: transform .7s, filter .7s; }
+.dest-more-card:hover img { transform: scale(1.05); filter: brightness(.5); }
+.dest-more-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(transparent 45%, rgba(20,6,14,.75)); z-index: 1; }
+.dest-more-body { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: 20px 20px; z-index: 2; }
+.dest-more-body h3 { font-size: 20px; color: #fff; margin-bottom: 8px; line-height: 1.15; font-weight: 500; }
+.dest-more-link { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; letter-spacing: .06em; color: var(--gold); font-family: 'Montserrat', sans-serif; transition: gap .25s; }
+.dest-more-card:hover .dest-more-link { gap: 9px; }
 
 /* Combinations */
 .dest-combos { margin-top: 72px; padding: 64px 6vw; background: rgba(18,5,14,.6); text-align: center; }
