@@ -64,10 +64,11 @@ h2, h3 { font-family: 'Cormorant Garamond', serif; }
   min-height: 100svh; position: relative;
   display: flex; flex-direction: column; justify-content: flex-end;
   overflow: hidden; color: #fff; background: #1a0a0a;
+  padding-top: 96px;
 }
 .hero-image {
   position: absolute; inset: 0;
-  width: 100%; height: 100%; object-fit: cover; object-position: center 40%;
+  width: 100%; height: 100%; object-fit: cover; object-position: center 30%;
 }
 /* dark top + dark bottom — text readable at both ends */
 .hero-shade {
@@ -93,10 +94,10 @@ h2, h3 { font-family: 'Cormorant Garamond', serif; }
 footer .footer-label,
 .contact .form-label { color: var(--gold); }
 .hero h1 {
-  margin: 16px 0 22px;
+  margin: 14px 0 20px;
   font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(52px, 8vw, 110px);
-  font-weight: 500; line-height: .96; letter-spacing: -.02em;
+  font-size: clamp(48px, 6.5vw, 88px);
+  font-weight: 500; line-height: .98; letter-spacing: -.02em;
 }
 .hero-copy { max-width: 480px; font-size: 14px; line-height: 1.85; opacity: .88; }
 .hero-copy + .hero-copy { margin-top: 10px; }
