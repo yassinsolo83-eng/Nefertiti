@@ -284,7 +284,6 @@ export default function Page() {
             </svg>
             <div id="kh-ui" className="kh-ui">
               <img src={images.logo} alt="Nefertiti" className="kh-logo" />
-              <p className="kh-tagline">You lead the transformation.<br />We create the experience.</p>
             </div>
             <div id="kh-hint" className="kh-hint">Scroll to enter <span>↓</span></div>
           </div>
