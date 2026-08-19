@@ -155,7 +155,8 @@ export default function Page() {
     const ui = document.getElementById('kh-ui')
     const hint = document.getElementById('kh-hint')
 
-    const MIN = 3.2   // larger visible Ankh at start
+    const isMobile = window.innerWidth <= 860
+    const MIN = isMobile ? 4.4 : 3.2   // larger visible Ankh on mobile
     const MAX = 42    // large enough to fully clear the viewport at end of track
     const clamp = (v: number, a: number, b: number) => Math.min(b, Math.max(a, v))
     const smooth = (x: number) => x * x * (3 - 2 * x)
