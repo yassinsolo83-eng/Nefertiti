@@ -372,7 +372,8 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
 @media (max-width: 860px) {
 
   /* NAV mobile — links hidden by default, fullscreen overlay when open */
-  .site-nav { padding: 16px 5vw; }
+  .site-nav { padding: 10px 5vw; }
+  .brand { width: 54px; }
   .site-links { display: none !important; }
   .site-links.open {
     display: flex !important;
@@ -396,7 +397,7 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
   .menu-toggle { display: block; position: relative; z-index: 95; }
   .site-nav.menu-open .menu-toggle { color: #fff; }
   .site-nav.menu-open .lang { color: #fff; }
-  .brand { width: 70px; }
+  .brand { width: 52px; }
 
   /* HERO */
   .hero-content { padding: 0 6vw 12vh; }
