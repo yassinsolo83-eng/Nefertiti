@@ -254,7 +254,17 @@ export default function Page() {
       <div id="kh-track" className="kh-track">
         <div className="kh-stage">
           <section id="top" className="hero">
-            <img src={images.heroMain} alt="Shirodhara oil ritual — Ayurvedic retreat" className="hero-image" />
+            <video
+              className="hero-image"
+              src="/hero-video.mp4"
+              poster={images.heroMain}
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="auto"
+              aria-label="Shirodhara oil ritual — Ayurvedic retreat"
+            />
             <div className="hero-shade" />
             <div className="hero-content reveal">
               <h1>{t.hero}</h1>
