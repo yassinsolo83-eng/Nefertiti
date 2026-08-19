@@ -577,16 +577,17 @@ export default function Page() {
           <p className="dest-more-label reveal">{t.destMoreLabel}</p>
           <div className="dest-more-grid">
             {moreDestinations.map((dest, i) => (
-              <article key={dest.title} className={`dest-more-card reveal delay-${(i % 3) + 1}`}>
+              <a
+                key={dest.title}
+                href="#contact"
+                className={`dest-more-card reveal delay-${(i % 3) + 1}`}
+              >
                 <img src={dest.image} alt={dest.title} />
                 <div className="dest-more-body">
                   <h3>{dest.title}</h3>
-                  <p>{dest.tagline}</p>
-                  <div className="dest-more-tags">
-                    {dest.idealFor.slice(0, 3).map(tag => <span key={tag}>{tag}</span>)}
-                  </div>
+                  <span className="dest-more-link">View details <ArrowUpRight size={13} /></span>
                 </div>
-              </article>
+              </a>
             ))}
           </div>
         </div>
