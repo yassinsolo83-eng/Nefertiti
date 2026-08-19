@@ -99,6 +99,11 @@ footer .footer-label,
   font-size: clamp(48px, 6.5vw, 88px);
   font-weight: 500; line-height: .98; letter-spacing: -.02em;
 }
+/* desktop: keep the headline to two lines, away from the subject's face */
+@media (min-width: 861px) {
+  .hero-content { max-width: 1100px; padding-bottom: 12vh; }
+  .hero h1 { max-width: 20ch; font-size: clamp(52px, 4.6vw, 72px); }
+}
 .hero-copy { max-width: 480px; font-size: 14px; line-height: 1.85; opacity: .88; }
 .hero-copy + .hero-copy { margin-top: 10px; }
 .hero-buttons { display: flex; gap: 12px; margin-top: 28px; flex-wrap: wrap; }
@@ -331,7 +336,7 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
 /* logo, centred above the Ankh */
 .kh-ui {
   position: absolute; top: 50%; left: 50%; z-index: 16;
-  transform: translate(-50%, calc(-50% - 330px));
+  transform: translate(-50%, calc(-50% - 390px));
   display: flex; flex-direction: column; align-items: center;
   text-align: center; pointer-events: none;
 }
