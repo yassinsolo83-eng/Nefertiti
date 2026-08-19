@@ -191,7 +191,11 @@ export default function Page() {
     }
 
     const onScroll = () => {
-      setScrolled(window.scrollY > 24)
+      // nav stays transparent while the hero/intro track is on screen;
+      // it only turns solid once we've scrolled past the hero
+      const track = document.getElementById('kh-track')
+      const heroBottom = track ? track.offsetHeight - 80 : 24
+      setScrolled(window.scrollY > heroBottom)
       updateKeyhole()
     }
     window.addEventListener('scroll', onScroll, { passive: true })
