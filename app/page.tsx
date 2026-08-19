@@ -367,7 +367,6 @@ export default function Page() {
     setFormSent(true)
   }
 
-  const toggleDest = (id: string) => setActiveDestId(prev => prev === id ? null : id)
   const activeDest = featuredDestinations.find(d => d.id === activeDestId) ?? null
 
   return (
@@ -493,17 +492,16 @@ export default function Page() {
           </div>
         </div>
 
-        {/* Featured 5 destinations — 2 large (top) + 3 medium (bottom) */}
-        <div className="dest-featured-grid">
+        {/* Featured destinations — fixed grid, cards never disappear */}
+        <div className="dest-grid">
           {featuredDestinations.map((dest, i) => (
             <article
               key={dest.id}
-              className={`dest-card reveal delay-${Math.min(i + 1, 4)}${activeDestId === dest.id ? ' is-active' : ''}`}
-              onClick={() => toggleDest(dest.id)}
+              className={`dest-card reveal delay-${Math.min(i + 1, 4)}`}
+              onClick={() => setActiveDestId(dest.id)}
               role="button"
               tabIndex={0}
-              onKeyDown={(e) => e.key === 'Enter' && toggleDest(dest.id)}
-              aria-expanded={activeDestId === dest.id}
+              onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && setActiveDestId(dest.id)}
             >
               <img src={dest.image} alt={dest.title} />
               <div className="dest-card-body">
@@ -511,46 +509,46 @@ export default function Page() {
                 <h3>{dest.title}</h3>
                 <p className="dest-card-tagline">{dest.tagline}</p>
               </div>
-              <span className="dest-card-toggle" aria-hidden="true">
-                {activeDestId === dest.id ? '✕' : '+'}
-              </span>
+              <span className="dest-card-toggle" aria-hidden="true">+</span>
             </article>
           ))}
         </div>
 
-        {/* Expanded detail panel */}
+        {/* Detail modal overlay */}
         {activeDest && (
-          <div className="dest-detail-panel" key={activeDest.id}>
-            <button
-              className="dest-detail-close"
-              onClick={() => setActiveDestId(null)}
-              aria-label="Close destination details"
-            >✕</button>
-            <div className="dest-detail-inner">
-              <div className="dest-detail-left">
-                <p className="dest-detail-feeling">{activeDest.feeling}</p>
-                <h2 className="dest-detail-title">{activeDest.title}</h2>
-                <p className="dest-detail-tagline">{activeDest.tagline}</p>
-                <p className="dest-detail-desc">{activeDest.desc}</p>
-                <a href="#contact" className="button button-gold" style={{ marginTop: 28 }}>
-                  CREATE A RETREAT HERE <ArrowUpRight size={14} />
-                </a>
+          <div className="dest-modal-overlay" onClick={() => setActiveDestId(null)}>
+            <div className="dest-modal" onClick={(e) => e.stopPropagation()}>
+              <button
+                className="dest-modal-close"
+                onClick={() => setActiveDestId(null)}
+                aria-label="Close"
+              >✕</button>
+              <div className="dest-modal-media">
+                <img src={activeDest.image} alt={activeDest.title} />
               </div>
-              <div className="dest-detail-block">
-                <p className="dest-sub-label">POSSIBLE EXPERIENCES</p>
+              <div className="dest-modal-content">
+                <p className="dest-modal-feeling">{activeDest.feeling}</p>
+                <h2 className="dest-modal-title">{activeDest.title}</h2>
+                <p className="dest-modal-tagline">{activeDest.tagline}</p>
+                <p className="dest-modal-desc">{activeDest.desc}</p>
+
+                <p className="dest-sub-label">Possible experiences</p>
                 <div className="dest-tags">
                   {activeDest.experiences.map(exp => (
                     <span key={exp} className="dest-tag">{exp}</span>
                   ))}
                 </div>
-              </div>
-              <div className="dest-detail-block">
-                <p className="dest-sub-label">IDEAL FOR</p>
+
+                <p className="dest-sub-label">Ideal for</p>
                 <div className="dest-tags">
                   {activeDest.idealFor.map(tag => (
                     <span key={tag} className="dest-tag dest-tag-ideal">{tag}</span>
                   ))}
                 </div>
+
+                <a href="#contact" className="button button-gold dest-modal-cta" onClick={() => setActiveDestId(null)}>
+                  Create a retreat here <ArrowUpRight size={14} />
+                </a>
               </div>
             </div>
           </div>
