@@ -187,18 +187,76 @@ h3 { font-size: 26px; line-height: 1.15; font-weight: 500; }
 .destinations .section-label { color: var(--gold); }
 .destinations .section-heading p { color: rgba(243,240,232,.68); }
 .destinations h2 { color: var(--primary-foreground); }
-.destination-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3px; }
-.destination-card { position: relative; min-height: 440px; overflow: hidden; cursor: pointer; }
-.destination-card img { width: 100%; height: 100%; object-fit: cover; transition: transform .7s; }
-.destination-card:hover img { transform: scale(1.06); }
-.card-overlay {
-  position: absolute; inset: auto 0 0;
-  padding: 32px 22px 24px;
-  background: linear-gradient(transparent, rgba(20,6,14,.9));
+
+/* Featured 5 dest — 2 large (top row) + 3 medium (bottom row) */
+.dest-featured-grid { display: grid; grid-template-columns: repeat(6,1fr); gap: 3px; margin-bottom: 3px; }
+.dest-card { position: relative; overflow: hidden; cursor: pointer; }
+.dest-card:nth-child(1), .dest-card:nth-child(2) { grid-column: span 3; min-height: 520px; }
+.dest-card:nth-child(3), .dest-card:nth-child(4), .dest-card:nth-child(5) { grid-column: span 2; min-height: 380px; }
+.dest-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .7s; }
+.dest-card:hover img, .dest-card.is-active img { transform: scale(1.05); }
+.dest-card-body { position: absolute; bottom: 0; left: 0; right: 0; padding: 70px 24px 26px; background: linear-gradient(transparent, rgba(20,6,14,.9)); z-index: 2; }
+.dest-card-feeling { font-size: 9px; text-transform: uppercase; letter-spacing: .14em; color: var(--gold); margin-bottom: 8px; }
+.dest-card-body h3 { color: #fff; font-size: clamp(20px, 2.2vw, 34px); margin-bottom: 5px; line-height: 1.1; }
+.dest-card-tagline { font-size: 12px; color: rgba(243,240,232,.65); font-style: italic; font-family: 'Cormorant Garamond', serif; }
+.dest-card-toggle {
+  position: absolute; bottom: 26px; right: 22px; z-index: 3;
+  width: 30px; height: 30px; border: 1px solid rgba(241,210,136,.35); color: var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; font-weight: 200; transition: background .2s, border-color .2s; pointer-events: none;
 }
-.card-overlay p { color: var(--gold); font-size: 9px; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 8px; }
-.card-overlay h3 { font-size: 24px; color: #fff; }
-.card-overlay svg { position: absolute; right: 22px; bottom: 26px; color: var(--gold); }
+.dest-card.is-active .dest-card-toggle { background: var(--gold); color: var(--plum); border-color: var(--gold); }
+
+/* Detail panel */
+@keyframes dest-in { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+.dest-detail-panel {
+  position: relative; background: rgba(22,7,16,.97);
+  border-top: 1px solid rgba(241,210,136,.2); border-bottom: 1px solid rgba(241,210,136,.1);
+  padding: 48px 6vw 56px; margin-bottom: 3px; animation: dest-in .3s ease;
+}
+.dest-detail-close {
+  position: absolute; top: 22px; right: 5vw; background: transparent;
+  border: 1px solid rgba(241,210,136,.3); color: var(--gold);
+  width: 34px; height: 34px; font-size: 15px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: background .2s; line-height: 1;
+}
+.dest-detail-close:hover { background: rgba(241,210,136,.12); }
+.dest-detail-inner { display: grid; grid-template-columns: 1.1fr 1.2fr 1fr; gap: 5vw; align-items: start; }
+.dest-detail-left {}
+.dest-detail-feeling { font-size: 9px; text-transform: uppercase; letter-spacing: .16em; color: var(--gold); margin-bottom: 12px; display: block; }
+.dest-detail-title { font-size: clamp(26px, 3.2vw, 44px) !important; color: #fff !important; margin-bottom: 6px; font-weight: 500 !important; }
+.dest-detail-tagline { font-size: 14px; color: rgba(243,240,232,.6); font-style: italic; font-family: 'Cormorant Garamond', serif; margin-bottom: 20px; display: block; }
+.dest-detail-desc { font-size: 13px; color: rgba(243,240,232,.72); line-height: 1.95; }
+.dest-detail-block { }
+.dest-sub-label { font-size: 9px; text-transform: uppercase; letter-spacing: .16em; color: rgba(241,210,136,.7); margin-bottom: 14px; display: block; }
+.dest-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.dest-tag { font-size: 10px; padding: 5px 10px; border: 1px solid rgba(243,240,232,.18); color: rgba(243,240,232,.75); letter-spacing: .05em; }
+.dest-tag-ideal { border-color: rgba(177,182,149,.28); color: var(--rose); }
+
+/* More destinations */
+.dest-more-section { margin-top: 56px; }
+.dest-more-label { display: block; font-size: 10px; text-transform: uppercase; letter-spacing: .18em; color: var(--gold); margin-bottom: 18px; }
+.dest-more-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 3px; }
+.dest-more-card { position: relative; min-height: 240px; overflow: hidden; }
+.dest-more-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(.55); transition: transform .7s, filter .7s; }
+.dest-more-card:hover img { transform: scale(1.05); filter: brightness(.45); }
+.dest-more-body { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: 16px 18px; z-index: 1; }
+.dest-more-body h3 { font-size: 18px; color: #fff; margin-bottom: 3px; line-height: 1.15; }
+.dest-more-body > p { font-size: 11px; color: rgba(243,240,232,.62); font-style: italic; font-family: 'Cormorant Garamond', serif; margin-bottom: 8px; }
+.dest-more-tags { display: flex; flex-wrap: wrap; gap: 4px; }
+.dest-more-tags span { font-size: 9px; padding: 3px 7px; background: rgba(241,210,136,.15); color: var(--gold); letter-spacing: .05em; }
+
+/* Combinations */
+.dest-combos { margin-top: 72px; padding: 64px 6vw; background: rgba(18,5,14,.6); text-align: center; }
+.dest-combos-header { margin-bottom: 36px; }
+.dest-combos-header h2 { color: #fff !important; font-size: clamp(28px, 4vw, 56px) !important; margin-bottom: 10px; }
+.dest-combos-sub { font-family: 'Cormorant Garamond', serif; font-size: clamp(18px, 2vw, 26px); color: var(--gold); font-style: italic; margin-bottom: 16px; display: block; }
+.dest-combos-body { color: rgba(243,240,232,.6); max-width: 440px; margin: 0 auto; line-height: 1.9; font-size: 13px; }
+.dest-combo-list { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 32px 0 36px; }
+.dest-combo-pill { padding: 8px 18px; border: 1px solid rgba(241,210,136,.28); color: rgba(243,240,232,.72); font-size: 10px; letter-spacing: .1em; transition: background .2s; }
+.dest-combo-pill:hover { background: rgba(241,210,136,.1); }
+.dest-combo-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
 
 /* ── EXPERIENCES ── */
 .experiences { background: var(--muted); }
@@ -432,8 +490,15 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
   .vision-stats { grid-template-columns: 1fr 1fr; gap: 20px 12px; }
 
   /* DESTINATIONS */
-  .destination-grid { grid-template-columns: 1fr 1fr; gap: 3px; }
-  .destination-card { min-height: 260px; }
+  .dest-featured-grid { grid-template-columns: 1fr 1fr; }
+  .dest-card:nth-child(1), .dest-card:nth-child(2), .dest-card:nth-child(3), .dest-card:nth-child(4), .dest-card:nth-child(5) { grid-column: span 1; min-height: 250px; }
+  .dest-card:nth-child(1) { grid-column: span 2; min-height: 320px; }
+  .dest-detail-inner { grid-template-columns: 1fr; gap: 28px; }
+  .dest-detail-close { top: 16px; right: 20px; }
+  .dest-more-grid { grid-template-columns: 1fr 1fr; }
+  .dest-more-card { min-height: 200px; }
+  .dest-combos { padding: 48px 6vw; margin-top: 48px; }
+  .dest-combo-actions { flex-direction: column; align-items: center; }
   .section-heading { display: block; margin-bottom: 32px; }
   .section-heading h2 { margin: 10px 0 16px; }
 
@@ -477,8 +542,9 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
 @media (max-width: 480px) {
   .hero h1 { font-size: clamp(40px, 13vw, 58px); }
   .stats-numbers { grid-template-columns: 1fr 1fr; gap: 24px 12px; }
-  .destination-grid { grid-template-columns: 1fr; }
-  .destination-card { min-height: 300px; }
+  .dest-featured-grid { grid-template-columns: 1fr; }
+  .dest-card:nth-child(1), .dest-card:nth-child(2), .dest-card:nth-child(3), .dest-card:nth-child(4), .dest-card:nth-child(5) { grid-column: span 1; min-height: 280px; }
+  .dest-more-grid { grid-template-columns: 1fr 1fr; }
   .process-grid { grid-template-columns: 1fr; }
   .footer-links { grid-template-columns: 1fr; }
 }
