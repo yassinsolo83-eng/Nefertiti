@@ -31,9 +31,15 @@ const copy = {
     visionText: 'You already know how you want your guests to feel. You know your practice. You know your community. You know the transformation you want to create. What you need is a trusted team on the ground who understands retreats, events, hospitality and Egypt. That is where we come in.',
     philosophy: 'DISCOVER OUR STORY',
     statsHeadline: 'Retreats are deeply personal.\nThat\'s why we treat every one\nas if it were our own.',
-    destinations: 'ONE COUNTRY. ENDLESS POSSIBILITIES.',
+    destinations: 'YOUR RETREAT. YOUR EGYPT.',
     destinationLabel: 'WHERE WE CREATE',
-    destinationText: 'From Cairo to Siwa, from the Red Sea to the desert — each destination carries its own energy, rhythm and possibility.',
+    destinationText: 'Choose one destination or let us create a multi-destination journey around your retreat concept.',
+    destMoreLabel: 'EXPLORE MORE OF EGYPT',
+    destCombosTitle: "Or don't choose just one.",
+    destCombosSubtitle: 'Let Egypt become the journey.',
+    destCombosText: "One of Egypt's greatest strengths as a retreat destination is the ability to combine completely different environments within one programme.",
+    destCTA1: 'CREATE MY EGYPT RETREAT',
+    destCTA2: 'HELP ME CHOOSE MY DESTINATIONS',
     experiences: 'MORE THAN ACTIVITIES. MOMENTS WITH MEANING.',
     experienceText: 'We select experiences according to your retreat\'s theme and objectives.',
     bespoke: 'You take care of your people.\nWe take care of the retreat.',
@@ -63,9 +69,15 @@ const copy = {
     visionText: 'Sai già come vuoi che si sentano i tuoi ospiti. Conosci la tua pratica. Conosci la tua community. Conosci la trasformazione che vuoi creare. Ciò di cui hai bisogno è un team fidato sul posto che comprenda ritiri, eventi, ospitalità e Egitto. Ed è qui che entriamo in gioco.',
     philosophy: 'SCOPRI LA NOSTRA STORIA',
     statsHeadline: 'I ritiri sono profondamente personali.\nPer questo trattiamo ogni uno\ncome se fosse il nostro.',
-    destinations: 'UN PAESE. INFINITE POSSIBILITÀ.',
+    destinations: 'IL TUO RITIRO. IL TUO EGITTO.',
     destinationLabel: 'DOVE CREIAMO',
-    destinationText: 'Dal Cairo a Siwa, dal Mar Rosso al deserto — ogni destinazione porta la propria energia, ritmo e possibilità.',
+    destinationText: 'Scegli una destinazione o lasciaci creare un percorso multi-destinazione intorno al tuo concetto di ritiro.',
+    destMoreLabel: "SCOPRI ALTRI ANGOLI D'EGITTO",
+    destCombosTitle: 'O non sceglierne solo una.',
+    destCombosSubtitle: "Lascia che l'Egitto diventi il viaggio.",
+    destCombosText: "Uno dei grandi punti di forza dell'Egitto come destinazione per ritiri è la capacità di combinare ambienti completamente diversi in un unico programma.",
+    destCTA1: 'CREA IL MIO RITIRO IN EGITTO',
+    destCTA2: 'AIUTAMI A SCEGLIERE LE DESTINAZIONI',
     experiences: 'NON SEMPLICI ATTIVITÀ. MOMENTI CON SIGNIFICATO.',
     experienceText: 'Selezioniamo le esperienze in base al tema e agli obiettivi del tuo ritiro.',
     bespoke: 'Tu ti prendi cura delle tue persone.\nNoi ci prendiamo cura del ritiro.',
@@ -85,11 +97,134 @@ const copy = {
   },
 }
 
-const destinations = [
-  { title: 'Cairo & Giza', meta: 'Rhythm · History · Connection', image: images.cairo },
-  { title: 'Red Sea', meta: 'Salt · Light · Spaciousness', image: images.redSea },
-  { title: 'Desert & Siwa', meta: 'Silence · Sound · Surrender', image: images.siwa },
-  { title: 'Wellness resorts', meta: 'Sea · Ritual · Renewal', image: images.resort },
+const featuredDestinations = [
+  {
+    id: 'cairo',
+    title: 'Cairo & Giza',
+    tagline: 'Ancient Meets Contemporary',
+    feeling: 'Rhythm · History · Connection',
+    image: images.cairo,
+    desc: 'For retreat leaders who want to combine wellness with history, culture, gastronomy and contemporary luxury.',
+    experiences: [
+      'Pyramids of Giza', 'Grand Egyptian Museum', 'Sunrise yoga & meditation',
+      'Nile experiences', 'Historic Cairo', 'Al-Muizz Street', 'Traditional hammams',
+      'Egyptian food experiences', 'Luxury hotels', 'Rooftop dining',
+      'Art & cultural workshops', 'Local artisan experiences',
+    ],
+    idealFor: ['Cultural wellness', "Women's retreats", 'Personal development', 'Mindfulness', 'Leadership retreats', 'Multi-destination'],
+  },
+  {
+    id: 'red-sea',
+    title: 'The Red Sea',
+    tagline: 'Space to Breathe',
+    feeling: 'Salt · Light · Spaciousness',
+    image: images.redSea,
+    desc: 'El Gouna, Hurghada, Soma Bay and selected Red Sea destinations create a slower rhythm built around water, movement, nature and resort wellness.',
+    experiences: [
+      'Beach yoga', 'Sunrise meditation', 'Private boat days', 'Snorkeling & swimming',
+      'Breathwork by the sea', 'Spa treatments', 'Sound healing', 'Water activities',
+      'Luxury resort stays', 'Sunset sessions', 'Yacht experiences', 'Desert & sea combinations',
+    ],
+    idealFor: ['Yoga', 'Fitness', 'Pilates', 'Mindfulness', 'Breathwork', 'Luxury wellness', 'Corporate wellbeing'],
+  },
+  {
+    id: 'luxor-aswan',
+    title: 'Luxor & Aswan',
+    tagline: 'Let the Retreat Move With You',
+    feeling: 'Ancient · Ceremonial · Timeless',
+    image: images.boat,
+    desc: 'The Nile, temples, archaeological sites and desert create several distinct environments — connected by a dahabiya or luxury Nile cruise. Morning practice. Days exploring. Quiet afternoons on the river.',
+    experiences: [
+      'Sunrise hot-air balloon', 'Felucca & dahabiya sailing', 'Yoga overlooking the Nile',
+      'Meditation by the river', 'Temple visits', 'Karnak & Luxor Temple', 'West Bank experiences',
+      'Nubian villages & culture', 'Private dinners', 'Sunset river sessions', 'Cultural storytelling',
+    ],
+    idealFor: ['Cultural immersion', 'Mindfulness', 'Personal development', 'Yoga', 'Transformational journeys', 'Premium retreats'],
+  },
+  {
+    id: 'siwa',
+    title: 'Siwa Oasis',
+    tagline: 'Disconnect to Reconnect',
+    feeling: 'Silence · Surrender · Timeless',
+    image: images.siwa,
+    desc: 'Surrounded by desert, palm groves, natural springs and salt lakes, Siwa offers an intimate environment for smaller groups seeking privacy and deep immersion.',
+    experiences: [
+      'Salt lake experiences', 'Desert excursions', 'Natural springs', 'Meditation & breathwork',
+      'Stargazing', 'Local food & culture', 'Palm grove sessions', 'Desert sunsets',
+      'Journaling', 'Small group circles', 'Traditional crafts',
+    ],
+    idealFor: ['Intimate retreats', 'Mindfulness', "Women's retreats", 'Creative retreats', 'Digital detox', 'Slowing down'],
+  },
+  {
+    id: 'desert',
+    title: 'The Desert',
+    tagline: 'Silence Has Its Own Language',
+    feeling: 'Stillness · Stars · Space',
+    image: images.vision,
+    desc: "Egypt's desert gives retreat leaders something completely different from a conventional resort. Open space and fewer distractions create an extraordinary setting for reflection, creativity and connection.",
+    experiences: [
+      'Meditation & breathwork', 'Journaling', 'Sound ceremonies', "Women's circles",
+      'Mindful walking', 'Stargazing', 'Desert dining', 'Sunrise practices',
+      'Overnight desert experiences', 'Private ceremonies', 'Digital detox',
+    ],
+    idealFor: ['Meditation', 'Mindfulness', 'Spiritual retreats', "Women's circles", 'Creative retreats', 'Personal development'],
+  },
+]
+
+const moreDestinations = [
+  {
+    title: 'Cairo Countryside & Farms',
+    tagline: 'Slow Down. Come Back to Nature.',
+    image: images.hammam,
+    idealFor: ['Nutrition retreats', 'Digital detox', 'Creative retreats', 'Team retreats'],
+  },
+  {
+    title: 'Fayoum',
+    tagline: 'Nature Within Reach',
+    image: images.vision,
+    idealFor: ['Weekend retreats', 'Creativity', 'Yoga', 'Nature programmes'],
+  },
+  {
+    title: 'Dahab & South Sinai',
+    tagline: 'Mountains. Sea. Simplicity.',
+    image: images.redSea,
+    idealFor: ['Adventure wellness', 'Yoga', 'Breathwork', 'Fitness'],
+  },
+  {
+    title: 'Marsa Alam',
+    tagline: 'Wild Red Sea',
+    image: images.boat,
+    idealFor: ['Nature retreats', 'Mindfulness', 'Yoga', 'Digital detox'],
+  },
+  {
+    title: 'Sharm El Sheikh',
+    tagline: 'Resort Wellness Meets Sinai',
+    image: images.resort,
+    idealFor: ['Larger groups', 'Corporate wellness', 'Luxury wellness'],
+  },
+  {
+    title: 'Soma Bay',
+    tagline: 'Wellness by the Water',
+    image: images.resort,
+    idealFor: ['Premium wellness', 'Yoga', 'Executive wellbeing'],
+  },
+  {
+    title: 'North Coast',
+    tagline: 'Mediterranean Egypt',
+    image: images.hero,
+    idealFor: ['Summer wellness', 'Fitness', 'Corporate retreats'],
+  },
+]
+
+const combinations = [
+  'Cairo + Red Sea',
+  'Cairo + Fayoum',
+  'Cairo + Siwa',
+  'Cairo + Luxor + Aswan',
+  'Luxor + Nile Journey + Aswan',
+  'Cairo + Countryside + Red Sea',
+  'Cairo + Desert + Red Sea',
+  'Cairo + Luxor + Red Sea',
 ]
 
 const experiences = [
@@ -137,6 +272,7 @@ export default function Page() {
   const [lang, setLang] = useState<'en' | 'it'>('en')
   const [menuOpen, setMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [activeDestId, setActiveDestId] = useState<string | null>(null)
   const [formData, setFormData] = useState({
     name: '', email: '', whatsapp: '', country: '', website: '',
     practice: '', guests: '', dates: '', destination: '', budget: '',
@@ -230,6 +366,9 @@ export default function Page() {
     e.preventDefault()
     setFormSent(true)
   }
+
+  const toggleDest = (id: string) => setActiveDestId(prev => prev === id ? null : id)
+  const activeDest = featuredDestinations.find(d => d.id === activeDestId) ?? null
 
   return (
     <>
@@ -345,6 +484,7 @@ export default function Page() {
 
       {/* DESTINATIONS */}
       <section id="destinations" className="section destinations">
+        {/* Section heading */}
         <div className="section-heading reveal">
           <div className="section-label">02 / {t.destinationLabel}</div>
           <div>
@@ -352,17 +492,105 @@ export default function Page() {
             <p>{t.destinationText}</p>
           </div>
         </div>
-        <div className="destination-grid">
-          {destinations.map((item, i) => (
-            <article className={`destination-card reveal delay-${i + 1}`} key={item.title}>
-              <img src={item.image} alt={item.title} />
-              <div className="card-overlay">
-                <p>{item.meta}</p>
-                <h3>{item.title}</h3>
-                <ArrowUpRight size={18} />
+
+        {/* Featured 5 destinations — 2 large (top) + 3 medium (bottom) */}
+        <div className="dest-featured-grid">
+          {featuredDestinations.map((dest, i) => (
+            <article
+              key={dest.id}
+              className={`dest-card reveal delay-${Math.min(i + 1, 4)}${activeDestId === dest.id ? ' is-active' : ''}`}
+              onClick={() => toggleDest(dest.id)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => e.key === 'Enter' && toggleDest(dest.id)}
+              aria-expanded={activeDestId === dest.id}
+            >
+              <img src={dest.image} alt={dest.title} />
+              <div className="dest-card-body">
+                <p className="dest-card-feeling">{dest.feeling}</p>
+                <h3>{dest.title}</h3>
+                <p className="dest-card-tagline">{dest.tagline}</p>
               </div>
+              <span className="dest-card-toggle" aria-hidden="true">
+                {activeDestId === dest.id ? '✕' : '+'}
+              </span>
             </article>
           ))}
+        </div>
+
+        {/* Expanded detail panel */}
+        {activeDest && (
+          <div className="dest-detail-panel" key={activeDest.id}>
+            <button
+              className="dest-detail-close"
+              onClick={() => setActiveDestId(null)}
+              aria-label="Close destination details"
+            >✕</button>
+            <div className="dest-detail-inner">
+              <div className="dest-detail-left">
+                <p className="dest-detail-feeling">{activeDest.feeling}</p>
+                <h2 className="dest-detail-title">{activeDest.title}</h2>
+                <p className="dest-detail-tagline">{activeDest.tagline}</p>
+                <p className="dest-detail-desc">{activeDest.desc}</p>
+                <a href="#contact" className="button button-gold" style={{ marginTop: 28 }}>
+                  CREATE A RETREAT HERE <ArrowUpRight size={14} />
+                </a>
+              </div>
+              <div className="dest-detail-block">
+                <p className="dest-sub-label">POSSIBLE EXPERIENCES</p>
+                <div className="dest-tags">
+                  {activeDest.experiences.map(exp => (
+                    <span key={exp} className="dest-tag">{exp}</span>
+                  ))}
+                </div>
+              </div>
+              <div className="dest-detail-block">
+                <p className="dest-sub-label">IDEAL FOR</p>
+                <div className="dest-tags">
+                  {activeDest.idealFor.map(tag => (
+                    <span key={tag} className="dest-tag dest-tag-ideal">{tag}</span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* More destinations — secondary 7 */}
+        <div className="dest-more-section">
+          <p className="dest-more-label reveal">{t.destMoreLabel}</p>
+          <div className="dest-more-grid">
+            {moreDestinations.map((dest, i) => (
+              <article key={dest.title} className={`dest-more-card reveal delay-${(i % 3) + 1}`}>
+                <img src={dest.image} alt={dest.title} />
+                <div className="dest-more-body">
+                  <h3>{dest.title}</h3>
+                  <p>{dest.tagline}</p>
+                  <div className="dest-more-tags">
+                    {dest.idealFor.slice(0, 3).map(tag => <span key={tag}>{tag}</span>)}
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+
+        {/* Multi-destination combinations */}
+        <div className="dest-combos reveal">
+          <div className="dest-combos-header">
+            <h2>{t.destCombosTitle}</h2>
+            <p className="dest-combos-sub">{t.destCombosSubtitle}</p>
+            <p className="dest-combos-body">{t.destCombosText}</p>
+          </div>
+          <div className="dest-combo-list">
+            {combinations.map(combo => (
+              <span key={combo} className="dest-combo-pill">{combo}</span>
+            ))}
+          </div>
+          <div className="dest-combo-actions">
+            <a href="#contact" className="button button-gold">{t.destCTA1} <ArrowUpRight size={14} /></a>
+            <a href="#contact" className="button button-ghost">{t.destCTA2}</a>
+          </div>
         </div>
       </section>
 
@@ -546,11 +774,18 @@ export default function Page() {
                   <select name="destination" value={formData.destination} onChange={handleField}>
                     <option value="">Select destination</option>
                     <option>Cairo & Giza</option>
-                    <option>Red Sea</option>
-                    <option>Desert</option>
-                    <option>Siwa</option>
+                    <option>The Red Sea</option>
+                    <option>Luxor & Aswan</option>
+                    <option>Siwa Oasis</option>
+                    <option>The Desert</option>
+                    <option>Cairo Countryside & Farms</option>
                     <option>Fayoum</option>
-                    <option>Multi-destination</option>
+                    <option>Dahab & South Sinai</option>
+                    <option>Marsa Alam</option>
+                    <option>Sharm El Sheikh</option>
+                    <option>Soma Bay</option>
+                    <option>North Coast</option>
+                    <option>Multi-destination journey</option>
                     <option>Not sure yet</option>
                   </select>
                 </div>
