@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Menu, X } from 'lucide-react'
+import { Menu, X, MapPin } from 'lucide-react'
 import { images } from '@/lib/data'
 import { setGoogleLang } from '@/hooks/useGoogleTranslate'
 
@@ -59,7 +59,7 @@ export default function SiteNav({ solid, hidden, scrolled, onAnchor, onBrand }: 
       className={`site-nav ${isScrolled ? 'is-scrolled' : ''} ${menuOpen ? 'menu-open' : ''} ${hidden ? 'nav-hidden' : ''}`}
     >
       <a href="/" className="brand" onClick={handleBrand}>
-        <span className="brand-badge notranslate">EGYPT</span>
+        <span className="brand-badge notranslate"><MapPin size={9} strokeWidth={2.5} />EGYPT</span>
         <img src={images.logoDark} alt="Nefertiti Luxury Retreat Producer" />
       </a>
       <nav className={`site-links ${menuOpen ? 'open' : ''}`} aria-label="Main navigation">
