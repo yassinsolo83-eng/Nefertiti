@@ -1,10 +1,11 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { ArrowUpRight } from 'lucide-react'
+import { ArrowUpRight, MessageCircle } from 'lucide-react'
 import {
   images, copy, featuredDestinations, moreDestinations,
   combinations, experiences, serviceTiers, steps, faqs,
+  whatsappLink,
 } from '@/lib/data'
 import DestinationModal from '@/components/DestinationModal'
 import SiteNav from '@/components/SiteNav'
@@ -81,10 +82,10 @@ export default function Page() {
             <div className="hero-content reveal">
               <h1>{t.hero}</h1>
               <div className="hero-buttons">
-                <a className="button button-gold" href="/appointment">{t.explore}<ArrowUpRight size={16} /></a>
-                <a className="button button-ghost" href="/contact">{t.inquire}</a>
+                <a className="button button-gold" href="/contact">{t.explore}<ArrowUpRight size={16} /></a>
+                <a className="button button-ghost" href={whatsappLink} target="_blank" rel="noopener noreferrer"><MessageCircle size={15} />{t.inquire}</a>
               </div>
-              <a className="hero-get-started" href="/appointment">
+              <a className="hero-get-started" href="/contact">
                 <span>Get Started</span>
                 <span className="hero-get-started-circle"><ArrowUpRight size={18} /></span>
               </a>
@@ -236,7 +237,7 @@ export default function Page() {
             ))}
           </div>
           <div className="dest-combo-actions">
-            <a href="/appointment" className="button button-gold">{t.destCTA1} <ArrowUpRight size={14} /></a>
+            <a href="/contact" className="button button-gold">{t.destCTA1} <ArrowUpRight size={14} /></a>
             <a href="/contact" className="button button-ghost">{t.destCTA2}</a>
           </div>
         </div>
@@ -263,7 +264,7 @@ export default function Page() {
             </article>
           ))}
         </div>
-        <a href="/appointment" className="text-link" style={{ marginTop: 48 }}>DESIGN MY EXPERIENCE <ArrowUpRight size={16} /></a>
+        <a href="/contact" className="text-link" style={{ marginTop: 48 }}>DESIGN MY EXPERIENCE <ArrowUpRight size={16} /></a>
       </section>
 
       {/* SERVICES */}
@@ -289,7 +290,7 @@ export default function Page() {
               </div>
             ))}
           </div>
-          <a href="/appointment" className="button button-light">DISCUSS YOUR RETREAT<ArrowUpRight size={16} /></a>
+          <a href="/contact" className="button button-light">DISCUSS YOUR RETREAT<ArrowUpRight size={16} /></a>
         </div>
       </section>
 
@@ -308,7 +309,7 @@ export default function Page() {
             </div>
           ))}
         </div>
-        <a href="/appointment" className="text-link">START WITH A DISCOVERY CALL <ArrowUpRight size={16} /></a>
+        <a href="/contact" className="text-link">START WITH A DISCOVERY CALL <ArrowUpRight size={16} /></a>
       </section>
 
       {/* FOUNDER */}
@@ -333,7 +334,7 @@ export default function Page() {
         <div className="cta-band-inner reveal">
           <h2>{t.cta.split('\n').map((line) => <span key={line}>{line}<br /></span>)}</h2>
           <p>{t.ctaText}</p>
-          <a className="button button-dark" href="/appointment">{t.contact}<ArrowUpRight size={16} /></a>
+          <a className="button button-dark" href="/contact">{t.contact}<ArrowUpRight size={16} /></a>
         </div>
       </section>
 
