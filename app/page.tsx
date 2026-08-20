@@ -63,9 +63,9 @@ export default function Page() {
         </nav>
         <div className="nav-actions">
           <div className="lang-switch">
-            <button className="lang" onClick={() => setGoogleLang('en')} aria-label="English">EN</button>
+            <button className="lang notranslate" onClick={() => setGoogleLang('en')} aria-label="English">EN</button>
             <span className="lang-sep">/</span>
-            <button className="lang" onClick={() => setGoogleLang('it')} aria-label="Italiano">IT</button>
+            <button className="lang notranslate" onClick={() => setGoogleLang('it')} aria-label="Italiano">IT</button>
           </div>
           <button className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)} aria-label={menuOpen ? 'Close menu' : 'Open menu'}>
             {menuOpen ? <X /> : <Menu />}
@@ -138,16 +138,7 @@ export default function Page() {
           </div>
           <div className="vision-right">
             <div className="vision-image reveal">
-              <video
-                src="/why-egypt-video.mp4"
-                poster={images.vision}
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="metadata"
-                aria-label="Egypt desert at golden hour"
-              />
+              <img src={images.vision} alt="Outdoor yoga by the Nile" />
             </div>
             <div className="vision-stats reveal">
               <div className="vision-stat">
