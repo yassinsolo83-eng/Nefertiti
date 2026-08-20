@@ -29,7 +29,7 @@
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; background: var(--background); }
-body { background: var(--background); color: var(--foreground); font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 300; line-height: 1.8; }
+body { background: var(--background); color: var(--foreground); font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 300; line-height: 1.8; overflow-x: hidden; }
 a { color: inherit; text-decoration: none; }
 button { font: inherit; cursor: pointer; }
 img { display: block; max-width: 100%; }
@@ -458,17 +458,13 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
 ══════════════════════════════════ */
 .brand { display: flex; flex-direction: column; align-items: center; gap: 3px; line-height: 1; }
 .brand-badge {
-  display: inline-flex; align-items: center; gap: 5px;
+  display: inline-flex; align-items: center; gap: 4px;
   font-family: 'Montserrat', sans-serif; font-weight: 600;
   font-size: 8px; letter-spacing: .22em; text-transform: uppercase;
   color: var(--gold-deep);
 }
-.brand-badge::before {
-  content: ''; width: 5px; height: 5px; border-radius: 50%;
-  background: var(--gold-deep);
-}
+.brand-badge svg { width: 9px; height: 9px; }
 .site-nav.is-scrolled .brand-badge { color: var(--primary); }
-.site-nav.is-scrolled .brand-badge::before { background: var(--primary); }
 
 /* Get Started — Sarasvvati-style pill with circular arrow */
 .hero-get-started {
@@ -788,8 +784,11 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
   .footer-bottom { grid-column: 1; }
 
   /* INNER PAGES */
-  .page-hero { grid-template-columns: 1fr; padding: 130px 6vw 48px; gap: 28px; }
+  .inner-page { overflow-x: hidden; }
+  .page-hero { grid-template-columns: 1fr; padding: 120px 6vw 40px; gap: 24px; }
   .page-hero-image { order: -1; aspect-ratio: 16/10; }
+  .page-title { font-size: clamp(44px, 15vw, 72px); word-break: break-word; }
+  .page-lead { margin-top: 16px; }
   .appt-block { grid-template-columns: 1fr; gap: 40px; padding: 20px 6vw 90px; }
   .appt-image { min-height: 360px; }
   .contact-block { grid-template-columns: 1fr; gap: 40px; padding: 20px 6vw 70px; }
@@ -799,6 +798,7 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
   .contact-map { padding: 0 6vw 80px; }
   .contact-map iframe { height: 340px; }
   .contact-map-link { left: calc(6vw + 12px); }
+  .appt-form-title, .contact-block-title { font-size: clamp(28px, 7vw, 44px); }
 
   /* FAQ */
   .faq-grid { grid-template-columns: 1fr; gap: 40px; }
