@@ -342,6 +342,13 @@ export const socialLinks = [
   ['TikTok', 'https://tiktok.com'],
 ]
 
+// WhatsApp for the "Book a Discovery Call" CTA.
+// Replace with the real number in international format, digits only (no +, no spaces).
+export const whatsappNumber = '20XXXXXXXXXX'
+export const whatsappMessage = 'Hi Nefertiti! I\'d love to book a discovery call about hosting a retreat in Egypt.'
+export const whatsappLink =
+  `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`
+
 // Egypt-centred map (no fixed pin) — OpenStreetMap embed, licence-free
 export const egyptMapEmbed =
   'https://www.openstreetmap.org/export/embed.html?bbox=24.5%2C22.0%2C36.9%2C31.7&layer=mapnik'
