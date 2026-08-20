@@ -1,272 +1,15 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { ArrowUpRight, Menu, X, Camera, Mail, MapPin } from 'lucide-react'
-
-const images = {
-  logo: '/nefertiti-logo.png',
-  logoDark: '/nefertiti-logo-dark.png',
-  heroMain: '/hero-shirodhara.webp',
-  hero: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/rs%3Dw_984%2Ch_1749-rKfCp42avy5gbGj4dM9sBkVg3ml9Vy.webp',
-  vision: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/rs%3Dw_984%2Ch_1312-yhHGcLxbtC04mHWk2vOjX0Z3EjmrE5.webp',
-  cairo: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/900x600-1-50-130274e45d077f1d2dea84dec9156332-AuyATzxMn5KXFCvsvitJBwOPW3dXJ3.jpg',
-  redSea: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/images-i4fp8DAP6wqHp9zMCVPeRhHJ2faApE.jpg',
-  siwa: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/sound-768x576-eGX9BM3R1R3tOWMSujIcQHKB09RAbX.jpeg',
-  resort: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/images%20%286%29-w13ctS2si3HTM3vqoklR1bxXykK1Lb.jpg',
-  hammam: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/cleaning-woman-in-hammam_2048x2048-bm24VJd5mSMvY45Rtb7e2Kh7GWzeov.webp',
-  boat: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/images%20%284%29-vlT1vQQEG6bjLjkkJO5xPC79mUbp0Z.jpg',
-  founder: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/OZ5A7176-scaled-1-900x600.jpg-xGKlXMGXHBn7aiD6bnPSh0vMbCCsbf.webp',
-}
-
-const copy = {
-  en: {
-    nav: ['About', 'Why Egypt', 'Destinations', 'Experiences', 'Services', 'How It Works', 'Contact'],
-    eyebrow: 'Luxury retreat producer · Egypt & beyond',
-    hero: 'HOST YOUR DREAM RETREAT IN EGYPT',
-    heroText: 'Bespoke retreat production for wellness coaches, facilitators and transformational leaders who want to create something their community will never forget.',
-    heroSupport: 'From the Pyramids to the Red Sea, we design, plan and produce your retreat around your vision, your practice and your people.',
-    explore: 'CREATE YOUR RETREAT',
-    inquire: 'BOOK A DISCOVERY CALL',
-    visionTitle: 'YOU HAVE THE VISION.\nWE HAVE EGYPT.',
-    visionText: 'You already know how you want your guests to feel. You know your practice. You know your community. You know the transformation you want to create. What you need is a trusted team on the ground who understands retreats, events, hospitality and Egypt. That is where we come in.',
-    philosophy: 'DISCOVER OUR STORY',
-    statsHeadline: 'Retreats are deeply personal.\nThat\'s why we treat every one\nas if it were our own.',
-    destinations: 'YOUR RETREAT. YOUR EGYPT.',
-    destinationLabel: 'WHERE WE CREATE',
-    destinationText: 'Choose one destination or let us create a multi-destination journey around your retreat concept.',
-    destMoreLabel: 'EXPLORE MORE OF EGYPT',
-    destCombosTitle: "Or don't choose just one.",
-    destCombosSubtitle: 'Let Egypt become the journey.',
-    destCombosText: "One of Egypt's greatest strengths as a retreat destination is the ability to combine completely different environments within one programme.",
-    destCTA1: 'CREATE MY EGYPT RETREAT',
-    destCTA2: 'HELP ME CHOOSE MY DESTINATIONS',
-    experiences: 'MORE THAN ACTIVITIES. MOMENTS WITH MEANING.',
-    experienceText: 'We select experiences according to your retreat\'s theme and objectives.',
-    bespoke: 'You take care of your people.\nWe take care of the retreat.',
-    bespokeLabel: 'HOW WE WORK',
-    bespokeText: 'Choose the level of support that fits your experience.',
-    process: 'FROM \'WHAT IF?\' TO \'WELCOME TO EGYPT.\'',
-    founder: 'THE FOUNDER',
-    founderText: 'I\'ve always believed retreats are deeply personal. After experiencing retreats myself, I began to understand the difference between taking a holiday and intentionally stepping away from everyday life. Egypt has always been part of my story. And after years of working around events, experiences and international communities, one question kept coming back to me: why aren\'t more wellness leaders bringing their communities here? That\'s why I created Nefertiti.',
-    founderName: 'Azza',
-    founderRole: 'Founder & Retreat Producer',
-    cta: 'YOUR COMMUNITY IS READY.\nWHERE WILL YOU TAKE THEM NEXT?',
-    ctaText: 'Tell us what you teach, who you serve and what you dream of creating. We\'ll show you what that could look like in Egypt.',
-    contact: 'LET\'S CREATE YOUR RETREAT',
-    formTitle: 'START YOUR RETREAT ENQUIRY',
-    formSubmit: 'LET\'S CREATE IT',
-    formAlt: 'or email us directly at hello@nefertitiretreats.com',
-  },
-  it: {
-    nav: ['Chi siamo', 'Perché l\'Egitto', 'Destinazioni', 'Esperienze', 'Servizi', 'Come funziona', 'Contatti'],
-    eyebrow: 'Produzione di ritiri di lusso · Egitto & oltre',
-    hero: 'CREA IL TUO RITIRO IN EGITTO',
-    heroText: 'Produzione di ritiri su misura per coach del benessere, facilitatori e leader trasformazionali che vogliono creare qualcosa di indimenticabile per la loro community.',
-    heroSupport: 'Dalle Piramidi al Mar Rosso, progettiamo, pianifichiamo e produciamo il tuo ritiro intorno alla tua visione, alla tua pratica e alle tue persone.',
-    explore: 'CREA IL TUO RITIRO',
-    inquire: 'PRENOTA UNA CALL CONOSCITIVA',
-    visionTitle: 'TU HAI LA VISIONE.\nNOI ABBIAMO L\'EGITTO.',
-    visionText: 'Sai già come vuoi che si sentano i tuoi ospiti. Conosci la tua pratica. Conosci la tua community. Conosci la trasformazione che vuoi creare. Ciò di cui hai bisogno è un team fidato sul posto che comprenda ritiri, eventi, ospitalità e Egitto. Ed è qui che entriamo in gioco.',
-    philosophy: 'SCOPRI LA NOSTRA STORIA',
-    statsHeadline: 'I ritiri sono profondamente personali.\nPer questo trattiamo ogni uno\ncome se fosse il nostro.',
-    destinations: 'IL TUO RITIRO. IL TUO EGITTO.',
-    destinationLabel: 'DOVE CREIAMO',
-    destinationText: 'Scegli una destinazione o lasciaci creare un percorso multi-destinazione intorno al tuo concetto di ritiro.',
-    destMoreLabel: "SCOPRI ALTRI ANGOLI D'EGITTO",
-    destCombosTitle: 'O non sceglierne solo una.',
-    destCombosSubtitle: "Lascia che l'Egitto diventi il viaggio.",
-    destCombosText: "Uno dei grandi punti di forza dell'Egitto come destinazione per ritiri è la capacità di combinare ambienti completamente diversi in un unico programma.",
-    destCTA1: 'CREA IL MIO RITIRO IN EGITTO',
-    destCTA2: 'AIUTAMI A SCEGLIERE LE DESTINAZIONI',
-    experiences: 'NON SEMPLICI ATTIVITÀ. MOMENTI CON SIGNIFICATO.',
-    experienceText: 'Selezioniamo le esperienze in base al tema e agli obiettivi del tuo ritiro.',
-    bespoke: 'Tu ti prendi cura delle tue persone.\nNoi ci prendiamo cura del ritiro.',
-    bespokeLabel: 'COME LAVORIAMO',
-    bespokeText: 'Scegli il livello di supporto che si adatta alla tua esperienza.',
-    process: 'DA \'E SE?\' A \'BENVENUTI IN EGITTO.\'',
-    founder: 'LA FONDATRICE',
-    founderText: 'Ho sempre creduto che i ritiri siano profondamente personali. Dopo aver vissuto ritiri in prima persona, ho capito la differenza tra una vacanza e un distacco intenzionale dalla vita quotidiana. L\'Egitto è sempre stato parte della mia storia. E dopo anni di lavoro nel mondo degli eventi e delle esperienze internazionali, una domanda continuava a tornarmi: perché non più leader del benessere portano le loro community qui? Per questo ho creato Nefertiti.',
-    founderName: 'Azza',
-    founderRole: 'Fondatrice & Retreat Producer',
-    cta: 'LA TUA COMMUNITY È PRONTA.\nDOVE LA PORTERAI?',
-    ctaText: 'Raccontaci cosa insegni, chi servi e cosa sogni di creare. Ti mostreremo come potrebbe diventare realtà in Egitto.',
-    contact: 'CREIAMO IL TUO RITIRO',
-    formTitle: 'INIZIA LA TUA RICHIESTA',
-    formSubmit: 'CREIAMOLO INSIEME',
-    formAlt: 'oppure scrivici a hello@nefertitiretreats.com',
-  },
-}
-
-const featuredDestinations = [
-  {
-    id: 'cairo',
-    title: 'Cairo & Giza',
-    tagline: 'Ancient Meets Contemporary',
-    feeling: 'Rhythm · History · Connection',
-    image: images.cairo,
-    desc: 'For retreat leaders who want to combine wellness with history, culture, gastronomy and contemporary luxury.',
-    experiences: [
-      'Pyramids of Giza', 'Grand Egyptian Museum', 'Sunrise yoga & meditation',
-      'Nile experiences', 'Historic Cairo', 'Al-Muizz Street', 'Traditional hammams',
-      'Egyptian food experiences', 'Luxury hotels', 'Rooftop dining',
-      'Art & cultural workshops', 'Local artisan experiences',
-    ],
-    idealFor: ['Cultural wellness', "Women's retreats", 'Personal development', 'Mindfulness', 'Leadership retreats', 'Multi-destination'],
-  },
-  {
-    id: 'red-sea',
-    title: 'The Red Sea',
-    tagline: 'Space to Breathe',
-    feeling: 'Salt · Light · Spaciousness',
-    image: images.redSea,
-    desc: 'El Gouna, Hurghada, Soma Bay and selected Red Sea destinations create a slower rhythm built around water, movement, nature and resort wellness.',
-    experiences: [
-      'Beach yoga', 'Sunrise meditation', 'Private boat days', 'Snorkeling & swimming',
-      'Breathwork by the sea', 'Spa treatments', 'Sound healing', 'Water activities',
-      'Luxury resort stays', 'Sunset sessions', 'Yacht experiences', 'Desert & sea combinations',
-    ],
-    idealFor: ['Yoga', 'Fitness', 'Pilates', 'Mindfulness', 'Breathwork', 'Luxury wellness', 'Corporate wellbeing'],
-  },
-  {
-    id: 'luxor-aswan',
-    title: 'Luxor & Aswan',
-    tagline: 'Let the Retreat Move With You',
-    feeling: 'Ancient · Ceremonial · Timeless',
-    image: images.boat,
-    desc: 'The Nile, temples, archaeological sites and desert create several distinct environments — connected by a dahabiya or luxury Nile cruise. Morning practice. Days exploring. Quiet afternoons on the river.',
-    experiences: [
-      'Sunrise hot-air balloon', 'Felucca & dahabiya sailing', 'Yoga overlooking the Nile',
-      'Meditation by the river', 'Temple visits', 'Karnak & Luxor Temple', 'West Bank experiences',
-      'Nubian villages & culture', 'Private dinners', 'Sunset river sessions', 'Cultural storytelling',
-    ],
-    idealFor: ['Cultural immersion', 'Mindfulness', 'Personal development', 'Yoga', 'Transformational journeys', 'Premium retreats'],
-  },
-  {
-    id: 'siwa',
-    title: 'Siwa Oasis',
-    tagline: 'Disconnect to Reconnect',
-    feeling: 'Silence · Surrender · Timeless',
-    image: images.siwa,
-    desc: 'Surrounded by desert, palm groves, natural springs and salt lakes, Siwa offers an intimate environment for smaller groups seeking privacy and deep immersion.',
-    experiences: [
-      'Salt lake experiences', 'Desert excursions', 'Natural springs', 'Meditation & breathwork',
-      'Stargazing', 'Local food & culture', 'Palm grove sessions', 'Desert sunsets',
-      'Journaling', 'Small group circles', 'Traditional crafts',
-    ],
-    idealFor: ['Intimate retreats', 'Mindfulness', "Women's retreats", 'Creative retreats', 'Digital detox', 'Slowing down'],
-  },
-  {
-    id: 'desert',
-    title: 'The Desert',
-    tagline: 'Silence Has Its Own Language',
-    feeling: 'Stillness · Stars · Space',
-    image: images.vision,
-    desc: "Egypt's desert gives retreat leaders something completely different from a conventional resort. Open space and fewer distractions create an extraordinary setting for reflection, creativity and connection.",
-    experiences: [
-      'Meditation & breathwork', 'Journaling', 'Sound ceremonies', "Women's circles",
-      'Mindful walking', 'Stargazing', 'Desert dining', 'Sunrise practices',
-      'Overnight desert experiences', 'Private ceremonies', 'Digital detox',
-    ],
-    idealFor: ['Meditation', 'Mindfulness', 'Spiritual retreats', "Women's circles", 'Creative retreats', 'Personal development'],
-  },
-]
-
-const moreDestinations = [
-  {
-    title: 'Cairo Countryside & Farms',
-    tagline: 'Slow Down. Come Back to Nature.',
-    image: images.hammam,
-    idealFor: ['Nutrition retreats', 'Digital detox', 'Creative retreats', 'Team retreats'],
-  },
-  {
-    title: 'Fayoum',
-    tagline: 'Nature Within Reach',
-    image: images.vision,
-    idealFor: ['Weekend retreats', 'Creativity', 'Yoga', 'Nature programmes'],
-  },
-  {
-    title: 'Dahab & South Sinai',
-    tagline: 'Mountains. Sea. Simplicity.',
-    image: images.redSea,
-    idealFor: ['Adventure wellness', 'Yoga', 'Breathwork', 'Fitness'],
-  },
-  {
-    title: 'Marsa Alam',
-    tagline: 'Wild Red Sea',
-    image: images.boat,
-    idealFor: ['Nature retreats', 'Mindfulness', 'Yoga', 'Digital detox'],
-  },
-  {
-    title: 'Sharm El Sheikh',
-    tagline: 'Resort Wellness Meets Sinai',
-    image: images.resort,
-    idealFor: ['Larger groups', 'Corporate wellness', 'Luxury wellness'],
-  },
-  {
-    title: 'Soma Bay',
-    tagline: 'Wellness by the Water',
-    image: images.resort,
-    idealFor: ['Premium wellness', 'Yoga', 'Executive wellbeing'],
-  },
-  {
-    title: 'North Coast',
-    tagline: 'Mediterranean Egypt',
-    image: images.hero,
-    idealFor: ['Summer wellness', 'Fitness', 'Corporate retreats'],
-  },
-]
-
-const combinations = [
-  'Cairo + Red Sea',
-  'Cairo + Fayoum',
-  'Cairo + Siwa',
-  'Cairo + Luxor + Aswan',
-  'Luxor + Nile Journey + Aswan',
-  'Cairo + Countryside + Red Sea',
-  'Cairo + Desert + Red Sea',
-  'Cairo + Luxor + Red Sea',
-]
-
-const experiences = [
-  { title: 'Hammam rituals', text: 'Traditional Egyptian purification rituals, steam and ancient beauty practices.', image: images.hammam },
-  { title: 'Sound healing', text: 'Gongs, singing bowls and breath in spaces designed for deep listening.', image: images.siwa },
-  { title: 'Felucca sunsets', text: 'Private sailing on the Nile as the sky turns gold.', image: images.boat },
-  { title: 'Sunrise yoga', text: 'Movement at dawn, beside the Pyramids, the sea or the desert.', image: images.hero },
-  { title: 'Desert breathwork', text: 'Open sky, silence and breath in Egypt\'s most ancient landscape.', image: images.vision },
-  { title: 'Egyptian beauty workshops', text: 'Natural oils, herbs and traditional skincare rituals.', image: images.resort },
-]
-
-const serviceTiers = [
-  {
-    num: 'I',
-    title: 'RETREAT CONSULTATION',
-    desc: 'For coaches who have an idea but need help turning it into a viable retreat.',
-    items: ['Discovery session', 'Destination consultation', 'Concept development', 'Preliminary itinerary', 'Venue recommendations', 'Budget framework'],
-  },
-  {
-    num: 'II',
-    title: 'RETREAT DESIGN & PLANNING',
-    desc: 'For coaches who want us to develop the complete retreat with them.',
-    items: ['Everything in Consultation', 'Detailed itinerary', 'Accommodation sourcing', 'Hotel negotiations', 'Transportation', 'Activity sourcing', 'Wellness suppliers', 'Budget management'],
-  },
-  {
-    num: 'III',
-    title: 'FULL RETREAT PRODUCTION',
-    desc: 'Our complete end-to-end service. You arrive and lead. We manage the experience.',
-    items: ['Complete design', 'Hotel management', 'Airport transfers', 'Supplier management', 'On-site production', 'Photography coordination', 'Multilingual support'],
-  },
-]
-
-const steps = [
-  ["LET'S TALK", 'Tell us about your practice, community, preferred dates, group size and budget.'],
-  ['WE UNDERSTAND YOUR VISION', 'We explore what you want your guests to feel, learn and experience.'],
-  ['WE CREATE THE CONCEPT', 'We recommend destinations, accommodation and experiences that fit your retreat.'],
-  ['YOU RECEIVE YOUR PROPOSAL', 'A tailored retreat concept including itinerary, logistics and budget.'],
-  ['WE BUILD IT', 'Once approved, we begin bookings, negotiations and production.'],
-  ['YOU BRING YOUR COMMUNITY', 'You focus on preparing your programme and your guests.'],
-  ['WELCOME TO EGYPT', 'Our team receives you and manages the retreat on the ground.'],
-  ['YOU LEAD. WE PRODUCE.', 'You focus on what you do best. We remain behind the scenes.'],
-]
+import {
+  images, copy, featuredDestinations, moreDestinations,
+  combinations, experiences, serviceTiers, steps,
+  type Destination,
+} from '@/lib/data'
+import DestinationModal from '@/components/DestinationModal'
+import { useKeyhole } from '@/hooks/useKeyhole'
+import { setGoogleLang } from '@/hooks/useGoogleTranslate'
 
 export default function Page() {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -281,90 +24,9 @@ export default function Page() {
   const [introDone, setIntroDone] = useState(false)
   const t = copy.en
 
-  // Google Translate control — restricted to EN/IT only
-  const setGoogleLang = (target: 'en' | 'it') => {
-    const domain = window.location.hostname
-    const cookieDomains = ['', domain, '.' + domain]
-    if (target === 'en') {
-      // clear the translate cookie to return to the original (English)
-      cookieDomains.forEach(d => {
-        document.cookie = `googtrans=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/${d ? ';domain=' + d : ''}`
-      })
-    } else {
-      cookieDomains.forEach(d => {
-        document.cookie = `googtrans=/en/it;path=/${d ? ';domain=' + d : ''}`
-      })
-    }
-    window.location.reload()
-  }
+  // scroll-driven Ankh intro + nav state + reveal animations
+  useKeyhole({ setIntroDone, setScrolled })
 
-  useEffect(() => {
-    // ── KEYHOLE INTRO — scroll-driven open/close ──
-    const track = document.getElementById('kh-track')
-    const hole = document.getElementById('kh-hole')
-    const ring = document.getElementById('kh-ring')
-    const darkRect = document.getElementById('kh-dark')
-    const ui = document.getElementById('kh-ui')
-    const hint = document.getElementById('kh-hint')
-
-    const isMobile = window.innerWidth <= 860
-    const MIN = isMobile ? 4.4 : 3.2   // larger visible Ankh on mobile
-    const MAX = 42    // large enough to fully clear the viewport at end of track
-    const clamp = (v: number, a: number, b: number) => Math.min(b, Math.max(a, v))
-    const smooth = (x: number) => x * x * (3 - 2 * x)
-
-    const updateKeyhole = () => {
-      if (!track || !hole || !ring || !darkRect) return
-      const rect = track.getBoundingClientRect()
-      const range = track.offsetHeight - window.innerHeight
-      const p = clamp(-rect.top / range, 0, 1)
-
-      // keyhole finishes opening at 75% of the track; the last 25% holds the
-      // hero fully revealed (a beat of pause) before the site scrolls on.
-      const OPEN_AT = 0.75
-      const op = clamp(p / OPEN_AT, 0, 1)
-
-      const s = MIN + (MAX - MIN) * smooth(op)
-      const tf = `translate(500 500) scale(${s}) translate(-50 -50)`
-      hole.setAttribute('transform', tf)
-      ring.setAttribute('transform', tf)
-
-      // clean finish: fade dark overlay out as the keyhole completes
-      const darkOp = op > 0.92 ? clamp(1 - (op - 0.92) / 0.08, 0, 1) : 1
-      darkRect.setAttribute('opacity', String(darkOp))
-
-      const uiOp = clamp(1 - op / 0.45, 0, 1)
-      if (ui) ui.style.opacity = String(uiOp)
-      ring.setAttribute('opacity', String(uiOp))
-      if (hint) hint.style.opacity = String(uiOp)
-
-      // overlay is fully out once the keyhole finishes opening
-      setIntroDone(op >= 1)
-    }
-
-    const onScroll = () => {
-      // nav stays transparent while the hero/intro track is on screen;
-      // it only turns solid once we've scrolled past the hero
-      const track = document.getElementById('kh-track')
-      const heroBottom = track ? track.offsetHeight - 80 : 24
-      setScrolled(window.scrollY > heroBottom)
-      updateKeyhole()
-    }
-    window.addEventListener('scroll', onScroll, { passive: true })
-    window.addEventListener('resize', updateKeyhole)
-    updateKeyhole()
-
-    const observer = new IntersectionObserver(
-      (entries) => entries.forEach((entry) => entry.isIntersecting && entry.target.classList.add('is-visible')),
-      { threshold: 0.1 }
-    )
-    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el))
-    return () => {
-      window.removeEventListener('scroll', onScroll)
-      window.removeEventListener('resize', updateKeyhole)
-      observer.disconnect()
-    }
-  }, [])
 
   const closeMenu = () => setMenuOpen(false)
 
@@ -383,7 +45,8 @@ export default function Page() {
     setFormSent(true)
   }
 
-  const activeDest = featuredDestinations.find(d => d.id === activeDestId) ?? null
+  const allDestinations = [...featuredDestinations, ...moreDestinations]
+  const activeDest = allDestinations.find(d => d.id === activeDestId) ?? null
 
   return (
     <>
@@ -532,62 +195,28 @@ export default function Page() {
           ))}
         </div>
 
-        {/* Detail modal overlay */}
-        {activeDest && (
-          <div className="dest-modal-overlay" onClick={() => setActiveDestId(null)}>
-            <div className="dest-modal" onClick={(e) => e.stopPropagation()}>
-              <button
-                className="dest-modal-close"
-                onClick={() => setActiveDestId(null)}
-                aria-label="Close"
-              >✕</button>
-              <div className="dest-modal-media">
-                <img src={activeDest.image} alt={activeDest.title} />
-              </div>
-              <div className="dest-modal-content">
-                <p className="dest-modal-feeling">{activeDest.feeling}</p>
-                <h2 className="dest-modal-title">{activeDest.title}</h2>
-                <p className="dest-modal-tagline">{activeDest.tagline}</p>
-                <p className="dest-modal-desc">{activeDest.desc}</p>
-
-                <p className="dest-sub-label">Possible experiences</p>
-                <div className="dest-tags">
-                  {activeDest.experiences.map(exp => (
-                    <span key={exp} className="dest-tag">{exp}</span>
-                  ))}
-                </div>
-
-                <p className="dest-sub-label">Ideal for</p>
-                <div className="dest-tags">
-                  {activeDest.idealFor.map(tag => (
-                    <span key={tag} className="dest-tag dest-tag-ideal">{tag}</span>
-                  ))}
-                </div>
-
-                <a href="#contact" className="button button-gold dest-modal-cta" onClick={() => setActiveDestId(null)}>
-                  Create a retreat here <ArrowUpRight size={14} />
-                </a>
-              </div>
-            </div>
-          </div>
-        )}
+        {/* Detail modal overlay (shared by featured + more destinations) */}
+        <DestinationModal destination={activeDest} onClose={() => setActiveDestId(null)} />
 
         {/* More destinations — secondary 7 */}
         <div className="dest-more-section">
           <p className="dest-more-label reveal">{t.destMoreLabel}</p>
           <div className="dest-more-grid">
             {moreDestinations.map((dest, i) => (
-              <a
-                key={dest.title}
-                href="#contact"
+              <article
+                key={dest.id}
                 className={`dest-more-card reveal delay-${(i % 3) + 1}`}
+                onClick={() => setActiveDestId(dest.id)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && setActiveDestId(dest.id)}
               >
                 <img src={dest.image} alt={dest.title} />
                 <div className="dest-more-body">
                   <h3>{dest.title}</h3>
                   <span className="dest-more-link">View details <ArrowUpRight size={13} /></span>
                 </div>
-              </a>
+              </article>
             ))}
           </div>
         </div>

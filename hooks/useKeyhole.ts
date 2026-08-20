@@ -1,0 +1,84 @@
+'use client'
+
+import { useEffect } from 'react'
+
+type Setters = {
+  setIntroDone: (v: boolean) => void
+  setScrolled: (v: boolean) => void
+}
+
+/**
+ * Drives the scroll-based Ankh intro:
+ *  - the Ankh grows as the user scrolls through the #kh-track
+ *  - it finishes opening at 75% of the track, holding the hero for the last 25%
+ *  - also toggles the transparent/solid nav and the .reveal animations
+ */
+export function useKeyhole({ setIntroDone, setScrolled }: Setters) {
+  useEffect(() => {
+    const hole = document.getElementById('kh-hole')
+    const ring = document.getElementById('kh-ring')
+    const darkRect = document.getElementById('kh-dark')
+    const ui = document.getElementById('kh-ui')
+    const hint = document.getElementById('kh-hint')
+
+    const isMobile = window.innerWidth <= 860
+    const MIN = isMobile ? 4.4 : 3.2 // larger visible Ankh on mobile
+    const MAX = 42 // large enough to fully clear the viewport at end of track
+    const clamp = (v: number, a: number, b: number) => Math.min(b, Math.max(a, v))
+    const smooth = (x: number) => x * x * (3 - 2 * x)
+
+    const updateKeyhole = () => {
+      const track = document.getElementById('kh-track')
+      if (!track || !hole || !ring || !darkRect) return
+      const rect = track.getBoundingClientRect()
+      const range = track.offsetHeight - window.innerHeight
+      const p = clamp(-rect.top / range, 0, 1)
+
+      // keyhole finishes opening at 75% of the track; the last 25% holds the
+      // hero fully revealed (a beat of pause) before the site scrolls on.
+      const OPEN_AT = 0.75
+      const op = clamp(p / OPEN_AT, 0, 1)
+
+      const s = MIN + (MAX - MIN) * smooth(op)
+      const tf = `translate(500 500) scale(${s}) translate(-50 -50)`
+      hole.setAttribute('transform', tf)
+      ring.setAttribute('transform', tf)
+
+      // clean finish: fade dark overlay out as the keyhole completes
+      const darkOp = op > 0.92 ? clamp(1 - (op - 0.92) / 0.08, 0, 1) : 1
+      darkRect.setAttribute('opacity', String(darkOp))
+
+      const uiOp = clamp(1 - op / 0.45, 0, 1)
+      if (ui) ui.style.opacity = String(uiOp)
+      ring.setAttribute('opacity', String(uiOp))
+      if (hint) hint.style.opacity = String(uiOp)
+
+      setIntroDone(op >= 1)
+    }
+
+    const onScroll = () => {
+      // nav stays transparent while the hero/intro track is on screen;
+      // it only turns solid once we've scrolled past the hero
+      const track = document.getElementById('kh-track')
+      const heroBottom = track ? track.offsetHeight - 80 : 24
+      setScrolled(window.scrollY > heroBottom)
+      updateKeyhole()
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', updateKeyhole)
+    updateKeyhole()
+
+    const observer = new IntersectionObserver(
+      (entries) => entries.forEach((entry) => entry.isIntersecting && entry.target.classList.add('is-visible')),
+      { threshold: 0.1 }
+    )
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el))
+
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', updateKeyhole)
+      observer.disconnect()
+    }
+  }, [setIntroDone, setScrolled])
+}
