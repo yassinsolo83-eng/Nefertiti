@@ -1,48 +1,32 @@
 'use client'
 
 import { useState } from 'react'
-import { ArrowUpRight, Menu, X, Camera, Mail, MapPin } from 'lucide-react'
+import { ArrowUpRight } from 'lucide-react'
 import {
   images, copy, featuredDestinations, moreDestinations,
-  combinations, experiences, serviceTiers, steps,
-  type Destination,
+  combinations, experiences, serviceTiers, steps, faqs,
 } from '@/lib/data'
 import DestinationModal from '@/components/DestinationModal'
+import SiteNav from '@/components/SiteNav'
+import SiteFooter from '@/components/SiteFooter'
 import { useKeyhole } from '@/hooks/useKeyhole'
-import { setGoogleLang } from '@/hooks/useGoogleTranslate'
 
 export default function Page() {
-  const [menuOpen, setMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [activeDestId, setActiveDestId] = useState<string | null>(null)
-  const [formData, setFormData] = useState({
-    name: '', email: '', whatsapp: '', country: '', website: '',
-    practice: '', guests: '', dates: '', destination: '', budget: '',
-    hosted: '', vision: '',
-  })
-  const [formSent, setFormSent] = useState(false)
   const [introDone, setIntroDone] = useState(false)
+  const [openFaq, setOpenFaq] = useState<number | null>(0)
   const t = copy.en
 
   // scroll-driven Ankh intro + nav state + reveal animations
   useKeyhole({ setIntroDone, setScrolled })
 
-
-  const closeMenu = () => setMenuOpen(false)
-
+  // Smooth-scroll for in-page anchors coming from SiteNav (hrefs like "/#vision")
   const navTo = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault()
-    closeMenu()
-    const el = document.querySelector(href)
+    const id = href.replace(/^\/?#/, '#')
+    const el = document.querySelector(id)
     if (el) el.scrollIntoView({ behavior: 'smooth' })
-  }
-
-  const handleField = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }))
-
-  const handleSubmit = (e: React.MouseEvent) => {
-    e.preventDefault()
-    setFormSent(true)
   }
 
   const allDestinations = [...featuredDestinations, ...moreDestinations]
@@ -52,26 +36,7 @@ export default function Page() {
     <>
     <main>
       {/* NAV */}
-      <header className={`site-nav ${scrolled ? 'is-scrolled' : ''} ${menuOpen ? 'menu-open' : ''} ${introDone ? '' : 'nav-hidden'}`}>
-        <a href="#top" className="brand" onClick={closeMenu}>
-          <img src={images.logoDark} alt="Nefertiti Luxury Retreat Producer" />
-        </a>
-        <nav className={`site-links ${menuOpen ? 'open' : ''}`} aria-label="Main navigation">
-          {[['About', '#about'], ['Why Egypt', '#vision'], ['Destinations', '#destinations'], ['Experiences', '#experiences'], ['Services', '#services'], ['How It Works', '#process'], ['Contact', '#contact']].map(([item, href]) => (
-            <a key={item} href={href} onClick={(e) => navTo(e, href)}>{item}</a>
-          ))}
-        </nav>
-        <div className="nav-actions">
-          <div className="lang-switch">
-            <button className="lang" onClick={() => setGoogleLang('en')} aria-label="English">EN</button>
-            <span className="lang-sep">/</span>
-            <button className="lang" onClick={() => setGoogleLang('it')} aria-label="Italiano">IT</button>
-          </div>
-          <button className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)} aria-label={menuOpen ? 'Close menu' : 'Open menu'}>
-            {menuOpen ? <X /> : <Menu />}
-          </button>
-        </div>
-      </header>
+      <SiteNav scrolled={scrolled} hidden={!introDone} onAnchor={navTo} />
 
       {/* HERO + KEYHOLE INTRO — scroll-driven reveal */}
       <div id="kh-track" className="kh-track">
@@ -92,9 +57,13 @@ export default function Page() {
             <div className="hero-content reveal">
               <h1>{t.hero}</h1>
               <div className="hero-buttons">
-                <a className="button button-gold" href="#contact">{t.explore}<ArrowUpRight size={16} /></a>
-                <a className="button button-ghost" href="#contact">{t.inquire}</a>
+                <a className="button button-gold" href="/appointment">{t.explore}<ArrowUpRight size={16} /></a>
+                <a className="button button-ghost" href="/contact">{t.inquire}</a>
               </div>
+              <a className="hero-get-started" href="/appointment">
+                <span>Get Started</span>
+                <span className="hero-get-started-circle"><ArrowUpRight size={18} /></span>
+              </a>
             </div>
           </section>
 
@@ -243,8 +212,8 @@ export default function Page() {
             ))}
           </div>
           <div className="dest-combo-actions">
-            <a href="#contact" className="button button-gold">{t.destCTA1} <ArrowUpRight size={14} /></a>
-            <a href="#contact" className="button button-ghost">{t.destCTA2}</a>
+            <a href="/appointment" className="button button-gold">{t.destCTA1} <ArrowUpRight size={14} /></a>
+            <a href="/contact" className="button button-ghost">{t.destCTA2}</a>
           </div>
         </div>
       </section>
@@ -270,7 +239,7 @@ export default function Page() {
             </article>
           ))}
         </div>
-        <a href="#contact" className="text-link" style={{ marginTop: 48 }}>DESIGN MY EXPERIENCE <ArrowUpRight size={16} /></a>
+        <a href="/appointment" className="text-link" style={{ marginTop: 48 }}>DESIGN MY EXPERIENCE <ArrowUpRight size={16} /></a>
       </section>
 
       {/* SERVICES */}
@@ -296,7 +265,7 @@ export default function Page() {
               </div>
             ))}
           </div>
-          <a href="#contact" className="button button-light">DISCUSS YOUR RETREAT<ArrowUpRight size={16} /></a>
+          <a href="/appointment" className="button button-light">DISCUSS YOUR RETREAT<ArrowUpRight size={16} /></a>
         </div>
       </section>
 
@@ -315,7 +284,7 @@ export default function Page() {
             </div>
           ))}
         </div>
-        <a href="#contact" className="text-link">START WITH A DISCOVERY CALL <ArrowUpRight size={16} /></a>
+        <a href="/appointment" className="text-link">START WITH A DISCOVERY CALL <ArrowUpRight size={16} /></a>
       </section>
 
       {/* FOUNDER */}
@@ -331,7 +300,7 @@ export default function Page() {
             {t.founderName}<br />
             <span>{t.founderRole}</span>
           </p>
-          <a href="#contact" className="text-link">LET&apos;S TALK ABOUT YOUR IDEA <ArrowUpRight size={16} /></a>
+          <a href="/contact" className="text-link">LET&apos;S TALK ABOUT YOUR IDEA <ArrowUpRight size={16} /></a>
         </div>
       </section>
 
@@ -340,173 +309,44 @@ export default function Page() {
         <div className="cta-band-inner reveal">
           <h2>{t.cta.split('\n').map((line) => <span key={line}>{line}<br /></span>)}</h2>
           <p>{t.ctaText}</p>
-          <a className="button button-dark" href="#contact">{t.contact}<ArrowUpRight size={16} /></a>
+          <a className="button button-dark" href="/appointment">{t.contact}<ArrowUpRight size={16} /></a>
         </div>
       </section>
 
-      {/* CONTACT FORM */}
-      <section id="contact" className="contact-section">
-        <img src={images.resort} alt="Retreat venue" className="contact-bg" />
-        <div className="contact-overlay" />
-        <div className="contact-inner reveal">
-          <p className="eyebrow" style={{ color: 'var(--gold)', marginBottom: 14 }}>NEFERTITI LUXURY RETREAT PRODUCER</p>
-          <h2 className="contact-headline">Your retreat could start<br />with one conversation.</h2>
-          <p className="contact-sub">You don&apos;t need to have everything figured out. Tell us what you teach, who you serve and what you&apos;d love them to experience.</p>
-
-          {formSent ? (
-            <div className="form-success">
-              <h3>Thank you.</h3>
-              <p>We&apos;ve received your enquiry and will be in touch within 48 hours.</p>
+      {/* FAQ */}
+      <section id="faq" className="section faq">
+        <div className="faq-grid">
+          <div className="faq-aside reveal">
+            <div className="faq-aside-image">
+              <img src={images.hammam} alt="A quiet ritual moment" />
             </div>
-          ) : (
-            <div className="contact-form">
-              <p className="form-label">{t.formTitle}</p>
+            <p className="faq-aside-text">If you have any questions, feel free to reach out to our team.</p>
+            <a href="/contact" className="button button-berry">Ask Question <ArrowUpRight size={16} /></a>
+          </div>
 
-              <div className="form-row">
-                <div className="form-field full">
-                  <label>Your Name</label>
-                  <input name="name" value={formData.name} onChange={handleField} placeholder="Your full name" />
+          <div className="faq-main reveal">
+            <div className="section-label">06 / FREQUENTLY ASKED</div>
+            <h2 className="faq-title">Frequently Asked Questions</h2>
+            <div className="faq-list">
+              {faqs.map(([q, a], i) => (
+                <div
+                  className={`faq-item ${openFaq === i ? 'is-open' : ''}`}
+                  key={q}
+                >
+                  <button className="faq-question" onClick={() => setOpenFaq(openFaq === i ? null : i)} aria-expanded={openFaq === i}>
+                    <span>{q}</span>
+                    <span className="faq-icon" aria-hidden="true">{openFaq === i ? '↑' : '↓'}</span>
+                  </button>
+                  <div className="faq-answer"><p>{a}</p></div>
                 </div>
-              </div>
-
-              <div className="form-row two">
-                <div className="form-field">
-                  <label>Email Address</label>
-                  <input name="email" type="email" value={formData.email} onChange={handleField} placeholder="your@email.com" />
-                </div>
-                <div className="form-field">
-                  <label>WhatsApp Number</label>
-                  <input name="whatsapp" value={formData.whatsapp} onChange={handleField} placeholder="+1 234 567 890" />
-                </div>
-              </div>
-
-              <div className="form-row two">
-                <div className="form-field">
-                  <label>Country</label>
-                  <input name="country" value={formData.country} onChange={handleField} placeholder="Your country" />
-                </div>
-                <div className="form-field">
-                  <label>Website or Instagram</label>
-                  <input name="website" value={formData.website} onChange={handleField} placeholder="@handle or website.com" />
-                </div>
-              </div>
-
-              <div className="form-row">
-                <div className="form-field full">
-                  <label>Type of Wellness Practice</label>
-                  <select name="practice" value={formData.practice} onChange={handleField}>
-                    <option value="">Select your practice</option>
-                    <option>Yoga</option>
-                    <option>Meditation</option>
-                    <option>Breathwork</option>
-                    <option>Sound Healing</option>
-                    <option>Women&apos;s Coaching</option>
-                    <option>Life Coaching</option>
-                    <option>Fitness</option>
-                    <option>Nutrition</option>
-                    <option>Psychology / Therapy</option>
-                    <option>Leadership Coaching</option>
-                    <option>Corporate Wellness</option>
-                    <option>Other</option>
-                  </select>
-                </div>
-              </div>
-
-              <div className="form-row two">
-                <div className="form-field">
-                  <label>Estimated Number of Guests</label>
-                  <input name="guests" value={formData.guests} onChange={handleField} placeholder="e.g. 10–15" />
-                </div>
-                <div className="form-field">
-                  <label>Preferred Dates</label>
-                  <input name="dates" value={formData.dates} onChange={handleField} placeholder="e.g. March 2026" />
-                </div>
-              </div>
-
-              <div className="form-row two">
-                <div className="form-field">
-                  <label>Preferred Destination</label>
-                  <select name="destination" value={formData.destination} onChange={handleField}>
-                    <option value="">Select destination</option>
-                    <option>Cairo & Giza</option>
-                    <option>The Red Sea</option>
-                    <option>Luxor & Aswan</option>
-                    <option>Siwa Oasis</option>
-                    <option>The Desert</option>
-                    <option>Cairo Countryside & Farms</option>
-                    <option>Fayoum</option>
-                    <option>Dahab & South Sinai</option>
-                    <option>Marsa Alam</option>
-                    <option>Sharm El Sheikh</option>
-                    <option>Soma Bay</option>
-                    <option>North Coast</option>
-                    <option>Multi-destination journey</option>
-                    <option>Not sure yet</option>
-                  </select>
-                </div>
-                <div className="form-field">
-                  <label>Approximate Budget per Guest</label>
-                  <input name="budget" value={formData.budget} onChange={handleField} placeholder="e.g. €1,500–2,500" />
-                </div>
-              </div>
-
-              <div className="form-row">
-                <div className="form-field full">
-                  <label>Have You Hosted a Retreat Before?</label>
-                  <select name="hosted" value={formData.hosted} onChange={handleField}>
-                    <option value="">Select an option</option>
-                    <option>Yes, several times</option>
-                    <option>Yes, once or twice</option>
-                    <option>No — it will be my first time</option>
-                  </select>
-                </div>
-              </div>
-
-              <div className="form-row">
-                <div className="form-field full">
-                  <label>Tell Us About Your Retreat Vision</label>
-                  <textarea name="vision" value={formData.vision} onChange={handleField} placeholder="Share as much or as little as you like..." rows={4} />
-                </div>
-              </div>
-
-              <button className="form-submit" onClick={handleSubmit}>{t.formSubmit} <ArrowUpRight size={16} /></button>
-              <p className="form-alt">{t.formAlt}</p>
+              ))}
             </div>
-          )}
+          </div>
         </div>
       </section>
 
       {/* FOOTER */}
-      <footer>
-        <div className="footer-brand">
-          <img src={images.logo} alt="Nefertiti Luxury Retreat Producer" />
-          <p>You lead the transformation. We create the experience.</p>
-          <p>Based between Egypt &amp; Italy.</p>
-        </div>
-        <div className="footer-links">
-          <div>
-            <p className="footer-label">Navigate</p>
-            <a href="#about">About</a>
-            <a href="#vision">Why Egypt</a>
-            <a href="#destinations">Destinations</a>
-            <a href="#experiences">Experiences</a>
-            <a href="#services">Services</a>
-            <a href="#process">How It Works</a>
-            <a href="#contact">Contact</a>
-          </div>
-          <div>
-            <p className="footer-label">Contact</p>
-            <a href="mailto:hello@nefertitiretreats.com"><Mail size={14} /> hello@nefertitiretreats.com</a>
-            <p><MapPin size={14} /> Cairo · Siwa · Everywhere</p>
-            <a href="#top"><Camera size={14} /> Instagram</a>
-          </div>
-        </div>
-        <div className="footer-bottom">
-          <span>© 2026 Nefertiti Retreats</span>
-          <span className="notranslate">Translations powered by Google · Traduzioni offerte da Google</span>
-          <span>Made with presence</span>
-        </div>
-      </footer>
+      <SiteFooter />
 
       {/* Back to top — lotus-inspired */}
       <button

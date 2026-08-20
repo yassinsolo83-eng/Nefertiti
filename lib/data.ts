@@ -293,6 +293,60 @@ export const steps = [
   ['YOU LEAD. WE PRODUCE.', 'You focus on what you do best. We remain behind the scenes.'],
 ]
 
+// ── FAQ (home page) ──
+export const faqs: [question: string, answer: string][] = [
+  [
+    'Do I need to have hosted a retreat before?',
+    'Not at all. Many of our hosts are running their first retreat. We guide you through every decision — from concept and destination to the smallest detail on the ground.',
+  ],
+  [
+    'What kind of retreats do you produce?',
+    'Yoga, meditation, breathwork, sound healing, women\'s circles, coaching intensives, corporate wellbeing and more. If your practice creates transformation, we can build a retreat around it.',
+  ],
+  [
+    'How far in advance should we start planning?',
+    'Ideally four to six months before your preferred dates. That said, we\'ve produced beautiful retreats on shorter timelines — reach out and we\'ll tell you honestly what\'s possible.',
+  ],
+  [
+    'Can you handle everything, or only parts of it?',
+    'Both. Choose full production and we manage every element, or select support for specific pieces — venues, experiences, logistics — while you keep control of the rest.',
+  ],
+  [
+    'What does a retreat with Nefertiti cost?',
+    'Every retreat is bespoke, so pricing depends on destination, group size, duration and the experiences you choose. Tell us your vision and we\'ll build a transparent proposal around it.',
+  ],
+]
+
+// ── Appointment page ──
+export const appointmentServices = [
+  'Retreat Consultation',
+  'Retreat Design & Planning',
+  'Full Retreat Production',
+  'Destination Scouting',
+  'Multi-destination Journey',
+  'Corporate Wellbeing Retreat',
+  'Not sure yet',
+]
+
+export const clinicHours = [
+  ['Sunday – Thursday', '9:00 AM – 6:00 PM'],
+  ['Saturday', '10:00 AM – 2:00 PM'],
+  ['Friday', 'By appointment'],
+]
+
+// ── Contact page ──
+export const socialLinks = [
+  ['Instagram', 'https://instagram.com'],
+  ['X (Twitter)', 'https://x.com'],
+  ['Facebook', 'https://facebook.com'],
+  ['TikTok', 'https://tiktok.com'],
+]
+
+// Egypt-centred map (no fixed pin) — OpenStreetMap embed, licence-free
+export const egyptMapEmbed =
+  'https://www.openstreetmap.org/export/embed.html?bbox=24.5%2C22.0%2C36.9%2C31.7&layer=mapnik'
+export const egyptMapLink = 'https://www.openstreetmap.org/#map=6/26.8/30.8'
+
 // ── Shared types ──
 export type Destination = {
   id: string

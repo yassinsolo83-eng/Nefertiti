@@ -450,6 +450,222 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
 .reveal.is-visible { opacity: 1; transform: none; }
 .delay-1 { transition-delay: .1s; } .delay-2 { transition-delay: .2s; } .delay-3 { transition-delay: .3s; } .delay-4 { transition-delay: .4s; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .reveal { opacity: 1; transform: none; transition: none; } }
+/* Inner pages have no scroll-observer — reveal immediately */
+.reveal.is-in { opacity: 1; transform: none; }
+
+/* ══════════════════════════════════
+   NAV — EGYPT badge above logo
+══════════════════════════════════ */
+.brand { display: flex; flex-direction: column; align-items: center; gap: 3px; line-height: 1; }
+.brand-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-family: 'Montserrat', sans-serif; font-weight: 600;
+  font-size: 8px; letter-spacing: .22em; text-transform: uppercase;
+  color: var(--gold-deep);
+}
+.brand-badge::before {
+  content: ''; width: 5px; height: 5px; border-radius: 50%;
+  background: var(--gold-deep);
+}
+.site-nav.is-scrolled .brand-badge { color: var(--primary); }
+.site-nav.is-scrolled .brand-badge::before { background: var(--primary); }
+
+/* Get Started — Sarasvvati-style pill with circular arrow */
+.hero-get-started {
+  display: inline-flex; align-items: center; gap: 14px; margin-top: 26px;
+  color: #fff; font-family: 'Montserrat', sans-serif;
+  font-size: 11px; letter-spacing: .14em; text-transform: uppercase; font-weight: 500;
+}
+.hero-get-started-circle {
+  width: 44px; height: 44px; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  border: 1px solid rgba(255,255,255,.55); color: #fff;
+  transition: background .25s, color .25s, transform .25s;
+}
+.hero-get-started:hover .hero-get-started-circle {
+  background: var(--gold); border-color: var(--gold); color: var(--plum);
+  transform: translate(2px,-2px);
+}
+
+.button-berry { background: var(--primary); border-color: var(--primary); color: var(--gold); }
+.button-berry:hover { background: #7a3f56; }
+
+/* ══════════════════════════════════
+   INNER PAGES (Appointment / Contact)
+══════════════════════════════════ */
+.inner-page { background: var(--background); color: var(--foreground); }
+
+/* Shared page hero */
+.page-hero {
+  display: grid; grid-template-columns: 1.4fr 1fr; gap: 40px; align-items: center;
+  padding: 168px 8vw 72px; max-width: 1400px; margin: 0 auto;
+}
+.page-hero-text .eyebrow { margin-bottom: 18px; }
+.page-title {
+  font-family: 'Cormorant Garamond', serif; font-weight: 500;
+  font-size: clamp(56px, 9vw, 128px); line-height: .92;
+  letter-spacing: -.02em; color: var(--primary);
+}
+.page-lead {
+  margin-top: 22px; max-width: 46ch;
+  font-size: 15px; line-height: 1.8; color: var(--foreground); opacity: .8;
+}
+.page-hero-image {
+  border-radius: 14px; overflow: hidden; aspect-ratio: 4/3;
+  box-shadow: 0 24px 60px rgba(46,24,64,.14);
+}
+.page-hero-image img { width: 100%; height: 100%; object-fit: cover; }
+
+/* ── Appointment ── */
+.appt-block {
+  display: grid; grid-template-columns: 1fr 1.1fr; gap: 56px; align-items: start;
+  padding: 40px 8vw 120px; max-width: 1400px; margin: 0 auto;
+}
+.appt-image { position: relative; border-radius: 14px; overflow: hidden; }
+.appt-image > img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.appt-hours {
+  position: absolute; left: 18px; bottom: 18px; right: 18px;
+  background: rgba(243,240,232,.94); backdrop-filter: blur(6px);
+  border-radius: 10px; padding: 20px 22px;
+}
+.appt-hours-title {
+  font-family: 'Cormorant Garamond', serif; font-size: 20px;
+  color: var(--primary); margin-bottom: 12px;
+}
+.appt-hours-row {
+  display: flex; justify-content: space-between; gap: 16px;
+  font-size: 12.5px; color: var(--foreground); padding: 5px 0;
+  font-family: 'Montserrat', sans-serif;
+}
+.appt-hours-row span:first-child { opacity: .7; }
+.appt-hours-row + .appt-hours-row { border-top: 1px solid var(--border); }
+
+.appt-form-title, .contact-block-title {
+  font-family: 'Cormorant Garamond', serif; font-weight: 500;
+  font-size: clamp(32px, 4vw, 52px); color: var(--primary);
+  letter-spacing: -.01em; margin-bottom: 30px;
+}
+.appt-form, .contact-simple-form { display: flex; flex-direction: column; gap: 24px; }
+
+/* Shared field styling for inner-page forms (light background) */
+.appt-form .form-field label,
+.contact-simple-form .form-field label {
+  display: block; font-family: 'Montserrat', sans-serif;
+  font-size: 12px; color: var(--foreground); margin-bottom: 8px; opacity: .9;
+}
+.appt-form .form-field input,
+.appt-form .form-field select,
+.contact-simple-form .form-field input,
+.contact-simple-form .form-field textarea {
+  width: 100%; background: transparent; border: 0;
+  border-bottom: 1px solid var(--border);
+  padding: 8px 0; font-size: 14px; color: var(--foreground);
+  font-family: 'Montserrat', sans-serif;
+  transition: border-color .25s;
+}
+.appt-form .form-field input:focus,
+.appt-form .form-field select:focus,
+.contact-simple-form .form-field input:focus,
+.contact-simple-form .form-field textarea:focus {
+  outline: none; border-color: var(--primary);
+}
+.appt-form .form-field input::placeholder,
+.contact-simple-form .form-field input::placeholder,
+.contact-simple-form .form-field textarea::placeholder { color: rgba(60,40,50,.4); }
+.appt-form .form-row.two,
+.contact-simple-form .form-row.two { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+
+.form-submit.filled {
+  align-self: flex-start; margin-top: 6px;
+  background: var(--primary); color: #fff; border: 0;
+  padding: 15px 40px; border-radius: 6px; cursor: pointer;
+  font-family: 'Montserrat', sans-serif; font-size: 12px;
+  letter-spacing: .1em; text-transform: uppercase;
+  transition: background .25s, transform .2s;
+}
+.form-submit.filled:hover { background: #7a3f56; transform: translateY(-2px); }
+
+/* ── Contact ── */
+.contact-block {
+  display: grid; grid-template-columns: 1fr 1.3fr; gap: 64px; align-items: start;
+  padding: 40px 8vw 90px; max-width: 1400px; margin: 0 auto;
+}
+.contact-block-lead {
+  font-size: 14px; line-height: 1.8; color: var(--foreground);
+  opacity: .78; max-width: 34ch; margin-bottom: 40px;
+}
+.contact-detail-image {
+  width: 190px; aspect-ratio: 1; border-radius: 12px; overflow: hidden; margin-bottom: 32px;
+}
+.contact-detail-image img { width: 100%; height: 100%; object-fit: cover; }
+.contact-social-title {
+  font-family: 'Cormorant Garamond', serif; font-size: 22px;
+  color: var(--primary); margin-bottom: 14px;
+}
+.contact-social { display: flex; flex-direction: column; gap: 4px; }
+.contact-social a {
+  font-family: 'Montserrat', sans-serif; font-size: 13px;
+  color: var(--foreground); opacity: .75; padding: 4px 0;
+  transition: opacity .2s, color .2s; width: fit-content;
+}
+.contact-social a:hover { opacity: 1; color: var(--primary); }
+.contact-right {
+  background: rgba(141,76,101,.05); border: 1px solid var(--border);
+  border-radius: 14px; padding: 40px;
+}
+
+/* Egypt map */
+.contact-map { position: relative; padding: 0 8vw 110px; max-width: 1400px; margin: 0 auto; }
+.contact-map iframe {
+  width: 100%; height: 440px; border: 0; border-radius: 14px;
+  filter: saturate(.85) contrast(.95);
+}
+.contact-map-link {
+  position: absolute; top: 16px; left: calc(8vw + 16px);
+  background: rgba(243,240,232,.95); backdrop-filter: blur(4px);
+  padding: 8px 14px; border-radius: 8px;
+  font-family: 'Montserrat', sans-serif; font-size: 11px;
+  letter-spacing: .06em; color: var(--primary); border: 1px solid var(--border);
+}
+
+/* ══════════════════════════════════
+   FAQ (home)
+══════════════════════════════════ */
+.faq { background: var(--background); }
+.faq-grid { display: grid; grid-template-columns: .8fr 1.4fr; gap: 72px; align-items: start; }
+.faq-aside-image {
+  width: 170px; aspect-ratio: 1; border-radius: 14px; overflow: hidden; margin-bottom: 26px;
+}
+.faq-aside-image img { width: 100%; height: 100%; object-fit: cover; }
+.faq-aside-text {
+  font-size: 14px; line-height: 1.7; color: var(--foreground);
+  opacity: .78; max-width: 26ch; margin-bottom: 26px;
+}
+.faq-title {
+  font-family: 'Cormorant Garamond', serif; font-weight: 500;
+  font-size: clamp(34px, 4.6vw, 60px); line-height: 1.02;
+  color: var(--primary); letter-spacing: -.02em; margin: 14px 0 34px;
+}
+.faq-list { border-top: 1px solid var(--border); }
+.faq-item { border-bottom: 1px solid var(--border); }
+.faq-question {
+  width: 100%; background: transparent; border: 0; cursor: pointer;
+  display: flex; align-items: center; justify-content: space-between; gap: 24px;
+  padding: 24px 0; text-align: left;
+  font-family: 'Cormorant Garamond', serif; font-size: clamp(19px, 2vw, 25px);
+  color: var(--primary); transition: opacity .2s;
+}
+.faq-question:hover { opacity: .7; }
+.faq-icon { font-size: 18px; color: var(--gold-deep); flex-shrink: 0; }
+.faq-answer {
+  overflow: hidden; max-height: 0; opacity: 0;
+  transition: max-height .4s ease, opacity .3s ease, padding .4s ease;
+}
+.faq-item.is-open .faq-answer { max-height: 260px; opacity: 1; padding-bottom: 24px; }
+.faq-answer p {
+  font-family: 'Montserrat', sans-serif; font-size: 14px;
+  line-height: 1.85; color: var(--foreground); opacity: .8; max-width: 62ch;
+}
 
 /* ══════════════════════════════════
    MOBILE — max 860px
@@ -557,6 +773,22 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
   footer { grid-template-columns: 1fr; padding: 56px 6vw 22px; gap: 40px; }
   .footer-links { grid-template-columns: 1fr 1fr; }
   .footer-bottom { grid-column: 1; }
+
+  /* INNER PAGES */
+  .page-hero { grid-template-columns: 1fr; padding: 130px 6vw 48px; gap: 28px; }
+  .page-hero-image { order: -1; aspect-ratio: 16/10; }
+  .appt-block { grid-template-columns: 1fr; gap: 40px; padding: 20px 6vw 90px; }
+  .appt-image { min-height: 360px; }
+  .contact-block { grid-template-columns: 1fr; gap: 40px; padding: 20px 6vw 70px; }
+  .contact-right { padding: 28px 22px; }
+  .appt-form .form-row.two,
+  .contact-simple-form .form-row.two { grid-template-columns: 1fr; }
+  .contact-map { padding: 0 6vw 80px; }
+  .contact-map iframe { height: 340px; }
+  .contact-map-link { left: calc(6vw + 12px); }
+
+  /* FAQ */
+  .faq-grid { grid-template-columns: 1fr; gap: 40px; }
 }
 
 /* ══════════════════════════════════
