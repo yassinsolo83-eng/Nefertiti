@@ -1,16 +1,22 @@
 'use client'
 
 import { useState } from 'react'
-import { images, socialLinks, egyptMapEmbed, egyptMapLink } from '@/lib/data'
+import { MessageCircle, ArrowUpRight } from 'lucide-react'
+import {
+  images, socialLinks, egyptMapEmbed, egyptMapLink,
+  whatsappLink, appointmentServices,
+} from '@/lib/data'
 import SiteNav from '@/components/SiteNav'
 import SiteFooter from '@/components/SiteFooter'
 import BackButton from '@/components/BackButton'
 
 export default function ContactPage() {
-  const [form, setForm] = useState({ name: '', phone: '', email: '', message: '' })
+  const [form, setForm] = useState({
+    name: '', email: '', phone: '', practice: '', message: '',
+  })
   const [sent, setSent] = useState(false)
 
-  const handle = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+  const handle = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
     setForm((p) => ({ ...p, [e.target.name]: e.target.value }))
 
   const submit = (e: React.MouseEvent) => {
@@ -29,7 +35,8 @@ export default function ContactPage() {
           <p className="eyebrow">GET IN TOUCH</p>
           <h1 className="page-title">Contact</h1>
           <p className="page-lead">
-            Have a question or a retreat idea taking shape? We&apos;d love to hear from you.
+            Whether you have a question or a retreat idea taking shape, there are two easy
+            ways to reach us — send an enquiry, or book a discovery call.
           </p>
         </div>
         <div className="page-hero-image reveal is-in">
@@ -37,31 +44,17 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Contact block */}
+      {/* Two clear paths */}
       <section className="contact-block">
-        <div className="contact-left reveal is-in">
-          <h2 className="contact-block-title">Get In Touch With Us</h2>
-          <p className="contact-block-lead">
-            If you have any questions, feel free to reach out to our team.
-          </p>
-
-          <div className="contact-detail-image">
-            <img src={images.boat} alt="Golden light on the water" />
-          </div>
-
-          <div className="contact-social">
-            <p className="contact-social-title">Social Media</p>
-            {socialLinks.map(([label, url]) => (
-              <a key={label} href={url} target="_blank" rel="noopener noreferrer">{label}</a>
-            ))}
-          </div>
-        </div>
-
+        {/* Left — enquiry form */}
         <div className="contact-right reveal is-in">
+          <p className="eyebrow" style={{ marginBottom: 14 }}>OPTION 1 · SEND AN ENQUIRY</p>
+          <h2 className="contact-block-title">Tell us about your retreat</h2>
+
           {sent ? (
             <div className="form-success">
               <h3>Message sent.</h3>
-              <p>Thank you for reaching out — we&apos;ll get back to you shortly.</p>
+              <p>Thank you for reaching out — we&apos;ll get back to you within 48 hours.</p>
             </div>
           ) : (
             <div className="contact-simple-form">
@@ -72,23 +65,57 @@ export default function ContactPage() {
 
               <div className="form-row two">
                 <div className="form-field">
-                  <label>Phone Number</label>
-                  <input name="phone" value={form.phone} onChange={handle} placeholder="Phone Number" />
-                </div>
-                <div className="form-field">
                   <label>Email Address</label>
                   <input name="email" type="email" value={form.email} onChange={handle} placeholder="Email Address" />
+                </div>
+                <div className="form-field">
+                  <label>Phone / WhatsApp</label>
+                  <input name="phone" value={form.phone} onChange={handle} placeholder="Phone Number" />
                 </div>
               </div>
 
               <div className="form-field full">
+                <label>Type of Retreat</label>
+                <select name="practice" value={form.practice} onChange={handle}>
+                  <option value="">Select a service</option>
+                  {appointmentServices.map((s) => <option key={s}>{s}</option>)}
+                </select>
+              </div>
+
+              <div className="form-field full">
                 <label>Message</label>
-                <textarea name="message" value={form.message} onChange={handle} placeholder="Example Text" rows={5} />
+                <textarea name="message" value={form.message} onChange={handle} placeholder="Tell us what you teach, who you serve, and what you'd love them to experience." rows={5} />
               </div>
 
               <button className="form-submit filled" onClick={submit}>Send Message</button>
             </div>
           )}
+        </div>
+
+        {/* Right — discovery call + details */}
+        <div className="contact-left reveal is-in">
+          <div className="discovery-card">
+            <p className="eyebrow" style={{ marginBottom: 12 }}>OPTION 2 · TALK TO US</p>
+            <h2 className="discovery-title">Book a discovery call</h2>
+            <p className="discovery-text">
+              Prefer to talk it through? Message us on WhatsApp and we&apos;ll find a time
+              to explore your retreat together.
+            </p>
+            <a className="button button-berry" href={whatsappLink} target="_blank" rel="noopener noreferrer">
+              <MessageCircle size={16} /> Chat on WhatsApp
+            </a>
+          </div>
+
+          <div className="contact-detail-image">
+            <img src={images.boat} alt="Golden light on the water" />
+          </div>
+
+          <div className="contact-social">
+            <p className="contact-social-title">Social Media</p>
+            {socialLinks.map(([label, url]) => (
+              <a key={label} href={url} target="_blank" rel="noopener noreferrer">{label} <ArrowUpRight size={12} /></a>
+            ))}
+          </div>
         </div>
       </section>
 
