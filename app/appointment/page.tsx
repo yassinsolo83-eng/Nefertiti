@@ -5,6 +5,7 @@ import { ArrowUpRight } from 'lucide-react'
 import { images, appointmentServices, clinicHours } from '@/lib/data'
 import SiteNav from '@/components/SiteNav'
 import SiteFooter from '@/components/SiteFooter'
+import BackButton from '@/components/BackButton'
 
 export default function AppointmentPage() {
   const [form, setForm] = useState({
@@ -27,6 +28,7 @@ export default function AppointmentPage() {
       {/* Page hero */}
       <section className="page-hero">
         <div className="page-hero-text reveal is-in">
+          <BackButton />
           <p className="eyebrow">BOOK WITH NEFERTITI</p>
           <h1 className="page-title">Appointment</h1>
           <p className="page-lead">

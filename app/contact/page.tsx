@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { images, socialLinks, egyptMapEmbed, egyptMapLink } from '@/lib/data'
 import SiteNav from '@/components/SiteNav'
 import SiteFooter from '@/components/SiteFooter'
+import BackButton from '@/components/BackButton'
 
 export default function ContactPage() {
   const [form, setForm] = useState({ name: '', phone: '', email: '', message: '' })
@@ -24,6 +25,7 @@ export default function ContactPage() {
       {/* Page hero */}
       <section className="page-hero">
         <div className="page-hero-text reveal is-in">
+          <BackButton />
           <p className="eyebrow">GET IN TOUCH</p>
           <h1 className="page-title">Contact</h1>
           <p className="page-lead">

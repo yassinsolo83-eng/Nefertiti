@@ -29,6 +29,14 @@ export default function Page() {
     if (el) el.scrollIntoView({ behavior: 'smooth' })
   }
 
+  // Scroll to the revealed hero (end of the intro track) — not back into the intro.
+  const scrollToHero = (e?: React.MouseEvent) => {
+    if (e) e.preventDefault()
+    const track = document.getElementById('kh-track')
+    const target = track ? track.offsetHeight - window.innerHeight : 0
+    window.scrollTo({ top: Math.max(target, 0), behavior: 'smooth' })
+  }
+
   const allDestinations = [...featuredDestinations, ...moreDestinations]
   const activeDest = allDestinations.find(d => d.id === activeDestId) ?? null
 
@@ -36,7 +44,7 @@ export default function Page() {
     <>
     <main>
       {/* NAV */}
-      <SiteNav scrolled={scrolled} hidden={!introDone} onAnchor={navTo} />
+      <SiteNav scrolled={scrolled} hidden={!introDone} onAnchor={navTo} onBrand={scrollToHero} />
 
       {/* HERO + KEYHOLE INTRO — scroll-driven reveal */}
       <div id="kh-track" className="kh-track">
@@ -351,7 +359,7 @@ export default function Page() {
       {/* Back to top — lotus-inspired */}
       <button
         className={`to-top ${scrolled ? 'is-shown' : ''}`}
-        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        onClick={() => scrollToHero()}
         aria-label="Back to top"
       >
         <svg viewBox="0 0 40 40" fill="none" aria-hidden="true">

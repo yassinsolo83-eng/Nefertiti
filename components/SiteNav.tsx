@@ -30,9 +30,14 @@ type Props = {
    * If omitted, links behave as normal navigations.
    */
   onAnchor?: (e: React.MouseEvent<HTMLAnchorElement>, href: string) => void
+  /**
+   * Optional handler for the brand/logo click (home page only). When provided,
+   * clicking the logo scrolls to the revealed hero instead of reloading to the intro.
+   */
+  onBrand?: (e: React.MouseEvent<HTMLAnchorElement>) => void
 }
 
-export default function SiteNav({ solid, hidden, scrolled, onAnchor }: Props) {
+export default function SiteNav({ solid, hidden, scrolled, onAnchor, onBrand }: Props) {
   const [menuOpen, setMenuOpen] = useState(false)
   const closeMenu = () => setMenuOpen(false)
 
@@ -44,11 +49,16 @@ export default function SiteNav({ solid, hidden, scrolled, onAnchor }: Props) {
     if (onAnchor && href.startsWith('/#')) onAnchor(e, href)
   }
 
+  const handleBrand = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    closeMenu()
+    if (onBrand) onBrand(e)
+  }
+
   return (
     <header
       className={`site-nav ${isScrolled ? 'is-scrolled' : ''} ${menuOpen ? 'menu-open' : ''} ${hidden ? 'nav-hidden' : ''}`}
     >
-      <a href="/" className="brand" onClick={closeMenu}>
+      <a href="/" className="brand" onClick={handleBrand}>
         <span className="brand-badge notranslate">EGYPT</span>
         <img src={images.logoDark} alt="Nefertiti Luxury Retreat Producer" />
       </a>
