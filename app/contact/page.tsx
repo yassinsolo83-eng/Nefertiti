@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { MessageCircle, ArrowUpRight } from 'lucide-react'
 import {
   images, socialLinks, egyptMapEmbed, egyptMapLink,
-  whatsappLink, appointmentServices,
+  whatsappLink, appointmentServices, faqs,
 } from '@/lib/data'
 import SiteNav from '@/components/SiteNav'
 import SiteFooter from '@/components/SiteFooter'
@@ -15,6 +15,7 @@ export default function ContactPage() {
     name: '', email: '', phone: '', practice: '', message: '',
   })
   const [sent, setSent] = useState(false)
+  const [openFaq, setOpenFaq] = useState<number | null>(0)
 
   const handle = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
     setForm((p) => ({ ...p, [e.target.name]: e.target.value }))
@@ -130,6 +131,35 @@ export default function ContactPage() {
         <a className="contact-map-link" href={egyptMapLink} target="_blank" rel="noopener noreferrer">
           View larger map
         </a>
+      </section>
+
+      {/* FAQ */}
+      <section id="faq" className="section faq">
+        <div className="faq-grid">
+          <div className="faq-aside reveal is-in">
+            <div className="faq-aside-image">
+              <img src={images.hammam} alt="A quiet ritual moment" />
+            </div>
+            <p className="faq-aside-text">Still have a question? Send us a message above and our team will get back to you.</p>
+            <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="button button-berry">Ask on WhatsApp <ArrowUpRight size={16} /></a>
+          </div>
+
+          <div className="faq-main reveal is-in">
+            <div className="section-label">FREQUENTLY ASKED</div>
+            <h2 className="faq-title">Frequently Asked Questions</h2>
+            <div className="faq-list">
+              {faqs.map(([q, a], i) => (
+                <div className={`faq-item ${openFaq === i ? 'is-open' : ''}`} key={q}>
+                  <button className="faq-question" onClick={() => setOpenFaq(openFaq === i ? null : i)} aria-expanded={openFaq === i}>
+                    <span>{q}</span>
+                    <span className="faq-icon" aria-hidden="true">{openFaq === i ? '↑' : '↓'}</span>
+                  </button>
+                  <div className="faq-answer"><p>{a}</p></div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </section>
 
       <SiteFooter />
