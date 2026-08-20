@@ -146,7 +146,7 @@ export default function Page() {
                 loop
                 playsInline
                 preload="metadata"
-                aria-label="Tea ceremony — a moment of stillness"
+                aria-label="Egypt desert at golden hour"
               />
             </div>
             <div className="vision-stats reveal">
