@@ -10,7 +10,6 @@ const NAV = [
   ['Experiences', '/#experiences'],
   ['Services', '/#services'],
   ['How It Works', '/#process'],
-  ['Appointment', '/appointment'],
   ['Contact', '/contact'],
 ]
 
