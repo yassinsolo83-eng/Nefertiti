@@ -138,7 +138,16 @@ export default function Page() {
           </div>
           <div className="vision-right">
             <div className="vision-image reveal">
-              <img src={images.vision} alt="Outdoor yoga by the Nile" />
+              <video
+                src="/why-egypt-video.mp4"
+                poster={images.vision}
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                aria-label="Tea ceremony — a moment of stillness"
+              />
             </div>
             <div className="vision-stats reveal">
               <div className="vision-stat">
