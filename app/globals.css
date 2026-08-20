@@ -468,9 +468,10 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
 
 /* Get Started — Sarasvvati-style pill with circular arrow */
 .hero-get-started {
-  display: inline-flex; align-items: center; gap: 14px; margin-top: 26px;
+  display: inline-flex; align-items: center; gap: 14px;
   color: #fff; font-family: 'Montserrat', sans-serif;
   font-size: 11px; letter-spacing: .14em; text-transform: uppercase; font-weight: 500;
+  padding-left: 8px;
 }
 .hero-get-started-circle {
   width: 44px; height: 44px; border-radius: 50%;
@@ -565,6 +566,7 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
 .appt-form .form-field input,
 .appt-form .form-field select,
 .contact-simple-form .form-field input,
+.contact-simple-form .form-field select,
 .contact-simple-form .form-field textarea {
   width: 100%; background: transparent; border: 0;
   border-bottom: 1px solid var(--border);
@@ -572,9 +574,12 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
   font-family: 'Montserrat', sans-serif;
   transition: border-color .25s;
 }
+.appt-form .form-field select option,
+.contact-simple-form .form-field select option { background: var(--background); color: var(--foreground); }
 .appt-form .form-field input:focus,
 .appt-form .form-field select:focus,
 .contact-simple-form .form-field input:focus,
+.contact-simple-form .form-field select:focus,
 .contact-simple-form .form-field textarea:focus {
   outline: none; border-color: var(--primary);
 }
