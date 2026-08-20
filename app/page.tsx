@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { ArrowUpRight } from 'lucide-react'
 import {
   images, copy, featuredDestinations, moreDestinations,
@@ -20,6 +20,22 @@ export default function Page() {
 
   // scroll-driven Ankh intro + nav state + reveal animations
   useKeyhole({ setIntroDone, setScrolled })
+
+  // When arriving from an inner page's Back button (/?home=1), skip the intro
+  // and land directly on the revealed hero instead of replaying the Ankh.
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    if (params.get('home') !== '1') return
+    const jump = () => {
+      const track = document.getElementById('kh-track')
+      const target = track ? track.offsetHeight - window.innerHeight : 0
+      window.scrollTo({ top: Math.max(target, 0), behavior: 'auto' })
+      // clean the URL so a refresh doesn't keep skipping the intro
+      window.history.replaceState(null, '', '/')
+    }
+    // run after layout is ready
+    requestAnimationFrame(() => requestAnimationFrame(jump))
+  }, [])
 
   // Smooth-scroll for in-page anchors coming from SiteNav (hrefs like "/#vision")
   const navTo = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
