@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { ArrowUpRight, MessageCircle } from 'lucide-react'
 import {
   images, copy, featuredDestinations, moreDestinations,
-  combinations, experiences, serviceTiers, steps, faqs,
+  combinations, experiences, serviceTiers, steps,
   whatsappLink,
 } from '@/lib/data'
 import DestinationModal from '@/components/DestinationModal'
@@ -16,7 +16,6 @@ export default function Page() {
   const [scrolled, setScrolled] = useState(false)
   const [activeDestId, setActiveDestId] = useState<string | null>(null)
   const [introDone, setIntroDone] = useState(false)
-  const [openFaq, setOpenFaq] = useState<number | null>(0)
   const t = copy.en
 
   // scroll-driven Ankh intro + nav state + reveal animations
@@ -84,11 +83,11 @@ export default function Page() {
               <div className="hero-buttons">
                 <a className="button button-gold" href="/contact">{t.explore}<ArrowUpRight size={16} /></a>
                 <a className="button button-ghost" href={whatsappLink} target="_blank" rel="noopener noreferrer"><MessageCircle size={15} />{t.inquire}</a>
+                <a className="hero-get-started" href="/contact">
+                  <span>Get Started</span>
+                  <span className="hero-get-started-circle"><ArrowUpRight size={18} /></span>
+                </a>
               </div>
-              <a className="hero-get-started" href="/contact">
-                <span>Get Started</span>
-                <span className="hero-get-started-circle"><ArrowUpRight size={18} /></span>
-              </a>
             </div>
           </section>
 
@@ -129,20 +128,6 @@ export default function Page() {
             <p className="eyebrow" style={{ marginBottom: 16 }}>THE NEFERTITI WAY</p>
             <p>{t.visionText}</p>
             <a href="#about" className="text-link">{t.philosophy} <ArrowUpRight size={16} /></a>
-          </div>
-          <div className="vision-right">
-            <div className="vision-image reveal">
-              <video
-                src="/why-egypt-video.mp4"
-                poster={images.vision}
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="metadata"
-                aria-label="Egypt desert at golden hour"
-              />
-            </div>
             <div className="vision-stats reveal">
               <div className="vision-stat">
                 <span className="vision-stat-num">20+</span>
@@ -160,6 +145,20 @@ export default function Page() {
                 <span className="vision-stat-num">∞</span>
                 <span className="vision-stat-label">Possibilities for your retreat</span>
               </div>
+            </div>
+          </div>
+          <div className="vision-right">
+            <div className="vision-image reveal">
+              <video
+                src="/why-egypt-video.mp4"
+                poster={images.vision}
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                aria-label="Egypt desert at golden hour"
+              />
             </div>
           </div>
         </div>
@@ -238,7 +237,6 @@ export default function Page() {
           </div>
           <div className="dest-combo-actions">
             <a href="/contact" className="button button-gold">{t.destCTA1} <ArrowUpRight size={14} /></a>
-            <a href="/contact" className="button button-ghost">{t.destCTA2}</a>
           </div>
         </div>
       </section>
@@ -264,7 +262,6 @@ export default function Page() {
             </article>
           ))}
         </div>
-        <a href="/contact" className="text-link" style={{ marginTop: 48 }}>DESIGN MY EXPERIENCE <ArrowUpRight size={16} /></a>
       </section>
 
       {/* SERVICES */}
@@ -309,7 +306,6 @@ export default function Page() {
             </div>
           ))}
         </div>
-        <a href="/contact" className="text-link">START WITH A DISCOVERY CALL <ArrowUpRight size={16} /></a>
       </section>
 
       {/* FOUNDER */}
@@ -335,38 +331,6 @@ export default function Page() {
           <h2>{t.cta.split('\n').map((line) => <span key={line}>{line}<br /></span>)}</h2>
           <p>{t.ctaText}</p>
           <a className="button button-dark" href="/contact">{t.contact}<ArrowUpRight size={16} /></a>
-        </div>
-      </section>
-
-      {/* FAQ */}
-      <section id="faq" className="section faq">
-        <div className="faq-grid">
-          <div className="faq-aside reveal">
-            <div className="faq-aside-image">
-              <img src={images.hammam} alt="A quiet ritual moment" />
-            </div>
-            <p className="faq-aside-text">If you have any questions, feel free to reach out to our team.</p>
-            <a href="/contact" className="button button-berry">Ask Question <ArrowUpRight size={16} /></a>
-          </div>
-
-          <div className="faq-main reveal">
-            <div className="section-label">06 / FREQUENTLY ASKED</div>
-            <h2 className="faq-title">Frequently Asked Questions</h2>
-            <div className="faq-list">
-              {faqs.map(([q, a], i) => (
-                <div
-                  className={`faq-item ${openFaq === i ? 'is-open' : ''}`}
-                  key={q}
-                >
-                  <button className="faq-question" onClick={() => setOpenFaq(openFaq === i ? null : i)} aria-expanded={openFaq === i}>
-                    <span>{q}</span>
-                    <span className="faq-icon" aria-hidden="true">{openFaq === i ? '↑' : '↓'}</span>
-                  </button>
-                  <div className="faq-answer"><p>{a}</p></div>
-                </div>
-              ))}
-            </div>
-          </div>
         </div>
       </section>
 
