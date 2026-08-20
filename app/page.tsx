@@ -498,6 +498,24 @@ export default function Page() {
           <span>Made with presence</span>
         </div>
       </footer>
+
+      {/* Back to top — lotus-inspired */}
+      <button
+        className={`to-top ${scrolled ? 'is-shown' : ''}`}
+        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        aria-label="Back to top"
+      >
+        <svg viewBox="0 0 40 40" fill="none" aria-hidden="true">
+          {/* lotus petals */}
+          <path className="to-top-lotus" d="M20 9 C22 15 22 20 20 25 C18 20 18 15 20 9 Z" />
+          <path className="to-top-lotus" d="M20 25 C16 21 13 17 12 12 C17 14 20 18 20 25 Z" />
+          <path className="to-top-lotus" d="M20 25 C24 21 27 17 28 12 C23 14 20 18 20 25 Z" />
+          <path className="to-top-lotus" d="M20 26 C15 25 10 24 6 21 C11 20 17 21 20 26 Z" />
+          <path className="to-top-lotus" d="M20 26 C25 25 30 24 34 21 C29 20 23 21 20 26 Z" />
+          {/* subtle up arrow */}
+          <path className="to-top-arrow" d="M20 32 L20 22 M16 25 L20 21 L24 25" />
+        </svg>
+      </button>
     </main>
     </>
   )
