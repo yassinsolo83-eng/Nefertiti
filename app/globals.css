@@ -717,7 +717,7 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
 
   /* HERO */
   .hero-content { padding: 0 6vw 12vh; }
-  .hero h1 { font-size: clamp(34px, 8.5vw, 46px); margin: 12px 0 18px; line-height: 1.08; }
+  .hero h1 { font-size: clamp(26px, 6.4vw, 34px); margin: 12px 0 18px; line-height: 1.14; }
   .hero-copy { max-width: 100%; font-size: 13px; }
   .hero-buttons { flex-direction: column; gap: 10px; }
   .button { justify-content: center; }
@@ -807,7 +807,7 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
    SMALL MOBILE — max 480px
 ══════════════════════════════════ */
 @media (max-width: 480px) {
-  .hero h1 { font-size: clamp(40px, 13vw, 58px); }
+  .hero h1 { font-size: clamp(24px, 6.8vw, 32px); line-height: 1.14; }
   .stats-numbers { grid-template-columns: 1fr 1fr; gap: 24px 12px; }
   .dest-featured-grid { grid-template-columns: 1fr; }
   .dest-card:nth-child(1), .dest-card:nth-child(2), .dest-card:nth-child(3), .dest-card:nth-child(4), .dest-card:nth-child(5) { grid-column: span 1; min-height: 280px; }
