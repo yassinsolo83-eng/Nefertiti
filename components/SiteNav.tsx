@@ -58,7 +58,7 @@ export default function SiteNav({ solid, hidden, scrolled, onAnchor, onBrand }: 
     >
       <a href="/" className="brand" onClick={handleBrand}>
         <span className="brand-badge notranslate"><MapPin size={9} strokeWidth={2.5} />EGYPT</span>
-        <img src={images.logoDark} alt="Nefertiti Luxury Retreat Producer" />
+        <img src={isScrolled ? images.logoDark : images.logo} alt="Nefertiti Luxury Retreat Producer" />
       </a>
       <nav className={`site-links ${menuOpen ? 'open' : ''}`} aria-label="Main navigation">
         {NAV_ITEMS.map(([item, href]) => (
