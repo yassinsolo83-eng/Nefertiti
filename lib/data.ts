@@ -101,6 +101,7 @@ export const featuredDestinations = [
     tagline: 'Ancient Meets Contemporary',
     feeling: 'Rhythm · History · Connection',
     image: images.cairo,
+    video: '/cairo-giza.mp4',
     desc: 'For retreat leaders who want to combine wellness with history, culture, gastronomy and contemporary luxury.',
     experiences: [
       'Pyramids of Giza', 'Grand Egyptian Museum', 'Sunrise yoga & meditation',
@@ -161,6 +162,7 @@ export const featuredDestinations = [
     tagline: 'Silence Has Its Own Language',
     feeling: 'Stillness · Stars · Space',
     image: images.vision,
+    video: '/desert.mp4',
     desc: "Egypt's desert gives retreat leaders something completely different from a conventional resort. Open space and fewer distractions create an extraordinary setting for reflection, creativity and connection.",
     experiences: [
       'Meditation & breathwork', 'Journaling', 'Sound ceremonies', "Women's circles",

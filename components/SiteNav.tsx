@@ -8,11 +8,12 @@ import { setGoogleLang } from '@/hooks/useGoogleTranslate'
 type NavItem = [label: string, href: string]
 
 const NAV_ITEMS: NavItem[] = [
-  ['About', '/#about'],
+  ['About', '/about'],
   ['Why Egypt', '/#vision'],
   ['Destinations', '/#destinations'],
-  ['Experiences', '/#experiences'],
-  ['Services', '/#services'],
+  ['Experiences', '/experiences'],
+  ['Services', '/services'],
+  ['How It Works', '/how-it-works'],
   ['Contact', '/contact'],
 ]
 

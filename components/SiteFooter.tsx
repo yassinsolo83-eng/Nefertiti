@@ -4,12 +4,12 @@ import { Camera, Mail, MapPin } from 'lucide-react'
 import { images } from '@/lib/data'
 
 const NAV = [
-  ['About', '/#about'],
+  ['About', '/about'],
   ['Why Egypt', '/#vision'],
   ['Destinations', '/#destinations'],
-  ['Experiences', '/#experiences'],
-  ['Services', '/#services'],
-  ['How It Works', '/#process'],
+  ['Experiences', '/experiences'],
+  ['Services', '/services'],
+  ['How It Works', '/how-it-works'],
   ['Contact', '/contact'],
 ]
 

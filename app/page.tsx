@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { ArrowUpRight, MessageCircle } from 'lucide-react'
 import {
   images, copy, featuredDestinations, moreDestinations,
-  combinations, experiences, serviceTiers, steps,
+  combinations,
   whatsappLink,
 } from '@/lib/data'
 import DestinationModal from '@/components/DestinationModal'
@@ -248,90 +248,6 @@ export default function Page() {
           <div className="dest-combo-actions">
             <a href="/contact" className="button button-gold">{t.destCTA1} <ArrowUpRight size={14} /></a>
           </div>
-        </div>
-      </section>
-
-      {/* EXPERIENCES */}
-      <section id="experiences" className="section experiences">
-        <div className="section-heading reveal">
-          <div className="section-label">03 / EXPERIENCES</div>
-          <div>
-            <h2>{t.experiences}</h2>
-            <p>{t.experienceText}</p>
-          </div>
-        </div>
-        <div className="experience-list">
-          {experiences.map((item, i) => (
-            <article className="experience-row reveal" key={item.title}>
-              <span className="experience-number">0{i + 1}</span>
-              <div className="experience-text">
-                <h3>{item.title}</h3>
-                <p>{item.text}</p>
-              </div>
-              <img src={item.image} alt={item.title} />
-            </article>
-          ))}
-        </div>
-      </section>
-
-      {/* SERVICES */}
-      <section id="services" className="bespoke">
-        <div className="bespoke-image">
-          <img src={images.hero} alt="Guests practicing yoga outdoors" />
-        </div>
-        <div className="bespoke-copy reveal">
-          <p className="eyebrow">{t.bespokeLabel}</p>
-          <h2>{t.bespoke.split('\n').map((line, i) => <span key={i}>{line}<br /></span>)}</h2>
-          <p>{t.bespokeText}</p>
-          <div className="service-tiers">
-            {serviceTiers.map((tier) => (
-              <div className="service-tier" key={tier.num}>
-                <div className="tier-header">
-                  <span className="tier-num">{tier.num}</span>
-                  <span className="tier-title">{tier.title}</span>
-                </div>
-                <p className="tier-desc">{tier.desc}</p>
-                <ul className="tier-list">
-                  {tier.items.map((item) => <li key={item}>{item}</li>)}
-                </ul>
-              </div>
-            ))}
-          </div>
-          <a href="/contact" className="button button-light">DISCUSS YOUR RETREAT<ArrowUpRight size={16} /></a>
-        </div>
-      </section>
-
-      {/* HOW IT WORKS */}
-      <section id="process" className="section process">
-        <div className="section-heading reveal">
-          <div className="section-label">04 / HOW IT WORKS</div>
-          <h2>{t.process}</h2>
-        </div>
-        <div className="process-grid">
-          {steps.map(([step, text], i) => (
-            <div className="process-step reveal" key={step}>
-              <span>{String(i + 1).padStart(2, '0')}</span>
-              <h3>{step}</h3>
-              <p>{text}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* FOUNDER */}
-      <section id="about" className="section founder">
-        <div className="founder-image reveal">
-          <img src={images.founder} alt="Founder at a waterfront event" />
-        </div>
-        <div className="founder-copy reveal">
-          <div className="section-label">05 / {t.founder}</div>
-          <p className="eyebrow">{t.founder}</p>
-          <h2>{t.founderText}</h2>
-          <p className="founder-name">
-            {t.founderName}<br />
-            <span>{t.founderRole}</span>
-          </p>
-          <a href="/contact" className="text-link">LET&apos;S TALK ABOUT YOUR IDEA <ArrowUpRight size={16} /></a>
         </div>
       </section>
 

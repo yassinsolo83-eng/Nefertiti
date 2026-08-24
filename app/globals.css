@@ -527,6 +527,17 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
 }
 .page-hero-image img { width: 100%; height: 100%; object-fit: cover; }
 
+/* Inner pages that lead with just a heading (no side image) */
+.page-hero-single { grid-template-columns: 1fr; }
+.page-hero-single .page-hero-text { max-width: 760px; }
+
+/* Inner section: sections lifted from the home page keep their look but
+   the first block sits closer to the page hero and the CTA is centred. */
+.inner-section { padding-top: 40px; }
+.inner-bespoke { margin-top: 0; }
+.inner-founder { padding-top: 20px; }
+.inner-cta { display: inline-flex; margin-top: 8px; }
+
 /* ── Appointment ── */
 .appt-block {
   display: grid; grid-template-columns: 1fr 1.1fr; gap: 56px; align-items: start;
