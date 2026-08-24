@@ -30,7 +30,7 @@ export function useKeyhole({ setIntroDone, setScrolled }: Setters) {
 
     const updateKeyhole = () => {
       const track = document.getElementById('kh-track')
-      if (!track || !hole || !ring || !darkRect) return
+      if (!track || !hole || !ring) return
       const rect = track.getBoundingClientRect()
       const range = track.offsetHeight - window.innerHeight
       const p = clamp(-rect.top / range, 0, 1)
@@ -45,9 +45,10 @@ export function useKeyhole({ setIntroDone, setScrolled }: Setters) {
       hole.setAttribute('transform', tf)
       ring.setAttribute('transform', tf)
 
-      // clean finish: fade dark overlay out as the keyhole completes
+      // clean finish: fade the frost out as the keyhole completes
       const darkOp = op > 0.92 ? clamp(1 - (op - 0.92) / 0.08, 0, 1) : 1
-      darkRect.setAttribute('opacity', String(darkOp))
+      // fade the beige veil from 0.82 toward 0 across the open
+      if (darkRect) darkRect.setAttribute('fill-opacity', String(0.82 * darkOp * (1 - op * 0.55)))
 
       // frosted glass: heavy blur at the start, easing to none as we open
       if (frost) {
