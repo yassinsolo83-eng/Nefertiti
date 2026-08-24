@@ -69,7 +69,7 @@ export default function Page() {
             <video
               className="hero-image"
               src="/hero-video.mp4"
-              poster={images.heroMain}
+              poster="/hero-poster.webp"
               autoPlay
               muted
               loop
