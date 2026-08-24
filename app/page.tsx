@@ -10,7 +10,6 @@ import {
 import DestinationModal from '@/components/DestinationModal'
 import SiteNav from '@/components/SiteNav'
 import SiteFooter from '@/components/SiteFooter'
-import LazyVideo from '@/components/LazyVideo'
 import { useKeyhole } from '@/hooks/useKeyhole'
 
 export default function Page() {
@@ -70,7 +69,7 @@ export default function Page() {
             <video
               className="hero-image"
               src="/hero-video.mp4"
-              poster="/hero-poster.webp"
+              poster={images.heroMain}
               autoPlay
               muted
               loop
@@ -192,7 +191,16 @@ export default function Page() {
               onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && setActiveDestId(dest.id)}
             >
               {dest.video ? (
-                <LazyVideo src={dest.video} poster={dest.image} label={dest.title} />
+                <video
+                  src={dest.video}
+                  poster={dest.image}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                  aria-label={dest.title}
+                />
               ) : (
                 <img src={dest.image} alt={dest.title} />
               )}
