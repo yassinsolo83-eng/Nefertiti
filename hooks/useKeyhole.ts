@@ -18,7 +18,6 @@ export function useKeyhole({ setIntroDone, setScrolled }: Setters) {
     const hole = document.getElementById('kh-hole')
     const ring = document.getElementById('kh-ring')
     const darkRect = document.getElementById('kh-dark')
-    const ui = document.getElementById('kh-ui')
     const hint = document.getElementById('kh-hint')
     const frost = document.getElementById('kh-frost')
 
@@ -58,7 +57,6 @@ export function useKeyhole({ setIntroDone, setScrolled }: Setters) {
       }
 
       const uiOp = clamp(1 - op / 0.45, 0, 1)
-      if (ui) ui.style.opacity = String(uiOp)
       ring.setAttribute('opacity', String(uiOp))
       if (hint) hint.style.opacity = String(uiOp)
 

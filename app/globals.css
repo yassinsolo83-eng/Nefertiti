@@ -47,9 +47,6 @@ h2, h3 { font-family: 'Cormorant Garamond', serif; }
   background: rgba(243,240,232,.96); backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--border);
 }
-/* Over the light frosted intro: dark text, no background bar. */
-.site-nav.over-light:not(.is-scrolled) { color: var(--foreground); background: transparent; border: 0; }
-.site-nav.over-light:not(.is-scrolled) .brand-badge { color: var(--primary); }
 .brand { width: 80px; flex-shrink: 0; }
 .brand img { width: 100%; }
 .site-links {
@@ -402,19 +399,18 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
 /* The hero sits inside a tall track; scrolling through it drives the keyhole
    opening. Once fully open, .kh-done collapses the track to normal flow. */
 .kh-track { height: 300vh; position: relative; }
-.kh-stage { position: sticky; top: 0; height: 100vh; overflow: hidden; background: #E4DBC6; }
+.kh-stage { position: sticky; top: 0; height: 100vh; overflow: hidden; background: #2E1840; }
 
 /* the hero fills the stage */
 .kh-stage .hero { position: absolute; inset: 0; min-height: 100%; }
 
-/* frosted-glass layer over the hero video. A full-screen blur+tint that
-   eases off as you scroll (opacity + blur driven by useKeyhole). The Ankh
-   window in the SVG layer above reads as the "clear" focal point. */
+/* frosted-glass layer over the hero video — a full-screen blur that eases
+   off as you scroll. The Ankh window (in the SVG layer) reads as the clear
+   focal point because the tint rect above is heavier there. */
 .kh-frost {
-  position: absolute; inset: 0; z-index: 14; pointer-events: none;
+  position: absolute; inset: 0; z-index: 13; pointer-events: none;
   backdrop-filter: blur(var(--kh-blur, 20px));
   -webkit-backdrop-filter: blur(var(--kh-blur, 20px));
-  background: rgba(228, 219, 198, 0.4);
   opacity: var(--kh-frost-op, 1);
 }
 .kh-frost.kh-open { display: none; }
@@ -429,18 +425,10 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
   z-index: 15; display: block; pointer-events: none;
 }
 
-/* logo, centred above the Ankh */
-.kh-ui {
-  position: absolute; top: 50%; left: 50%; z-index: 16;
-  transform: translate(-50%, calc(-50% - 390px));
-  display: flex; flex-direction: column; align-items: center;
-  text-align: center; pointer-events: none;
-}
-.kh-logo { width: 200px; filter: drop-shadow(0 4px 20px rgba(0,0,0,.35)); }
 .kh-hint {
   position: absolute; bottom: 14%; left: 50%; transform: translateX(-50%);
   z-index: 16; font-size: 10px; letter-spacing: .18em; text-transform: uppercase;
-  color: var(--primary); pointer-events: none;
+  color: var(--gold); pointer-events: none;
   animation: kh-bob 1.6s ease-in-out infinite;
 }
 .kh-hint span { margin-left: 6px; }
@@ -452,13 +440,11 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
 /* on small screens the keyhole opens over a shorter track */
 @media (max-width: 860px) {
   .kh-track { height: 280vh; }
-  .kh-ui { transform: translate(-50%, calc(-50% - 270px)); }
-  .kh-logo { width: 150px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .kh-track { height: 100vh; }
   .kh-stage { position: relative; }
-  .kh-svg, .kh-ui, .kh-hint { display: none; }
+  .kh-svg, .kh-hint { display: none; }
 }
 
 /* ── REVEAL ── */
@@ -709,6 +695,38 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
 }
 
 /* ══════════════════════════════════
+   EXPLORE MORE (home → inner pages)
+══════════════════════════════════ */
+.explore { background: var(--background); border-top: 1px solid var(--border); }
+.explore-head { max-width: 900px; margin-bottom: 48px; }
+.explore-head .section-label { display: block; margin-bottom: 16px; }
+.explore-head h2 {
+  font-family: 'Cormorant Garamond', serif; font-weight: 500;
+  font-size: clamp(30px, 4vw, 52px); color: var(--primary); letter-spacing: -.02em;
+}
+.explore-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+.explore-card {
+  display: flex; align-items: flex-start; gap: 22px;
+  padding: 34px 30px; border-top: 1px solid var(--border);
+  transition: background .3s, padding-left .3s; position: relative;
+}
+.explore-card:nth-child(odd) { border-right: 1px solid var(--border); }
+.explore-card:hover { background: rgba(141,76,101,.04); padding-left: 38px; }
+.explore-num {
+  font-family: 'Cormorant Garamond', serif; font-size: 15px;
+  color: var(--gold-deep); padding-top: 6px; flex-shrink: 0;
+}
+.explore-card-body { flex: 1; }
+.explore-card-body h3 {
+  font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 500;
+  color: var(--foreground); margin-bottom: 8px; transition: color .25s;
+}
+.explore-card:hover .explore-card-body h3 { color: var(--primary); }
+.explore-card-body p { font-size: 13.5px; line-height: 1.7; color: var(--muted-fg); max-width: 40ch; }
+.explore-arrow { color: var(--gold-deep); flex-shrink: 0; margin-top: 4px; transition: transform .25s; }
+.explore-card:hover .explore-arrow { transform: translate(3px, -3px); }
+
+/* ══════════════════════════════════
    MOBILE — max 860px
 ══════════════════════════════════ */
 @media (max-width: 860px) {
@@ -827,6 +845,12 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
 
   /* FAQ */
   .faq-grid { grid-template-columns: 1fr; gap: 40px; }
+
+  /* EXPLORE */
+  .explore-grid { grid-template-columns: 1fr; }
+  .explore-card:nth-child(odd) { border-right: 0; }
+  .explore-card { padding: 26px 4px; }
+  .explore-card:hover { padding-left: 12px; }
 }
 
 /* ══════════════════════════════════

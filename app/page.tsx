@@ -60,7 +60,7 @@ export default function Page() {
     <>
     <main>
       {/* NAV */}
-      <SiteNav scrolled={scrolled} overLight={!introDone} onAnchor={navTo} onBrand={scrollToHero} />
+      <SiteNav scrolled={scrolled} onAnchor={navTo} onBrand={scrollToHero} />
 
       {/* HERO + KEYHOLE INTRO — scroll-driven reveal */}
       <div id="kh-track" className="kh-track">
@@ -91,14 +91,17 @@ export default function Page() {
             </div>
           </section>
 
-          {/* Frosted-glass layer — blurs the hero video underneath.
-              Starts heavy, eases off as the intro opens (driven by useKeyhole). */}
+          {/* Frosted-glass layer — blurs the whole hero video. An Ankh-shaped
+              hole is punched through it (inverted mask) so the Ankh window
+              shows the video sharp while everything around stays blurred.
+              Blur eases off as the intro opens (driven by useKeyhole). */}
           <div id="kh-frost" className={`kh-frost ${introDone ? 'kh-open' : ''}`} />
 
-          {/* Keyhole overlay — fades to none once the intro completes */}
+          {/* Keyhole overlay — the gold Ankh outline + hint */}
           <div className={`kh-overlay ${introDone ? 'kh-open' : ''}`}>
             <svg className="kh-svg" preserveAspectRatio="xMidYMid slice" viewBox="0 0 1000 1000" aria-hidden="true">
               <defs>
+                {/* mask used by the CSS frost layer: white = blurred, black = clear window */}
                 <mask id="kh-mask">
                   <rect width="1000" height="1000" fill="white" />
                   <path id="kh-hole" fill="black" fillRule="evenodd"
@@ -106,8 +109,8 @@ export default function Page() {
                     d="M50 2 C40 2 31 12 31 27 C31 37 36 44 44 47 L44 49 L30 49 Q33 53.5 30 58 L44 58 L44 93 L56 93 L56 58 L70 58 Q67 53.5 70 49 L56 49 L56 47 C64 44 69 37 69 27 C69 12 60 2 50 2 Z M50 14 C54 14 58 20 58 27 C58 34 54 40 50 40 C46 40 42 34 42 27 C42 20 46 14 50 14 Z" />
                 </mask>
               </defs>
-              <rect id="kh-dark" width="1000" height="1000" fill="#E4DBC6" mask="url(#kh-mask)" />
-              <path id="kh-ring" fill="none" stroke="#B8923D" strokeWidth="1.2" fillRule="evenodd"
+              <rect id="kh-dark" width="1000" height="1000" fill="#2E1840" fillOpacity="0.82" mask="url(#kh-mask)" />
+              <path id="kh-ring" fill="none" stroke="#F1D288" strokeWidth="1.2" fillRule="evenodd"
                 transform="translate(500 500) scale(3.2) translate(-50 -50)"
                 d="M50 2 C40 2 31 12 31 27 C31 37 36 44 44 47 L44 49 L30 49 Q33 53.5 30 58 L44 58 L44 93 L56 93 L56 58 L70 58 Q67 53.5 70 49 L56 49 L56 47 C64 44 69 37 69 27 C69 12 60 2 50 2 Z M50 14 C54 14 58 20 58 27 C58 34 54 40 50 40 C46 40 42 34 42 27 C42 20 46 14 50 14 Z" />
             </svg>
@@ -252,6 +255,31 @@ export default function Page() {
           <div className="dest-combo-actions">
             <a href="/contact" className="button button-gold">{t.destCTA1} <ArrowUpRight size={14} /></a>
           </div>
+        </div>
+      </section>
+
+      {/* EXPLORE MORE — pathways into the deeper pages */}
+      <section id="explore" className="section explore">
+        <div className="explore-head reveal">
+          <div className="section-label">EXPLORE FURTHER</div>
+          <h2>There&apos;s more to discover.</h2>
+        </div>
+        <div className="explore-grid">
+          {[
+            ['01', 'Experiences', 'Curated moments woven around your retreat&apos;s theme.', '/experiences'],
+            ['02', 'Services', 'From light-touch support to full retreat production.', '/services'],
+            ['03', 'How It Works', 'A clear, guided path from first idea to arrival.', '/how-it-works'],
+            ['04', 'About', 'The story and the people behind Nefertiti.', '/about'],
+          ].map(([num, title, desc, href]) => (
+            <a key={href} href={href} className="explore-card reveal">
+              <span className="explore-num">{num}</span>
+              <div className="explore-card-body">
+                <h3>{title}</h3>
+                <p dangerouslySetInnerHTML={{ __html: desc }} />
+              </div>
+              <ArrowUpRight className="explore-arrow" size={20} />
+            </a>
+          ))}
         </div>
       </section>
 

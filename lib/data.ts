@@ -199,7 +199,7 @@ export const moreDestinations = [
     title: 'Dahab & South Sinai',
     tagline: 'Mountains. Sea. Simplicity.',
     feeling: 'Raw · Free · Elemental',
-    image: images.redSea,
+    image: '/dest-dahab.webp',
     desc: 'A laid-back coastal town framed by mountains and the Red Sea — relaxed, elemental and perfect for adventure-led wellness.',
     experiences: ['Beach yoga', 'Freediving & snorkeling', 'Mountain hikes', 'Breathwork by the sea', 'Bedouin experiences', 'Stargazing', 'Sound healing'],
     idealFor: ['Adventure wellness', 'Yoga', 'Breathwork', 'Fitness'],
@@ -209,7 +209,7 @@ export const moreDestinations = [
     title: 'Marsa Alam',
     tagline: 'Wild Red Sea',
     feeling: 'Untouched · Quiet · Blue',
-    image: images.boat,
+    image: '/dest-marsa-alam.webp',
     desc: 'One of the Red Sea\'s most untouched stretches — pristine reefs, quiet resorts and space to disconnect completely.',
     experiences: ['Private reef days', 'Beach meditation', 'Snorkeling & diving', 'Yoga by the water', 'Nature immersion', 'Sunset breathwork', 'Digital detox'],
     idealFor: ['Nature retreats', 'Mindfulness', 'Yoga', 'Digital detox'],
@@ -219,7 +219,7 @@ export const moreDestinations = [
     title: 'Sharm El Sheikh',
     tagline: 'Resort Wellness Meets Sinai',
     feeling: 'Comfort · Sea · Ease',
-    image: images.resort,
+    image: '/dest-sharm.webp',
     desc: 'World-class resorts, easy international access and the Sinai coastline — ideal for larger groups and corporate wellbeing.',
     experiences: ['Resort spa days', 'Group yoga', 'Boat excursions', 'Wellness programming', 'Team activities', 'Sunset sessions', 'Sea & desert combinations'],
     idealFor: ['Larger groups', 'Corporate wellness', 'Luxury wellness'],
@@ -229,7 +229,7 @@ export const moreDestinations = [
     title: 'Soma Bay',
     tagline: 'Wellness by the Water',
     feeling: 'Calm · Premium · Spacious',
-    image: images.resort,
+    image: '/dest-soma-bay.webp',
     desc: 'A serene peninsula known for premium wellness resorts, thalasso spas and a slower, more refined pace by the sea.',
     experiences: ['Thalasso spa', 'Beach yoga', 'Breathwork', 'Private wellness sessions', 'Golf & movement', 'Sound healing', 'Executive retreats'],
     idealFor: ['Premium wellness', 'Yoga', 'Executive wellbeing'],
@@ -239,7 +239,7 @@ export const moreDestinations = [
     title: 'North Coast',
     tagline: 'Mediterranean Egypt',
     feeling: 'Bright · Breezy · Social',
-    image: images.hero,
+    image: '/dest-north-coast.webp',
     desc: 'Egypt\'s Mediterranean coastline — bright, breezy and social, at its best for summer wellness and active retreats.',
     experiences: ['Beach fitness', 'Morning yoga', 'Sea swimming', 'Social wellness', 'Sunset movement', 'Group programming', 'Summer sessions'],
     idealFor: ['Summer wellness', 'Fitness', 'Corporate retreats'],
@@ -331,12 +331,6 @@ export const appointmentServices = [
   'Multi-destination Journey',
   'Corporate Wellbeing Retreat',
   'Not sure yet',
-]
-
-export const clinicHours = [
-  ['Sunday – Thursday', '9:00 AM – 6:00 PM'],
-  ['Saturday', '10:00 AM – 2:00 PM'],
-  ['Friday', 'By appointment'],
 ]
 
 // ── Contact page ──
