@@ -51,8 +51,10 @@ export function useKeyhole({ setIntroDone, setScrolled }: Setters) {
       if (darkRect) darkRect.setAttribute('fill-opacity', String(0.82 * darkOp * (1 - op * 0.55)))
 
       // frosted glass: heavy blur at the start, easing to none as we open
+      // (lighter max on mobile — backdrop-filter is expensive on phone GPUs)
       if (frost) {
-        const blur = (1 - op) * 20 // 20px → 0px
+        const maxBlur = isMobile ? 12 : 20
+        const blur = (1 - op) * maxBlur
         frost.style.setProperty('--kh-blur', `${blur.toFixed(1)}px`)
         frost.style.setProperty('--kh-frost-op', String(darkOp))
       }
