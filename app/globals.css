@@ -47,6 +47,9 @@ h2, h3 { font-family: 'Cormorant Garamond', serif; }
   background: rgba(243,240,232,.96); backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--border);
 }
+/* Over the light frosted intro: dark text, no background bar. */
+.site-nav.over-light:not(.is-scrolled) { color: var(--foreground); background: transparent; border: 0; }
+.site-nav.over-light:not(.is-scrolled) .brand-badge { color: var(--primary); }
 .brand { width: 80px; flex-shrink: 0; }
 .brand img { width: 100%; }
 .site-links {
@@ -399,10 +402,22 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
 /* The hero sits inside a tall track; scrolling through it drives the keyhole
    opening. Once fully open, .kh-done collapses the track to normal flow. */
 .kh-track { height: 300vh; position: relative; }
-.kh-stage { position: sticky; top: 0; height: 100vh; overflow: hidden; background: #2E1840; }
+.kh-stage { position: sticky; top: 0; height: 100vh; overflow: hidden; background: #E4DBC6; }
 
 /* the hero fills the stage */
 .kh-stage .hero { position: absolute; inset: 0; min-height: 100%; }
+
+/* frosted-glass layer over the hero video. A full-screen blur+tint that
+   eases off as you scroll (opacity + blur driven by useKeyhole). The Ankh
+   window in the SVG layer above reads as the "clear" focal point. */
+.kh-frost {
+  position: absolute; inset: 0; z-index: 14; pointer-events: none;
+  backdrop-filter: blur(var(--kh-blur, 20px));
+  -webkit-backdrop-filter: blur(var(--kh-blur, 20px));
+  background: rgba(228, 219, 198, 0.4);
+  opacity: var(--kh-frost-op, 1);
+}
+.kh-frost.kh-open { display: none; }
 
 /* keyhole overlay wrapper — once open, it stops covering the hero */
 .kh-overlay { position: absolute; inset: 0; z-index: 15; pointer-events: none; }
@@ -425,7 +440,7 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
 .kh-hint {
   position: absolute; bottom: 14%; left: 50%; transform: translateX(-50%);
   z-index: 16; font-size: 10px; letter-spacing: .18em; text-transform: uppercase;
-  color: var(--gold); pointer-events: none;
+  color: var(--primary); pointer-events: none;
   animation: kh-bob 1.6s ease-in-out infinite;
 }
 .kh-hint span { margin-left: 6px; }
