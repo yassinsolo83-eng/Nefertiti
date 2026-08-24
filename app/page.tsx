@@ -183,7 +183,20 @@ export default function Page() {
               tabIndex={0}
               onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && setActiveDestId(dest.id)}
             >
-              <img src={dest.image} alt={dest.title} />
+              {dest.video ? (
+                <video
+                  src={dest.video}
+                  poster={dest.image}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                  aria-label={dest.title}
+                />
+              ) : (
+                <img src={dest.image} alt={dest.title} />
+              )}
               <div className="dest-card-body">
                 <p className="dest-card-feeling">{dest.feeling}</p>
                 <h3>{dest.title}</h3>

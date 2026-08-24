@@ -116,6 +116,7 @@ export const featuredDestinations = [
     tagline: 'Space to Breathe',
     feeling: 'Salt · Light · Spaciousness',
     image: images.redSea,
+    video: '/red-sea.mp4',
     desc: 'El Gouna, Hurghada, Soma Bay and selected Red Sea destinations create a slower rhythm built around water, movement, nature and resort wellness.',
     experiences: [
       'Beach yoga', 'Sunrise meditation', 'Private boat days', 'Snorkeling & swimming',
@@ -130,6 +131,7 @@ export const featuredDestinations = [
     tagline: 'Let the Retreat Move With You',
     feeling: 'Ancient · Ceremonial · Timeless',
     image: images.boat,
+    video: '/luxor-aswan.mp4',
     desc: 'The Nile, temples, archaeological sites and desert create several distinct environments — connected by a dahabiya or luxury Nile cruise. Morning practice. Days exploring. Quiet afternoons on the river.',
     experiences: [
       'Sunrise hot-air balloon', 'Felucca & dahabiya sailing', 'Yoga overlooking the Nile',
@@ -144,6 +146,7 @@ export const featuredDestinations = [
     tagline: 'Disconnect to Reconnect',
     feeling: 'Silence · Surrender · Timeless',
     image: images.siwa,
+    video: '/siwa.mp4',
     desc: 'Surrounded by desert, palm groves, natural springs and salt lakes, Siwa offers an intimate environment for smaller groups seeking privacy and deep immersion.',
     experiences: [
       'Salt lake experiences', 'Desert excursions', 'Natural springs', 'Meditation & breathwork',
@@ -361,6 +364,7 @@ export type Destination = {
   tagline: string
   feeling: string
   image: string
+  video?: string
   desc: string
   experiences: string[]
   idealFor: string[]
