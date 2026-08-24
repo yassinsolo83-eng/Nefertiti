@@ -24,7 +24,7 @@ export function useKeyhole({ setIntroDone, setScrolled }: Setters) {
     const isMobile = window.innerWidth <= 860
     const MIN = isMobile ? 4.4 : 3.2 // larger visible Ankh on mobile
     const MAX = 42 // large enough to fully clear the viewport at end of track
-    const CY = isMobile ? 400 : 500 // raise the Ankh above the hero text on mobile
+    const CY = isMobile ? 340 : 500 // raise the Ankh above the hero text on mobile
     const clamp = (v: number, a: number, b: number) => Math.min(b, Math.max(a, v))
     const smooth = (x: number) => x * x * (3 - 2 * x)
 
@@ -52,7 +52,7 @@ export function useKeyhole({ setIntroDone, setScrolled }: Setters) {
 
       // frosted glass: heavy blur at the start, easing to none as we open
       if (frost) {
-        const blur = (1 - op) * 20 // 20px → 0px
+        const blur = (1 - op) * 28 // 28px → 0px
         frost.style.setProperty('--kh-blur', `${blur.toFixed(1)}px`)
         frost.style.setProperty('--kh-frost-op', String(darkOp))
       }

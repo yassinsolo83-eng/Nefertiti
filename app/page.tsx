@@ -83,10 +83,6 @@ export default function Page() {
               <div className="hero-buttons">
                 <a className="button button-gold" href="/contact">{t.explore}<ArrowUpRight size={16} /></a>
                 <a className="button button-ghost" href={whatsappLink} target="_blank" rel="noopener noreferrer"><MessageCircle size={15} />{t.inquire}</a>
-                <a className="hero-get-started" href="/contact">
-                  <span>Get Started</span>
-                  <span className="hero-get-started-circle"><ArrowUpRight size={18} /></span>
-                </a>
               </div>
             </div>
           </section>

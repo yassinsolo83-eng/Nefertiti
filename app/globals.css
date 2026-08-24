@@ -409,8 +409,8 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
    focal point because the tint rect above is heavier there. */
 .kh-frost {
   position: absolute; inset: 0; z-index: 13; pointer-events: none;
-  backdrop-filter: blur(var(--kh-blur, 20px));
-  -webkit-backdrop-filter: blur(var(--kh-blur, 20px));
+  backdrop-filter: blur(var(--kh-blur, 28px));
+  -webkit-backdrop-filter: blur(var(--kh-blur, 28px));
   opacity: var(--kh-frost-op, 1);
 }
 .kh-frost.kh-open { display: none; }
@@ -440,6 +440,9 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
 /* on small screens the keyhole opens over a shorter track */
 @media (max-width: 860px) {
   .kh-track { height: 280vh; }
+  /* the hero buttons stack on mobile and fill the lower area, so the
+     scroll hint would overlap them — hide it (users scroll naturally). */
+  .kh-hint { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   .kh-track { height: 100vh; }
@@ -467,24 +470,6 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
 }
 .brand-badge svg { width: 9px; height: 9px; }
 .site-nav.is-scrolled .brand-badge { color: var(--primary); }
-
-/* Get Started — Sarasvvati-style pill with circular arrow */
-.hero-get-started {
-  display: inline-flex; align-items: center; gap: 14px;
-  color: #fff; font-family: 'Montserrat', sans-serif;
-  font-size: 11px; letter-spacing: .14em; text-transform: uppercase; font-weight: 500;
-  padding-left: 8px;
-}
-.hero-get-started-circle {
-  width: 44px; height: 44px; border-radius: 50%;
-  display: inline-flex; align-items: center; justify-content: center;
-  border: 1px solid rgba(255,255,255,.55); color: #fff;
-  transition: background .25s, color .25s, transform .25s;
-}
-.hero-get-started:hover .hero-get-started-circle {
-  background: var(--gold); border-color: var(--gold); color: var(--plum);
-  transform: translate(2px,-2px);
-}
 
 .button-berry { background: var(--primary); border-color: var(--primary); color: var(--gold); }
 .button-berry:hover { background: #7a3f56; }
