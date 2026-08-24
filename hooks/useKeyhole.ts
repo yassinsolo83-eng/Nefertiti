@@ -20,6 +20,7 @@ export function useKeyhole({ setIntroDone, setScrolled }: Setters) {
     const darkRect = document.getElementById('kh-dark')
     const ui = document.getElementById('kh-ui')
     const hint = document.getElementById('kh-hint')
+    const frost = document.getElementById('kh-frost')
 
     const isMobile = window.innerWidth <= 860
     const MIN = isMobile ? 4.4 : 3.2 // larger visible Ankh on mobile
@@ -47,6 +48,13 @@ export function useKeyhole({ setIntroDone, setScrolled }: Setters) {
       // clean finish: fade dark overlay out as the keyhole completes
       const darkOp = op > 0.92 ? clamp(1 - (op - 0.92) / 0.08, 0, 1) : 1
       darkRect.setAttribute('opacity', String(darkOp))
+
+      // frosted glass: heavy blur at the start, easing to none as we open
+      if (frost) {
+        const blur = (1 - op) * 20 // 20px → 0px
+        frost.style.setProperty('--kh-blur', `${blur.toFixed(1)}px`)
+        frost.style.setProperty('--kh-frost-op', String(darkOp))
+      }
 
       const uiOp = clamp(1 - op / 0.45, 0, 1)
       if (ui) ui.style.opacity = String(uiOp)
