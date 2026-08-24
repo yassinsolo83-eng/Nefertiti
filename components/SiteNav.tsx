@@ -34,13 +34,20 @@ type Props = {
    * clicking the logo scrolls to the revealed hero instead of reloading to the intro.
    */
   onBrand?: (e: React.MouseEvent<HTMLAnchorElement>) => void
+  /**
+   * When true the nav renders with dark text/logo but no solid background —
+   * used over the light frosted intro so the nav stays legible.
+   */
+  overLight?: boolean
 }
 
-export default function SiteNav({ solid, hidden, scrolled, onAnchor, onBrand }: Props) {
+export default function SiteNav({ solid, hidden, scrolled, onAnchor, onBrand, overLight }: Props) {
   const [menuOpen, setMenuOpen] = useState(false)
   const closeMenu = () => setMenuOpen(false)
 
   const isScrolled = solid || scrolled
+  // dark elements when scrolled/solid OR floating over the light intro
+  const isDark = isScrolled || overLight
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     closeMenu()
@@ -55,11 +62,11 @@ export default function SiteNav({ solid, hidden, scrolled, onAnchor, onBrand }: 
 
   return (
     <header
-      className={`site-nav ${isScrolled ? 'is-scrolled' : ''} ${menuOpen ? 'menu-open' : ''} ${hidden ? 'nav-hidden' : ''}`}
+      className={`site-nav ${isScrolled ? 'is-scrolled' : ''} ${overLight ? 'over-light' : ''} ${menuOpen ? 'menu-open' : ''} ${hidden ? 'nav-hidden' : ''}`}
     >
       <a href="/" className="brand" onClick={handleBrand}>
         <span className="brand-badge notranslate"><MapPin size={9} strokeWidth={2.5} />EGYPT</span>
-        <img src={isScrolled ? images.logoDark : images.logo} alt="Nefertiti Luxury Retreat Producer" />
+        <img src={isDark ? images.logoDark : images.logo} alt="Nefertiti Luxury Retreat Producer" />
       </a>
       <nav className={`site-links ${menuOpen ? 'open' : ''}`} aria-label="Main navigation">
         {NAV_ITEMS.map(([item, href]) => (
