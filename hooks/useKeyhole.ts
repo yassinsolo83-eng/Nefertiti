@@ -24,6 +24,7 @@ export function useKeyhole({ setIntroDone, setScrolled }: Setters) {
     const isMobile = window.innerWidth <= 860
     const MIN = isMobile ? 4.4 : 3.2 // larger visible Ankh on mobile
     const MAX = 42 // large enough to fully clear the viewport at end of track
+    const CY = isMobile ? 400 : 500 // raise the Ankh above the hero text on mobile
     const clamp = (v: number, a: number, b: number) => Math.min(b, Math.max(a, v))
     const smooth = (x: number) => x * x * (3 - 2 * x)
 
@@ -40,7 +41,7 @@ export function useKeyhole({ setIntroDone, setScrolled }: Setters) {
       const op = clamp(p / OPEN_AT, 0, 1)
 
       const s = MIN + (MAX - MIN) * smooth(op)
-      const tf = `translate(500 500) scale(${s}) translate(-50 -50)`
+      const tf = `translate(500 ${CY}) scale(${s}) translate(-50 -50)`
       hole.setAttribute('transform', tf)
       ring.setAttribute('transform', tf)
 
