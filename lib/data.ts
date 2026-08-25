@@ -126,17 +126,17 @@ export const featuredDestinations = [
     idealFor: ['Yoga', 'Fitness', 'Pilates', 'Mindfulness', 'Breathwork', 'Luxury wellness', 'Corporate wellbeing'],
   },
   {
-    id: 'luxor-aswan',
-    title: 'Luxor & Aswan',
-    tagline: 'Let the Retreat Move With You',
+    id: 'luxor',
+    title: 'Luxor',
+    tagline: 'Where Time Stands Still',
     feeling: 'Ancient · Ceremonial · Timeless',
-    image: '/dest-luxor-aswan.webp',
+    image: '/dest-luxor.webp',
     video: '/luxor-aswan.mp4',
-    desc: 'The Nile, temples, archaeological sites and desert create several distinct environments — connected by a dahabiya or luxury Nile cruise. Morning practice. Days exploring. Quiet afternoons on the river.',
+    desc: 'The world\'s greatest open-air museum. Temples, tombs and the West Bank create a profound backdrop for retreats built around history, ceremony and reflection. Morning practice. Days exploring. Quiet afternoons on the Nile.',
     experiences: [
-      'Sunrise hot-air balloon', 'Felucca & dahabiya sailing', 'Yoga overlooking the Nile',
-      'Meditation by the river', 'Temple visits', 'Karnak & Luxor Temple', 'West Bank experiences',
-      'Nubian villages & culture', 'Private dinners', 'Sunset river sessions', 'Cultural storytelling',
+      'Sunrise hot-air balloon', 'Karnak & Luxor Temple', 'Valley of the Kings',
+      'Yoga overlooking the Nile', 'West Bank experiences', 'Temple meditations',
+      'Private dinners', 'Sunset river sessions', 'Cultural storytelling',
     ],
     idealFor: ['Cultural immersion', 'Mindfulness', 'Personal development', 'Yoga', 'Transformational journeys', 'Premium retreats'],
   },
@@ -173,6 +173,16 @@ export const featuredDestinations = [
 ]
 
 export const moreDestinations = [
+  {
+    id: 'aswan',
+    title: 'Aswan',
+    tagline: 'The Soul of the Nile',
+    feeling: 'Nubian · Serene · Golden',
+    image: '/dest-aswan.webp',
+    desc: 'Egypt\'s most peaceful stretch of the Nile — Nubian villages, felucca sailing and golden light. A slower, soulful setting for retreats built around water, culture and stillness.',
+    experiences: ['Felucca & dahabiya sailing', 'Nubian villages & culture', 'Meditation by the river', 'Philae Temple visits', 'Sunset river sessions', 'Yoga overlooking the Nile', 'Cultural storytelling'],
+    idealFor: ['Cultural immersion', 'Mindfulness', 'Transformational journeys', 'Yoga', 'Premium retreats'],
+  },
   {
     id: 'countryside',
     title: 'Cairo Countryside & Farms',
