@@ -7,7 +7,6 @@ export const images = {
   hero: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/rs%3Dw_984%2Ch_1749-rKfCp42avy5gbGj4dM9sBkVg3ml9Vy.webp',
   vision: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/rs%3Dw_984%2Ch_1312-yhHGcLxbtC04mHWk2vOjX0Z3EjmrE5.webp',
   cairo: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/900x600-1-50-130274e45d077f1d2dea84dec9156332-AuyATzxMn5KXFCvsvitJBwOPW3dXJ3.jpg',
-  redSea: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/images-i4fp8DAP6wqHp9zMCVPeRhHJ2faApE.jpg',
   siwa: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/sound-768x576-eGX9BM3R1R3tOWMSujIcQHKB09RAbX.jpeg',
   resort: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/images%20%286%29-w13ctS2si3HTM3vqoklR1bxXykK1Lb.jpg',
   hammam: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/cleaning-woman-in-hammam_2048x2048-bm24VJd5mSMvY45Rtb7e2Kh7GWzeov.webp',
@@ -116,7 +115,7 @@ export const featuredDestinations = [
     title: 'The Red Sea',
     tagline: 'Space to Breathe',
     feeling: 'Salt · Light · Spaciousness',
-    image: images.redSea,
+    image: '/dest-red-sea.webp',
     video: '/red-sea.mp4',
     desc: 'El Gouna, Hurghada, Soma Bay and selected Red Sea destinations create a slower rhythm built around water, movement, nature and resort wellness.',
     experiences: [
@@ -131,7 +130,7 @@ export const featuredDestinations = [
     title: 'Luxor & Aswan',
     tagline: 'Let the Retreat Move With You',
     feeling: 'Ancient · Ceremonial · Timeless',
-    image: images.boat,
+    image: '/dest-luxor-aswan.webp',
     video: '/luxor-aswan.mp4',
     desc: 'The Nile, temples, archaeological sites and desert create several distinct environments — connected by a dahabiya or luxury Nile cruise. Morning practice. Days exploring. Quiet afternoons on the river.',
     experiences: [
@@ -161,7 +160,7 @@ export const featuredDestinations = [
     title: 'The Desert',
     tagline: 'Silence Has Its Own Language',
     feeling: 'Stillness · Stars · Space',
-    image: images.vision,
+    image: '/dest-desert.webp',
     video: '/desert.mp4',
     desc: "Egypt's desert gives retreat leaders something completely different from a conventional resort. Open space and fewer distractions create an extraordinary setting for reflection, creativity and connection.",
     experiences: [
@@ -189,7 +188,7 @@ export const moreDestinations = [
     title: 'Fayoum',
     tagline: 'Nature Within Reach',
     feeling: 'Lakes · Desert · Ease',
-    image: images.vision,
+    image: '/dest-fayoum.webp',
     desc: 'Lakes, waterfalls, desert and pottery villages just a short drive from Cairo — an accessible escape for weekend and short-format retreats.',
     experiences: ['Lakeside yoga', 'Desert meditation', 'Pottery workshops', 'Waterfall visits', 'Sunset sessions', 'Creative circles', 'Nature immersion'],
     idealFor: ['Weekend retreats', 'Creativity', 'Yoga', 'Nature programmes'],
