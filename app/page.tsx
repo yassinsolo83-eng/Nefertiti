@@ -201,6 +201,7 @@ export default function Page() {
                 <p className="dest-card-feeling">{dest.feeling}</p>
                 <h3>{dest.title}</h3>
                 <p className="dest-card-tagline">{dest.tagline}</p>
+                <span className="dest-card-explore">Explore <ArrowUpRight size={13} /></span>
               </div>
             </Link>
           ))}
