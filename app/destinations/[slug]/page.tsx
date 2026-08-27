@@ -1,7 +1,7 @@
 'use client'
 
 import { use, useState, useEffect } from 'react'
-import { ArrowUpRight, MessageCircle, MapPin, Calendar, ChevronLeft } from 'lucide-react'
+import { ArrowUpRight, MessageCircle, MapPin, Calendar } from 'lucide-react'
 import Link from 'next/link'
 import {
   featuredDestinations,
@@ -10,6 +10,7 @@ import {
 } from '@/lib/data'
 import SiteNav from '@/components/SiteNav'
 import SiteFooter from '@/components/SiteFooter'
+import BackButton from '@/components/BackButton'
 
 export default function DestinationPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = use(params)
@@ -36,7 +37,7 @@ export default function DestinationPage({ params }: { params: Promise<{ slug: st
     els.forEach(el => obs.observe(el))
     return () => obs.disconnect()
   }, [dest])
-  
+
   if (!dest || !detail) {
     return (
       <main style={{ padding: '20vh 5vw', textAlign: 'center' }}>
@@ -68,9 +69,7 @@ export default function DestinationPage({ params }: { params: Promise<{ slug: st
         )}
         <div className="dp-hero-shade" />
         <div className="dp-hero-content dp-reveal">
-          <Link href="/#destinations" className="dp-back">
-            <ChevronLeft size={16} /> All Destinations
-          </Link>
+          <BackButton />
           <p className="dp-hero-feeling">{dest.feeling}</p>
           <h1>{dest.title}</h1>
           <p className="dp-hero-tagline">{dest.tagline}</p>
