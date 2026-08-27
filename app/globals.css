@@ -47,8 +47,9 @@ h2, h3 { font-family: 'Cormorant Garamond', serif; }
   background: rgba(243,240,232,.96); backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--border);
 }
-.brand { width: 80px; flex-shrink: 0; }
+.brand { width: 110px; flex-shrink: 0; transition: width .35s; }
 .brand img { width: 100%; }
+.site-nav.is-scrolled .brand { width: 80px; }
 .site-links {
   display: flex; align-items: center; gap: 26px;
   text-transform: uppercase; font-size: 10px; letter-spacing: .14em; font-weight: 400;
@@ -484,11 +485,12 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
 .brand-badge {
   display: inline-flex; align-items: center; gap: 4px;
   font-family: 'Montserrat', sans-serif; font-weight: 600;
-  font-size: 8px; letter-spacing: .22em; text-transform: uppercase;
-  color: var(--gold);
+  font-size: 10px; letter-spacing: .22em; text-transform: uppercase;
+  color: var(--gold); transition: font-size .35s;
 }
-.brand-badge svg { width: 9px; height: 9px; }
-.site-nav.is-scrolled .brand-badge { color: var(--primary); }
+.brand-badge svg { width: 11px; height: 11px; }
+.site-nav.is-scrolled .brand-badge { color: var(--primary); font-size: 8px; }
+.site-nav.is-scrolled .brand-badge svg { width: 9px; height: 9px; }
 
 .button-berry { background: var(--primary); border-color: var(--primary); color: var(--gold); }
 .button-berry:hover { background: #7a3f56; }
