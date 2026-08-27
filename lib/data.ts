@@ -374,3 +374,170 @@ export type Destination = {
   experiences: string[]
   idealFor: string[]
 }
+
+// ── Destination detail pages — highlights for the accordion strip + activity grid ──
+export type DestHighlight = {
+  title: string
+  image: string
+  desc: string
+}
+
+export type DestDetail = {
+  overview: string
+  highlights: DestHighlight[]
+  bestTime: string
+  parallaxImage: string
+}
+
+export const destinationDetails: Record<string, DestDetail> = {
+  cairo: {
+    overview:
+      'Cairo is a city that never stands still — but within its rhythm, there is depth. Your retreat here moves between ancient monuments, intimate cultural encounters and refined luxury. This is where history and transformation converge.',
+    highlights: [
+      {
+        title: 'Pyramids at Sunrise',
+        image: images.cairo,
+        desc: 'Begin the day with movement and meditation at the foot of the last standing ancient wonder.',
+      },
+      {
+        title: 'Nile Experiences',
+        image: images.boat,
+        desc: 'Private felucca sailing, sunset river sessions and dinner on the water — the Nile as your retreat backdrop.',
+      },
+      {
+        title: 'Traditional Hammams',
+        image: images.hammam,
+        desc: 'Ancient bathing rituals in historic settings — purification, warmth and stillness.',
+      },
+      {
+        title: 'Luxury Hotels & Dining',
+        image: images.resort,
+        desc: 'World-class accommodations with rooftop dining, private wellness suites and views over the city.',
+      },
+      {
+        title: 'Art & Cultural Workshops',
+        image: images.vision,
+        desc: 'Local artisan experiences, calligraphy, Egyptian food workshops and contemporary gallery visits.',
+      },
+    ],
+    bestTime: 'October – April',
+    parallaxImage: images.cairo,
+  },
+  'red-sea': {
+    overview:
+      'The Red Sea creates a rhythm built around water, light and open space. Whether your retreat is centred on yoga, breathwork, fitness or simply slowing down, the coastline provides the perfect container.',
+    highlights: [
+      {
+        title: 'Beach Yoga & Movement',
+        image: images.heroMain,
+        desc: 'Daily practice by the shore — the sound of waves, salt air and morning light.',
+      },
+      {
+        title: 'Private Boat Days',
+        image: images.boat,
+        desc: 'Yacht and boat experiences — snorkeling, swimming, breathwork sessions on the open water.',
+      },
+      {
+        title: 'Spa & Wellness',
+        image: images.hammam,
+        desc: 'Thalasso spa, treatments, sound healing and private wellness sessions in resort settings.',
+      },
+      {
+        title: 'Sunset Sessions',
+        image: '/dest-soma-bay.webp',
+        desc: 'Golden hour by the sea — meditation, journaling, group circles as the sky turns.',
+      },
+      {
+        title: 'Reef & Water Activities',
+        image: '/dest-marsa-alam.webp',
+        desc: 'Snorkeling, diving and swimming in some of the world\'s clearest waters.',
+      },
+    ],
+    bestTime: 'Year-round (peak: March – May, September – November)',
+    parallaxImage: '/dest-red-sea.webp',
+  },
+  luxor: {
+    overview:
+      'Luxor is not just a destination — it is a threshold. Temples built for transformation, a river that has witnessed millennia, and light that changes everything it touches. Retreats here carry a weight and a beauty unlike anywhere else.',
+    highlights: [
+      {
+        title: 'Sunrise Hot-Air Balloon',
+        image: '/dest-luxor.webp',
+        desc: 'Float above the Valley of the Kings at dawn — one of the most powerful openings to a retreat day.',
+      },
+      {
+        title: 'Temple Meditations',
+        image: '/dest-luxor-aswan.webp',
+        desc: 'Practice in spaces designed for ritual — Karnak, Luxor Temple, the West Bank.',
+      },
+      {
+        title: 'Yoga Overlooking the Nile',
+        image: images.hero,
+        desc: 'Morning movement at boutique properties with uninterrupted river views.',
+      },
+      {
+        title: 'Sunset River Sessions',
+        image: images.boat,
+        desc: 'Felucca sailing, breathwork and group circles on the Nile as the light fades.',
+      },
+    ],
+    bestTime: 'October – April',
+    parallaxImage: '/dest-luxor.webp',
+  },
+  siwa: {
+    overview:
+      'Siwa is where Egypt becomes a whisper. Surrounded by desert, palm groves, natural springs and salt lakes, this remote oasis strips everything back. Retreats here are intimate, unhurried and deeply immersive.',
+    highlights: [
+      {
+        title: 'Salt Lake Experiences',
+        image: images.siwa,
+        desc: 'Float in Siwa\'s mineral-rich salt lakes — a natural reset for body and mind.',
+      },
+      {
+        title: 'Desert Excursions',
+        image: '/dest-desert.webp',
+        desc: 'Journey into the Great Sand Sea — dunes, silence, stargazing and overnight desert camps.',
+      },
+      {
+        title: 'Natural Springs',
+        image: images.hammam,
+        desc: 'Warm and cold springs hidden among the palms — ancient, restorative, private.',
+      },
+      {
+        title: 'Stargazing & Night Ceremonies',
+        image: images.vision,
+        desc: 'Zero light pollution — the Saharan sky becomes the ceiling for evening practice.',
+      },
+    ],
+    bestTime: 'October – April',
+    parallaxImage: images.siwa,
+  },
+  desert: {
+    overview:
+      'The desert does not compete for your attention — it holds space. Open sky, elemental silence and a landscape unchanged for thousands of years. Retreats here are stripped of distraction and filled with meaning.',
+    highlights: [
+      {
+        title: 'Meditation & Breathwork',
+        image: images.vision,
+        desc: 'Practice in open space — no walls, no noise, no distractions. Just breath and sky.',
+      },
+      {
+        title: 'Sound Ceremonies',
+        image: images.siwa,
+        desc: 'Singing bowls, gongs and voice carry differently in the desert — deep, resonant, unforgettable.',
+      },
+      {
+        title: 'Overnight Desert Camps',
+        image: '/dest-desert.webp',
+        desc: 'Sleep under the stars in curated desert camps — luxury meets wilderness.',
+      },
+      {
+        title: 'Desert Dining',
+        image: images.resort,
+        desc: 'Private dining under the stars — fire-cooked food, lanterns, long tables in the sand.',
+      },
+    ],
+    bestTime: 'October – April',
+    parallaxImage: '/dest-desert.webp',
+  },
+}
