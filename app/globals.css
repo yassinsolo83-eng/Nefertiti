@@ -224,6 +224,14 @@ h3 { font-size: 26px; line-height: 1.15; font-weight: 500; }
   font-size: 18px; font-weight: 200; transition: background .25s, color .25s; pointer-events: none;
 }
 .dest-card:hover .dest-card-toggle { background: var(--gold); color: var(--plum); border-color: var(--gold); }
+.dest-card-explore {
+  display: inline-flex; align-items: center; gap: 6px; margin-top: 14px;
+  font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--gold); font-family: 'Montserrat', sans-serif;
+  padding: 8px 18px; border: 1px solid rgba(241,210,136,.35);
+  border-radius: 40px; transition: gap .3s, background .3s, border-color .3s;
+}
+.dest-card:hover .dest-card-explore { gap: 10px; background: rgba(241,210,136,.12); border-color: var(--gold); }
 
 /* Detail modal overlay */
 @keyframes dest-fade { from { opacity: 0; } to { opacity: 1; } }
