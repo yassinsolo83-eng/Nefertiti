@@ -61,7 +61,7 @@ export default function DestinationPage({ params }: { params: Promise<{ slug: st
           <video
             className="dp-hero-media"
             src={dest.video}
-            poster={typeof dest.image === 'string' ? dest.image : undefined}
+            poster="/hero-shirodhara.webp"
             autoPlay muted loop playsInline preload="auto"
           />
         ) : (
