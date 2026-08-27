@@ -36,7 +36,7 @@ export default function DestinationPage({ params }: { params: Promise<{ slug: st
     els.forEach(el => obs.observe(el))
     return () => obs.disconnect()
   }, [dest])
-
+  
   if (!dest || !detail) {
     return (
       <main style={{ padding: '20vh 5vw', textAlign: 'center' }}>
