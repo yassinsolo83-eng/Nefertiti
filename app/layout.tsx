@@ -7,6 +7,13 @@ export const metadata: Metadata = {
   title: 'Nefertiti | Luxury Retreat Producer',
   description: 'Immersive retreats, wellness journeys and beautifully produced experiences across Egypt and beyond.',
   generator: 'v0.app',
+  icons: {
+    icon: [
+      { url: '/icon.svg', type: 'image/svg+xml' },
+      { url: '/icon-dark-32x32.png', sizes: '32x32', type: 'image/png' },
+    ],
+    apple: '/apple-icon.png',
+  },
   openGraph: {
     title: 'Nefertiti | Luxury Retreat Producer',
     description: 'Bespoke retreat production for wellness coaches, facilitators and transformational leaders — from the Pyramids to the Red Sea.',
