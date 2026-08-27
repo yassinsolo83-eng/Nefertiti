@@ -7,6 +7,19 @@ export const metadata: Metadata = {
   title: 'Nefertiti | Luxury Retreat Producer',
   description: 'Immersive retreats, wellness journeys and beautifully produced experiences across Egypt and beyond.',
   generator: 'v0.app',
+  openGraph: {
+    title: 'Nefertiti | Luxury Retreat Producer',
+    description: 'Bespoke retreat production for wellness coaches, facilitators and transformational leaders — from the Pyramids to the Red Sea.',
+    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Nefertiti Luxury Retreat Producer' }],
+    type: 'website',
+    siteName: 'Nefertiti Retreats',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Nefertiti | Luxury Retreat Producer',
+    description: 'Bespoke retreat production for wellness coaches, facilitators and transformational leaders — from the Pyramids to the Red Sea.',
+    images: ['/og-image.png'],
+  },
 }
 
 export const viewport: Viewport = {
