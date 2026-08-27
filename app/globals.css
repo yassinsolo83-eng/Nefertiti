@@ -898,6 +898,13 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
   position: relative; width: 100%; height: 85vh; min-height: 500px;
   overflow: hidden; display: flex; align-items: flex-end;
 }
+/* Back button override inside dark hero */
+.dp-hero .back-btn {
+  color: var(--gold); border-color: rgba(241,210,136,.35); background: rgba(12,4,9,.3);
+}
+.dp-hero .back-btn:hover {
+  background: rgba(241,210,136,.15); color: #fff; border-color: var(--gold); gap: 12px;
+}
 .dp-hero-media {
   position: absolute; inset: 0; width: 100%; height: 100%;
   object-fit: cover; object-position: center;
@@ -910,13 +917,6 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
   position: relative; z-index: 2;
   padding: 0 max(28px, 6vw) 64px; max-width: 760px;
 }
-.dp-back {
-  display: inline-flex; align-items: center; gap: 4px;
-  font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
-  color: var(--gold); margin-bottom: 28px;
-  font-family: 'Montserrat', sans-serif; transition: gap .25s;
-}
-.dp-back:hover { gap: 8px; }
 .dp-hero-feeling {
   font-size: 10px; text-transform: uppercase; letter-spacing: .18em;
   color: var(--gold); margin-bottom: 14px;
