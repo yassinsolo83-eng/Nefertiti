@@ -429,8 +429,6 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
    focal point because the tint rect above is heavier there. */
 .kh-frost {
   position: absolute; inset: 0; z-index: 13; pointer-events: none;
-  backdrop-filter: blur(var(--kh-blur, 28px));
-  -webkit-backdrop-filter: blur(var(--kh-blur, 28px));
   opacity: var(--kh-frost-op, 1);
 }
 .kh-frost.kh-open { display: none; }
