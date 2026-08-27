@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { ArrowUpRight, MessageCircle } from 'lucide-react'
+import Link from 'next/link'
 import {
   images, copy, featuredDestinations, moreDestinations,
   combinations,
@@ -53,8 +54,7 @@ export default function Page() {
     window.scrollTo({ top: Math.max(target, 0), behavior: 'smooth' })
   }
 
-  const allDestinations = [...featuredDestinations, ...moreDestinations]
-  const activeDest = allDestinations.find(d => d.id === activeDestId) ?? null
+  const activeDest = moreDestinations.find(d => d.id === activeDestId) ?? null
 
   return (
     <>
@@ -175,16 +175,13 @@ export default function Page() {
           </div>
         </div>
 
-        {/* Featured destinations — fixed grid, cards never disappear */}
+        {/* Featured destinations — click goes to full page */}
         <div className="dest-grid">
           {featuredDestinations.map((dest, i) => (
-            <article
+            <Link
               key={dest.id}
+              href={`/destinations/${dest.id}`}
               className={`dest-card reveal delay-${Math.min(i + 1, 4)}`}
-              onClick={() => setActiveDestId(dest.id)}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && setActiveDestId(dest.id)}
             >
               {dest.video ? (
                 <video
@@ -205,12 +202,11 @@ export default function Page() {
                 <h3>{dest.title}</h3>
                 <p className="dest-card-tagline">{dest.tagline}</p>
               </div>
-              <span className="dest-card-toggle" aria-hidden="true">+</span>
-            </article>
+            </Link>
           ))}
         </div>
 
-        {/* Detail modal overlay (shared by featured + more destinations) */}
+        {/* Detail modal overlay (for secondary destinations only) */}
         <DestinationModal destination={activeDest} onClose={() => setActiveDestId(null)} />
 
         {/* More destinations — secondary 7 */}
