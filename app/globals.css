@@ -884,3 +884,243 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
   .to-top { bottom: 20px; right: 20px; width: 48px; height: 48px; }
   .to-top svg { width: 26px; height: 26px; }
 }
+
+/* ══════════════════════════════════
+   DESTINATION DETAIL PAGES
+══════════════════════════════════ */
+
+/* ── Reveal animation ── */
+.dp-reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s ease, transform .7s ease; }
+.dp-reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+/* ── Hero ── */
+.dp-hero {
+  position: relative; width: 100%; height: 85vh; min-height: 500px;
+  overflow: hidden; display: flex; align-items: flex-end;
+}
+.dp-hero-media {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
+}
+.dp-hero-shade {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(12,4,9,.88) 0%, rgba(12,4,9,.35) 40%, transparent 70%);
+}
+.dp-hero-content {
+  position: relative; z-index: 2;
+  padding: 0 max(28px, 6vw) 64px; max-width: 760px;
+}
+.dp-back {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 28px;
+  font-family: 'Montserrat', sans-serif; transition: gap .25s;
+}
+.dp-back:hover { gap: 8px; }
+.dp-hero-feeling {
+  font-size: 10px; text-transform: uppercase; letter-spacing: .18em;
+  color: var(--gold); margin-bottom: 14px;
+}
+.dp-hero h1 {
+  font-family: 'Cormorant Garamond', serif; font-weight: 500;
+  font-size: clamp(40px, 7vw, 72px); color: #fff; line-height: 1.05;
+  margin-bottom: 10px;
+}
+.dp-hero-tagline {
+  font-size: 18px; color: rgba(243,240,232,.65);
+  font-style: italic; font-family: 'Cormorant Garamond', serif;
+  margin-bottom: 20px;
+}
+.dp-hero-meta {
+  display: flex; gap: 24px; flex-wrap: wrap;
+}
+.dp-hero-meta span {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-size: 11px; color: rgba(243,240,232,.6); letter-spacing: .04em;
+}
+
+/* ── Overview ── */
+.dp-overview {
+  padding: 80px max(28px, 8vw); max-width: 820px; margin: 0 auto; text-align: center;
+}
+.dp-overview-text {
+  font-family: 'Cormorant Garamond', serif; font-size: clamp(20px, 2.6vw, 26px);
+  line-height: 1.7; color: var(--foreground); font-weight: 400; font-style: italic;
+}
+
+/* ── Section headings (shared) ── */
+.dp-section-head { text-align: center; margin-bottom: 48px; }
+.dp-label {
+  font-size: 9px; text-transform: uppercase; letter-spacing: .18em;
+  color: var(--gold-deep); margin-bottom: 14px; display: block;
+  font-family: 'Montserrat', sans-serif;
+}
+.dp-section-head h2 {
+  font-family: 'Cormorant Garamond', serif; font-weight: 400;
+  font-size: clamp(28px, 4vw, 44px); color: var(--foreground);
+}
+
+/* ── Accordion strip — flex grow on hover ── */
+.dp-strip-section { padding: 0 max(20px, 5vw) 80px; }
+.dp-strip {
+  display: flex; gap: 5px; height: clamp(340px, 45vw, 520px);
+  border-radius: 12px; overflow: hidden;
+}
+.dp-strip-item {
+  flex: 1; position: relative; overflow: hidden;
+  cursor: pointer; transition: flex .55s cubic-bezier(.4, 0, .2, 1);
+}
+.dp-strip-item:hover { flex: 3; }
+.dp-strip-item img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; transition: transform .6s ease;
+}
+.dp-strip-item:hover img { transform: scale(1.05); }
+.dp-strip-shade {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(12,4,9,.85) 0%, rgba(12,4,9,.2) 50%, transparent 100%);
+  transition: background .4s;
+}
+.dp-strip-item:hover .dp-strip-shade {
+  background: linear-gradient(to top, rgba(12,4,9,.9) 0%, rgba(12,4,9,.35) 60%, transparent 100%);
+}
+.dp-strip-num {
+  position: absolute; bottom: 16px; left: 16px; z-index: 2;
+  font-family: 'Cormorant Garamond', serif; font-size: clamp(32px, 4vw, 56px);
+  color: rgba(241,210,136,.35); font-weight: 500; line-height: 1;
+  transition: opacity .4s;
+}
+.dp-strip-item:hover .dp-strip-num { opacity: 0; }
+.dp-strip-info {
+  position: absolute; bottom: 0; left: 0; right: 0; z-index: 2;
+  padding: 24px 22px; opacity: 0; transform: translateY(12px);
+  transition: opacity .4s .1s, transform .4s .1s;
+}
+.dp-strip-item:hover .dp-strip-info { opacity: 1; transform: translateY(0); }
+.dp-strip-info h3 {
+  font-family: 'Cormorant Garamond', serif; font-size: 22px;
+  color: #fff; font-weight: 500; margin-bottom: 8px; line-height: 1.15;
+}
+.dp-strip-info p {
+  font-size: 12px; color: rgba(243,240,232,.72); line-height: 1.7; max-width: 320px;
+}
+
+/* ── Activity grid — hover scale cards ── */
+.dp-grid-section { padding: 0 max(20px, 5vw) 80px; }
+.dp-activity-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+}
+.dp-activity-card {
+  position: relative; overflow: hidden; border-radius: 10px;
+  background: linear-gradient(135deg, rgba(141,76,101,.08), rgba(46,24,64,.12));
+  border: 1px solid rgba(141,76,101,.12);
+  transition: transform .4s ease, box-shadow .4s ease, border-color .4s;
+  cursor: default;
+}
+.dp-activity-card:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 16px 40px rgba(46,24,64,.18);
+  border-color: rgba(241,210,136,.3);
+}
+.dp-activity-inner {
+  padding: 28px 22px; display: flex; align-items: flex-start; gap: 12px;
+}
+.dp-activity-icon { color: var(--gold-deep); flex-shrink: 0; margin-top: 2px; }
+.dp-activity-card h3 {
+  font-family: 'Cormorant Garamond', serif; font-size: 18px;
+  font-weight: 500; color: var(--foreground); line-height: 1.25;
+}
+
+/* ── Ideal for ── */
+.dp-ideal { padding: 0 max(20px, 5vw) 80px; text-align: center; }
+.dp-ideal .dp-label { margin-bottom: 20px; }
+.dp-ideal-tags { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+.dp-ideal-tag {
+  font-size: 12px; padding: 10px 22px; letter-spacing: .04em;
+  border: 1px solid rgba(177,182,149,.4); color: var(--plum);
+  font-family: 'Montserrat', sans-serif; border-radius: 40px;
+  transition: background .3s, border-color .3s;
+}
+.dp-ideal-tag:hover { background: rgba(177,182,149,.12); border-color: var(--rose); }
+
+/* ── Parallax CTA — fixed background reveal ── */
+.dp-parallax {
+  position: relative; min-height: 70vh;
+  background-size: cover; background-position: center;
+  background-attachment: fixed;
+  display: flex; align-items: center; justify-content: center;
+}
+.dp-parallax-overlay {
+  position: absolute; inset: 0;
+  background: rgba(12,4,9,.72); backdrop-filter: blur(2px);
+  display: flex; align-items: center; justify-content: center;
+}
+.dp-parallax-content {
+  text-align: center; padding: 80px max(24px, 5vw); max-width: 680px;
+}
+.dp-parallax-content h2 {
+  font-family: 'Cormorant Garamond', serif; font-size: clamp(32px, 5vw, 52px);
+  color: #fff; font-weight: 400; line-height: 1.1; margin-bottom: 18px;
+}
+.dp-parallax-content p {
+  font-size: 14px; color: rgba(243,240,232,.65); line-height: 1.8; margin-bottom: 36px;
+}
+.dp-parallax-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+/* Ghost button variant — light text on dark */
+.button-ghost-light {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 11px; text-transform: uppercase; letter-spacing: .1em;
+  padding: 14px 28px; border: 1px solid rgba(243,240,232,.3);
+  color: rgba(243,240,232,.85); background: transparent;
+  transition: background .3s, border-color .3s;
+  font-family: 'Montserrat', sans-serif; cursor: pointer;
+}
+.button-ghost-light:hover { background: rgba(243,240,232,.08); border-color: rgba(243,240,232,.5); }
+
+/* ── Explore button (modal) ── */
+.button-explore {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 11px; text-transform: uppercase; letter-spacing: .1em;
+  padding: 14px 28px;
+  border: 1px solid rgba(241,210,136,.35); color: var(--gold);
+  background: transparent; transition: background .3s, border-color .3s;
+  font-family: 'Montserrat', sans-serif; cursor: pointer;
+}
+.button-explore:hover { background: rgba(241,210,136,.1); border-color: var(--gold); }
+.dest-modal-actions { display: flex; flex-direction: column; gap: 12px; margin-top: 30px; }
+
+/* ── Responsive — destination pages ── */
+@media (max-width: 860px) {
+  .dp-hero { height: 70vh; min-height: 420px; }
+  .dp-hero-content { padding: 0 6vw 48px; }
+  .dp-hero h1 { font-size: clamp(32px, 9vw, 48px); }
+  .dp-overview { padding: 60px 6vw; }
+  .dp-overview-text { font-size: 20px; }
+
+  /* Strip becomes horizontal scroll on mobile */
+  .dp-strip {
+    height: auto; flex-direction: column; gap: 12px;
+    border-radius: 0;
+  }
+  .dp-strip-item {
+    flex: none !important; height: 280px; border-radius: 10px;
+  }
+  .dp-strip-item .dp-strip-info { opacity: 1; transform: translateY(0); }
+  .dp-strip-item .dp-strip-num { opacity: 0; }
+  .dp-strip-section { padding: 0 6vw 60px; }
+  .dp-grid-section { padding: 0 6vw 60px; }
+
+  .dp-activity-grid { grid-template-columns: 1fr 1fr; }
+  .dp-parallax { background-attachment: scroll; min-height: 60vh; }
+  .dp-parallax-content { padding: 60px 6vw; }
+  .dp-parallax-actions { flex-direction: column; align-items: center; }
+}
+
+@media (max-width: 480px) {
+  .dp-hero { height: 60vh; }
+  .dp-hero h1 { font-size: clamp(28px, 10vw, 40px); }
+  .dp-activity-grid { grid-template-columns: 1fr; }
+  .dp-strip-item { height: 240px; }
+}
