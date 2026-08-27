@@ -1,6 +1,8 @@
 'use client'
 
-import { ArrowUpRight } from 'lucide-react'
+import { ArrowUpRight, Compass } from 'lucide-react'
+import Link from 'next/link'
+import { featuredDestinations, destinationDetails } from '@/lib/data'
 import type { Destination } from '@/lib/data'
 
 type Props = {
@@ -10,6 +12,11 @@ type Props = {
 
 export default function DestinationModal({ destination, onClose }: Props) {
   if (!destination) return null
+
+  // Only featured destinations (with detail pages) get the Explore button
+  const hasDetailPage =
+    featuredDestinations.some(d => d.id === destination.id) &&
+    destination.id in destinationDetails
 
   return (
     <div className="dest-modal-overlay" onClick={onClose}>
@@ -38,9 +45,20 @@ export default function DestinationModal({ destination, onClose }: Props) {
             ))}
           </div>
 
-          <a href="#contact" className="button button-gold dest-modal-cta" onClick={onClose}>
-            Create a retreat here <ArrowUpRight size={14} />
-          </a>
+          <div className="dest-modal-actions">
+            {hasDetailPage && (
+              <Link
+                href={`/destinations/${destination.id}`}
+                className="button button-explore dest-modal-cta"
+                onClick={onClose}
+              >
+                <Compass size={15} /> Explore {destination.title}
+              </Link>
+            )}
+            <a href="/contact" className="button button-gold dest-modal-cta" onClick={onClose}>
+              Create a retreat here <ArrowUpRight size={14} />
+            </a>
+          </div>
         </div>
       </div>
     </div>
