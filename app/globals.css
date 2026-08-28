@@ -62,13 +62,35 @@ h2, h3 { font-family: 'Cormorant Garamond', serif; }
 .lang:hover { opacity: 1; }
 .lang-sep { font-size: 10px; opacity: .4; }
 
+/* Full-screen menu overlay — used whenever .site-links.open, on any viewport
+   (hamburger-only "compact" nav opens this on desktop too, not just mobile). */
+.site-links.open {
+  display: flex !important;
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  width: 100%; height: 100vh; height: 100dvh;
+  z-index: 90; flex-direction: column;
+  align-items: flex-start; justify-content: center;
+  gap: 24px; padding: 12vw 8vw;
+  background-color: #8D4C65;
+  font-size: 20px; letter-spacing: .06em;
+  overflow-y: auto;
+}
+.site-links.open a { color: #fff; opacity: .9; font-size: clamp(22px, 3.4vw, 30px); }
+.site-nav.menu-open .menu-toggle { color: #fff; position: relative; z-index: 95; }
+.site-nav.menu-open .lang { color: #fff; }
+
+/* Compact nav — hamburger-only trigger, used over the hero/intro so nothing
+   competes with the Ankh reveal. Full menu still opens on click. */
+.site-nav.nav-compact .site-links:not(.open) { display: none !important; }
+.site-nav.nav-compact .menu-toggle { display: flex; }
+.menu-toggle { display: none; border: 0; background: transparent; color: inherit; padding: 4px; }
+
 /* Google Translate — hide its default UI, keep only our buttons */
 #google_translate_element { position: absolute; width: 0; height: 0; overflow: hidden; opacity: 0; pointer-events: none; }
 .goog-te-banner-frame, .skiptranslate { display: none !important; }
 body { top: 0 !important; }
 .goog-tooltip, .goog-tooltip:hover { display: none !important; }
 .goog-text-highlight { background: none !important; box-shadow: none !important; }
-.menu-toggle { display: none; border: 0; background: transparent; color: inherit; padding: 4px; }
 
 /* ── HERO — Sarasvvati style ── */
 .hero {
@@ -85,12 +107,19 @@ body { top: 0 !important; }
 .hero-shade {
   position: absolute; inset: 0;
   background:
-    linear-gradient(to bottom, rgba(20,8,8,.55) 0%, transparent 28%),
-    linear-gradient(to top,    rgba(20,8,8,.85) 0%, rgba(20,8,8,.15) 50%, transparent 100%);
+    linear-gradient(to bottom, rgba(20,8,8,.65) 0%, transparent 32%),
+    linear-gradient(to top,    rgba(20,8,8,.88) 0%, rgba(20,8,8,.25) 50%, transparent 100%);
 }
 .hero-content {
   position: relative; z-index: 1;
   padding: 0 8vw 10vh; max-width: 900px;
+}
+/* Hero title/buttons stay hidden while the Ankh intro is playing, so no text
+   competes with the reveal — they fade in only once the keyhole fully opens. */
+.kh-text-out { opacity: 0; transform: translateY(16px); pointer-events: none; }
+.kh-text-in {
+  opacity: 1; transform: translateY(0); pointer-events: auto;
+  transition: opacity .9s ease .1s, transform .9s ease .1s;
 }
 .eyebrow, .section-label, .footer-label {
   font-size: 10px; text-transform: uppercase;
@@ -429,6 +458,8 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
    focal point because the tint rect above is heavier there. */
 .kh-frost {
   position: absolute; inset: 0; z-index: 13; pointer-events: none;
+  backdrop-filter: blur(var(--kh-blur, 28px));
+  -webkit-backdrop-filter: blur(var(--kh-blur, 28px));
   opacity: var(--kh-frost-op, 1);
 }
 .kh-frost.kh-open { display: none; }
@@ -739,28 +770,7 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
   .site-nav { padding: 10px 5vw; }
   .brand { width: 54px; }
   .site-links { display: none !important; }
-  .site-links.open {
-    display: flex !important;
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    width: 100%;
-    height: 100vh;
-    height: 100dvh;
-    z-index: 90;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-    gap: 30px;
-    padding: 12vw 8vw;
-    background-color: #8D4C65;
-    font-size: 20px;
-    letter-spacing: .06em;
-    overflow-y: auto;
-  }
-  .site-links.open a { color: #fff; opacity: .9; font-size: 20px; }
-  .menu-toggle { display: block; position: relative; z-index: 95; }
-  .site-nav.menu-open .menu-toggle { color: #fff; }
-  .site-nav.menu-open .lang { color: #fff; }
+  .menu-toggle { display: flex; position: relative; z-index: 95; }
   .brand { width: 52px; }
 
   /* HERO */
