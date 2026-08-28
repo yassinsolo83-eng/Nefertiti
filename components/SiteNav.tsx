@@ -27,6 +27,11 @@ type Props = {
   /** When true, the horizontal link row is replaced by a hamburger-only trigger
    *  (used while the hero/intro is on screen, so nothing competes with it). */
   compact?: boolean
+  /** Hero video source — shown clipped inside the compact pill so it reads as a
+   *  clear window onto the same footage behind it. */
+  heroVideoSrc?: string
+  /** Poster/fallback for the pill window video. */
+  heroPosterSrc?: string
   /**
    * Optional smooth-scroll handler for same-page anchor links (home page only).
    * If omitted, links behave as normal navigations.
@@ -39,7 +44,7 @@ type Props = {
   onBrand?: (e: React.MouseEvent<HTMLAnchorElement>) => void
 }
 
-export default function SiteNav({ solid, hidden, scrolled, compact, onAnchor, onBrand }: Props) {
+export default function SiteNav({ solid, hidden, scrolled, compact, heroVideoSrc, heroPosterSrc, onAnchor, onBrand }: Props) {
   const [menuOpen, setMenuOpen] = useState(false)
   const closeMenu = () => setMenuOpen(false)
   const navRef = useRef<HTMLElement>(null)
@@ -88,14 +93,27 @@ export default function SiteNav({ solid, hidden, scrolled, compact, onAnchor, on
         ))}
       </nav>
 
-      {/* Compact mode (hero/intro): a single centered pill replaces the hamburger
-          in the corner — brand name on the left, menu icon on the right. */}
+      {/* Compact mode (hero/intro): a centered pill. Inside it, a full-viewport
+          fixed video is clipped to the pill shape — because it's the same size,
+          fit and object-position as the hero video behind, the pill shows the
+          exact same footage cleanly, like a window (the Ankh uses a mask; this
+          uses clip, but the visual result matches). */}
       {compact && (
         <button
           className="nav-pill-trigger notranslate"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label={menuOpen ? 'Close menu' : 'Open menu'}
         >
+          {heroVideoSrc && (
+            <span className="nav-pill-window" aria-hidden="true">
+              <video
+                className="nav-pill-video"
+                src={heroVideoSrc}
+                poster={heroPosterSrc}
+                autoPlay muted loop playsInline preload="auto"
+              />
+            </span>
+          )}
           <span className="nav-pill-label">Nefertiti</span>
           <span className="nav-pill-icon">{menuOpen ? <X size={16} /> : <Menu size={16} />}</span>
         </button>
