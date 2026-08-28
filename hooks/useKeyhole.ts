@@ -22,9 +22,9 @@ export function useKeyhole({ setIntroDone, setScrolled }: Setters) {
     const frost = document.getElementById('kh-frost')
 
     const isMobile = window.innerWidth <= 860
-    const MIN = isMobile ? 3.8 : 3.2 // larger visible Ankh on mobile
+    const MIN = isMobile ? 4.8 : 3.2 // larger visible Ankh on mobile
     const MAX = 42 // large enough to fully clear the viewport at end of track
-    const CY = isMobile ? 440 : 500 // raise the Ankh above the hero text on mobile
+    const CY = isMobile ? 500 : 500 // centred on both
     const clamp = (v: number, a: number, b: number) => Math.min(b, Math.max(a, v))
     const smooth = (x: number) => x * x * (3 - 2 * x)
 
