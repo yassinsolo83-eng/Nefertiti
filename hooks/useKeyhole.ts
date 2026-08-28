@@ -48,7 +48,7 @@ export function useKeyhole({ setIntroDone, setScrolled }: Setters) {
       // clean finish: fade the frost out as the keyhole completes
       const darkOp = op > 0.92 ? clamp(1 - (op - 0.92) / 0.08, 0, 1) : 1
       // fade the beige veil from 0.82 toward 0 across the open
-      if (darkRect) darkRect.setAttribute('fill-opacity', String(0.82 * darkOp * (1 - op * 0.55)))
+      if (darkRect) darkRect.setAttribute('fill-opacity', String(0.9 * darkOp * (1 - op * 0.5)))
 
       // frosted glass: heavy blur at the start, easing to none as we open
       if (frost) {
