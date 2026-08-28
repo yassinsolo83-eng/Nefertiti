@@ -69,6 +69,20 @@ export default function SiteNav({ solid, hidden, scrolled, compact, onAnchor, on
           <a key={item} href={href} onClick={(e) => handleClick(e, href)}>{item}</a>
         ))}
       </nav>
+
+      {/* Compact mode (hero/intro): a single centered pill replaces the hamburger
+          in the corner — brand name on the left, menu icon on the right. */}
+      {compact && (
+        <button
+          className="nav-pill-trigger notranslate"
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+        >
+          <span className="nav-pill-label">Nefertiti</span>
+          <span className="nav-pill-icon">{menuOpen ? <X size={15} /> : <Menu size={15} />}</span>
+        </button>
+      )}
+
       <div className="nav-actions">
         <div className="lang-switch">
           <button className="lang notranslate" onClick={() => setGoogleLang('en')} aria-label="English">EN</button>
