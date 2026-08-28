@@ -82,8 +82,33 @@ h2, h3 { font-family: 'Cormorant Garamond', serif; }
 /* Compact nav — hamburger-only trigger, used over the hero/intro so nothing
    competes with the Ankh reveal. Full menu still opens on click. */
 .site-nav.nav-compact .site-links:not(.open) { display: none !important; }
-.site-nav.nav-compact .menu-toggle { display: flex; }
+.site-nav.nav-compact .lang-switch { display: none; }
+.site-nav.nav-compact .nav-actions .menu-toggle { display: none !important; }
 .menu-toggle { display: none; border: 0; background: transparent; color: inherit; padding: 4px; }
+
+/* Centered pill trigger (compact mode) — brand name left, menu icon right */
+.nav-pill-trigger {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  display: inline-flex; align-items: center; gap: 32px;
+  padding: 9px 9px 9px 22px;
+  border: 1px solid rgba(241,210,136,.4); border-radius: 40px;
+  background: rgba(46,24,64,.3); backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: var(--gold); cursor: pointer; z-index: 30;
+  transition: background .3s, border-color .3s;
+}
+.nav-pill-trigger:hover { background: rgba(241,210,136,.14); border-color: var(--gold); }
+.nav-pill-label {
+  font-family: 'Cormorant Garamond', serif; font-size: 16px; font-style: italic;
+  letter-spacing: .02em; white-space: nowrap; line-height: 1;
+}
+.nav-pill-icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 30px; height: 30px; border-radius: 50%;
+  background: rgba(241,210,136,.14); flex-shrink: 0;
+}
+.site-nav.menu-open .nav-pill-trigger { color: #fff; border-color: rgba(255,255,255,.4); background: rgba(0,0,0,.15); }
+.site-nav.menu-open .nav-pill-icon { background: rgba(255,255,255,.14); }
 
 /* Google Translate — hide its default UI, keep only our buttons */
 #google_translate_element { position: absolute; width: 0; height: 0; overflow: hidden; opacity: 0; pointer-events: none; }
