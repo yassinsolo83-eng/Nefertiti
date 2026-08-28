@@ -62,7 +62,7 @@ export default function Page() {
       {/* NAV */}
       <SiteNav
         scrolled={scrolled}
-        compact={!scrolled}
+        showVideo={!scrolled}
         heroVideoSrc="/hero-video.mp4"
         heroPosterSrc={images.heroMain}
         onAnchor={navTo}
