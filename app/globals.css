@@ -53,8 +53,8 @@ h2, h3 { font-family: 'Cormorant Garamond', serif; }
   position: relative; pointer-events: auto;
   display: flex; align-items: center; justify-content: space-between;
   width: clamp(300px, 30vw, 440px);
-  padding: 6px 12px;
-  border-radius: 18px; overflow: hidden; isolation: isolate;
+  padding: 8px 10px;
+  border-radius: 18px; overflow: visible; isolation: isolate;
   border: none;
   transition: background .35s, border-color .35s, width .35s;
 }
@@ -71,15 +71,16 @@ h2, h3 { font-family: 'Cormorant Garamond', serif; }
 /* ── Logo inside the pill ── */
 .nav-pill-brand {
   position: relative; z-index: 2; flex-shrink: 0;
-  display: flex; align-items: center; justify-content: center; height: 70px;
+  display: flex; align-items: center; justify-content: center; 
+  height: 60px; width: 60px; margin-left: -2px;
 }
-.nav-pill-brand img { height: 100%; width: auto; object-fit: contain; }
+.nav-pill-brand img { height: 100%; width: 100%; object-fit: contain; }
 
 /* ── Menu toggle (hamburger / X) ── */
 .nav-pill-icon {
   position: relative; z-index: 2;
   display: inline-flex; align-items: center; justify-content: center;
-  width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0;
+  width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0; margin-right: -2px;
   border: 1px solid rgba(255,255,255,.7); background: rgba(20,8,8,.12);
   color: #fff; cursor: pointer;
   transition: border-color .3s, background .3s;
