@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import { Menu, X, MapPin } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
 import { images } from '@/lib/data'
 import { setGoogleLang } from '@/hooks/useGoogleTranslate'
 
@@ -20,18 +20,18 @@ const NAV_ITEMS: NavItem[] = [
 type Props = {
   /** When true the nav paints its solid background permanently (inner pages). */
   solid?: boolean
-  /** When true the nav is temporarily hidden (home-page intro). */
+  /** When true the nav is temporarily hidden. */
   hidden?: boolean
   /** When true the nav sits transparent over a hero and turns solid on scroll. */
   scrolled?: boolean
-  /** When true, the horizontal link row is replaced by a hamburger-only trigger
-   *  (used while the hero/intro is on screen, so nothing competes with it). */
-  compact?: boolean
-  /** Hero video source — shown clipped inside the compact pill so it reads as a
-   *  clear window onto the same footage behind it. */
+  /** Hero video source — shown clipped inside the pill so it reads as a clear
+   *  window onto the same footage behind it (home page intro only). */
   heroVideoSrc?: string
   /** Poster/fallback for the pill window video. */
   heroPosterSrc?: string
+  /** When true, the pill shows the clear-video window (home intro). Otherwise the
+   *  pill is solid/ivory to sit over normal page content. */
+  showVideo?: boolean
   /**
    * Optional smooth-scroll handler for same-page anchor links (home page only).
    * If omitted, links behave as normal navigations.
@@ -44,15 +44,17 @@ type Props = {
   onBrand?: (e: React.MouseEvent<HTMLAnchorElement>) => void
 }
 
-export default function SiteNav({ solid, hidden, scrolled, compact, heroVideoSrc, heroPosterSrc, onAnchor, onBrand }: Props) {
+export default function SiteNav({
+  solid, hidden, scrolled, heroVideoSrc, heroPosterSrc, showVideo,
+  onAnchor, onBrand,
+}: Props) {
   const [menuOpen, setMenuOpen] = useState(false)
   const closeMenu = () => setMenuOpen(false)
   const navRef = useRef<HTMLElement>(null)
 
   const isScrolled = solid || scrolled
 
-  // Close the dropdown when clicking outside it, or on Escape — so the compact
-  // pill menu behaves like a normal dropdown, not a trap the user can't exit.
+  // Close the dropdown on outside click or Escape — a normal dropdown, not a trap.
   useEffect(() => {
     if (!menuOpen) return
     const onPointerDown = (e: MouseEvent) => {
@@ -69,65 +71,57 @@ export default function SiteNav({ solid, hidden, scrolled, compact, heroVideoSrc
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     closeMenu()
-    // Only intercept in-page anchors on the home page
     if (onAnchor && href.startsWith('/#')) onAnchor(e, href)
   }
 
   const handleBrand = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    closeMenu()
     if (onBrand) onBrand(e)
   }
 
   return (
     <header
       ref={navRef}
-      className={`site-nav ${isScrolled ? 'is-scrolled' : ''} ${menuOpen ? 'menu-open' : ''} ${hidden ? 'nav-hidden' : ''} ${compact ? 'nav-compact' : ''}`}
+      className={`site-nav ${isScrolled ? 'is-scrolled' : ''} ${menuOpen ? 'menu-open' : ''} ${hidden ? 'nav-hidden' : ''} ${showVideo ? 'pill-video' : 'pill-solid'}`}
     >
-      <a href="/" className="brand" onClick={handleBrand}>
-        <span className="brand-badge notranslate"><MapPin size={9} strokeWidth={2.5} />EGYPT</span>
-        <img src={isScrolled ? images.logoDark : images.logo} alt="Nefertiti Luxury Retreat Producer" />
-      </a>
-      <nav className={`site-links ${menuOpen ? 'open' : ''}`} aria-label="Main navigation">
-        {NAV_ITEMS.map(([item, href]) => (
-          <a key={item} href={href} onClick={(e) => handleClick(e, href)}>{item}</a>
-        ))}
-      </nav>
+      {/* The pill IS the navigation everywhere: logo (left) + menu toggle (right),
+          with a dropdown panel below. On the home intro it shows a clear-video
+          window; elsewhere it's a solid ivory bar. */}
+      <div className="nav-pill">
+        {showVideo && heroVideoSrc && (
+          <span className="nav-pill-window" aria-hidden="true">
+            <video
+              className="nav-pill-video"
+              src={heroVideoSrc}
+              poster={heroPosterSrc}
+              autoPlay muted loop playsInline preload="auto"
+            />
+          </span>
+        )}
 
-      {/* Compact mode (hero/intro): a centered pill. Inside it, a full-viewport
-          fixed video is clipped to the pill shape — because it's the same size,
-          fit and object-position as the hero video behind, the pill shows the
-          exact same footage cleanly, like a window (the Ankh uses a mask; this
-          uses clip, but the visual result matches). */}
-      {compact && (
+        <a href="/" className="nav-pill-brand" onClick={handleBrand} aria-label="Nefertiti — home">
+          <img src={showVideo ? images.logo : images.logoDark} alt="Nefertiti Luxury Retreat Producer" />
+        </a>
+
         <button
-          className="nav-pill-trigger notranslate"
+          className="nav-pill-icon"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+          aria-expanded={menuOpen}
         >
-          {heroVideoSrc && (
-            <span className="nav-pill-window" aria-hidden="true">
-              <video
-                className="nav-pill-video"
-                src={heroVideoSrc}
-                poster={heroPosterSrc}
-                autoPlay muted loop playsInline preload="auto"
-              />
-            </span>
-          )}
-          <span className="nav-pill-label">Nefertiti</span>
-          <span className="nav-pill-icon">{menuOpen ? <X size={16} /> : <Menu size={16} />}</span>
+          {menuOpen ? <X size={17} /> : <Menu size={17} />}
         </button>
-      )}
 
-      <div className="nav-actions">
-        <div className="lang-switch">
-          <button className="lang notranslate" onClick={() => setGoogleLang('en')} aria-label="English">EN</button>
-          <span className="lang-sep">/</span>
-          <button className="lang notranslate" onClick={() => setGoogleLang('it')} aria-label="Italiano">IT</button>
-        </div>
-        <button className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)} aria-label={menuOpen ? 'Close menu' : 'Open menu'}>
-          {menuOpen ? <X /> : <Menu />}
-        </button>
+        {/* Dropdown panel */}
+        <nav className={`nav-menu ${menuOpen ? 'open' : ''}`} aria-label="Main navigation">
+          {NAV_ITEMS.map(([item, href]) => (
+            <a key={item} href={href} onClick={(e) => handleClick(e, href)}>{item}</a>
+          ))}
+          <div className="nav-menu-lang">
+            <button className="lang notranslate" onClick={() => { setGoogleLang('en'); closeMenu() }}>EN</button>
+            <span className="lang-sep">/</span>
+            <button className="lang notranslate" onClick={() => { setGoogleLang('it'); closeMenu() }}>IT</button>
+          </div>
+        </nav>
       </div>
     </header>
   )
