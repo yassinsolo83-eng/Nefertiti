@@ -61,6 +61,33 @@ export function useKeyhole({ setIntroDone, setScrolled }: Setters) {
       ring.setAttribute('opacity', String(uiOp))
       if (hint) hint.style.opacity = String(uiOp)
 
+      // ── Track the nav pill and punch a matching hole in the dark overlay ──
+      // The SVG uses viewBox 0 0 1000 1000 with slice scaling, so we convert
+      // the pill's viewport coordinates to SVG coordinates each frame.
+      const pillHole = document.getElementById('kh-pill-hole')
+      const pillRing = document.getElementById('kh-pill-ring')
+      const pillEl = document.querySelector('.nav-pill') as HTMLElement | null
+      if (pillHole && pillRing && pillEl) {
+        const vw = window.innerWidth
+        const vh = window.innerHeight
+        const scale = Math.max(vw / 1000, vh / 1000)
+        const offX = (vw - 1000 * scale) / 2
+        const offY = (vh - 1000 * scale) / 2
+        const pb = pillEl.getBoundingClientRect()
+        const sx = (pb.left - offX) / scale
+        const sy = (pb.top - offY) / scale
+        const sw = pb.width / scale
+        const sh = pb.height / scale
+        const sr = (60 / scale).toFixed(1) // border-radius 60px → SVG units
+        const attrs = { x: sx.toFixed(1), y: sy.toFixed(1), width: sw.toFixed(1), height: sh.toFixed(1), rx: sr }
+        for (const [k, v] of Object.entries(attrs)) {
+          pillHole.setAttribute(k, v)
+          pillRing.setAttribute(k, v)
+        }
+        // Fade the pill ring with the Ankh ring
+        pillRing.setAttribute('opacity', String(uiOp))
+      }
+
       setIntroDone(op >= 1)
     }
 
