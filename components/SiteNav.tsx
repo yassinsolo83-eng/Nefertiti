@@ -83,19 +83,19 @@ export default function SiteNav({
         >
           {menuOpen ? <X size={17} /> : <Menu size={17} />}
         </button>
-
-        {/* Dropdown panel */}
-        <nav className={`nav-menu ${menuOpen ? 'open' : ''}`} aria-label="Main navigation">
-          {NAV_ITEMS.map(([item, href]) => (
-            <a key={item} href={href} onClick={(e) => handleClick(e, href)}>{item}</a>
-          ))}
-          <div className="nav-menu-lang">
-            <button className="lang notranslate" onClick={() => { setGoogleLang('en'); closeMenu() }}>EN</button>
-            <span className="lang-sep">/</span>
-            <button className="lang notranslate" onClick={() => { setGoogleLang('it'); closeMenu() }}>IT</button>
-          </div>
-        </nav>
       </div>
+
+      {/* Dropdown panel — sits outside the pill so overflow:hidden doesn't clip it */}
+      <nav className={`nav-menu ${menuOpen ? 'open' : ''}`} aria-label="Main navigation">
+        {NAV_ITEMS.map(([item, href]) => (
+          <a key={item} href={href} onClick={(e) => handleClick(e, href)}>{item}</a>
+        ))}
+        <div className="nav-menu-lang">
+          <button className="lang notranslate" onClick={() => { setGoogleLang('en'); closeMenu() }}>EN</button>
+          <span className="lang-sep">/</span>
+          <button className="lang notranslate" onClick={() => { setGoogleLang('it'); closeMenu() }}>IT</button>
+        </div>
+      </nav>
     </header>
   )
 }
