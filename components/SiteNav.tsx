@@ -18,34 +18,18 @@ const NAV_ITEMS: NavItem[] = [
 ]
 
 type Props = {
-  /** When true the nav paints its solid background permanently (inner pages). */
   solid?: boolean
-  /** When true the nav is temporarily hidden. */
   hidden?: boolean
-  /** When true the nav sits transparent over a hero and turns solid on scroll. */
   scrolled?: boolean
-  /** Hero video source — shown clipped inside the pill so it reads as a clear
-   *  window onto the same footage behind it (home page intro only). */
-  heroVideoSrc?: string
-  /** Poster/fallback for the pill window video. */
-  heroPosterSrc?: string
-  /** When true, the pill shows the clear-video window (home intro). Otherwise the
-   *  pill is solid/ivory to sit over normal page content. */
+  /** When true, the pill uses light logo + gold border (over dark intro).
+   *  When false, uses dark logo + ivory background (over light content). */
   showVideo?: boolean
-  /**
-   * Optional smooth-scroll handler for same-page anchor links (home page only).
-   * If omitted, links behave as normal navigations.
-   */
   onAnchor?: (e: React.MouseEvent<HTMLAnchorElement>, href: string) => void
-  /**
-   * Optional handler for the brand/logo click (home page only). When provided,
-   * clicking the logo scrolls to the revealed hero instead of reloading to the intro.
-   */
   onBrand?: (e: React.MouseEvent<HTMLAnchorElement>) => void
 }
 
 export default function SiteNav({
-  solid, hidden, scrolled, heroVideoSrc, heroPosterSrc, showVideo,
+  solid, hidden, scrolled, showVideo,
   onAnchor, onBrand,
 }: Props) {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -87,17 +71,6 @@ export default function SiteNav({
           with a dropdown panel below. On the home intro it shows a clear-video
           window; elsewhere it's a solid ivory bar. */}
       <div className="nav-pill">
-        {showVideo && heroVideoSrc && (
-          <span className="nav-pill-window" aria-hidden="true">
-            <video
-              className="nav-pill-video"
-              src={heroVideoSrc}
-              poster={heroPosterSrc}
-              autoPlay muted loop playsInline preload="auto"
-            />
-          </span>
-        )}
-
         <a href="/" className="nav-pill-brand" onClick={handleBrand} aria-label="Nefertiti — home">
           <img src={showVideo ? images.logo : images.logoDark} alt="Nefertiti Luxury Retreat Producer" />
         </a>
