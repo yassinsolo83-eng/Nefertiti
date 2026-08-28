@@ -63,6 +63,8 @@ export default function Page() {
       <SiteNav
         scrolled={scrolled}
         compact={!scrolled}
+        heroVideoSrc="/hero-video.mp4"
+        heroPosterSrc={images.heroMain}
         onAnchor={navTo}
         onBrand={scrollToHero}
       />
@@ -102,7 +104,8 @@ export default function Page() {
           <div className={`kh-overlay ${introDone ? 'kh-open' : ''}`}>
             <svg className="kh-svg" preserveAspectRatio="xMidYMid slice" viewBox="0 0 1000 1000" aria-hidden="true">
               <defs>
-                {/* mask used by the CSS frost layer: white = blurred, black = clear window */}
+                {/* mask used by the CSS frost layer: white = blurred, black = clear window.
+                    Two holes are punched: the Ankh (centre) and the nav pill (top). */}
                 <mask id="kh-mask">
                   <rect width="1000" height="1000" fill="white" />
                   <path id="kh-hole" fill="black" fillRule="evenodd"
@@ -114,6 +117,8 @@ export default function Page() {
               <path id="kh-ring" fill="none" stroke="#F1D288" strokeWidth="1.2" fillRule="evenodd"
                 transform="translate(500 500) scale(3.2) translate(-50 -50)"
                 d="M50 2 C40 2 31 12 31 27 C31 37 36 44 44 47 L44 49 L30 49 Q33 53.5 30 58 L44 58 L44 93 L56 93 L56 58 L70 58 Q67 53.5 70 49 L56 49 L56 47 C64 44 69 37 69 27 C69 12 60 2 50 2 Z M50 14 C54 14 58 20 58 27 C58 34 54 40 50 40 C46 40 42 34 42 27 C42 20 46 14 50 14 Z" />
+
+              {/* nav pill hole removed — handled by the HTML pill (see .nav-pill-*) */}
             </svg>
             <div id="kh-hint" className="kh-hint">Scroll to enter <span>↓</span></div>
           </div>
