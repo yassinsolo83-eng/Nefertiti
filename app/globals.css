@@ -54,7 +54,7 @@ h2, h3 { font-family: 'Cormorant Garamond', serif; }
   display: flex; align-items: center; justify-content: space-between;
   width: clamp(300px, 30vw, 440px);
   padding: 8px 8px 8px 10px;
-  border-radius: 60px; overflow: hidden; isolation: isolate;
+  border-radius: 18px; overflow: hidden; isolation: isolate;
   border: none;
   transition: background .35s, border-color .35s, width .35s;
 }
