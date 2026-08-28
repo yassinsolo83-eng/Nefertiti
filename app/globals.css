@@ -59,17 +59,8 @@ h2, h3 { font-family: 'Cormorant Garamond', serif; }
   transition: background .35s, border-color .35s, width .35s;
 }
 
-/* ── Video mode (home intro) — clear window onto hero footage ── */
+/* ── Video mode (home intro) — transparent pill over dark intro overlay ── */
 .pill-video .nav-pill { background: transparent; }
-.nav-pill-window {
-  position: absolute; inset: 0; z-index: 0; overflow: hidden; border-radius: inherit;
-}
-.nav-pill-video {
-  position: fixed; inset: 0; z-index: 0;
-  width: 100vw; height: 100vh;
-  object-fit: cover; object-position: center 30%;
-  pointer-events: none;
-}
 
 /* ── Solid mode (scrolled / inner pages) — ivory bar ── */
 .pill-solid .nav-pill {
