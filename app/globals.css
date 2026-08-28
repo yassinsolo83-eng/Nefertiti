@@ -35,71 +35,32 @@ button { font: inherit; cursor: pointer; }
 img { display: block; max-width: 100%; }
 h2, h3 { font-family: 'Cormorant Garamond', serif; }
 
-/* ── NAV ── */
+/* ── NAV — Unified pill navigation ──
+   The pill IS the nav everywhere: logo left, hamburger right, dropdown below.
+   On the home intro it shows a clear-video window; elsewhere it's a solid bar. */
 .site-nav {
   position: fixed; z-index: 20; top: 0; left: 0; right: 0;
+  display: flex; align-items: center; justify-content: center;
+  padding: 18px max(20px, 5vw);
+  pointer-events: none;
+  transition: padding .35s;
+}
+.site-nav.is-scrolled { padding-block: 12px; }
+.nav-hidden { opacity: 0; pointer-events: none; }
+
+/* ── The pill itself ── */
+.nav-pill {
+  position: relative; pointer-events: auto;
   display: flex; align-items: center; justify-content: space-between;
-  padding: 22px max(20px, 5vw); color: #fff;
-  transition: background .35s, color .35s, padding .35s;
+  width: clamp(300px, 30vw, 440px);
+  padding: 8px 8px 8px 10px;
+  border-radius: 60px; overflow: hidden; isolation: isolate;
+  border: 1.4px solid var(--gold);
+  transition: background .35s, border-color .35s, width .35s;
 }
-.site-nav.is-scrolled {
-  padding-block: 12px; color: var(--foreground);
-  background: rgba(243,240,232,.96); backdrop-filter: blur(14px);
-  border-bottom: 1px solid var(--border);
-}
-.brand { width: 110px; flex-shrink: 0; transition: width .35s; }
-.brand img { width: 100%; }
-.site-nav.is-scrolled .brand { width: 80px; }
-.site-links {
-  display: flex; align-items: center; gap: 26px;
-  text-transform: uppercase; font-size: 10px; letter-spacing: .14em; font-weight: 400;
-}
-.site-links a { opacity: .85; transition: opacity .2s; }
-.site-links a:hover { opacity: .45; }
-.nav-actions { display: flex; align-items: center; gap: 16px; flex-shrink: 0; }
-.lang-switch { display: flex; align-items: center; gap: 2px; }
-.lang { border: 0; background: transparent; color: inherit; font-size: 10px; letter-spacing: .12em; font-weight: 500; padding: 4px 6px; cursor: pointer; opacity: .7; transition: opacity .2s; }
-.lang:hover { opacity: 1; }
-.lang-sep { font-size: 10px; opacity: .4; }
 
-/* Full-screen menu overlay — used whenever .site-links.open, on any viewport
-   (hamburger-only "compact" nav opens this on desktop too, not just mobile). */
-.site-links.open {
-  display: flex !important;
-  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-  width: 100%; height: 100vh; height: 100dvh;
-  z-index: 90; flex-direction: column;
-  align-items: flex-start; justify-content: center;
-  gap: 24px; padding: 12vw 8vw;
-  background-color: #8D4C65;
-  font-size: 20px; letter-spacing: .06em;
-  overflow-y: auto;
-}
-.site-links.open a { color: #fff; opacity: .9; font-size: clamp(22px, 3.4vw, 30px); }
-.site-nav.menu-open .menu-toggle { color: #fff; position: relative; z-index: 95; }
-.site-nav.menu-open .lang { color: #fff; }
-
-/* Compact nav — hamburger-only trigger, used over the hero/intro so nothing
-   competes with the Ankh reveal. Full menu still opens on click. */
-.site-nav.nav-compact .site-links:not(.open) { display: none !important; }
-.site-nav.nav-compact .lang-switch { display: none; }
-.site-nav.nav-compact .nav-actions .menu-toggle { display: none !important; }
-.menu-toggle { display: none; border: 0; background: transparent; color: inherit; padding: 4px; }
-
-/* Centered pill trigger (compact mode) — a rounded window onto the hero footage.
-   The inner video is fixed at full-viewport size with the SAME object-fit and
-   object-position as the hero video behind it, so the clipped pill shows the
-   exact same pixels cleanly — a true clear window, like the Ankh. */
-.nav-pill-trigger {
-  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
-  display: inline-flex; align-items: center; justify-content: space-between;
-  width: clamp(320px, 30vw, 440px);
-  padding: 14px 14px 14px 34px;
-  border: 1.4px solid var(--gold); border-radius: 60px;
-  background: transparent; overflow: hidden; isolation: isolate;
-  color: var(--gold); cursor: pointer; z-index: 30;
-  transition: border-color .3s;
-}
+/* ── Video mode (home intro) — clear window onto hero footage ── */
+.pill-video .nav-pill { background: transparent; }
 .nav-pill-window {
   position: absolute; inset: 0; z-index: 0; overflow: hidden; border-radius: inherit;
 }
@@ -109,54 +70,105 @@ h2, h3 { font-family: 'Cormorant Garamond', serif; }
   object-fit: cover; object-position: center 30%;
   pointer-events: none;
 }
-.nav-pill-label {
-  position: relative; z-index: 2;
-  font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: 23px;
-  letter-spacing: .01em; white-space: nowrap; line-height: 1;
-  color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,.9), 0 2px 14px rgba(0,0,0,.7);
+
+/* ── Solid mode (scrolled / inner pages) — ivory bar ── */
+.pill-solid .nav-pill {
+  background: rgba(243,240,232,.96); backdrop-filter: blur(14px);
+  border-color: rgba(200,190,170,.4);
 }
+
+/* ── Logo inside the pill ── */
+.nav-pill-brand {
+  position: relative; z-index: 2; flex-shrink: 0;
+  display: flex; align-items: center; height: 48px;
+}
+.nav-pill-brand img { height: 100%; width: auto; }
+
+/* ── Menu toggle (hamburger / X) ── */
 .nav-pill-icon {
   position: relative; z-index: 2;
   display: inline-flex; align-items: center; justify-content: center;
-  width: 38px; height: 38px; border-radius: 50%;
-  border: 1px solid rgba(255,255,255,.85); background: rgba(20,8,8,.15); color: #fff; flex-shrink: 0;
-  transition: border-color .3s;
-  box-shadow: 0 1px 8px rgba(0,0,0,.4);
+  width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0;
+  border: 1px solid rgba(255,255,255,.7); background: rgba(20,8,8,.12);
+  color: #fff; cursor: pointer;
+  transition: border-color .3s, background .3s;
+  box-shadow: 0 1px 6px rgba(0,0,0,.3);
 }
-.nav-pill-trigger:hover { border-color: #fff; }
-.site-nav.menu-open .nav-pill-trigger { z-index: 95; }
-.site-nav.menu-open .nav-pill-label { color: #fff; }
-.site-nav.menu-open .nav-pill-icon { border-color: #fff; }
+.nav-pill-icon:hover { border-color: #fff; background: rgba(20,8,8,.25); }
+.pill-solid .nav-pill-icon {
+  border-color: rgba(141,76,101,.25); color: var(--foreground);
+  background: transparent; box-shadow: none;
+}
+.pill-solid .nav-pill-icon:hover { border-color: var(--primary); background: rgba(141,76,101,.06); }
 
-/* Compact mode: the pill opens a clean multi-column dropdown panel — not a
-   fullscreen takeover — closing on outside click, Escape, or the pill again. */
-.site-nav.nav-compact .site-links.open {
-  position: absolute; inset: auto; top: 96px; left: 50%; right: auto; bottom: auto;
+/* ── Dropdown panel — 2-column frosted glass ── */
+.nav-menu {
+  display: none; position: absolute; top: calc(100% + 10px); left: 50%;
   transform: translateX(-50%);
-  width: min(440px, 92vw); height: auto; max-height: 74vh; overflow-y: auto;
+  width: min(440px, 92vw);
+  grid-template-columns: 1fr 1fr; gap: 4px 10px;
+  padding: 16px;
+  border: 1px solid rgba(241,210,136,.28); border-radius: 20px;
+  box-shadow: 0 28px 70px rgba(20,8,8,.45);
   z-index: 40;
-  display: grid !important; grid-template-columns: 1fr 1fr; gap: 4px 10px;
-  align-items: stretch; justify-content: stretch;
-  padding: 16px; background: rgba(255,255,255,.04);
-  backdrop-filter: blur(22px) saturate(1.1); -webkit-backdrop-filter: blur(22px) saturate(1.1);
-  border: 1px solid rgba(241,210,136,.28);
-  border-radius: 20px; box-shadow: 0 28px 70px rgba(20,8,8,.45);
-  font-size: 12px; letter-spacing: .1em;
 }
-.site-nav.nav-compact .site-links.open a {
-  color: #fff; opacity: 1; font-size: 12px;
-  padding: 13px 14px; border-radius: 12px;
+.nav-menu.open { display: grid; }
+
+/* Video mode dropdown — frosted glass over dark intro */
+.pill-video .nav-menu {
+  background: rgba(255,255,255,.04);
+  backdrop-filter: blur(22px) saturate(1.1); -webkit-backdrop-filter: blur(22px) saturate(1.1);
+}
+.pill-video .nav-menu a {
+  color: #fff; font-size: 12px; padding: 13px 14px; border-radius: 12px;
   text-transform: uppercase; letter-spacing: .1em;
   text-shadow: 0 1px 6px rgba(0,0,0,.6);
   transition: background .2s, color .2s;
 }
-.site-nav.nav-compact .site-links.open a:hover { color: var(--gold); background: rgba(241,210,136,.1); }
-/* Contact spans both columns as a highlighted footer item */
-.site-nav.nav-compact .site-links.open a:last-child {
-  grid-column: 1 / -1; margin-top: 6px; text-align: center;
-  color: var(--plum-deep, #2E1840); background: var(--gold); font-weight: 600;
+.pill-video .nav-menu a:hover { color: var(--gold); background: rgba(241,210,136,.1); }
+
+/* Solid mode dropdown — light glass over ivory content */
+.pill-solid .nav-menu {
+  background: rgba(243,240,232,.95);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  border-color: var(--border);
 }
-.site-nav.nav-compact .site-links.open a:last-child:hover { background: #f5dfa0; color: #2E1840; }
+.pill-solid .nav-menu a {
+  color: var(--foreground); font-size: 12px; padding: 13px 14px; border-radius: 12px;
+  text-transform: uppercase; letter-spacing: .1em;
+  transition: background .2s, color .2s;
+}
+.pill-solid .nav-menu a:hover { color: var(--primary); background: rgba(141,76,101,.06); }
+
+/* Contact — highlighted CTA spanning both columns */
+.nav-menu a:last-of-type {
+  grid-column: 1 / -1; margin-top: 6px; text-align: center;
+  color: #2E1840 !important; background: var(--gold); font-weight: 600;
+  text-shadow: none !important; border-radius: 12px;
+}
+.nav-menu a:last-of-type:hover { background: #f5dfa0; }
+
+/* Lang switch inside dropdown */
+.nav-menu-lang {
+  grid-column: 1 / -1; display: flex; justify-content: center;
+  gap: 2px; padding-top: 10px; border-top: 1px solid rgba(200,190,170,.15);
+  margin-top: 6px;
+}
+.lang { border: 0; background: transparent; font-size: 11px; letter-spacing: .12em; font-weight: 500; padding: 4px 8px; cursor: pointer; opacity: .6; transition: opacity .2s; }
+.pill-video .lang { color: #fff; }
+.pill-solid .lang { color: var(--foreground); }
+.lang:hover { opacity: 1; }
+.lang-sep { font-size: 11px; opacity: .4; }
+.pill-video .lang-sep { color: #fff; }
+.pill-solid .lang-sep { color: var(--foreground); }
+
+/* Google Translate — hide its default UI, keep only our buttons */
+#google_translate_element { position: absolute; width: 0; height: 0; overflow: hidden; opacity: 0; pointer-events: none; }
+.goog-te-banner-frame, .skiptranslate { display: none !important; }
+body { top: 0 !important; }
+.goog-tooltip, .goog-tooltip:hover { display: none !important; }
+.goog-text-highlight { background: none !important; box-shadow: none !important; }
+
 
 /* Google Translate — hide its default UI, keep only our buttons */
 #google_translate_element { position: absolute; width: 0; height: 0; overflow: hidden; opacity: 0; pointer-events: none; }
@@ -580,20 +592,6 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
 /* Inner pages have no scroll-observer — reveal immediately */
 .reveal.is-in { opacity: 1; transform: none; }
 
-/* ══════════════════════════════════
-   NAV — EGYPT badge above logo
-══════════════════════════════════ */
-.brand { display: flex; flex-direction: column; align-items: center; gap: 3px; line-height: 1; }
-.brand-badge {
-  display: inline-flex; align-items: center; gap: 4px;
-  font-family: 'Montserrat', sans-serif; font-weight: 600;
-  font-size: 10px; letter-spacing: .22em; text-transform: uppercase;
-  color: var(--gold); transition: font-size .35s;
-}
-.brand-badge svg { width: 11px; height: 11px; }
-.site-nav.is-scrolled .brand-badge { color: var(--primary); font-size: 8px; }
-.site-nav.is-scrolled .brand-badge svg { width: 9px; height: 9px; }
-
 .button-berry { background: var(--primary); border-color: var(--primary); color: var(--gold); }
 .button-berry:hover { background: #7a3f56; }
 
@@ -839,22 +837,14 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
 ══════════════════════════════════ */
 @media (max-width: 860px) {
 
-  /* NAV mobile — links hidden by default, fullscreen overlay when open */
+  /* NAV mobile — smaller pill, tighter padding */
   .site-nav { padding: 10px 5vw; }
-  .brand { width: 54px; }
-  .site-links { display: none !important; }
-  .menu-toggle { display: flex; position: relative; z-index: 95; }
-  .brand { width: 52px; }
-
-  /* Compact pill — drop below the logo row on mobile instead of centering
-     over it (avoids overlapping the logo at narrow widths). */
-  .nav-pill-trigger {
-    top: 92px; transform: translateX(-50%);
-    width: min(270px, 78vw); padding: 11px 11px 11px 26px;
+  .nav-pill {
+    width: min(260px, 78vw); padding: 6px 6px 6px 8px;
   }
-  .nav-pill-label { font-size: 18px; }
-  .nav-pill-icon { width: 34px; height: 34px; }
-  .site-nav.nav-compact .site-links.open { top: 150px; width: min(300px, 86vw); }
+  .nav-pill-brand { height: 32px; }
+  .nav-pill-icon { width: 32px; height: 32px; }
+  .nav-menu { width: min(280px, 86vw); }
 
   /* HERO */
   .hero-content { padding: 0 6vw 12vh; }
