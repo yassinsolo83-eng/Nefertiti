@@ -78,7 +78,7 @@ export function useKeyhole({ setIntroDone, setScrolled }: Setters) {
         const sy = (pb.top - offY) / scale
         const sw = pb.width / scale
         const sh = pb.height / scale
-        const sr = (60 / scale).toFixed(1) // border-radius 60px → SVG units
+        const sr = (18 / scale).toFixed(1) // border-radius 18px → SVG units
         const attrs = { x: sx.toFixed(1), y: sy.toFixed(1), width: sw.toFixed(1), height: sh.toFixed(1), rx: sr }
         for (const [k, v] of Object.entries(attrs)) {
           pillHole.setAttribute(k, v)
