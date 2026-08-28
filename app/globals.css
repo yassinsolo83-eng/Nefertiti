@@ -87,24 +87,24 @@ h2, h3 { font-family: 'Cormorant Garamond', serif; }
 .menu-toggle { display: none; border: 0; background: transparent; color: inherit; padding: 4px; }
 
 /* Centered pill trigger (compact mode) — brand name left, menu icon right.
-   Hollow outline style, matching the Ankh glyph (stroke only, no fill). */
+   Hollow outlined pill (no fill), matching the Ankh's stroke-only look. */
 .nav-pill-trigger {
   position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
-  display: inline-flex; align-items: center; gap: 42px;
-  padding: 12px 12px 12px 28px;
-  border: 1.2px solid rgba(241,210,136,.55); border-radius: 44px;
+  display: inline-flex; align-items: center; justify-content: space-between; gap: 40px;
+  padding: 13px 13px 13px 30px;
+  border: 1.2px solid rgba(241,210,136,.6); border-radius: 60px;
   background: transparent;
   color: var(--gold); cursor: pointer; z-index: 30;
   transition: background .3s, border-color .3s;
 }
 .nav-pill-trigger:hover { background: rgba(241,210,136,.08); border-color: var(--gold); }
 .nav-pill-label {
-  font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: 21px;
+  font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: 23px;
   letter-spacing: .01em; white-space: nowrap; line-height: 1;
 }
 .nav-pill-icon {
   display: inline-flex; align-items: center; justify-content: center;
-  width: 36px; height: 36px; border-radius: 50%;
+  width: 38px; height: 38px; border-radius: 50%;
   border: 1px solid rgba(241,210,136,.5); background: transparent; flex-shrink: 0;
   transition: border-color .3s;
 }
@@ -115,7 +115,7 @@ h2, h3 { font-family: 'Cormorant Garamond', serif; }
 /* Compact mode: the pill opens a small anchored dropdown, not a fullscreen
    takeover — closes on outside click, Escape, or clicking the pill again. */
 .site-nav.nav-compact .site-links.open {
-  position: absolute; inset: auto; top: 76px; left: 50%; right: auto; bottom: auto;
+  position: absolute; inset: auto; top: 92px; left: 50%; right: auto; bottom: auto;
   transform: translateX(-50%);
   width: min(300px, 88vw); height: auto; max-height: 70vh; overflow-y: auto;
   z-index: 40; flex-direction: column; align-items: stretch; justify-content: flex-start;
@@ -816,6 +816,16 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
   .site-links { display: none !important; }
   .menu-toggle { display: flex; position: relative; z-index: 95; }
   .brand { width: 52px; }
+
+  /* Compact pill — drop below the logo row on mobile instead of centering
+     over it (avoids overlapping the logo at narrow widths). */
+  .nav-pill-trigger {
+    top: 74px; transform: translateX(-50%);
+    padding: 9px 9px 9px 20px; gap: 22px;
+  }
+  .nav-pill-label { font-size: 17px; }
+  .nav-pill-icon { width: 30px; height: 30px; }
+  .site-nav.nav-compact .site-links.open { top: 130px; }
 
   /* HERO */
   .hero-content { padding: 0 6vw 12vh; }
