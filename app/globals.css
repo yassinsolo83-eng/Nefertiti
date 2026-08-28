@@ -109,8 +109,25 @@ h2, h3 { font-family: 'Cormorant Garamond', serif; }
   transition: border-color .3s;
 }
 .nav-pill-trigger:hover .nav-pill-icon { border-color: var(--gold); }
-.site-nav.menu-open .nav-pill-trigger { color: #fff; border-color: rgba(255,255,255,.5); }
+.site-nav.menu-open .nav-pill-trigger { color: #fff; border-color: rgba(255,255,255,.5); z-index: 95; }
 .site-nav.menu-open .nav-pill-icon { border-color: rgba(255,255,255,.5); }
+
+/* Compact mode: the pill opens a small anchored dropdown, not a fullscreen
+   takeover — closes on outside click, Escape, or clicking the pill again. */
+.site-nav.nav-compact .site-links.open {
+  position: absolute; inset: auto; top: 76px; left: 50%; right: auto; bottom: auto;
+  transform: translateX(-50%);
+  width: min(300px, 88vw); height: auto; max-height: 70vh; overflow-y: auto;
+  z-index: 40; flex-direction: column; align-items: stretch; justify-content: flex-start;
+  gap: 4px; padding: 18px 12px; background-color: var(--primary);
+  border-radius: 18px; box-shadow: 0 24px 60px rgba(20,8,8,.35);
+  font-size: 13px; letter-spacing: .1em;
+}
+.site-nav.nav-compact .site-links.open a {
+  color: #fff; opacity: .85; font-size: 13px; padding: 11px 14px; border-radius: 10px;
+  transition: opacity .2s, background .2s;
+}
+.site-nav.nav-compact .site-links.open a:hover { opacity: 1; background: rgba(255,255,255,.08); }
 
 /* Google Translate — hide its default UI, keep only our buttons */
 #google_translate_element { position: absolute; width: 0; height: 0; overflow: hidden; opacity: 0; pointer-events: none; }
