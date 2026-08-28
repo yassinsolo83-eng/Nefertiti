@@ -86,31 +86,49 @@ h2, h3 { font-family: 'Cormorant Garamond', serif; }
 .site-nav.nav-compact .nav-actions .menu-toggle { display: none !important; }
 .menu-toggle { display: none; border: 0; background: transparent; color: inherit; padding: 4px; }
 
-/* Centered pill trigger (compact mode) — brand name left, menu icon right.
-   Hollow outlined pill (no fill), matching the Ankh's stroke-only look. */
+/* Centered pill trigger (compact mode) — a rounded window onto the hero footage.
+   The inner video is fixed at full-viewport size with the SAME object-fit and
+   object-position as the hero video behind it, so the clipped pill shows the
+   exact same pixels cleanly — a true clear window, like the Ankh. */
 .nav-pill-trigger {
   position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
   display: inline-flex; align-items: center; justify-content: space-between; gap: 40px;
   padding: 13px 13px 13px 30px;
-  border: 1.2px solid rgba(241,210,136,.6); border-radius: 60px;
-  background: transparent;
+  border: 1.4px solid var(--gold); border-radius: 60px;
+  background: transparent; overflow: hidden; isolation: isolate;
   color: var(--gold); cursor: pointer; z-index: 30;
-  transition: background .3s, border-color .3s;
-}
-.nav-pill-trigger:hover { background: rgba(241,210,136,.08); border-color: var(--gold); }
-.nav-pill-label {
-  font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: 23px;
-  letter-spacing: .01em; white-space: nowrap; line-height: 1;
-}
-.nav-pill-icon {
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 38px; height: 38px; border-radius: 50%;
-  border: 1px solid rgba(241,210,136,.5); background: transparent; flex-shrink: 0;
   transition: border-color .3s;
 }
-.nav-pill-trigger:hover .nav-pill-icon { border-color: var(--gold); }
-.site-nav.menu-open .nav-pill-trigger { color: #fff; border-color: rgba(255,255,255,.5); z-index: 95; }
-.site-nav.menu-open .nav-pill-icon { border-color: rgba(255,255,255,.5); }
+.nav-pill-window {
+  position: absolute; inset: 0; z-index: 0; overflow: hidden; border-radius: inherit;
+}
+.nav-pill-window::after {
+  content: ''; position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(to right, rgba(20,8,8,.55), rgba(20,8,8,.3));
+}
+.nav-pill-video {
+  position: fixed; inset: 0; z-index: 0;
+  width: 100vw; height: 100vh;
+  object-fit: cover; object-position: center 30%;
+  pointer-events: none;
+}
+.nav-pill-label {
+  position: relative; z-index: 2;
+  font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: 23px;
+  letter-spacing: .01em; white-space: nowrap; line-height: 1;
+  color: #fff; text-shadow: 0 1px 12px rgba(20,8,8,.85);
+}
+.nav-pill-icon {
+  position: relative; z-index: 2;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 38px; height: 38px; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.75); background: rgba(20,8,8,.3); color: #fff; flex-shrink: 0;
+  transition: border-color .3s;
+}
+.nav-pill-trigger:hover { border-color: #fff; }
+.site-nav.menu-open .nav-pill-trigger { z-index: 95; }
+.site-nav.menu-open .nav-pill-label { color: #fff; }
+.site-nav.menu-open .nav-pill-icon { border-color: #fff; }
 
 /* Compact mode: the pill opens a small anchored dropdown, not a fullscreen
    takeover — closes on outside click, Escape, or clicking the pill again. */
