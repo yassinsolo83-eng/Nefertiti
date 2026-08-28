@@ -92,8 +92,9 @@ h2, h3 { font-family: 'Cormorant Garamond', serif; }
    exact same pixels cleanly — a true clear window, like the Ankh. */
 .nav-pill-trigger {
   position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
-  display: inline-flex; align-items: center; justify-content: space-between; gap: 40px;
-  padding: 13px 13px 13px 30px;
+  display: inline-flex; align-items: center; justify-content: space-between;
+  width: clamp(320px, 30vw, 440px);
+  padding: 14px 14px 14px 34px;
   border: 1.4px solid var(--gold); border-radius: 60px;
   background: transparent; overflow: hidden; isolation: isolate;
   color: var(--gold); cursor: pointer; z-index: 30;
@@ -130,22 +131,34 @@ h2, h3 { font-family: 'Cormorant Garamond', serif; }
 .site-nav.menu-open .nav-pill-label { color: #fff; }
 .site-nav.menu-open .nav-pill-icon { border-color: #fff; }
 
-/* Compact mode: the pill opens a small anchored dropdown, not a fullscreen
-   takeover — closes on outside click, Escape, or clicking the pill again. */
+/* Compact mode: the pill opens a clean multi-column dropdown panel — not a
+   fullscreen takeover — closing on outside click, Escape, or the pill again. */
 .site-nav.nav-compact .site-links.open {
-  position: absolute; inset: auto; top: 92px; left: 50%; right: auto; bottom: auto;
+  position: absolute; inset: auto; top: 96px; left: 50%; right: auto; bottom: auto;
   transform: translateX(-50%);
-  width: min(300px, 88vw); height: auto; max-height: 70vh; overflow-y: auto;
-  z-index: 40; flex-direction: column; align-items: stretch; justify-content: flex-start;
-  gap: 4px; padding: 18px 12px; background-color: var(--primary);
-  border-radius: 18px; box-shadow: 0 24px 60px rgba(20,8,8,.35);
-  font-size: 13px; letter-spacing: .1em;
+  width: min(440px, 92vw); height: auto; max-height: 74vh; overflow-y: auto;
+  z-index: 40;
+  display: grid !important; grid-template-columns: 1fr 1fr; gap: 4px 10px;
+  align-items: stretch; justify-content: stretch;
+  padding: 16px; background: rgba(46,24,64,.82);
+  backdrop-filter: blur(16px) saturate(1.1); -webkit-backdrop-filter: blur(16px) saturate(1.1);
+  border: 1px solid rgba(241,210,136,.28);
+  border-radius: 20px; box-shadow: 0 28px 70px rgba(20,8,8,.45);
+  font-size: 12px; letter-spacing: .1em;
 }
 .site-nav.nav-compact .site-links.open a {
-  color: #fff; opacity: .85; font-size: 13px; padding: 11px 14px; border-radius: 10px;
-  transition: opacity .2s, background .2s;
+  color: rgba(243,240,232,.9); opacity: 1; font-size: 12px;
+  padding: 13px 14px; border-radius: 12px;
+  text-transform: uppercase; letter-spacing: .1em;
+  transition: background .2s, color .2s;
 }
-.site-nav.nav-compact .site-links.open a:hover { opacity: 1; background: rgba(255,255,255,.08); }
+.site-nav.nav-compact .site-links.open a:hover { color: var(--gold); background: rgba(241,210,136,.1); }
+/* Contact spans both columns as a highlighted footer item */
+.site-nav.nav-compact .site-links.open a:last-child {
+  grid-column: 1 / -1; margin-top: 6px; text-align: center;
+  color: var(--plum-deep, #2E1840); background: var(--gold); font-weight: 600;
+}
+.site-nav.nav-compact .site-links.open a:last-child:hover { background: #f5dfa0; color: #2E1840; }
 
 /* Google Translate — hide its default UI, keep only our buttons */
 #google_translate_element { position: absolute; width: 0; height: 0; overflow: hidden; opacity: 0; pointer-events: none; }
@@ -839,11 +852,11 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
      over it (avoids overlapping the logo at narrow widths). */
   .nav-pill-trigger {
     top: 74px; transform: translateX(-50%);
-    padding: 9px 9px 9px 20px; gap: 22px;
+    width: min(280px, 80vw); padding: 10px 10px 10px 24px;
   }
   .nav-pill-label { font-size: 17px; }
-  .nav-pill-icon { width: 30px; height: 30px; }
-  .site-nav.nav-compact .site-links.open { top: 130px; }
+  .nav-pill-icon { width: 32px; height: 32px; }
+  .site-nav.nav-compact .site-links.open { top: 130px; width: min(300px, 86vw); }
 
   /* HERO */
   .hero-content { padding: 0 6vw 12vh; }
