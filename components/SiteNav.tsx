@@ -27,6 +27,11 @@ type Props = {
   /** When true, the horizontal link row is replaced by a hamburger-only trigger
    *  (used while the hero/intro is on screen, so nothing competes with it). */
   compact?: boolean
+  /** Hero video source — shown as a small live crop inside the compact pill,
+   *  so it stays clear like the Ankh window instead of reading as a flat box. */
+  heroVideoSrc?: string
+  /** Poster/fallback image for the pill's video crop. */
+  heroPosterSrc?: string
   /**
    * Optional smooth-scroll handler for same-page anchor links (home page only).
    * If omitted, links behave as normal navigations.
@@ -39,7 +44,7 @@ type Props = {
   onBrand?: (e: React.MouseEvent<HTMLAnchorElement>) => void
 }
 
-export default function SiteNav({ solid, hidden, scrolled, compact, onAnchor, onBrand }: Props) {
+export default function SiteNav({ solid, hidden, scrolled, compact, heroVideoSrc, heroPosterSrc, onAnchor, onBrand }: Props) {
   const [menuOpen, setMenuOpen] = useState(false)
   const closeMenu = () => setMenuOpen(false)
   const navRef = useRef<HTMLElement>(null)
@@ -89,15 +94,27 @@ export default function SiteNav({ solid, hidden, scrolled, compact, onAnchor, on
       </nav>
 
       {/* Compact mode (hero/intro): a single centered pill replaces the hamburger
-          in the corner — brand name on the left, menu icon on the right. */}
+          in the corner — brand name on the left, menu icon on the right. A live
+          crop of the hero video shows through it (unaffected by the intro's
+          dark/blur overlay) so it stays clear like the Ankh window. */}
       {compact && (
         <button
           className="nav-pill-trigger notranslate"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label={menuOpen ? 'Close menu' : 'Open menu'}
         >
+          {heroVideoSrc && (
+            <video
+              className="nav-pill-video"
+              src={heroVideoSrc}
+              poster={heroPosterSrc}
+              autoPlay muted loop playsInline preload="auto"
+              aria-hidden="true"
+            />
+          )}
+          <span className="nav-pill-scrim" aria-hidden="true" />
           <span className="nav-pill-label">Nefertiti</span>
-          <span className="nav-pill-icon">{menuOpen ? <X size={15} /> : <Menu size={15} />}</span>
+          <span className="nav-pill-icon">{menuOpen ? <X size={16} /> : <Menu size={16} />}</span>
         </button>
       )}
 
