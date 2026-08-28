@@ -60,7 +60,7 @@ export default function Page() {
     <>
     <main>
       {/* NAV */}
-      <SiteNav scrolled={scrolled} onAnchor={navTo} onBrand={scrollToHero} />
+      <SiteNav scrolled={scrolled} compact={!scrolled} onAnchor={navTo} onBrand={scrollToHero} />
 
       {/* HERO + KEYHOLE INTRO — scroll-driven reveal */}
       <div id="kh-track" className="kh-track">
@@ -78,7 +78,7 @@ export default function Page() {
               aria-label="Shirodhara oil ritual — Ayurvedic retreat"
             />
             <div className="hero-shade" />
-            <div className="hero-content reveal">
+            <div className={`hero-content ${introDone ? 'kh-text-in' : 'kh-text-out'}`}>
               <h1>{t.hero}</h1>
               <div className="hero-buttons">
                 <a className="button button-gold" href="/contact">{t.explore}<ArrowUpRight size={16} /></a>
@@ -105,7 +105,7 @@ export default function Page() {
                     d="M50 2 C40 2 31 12 31 27 C31 37 36 44 44 47 L44 49 L30 49 Q33 53.5 30 58 L44 58 L44 93 L56 93 L56 58 L70 58 Q67 53.5 70 49 L56 49 L56 47 C64 44 69 37 69 27 C69 12 60 2 50 2 Z M50 14 C54 14 58 20 58 27 C58 34 54 40 50 40 C46 40 42 34 42 27 C42 20 46 14 50 14 Z" />
                 </mask>
               </defs>
-              <rect id="kh-dark" width="1000" height="1000" fill="#2E1840" fillOpacity="0.82" mask="url(#kh-mask)" />
+              <rect id="kh-dark" width="1000" height="1000" fill="#2E1840" fillOpacity="0.9" mask="url(#kh-mask)" />
               <path id="kh-ring" fill="none" stroke="#F1D288" strokeWidth="1.2" fillRule="evenodd"
                 transform="translate(500 500) scale(3.2) translate(-50 -50)"
                 d="M50 2 C40 2 31 12 31 27 C31 37 36 44 44 47 L44 49 L30 49 Q33 53.5 30 58 L44 58 L44 93 L56 93 L56 58 L70 58 Q67 53.5 70 49 L56 49 L56 47 C64 44 69 37 69 27 C69 12 60 2 50 2 Z M50 14 C54 14 58 20 58 27 C58 34 54 40 50 40 C46 40 42 34 42 27 C42 20 46 14 50 14 Z" />
