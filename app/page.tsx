@@ -60,7 +60,14 @@ export default function Page() {
     <>
     <main>
       {/* NAV */}
-      <SiteNav scrolled={scrolled} compact={!scrolled} onAnchor={navTo} onBrand={scrollToHero} />
+      <SiteNav
+        scrolled={scrolled}
+        compact={!scrolled}
+        heroVideoSrc="/hero-video.mp4"
+        heroPosterSrc={images.heroMain}
+        onAnchor={navTo}
+        onBrand={scrollToHero}
+      />
 
       {/* HERO + KEYHOLE INTRO — scroll-driven reveal */}
       <div id="kh-track" className="kh-track">
