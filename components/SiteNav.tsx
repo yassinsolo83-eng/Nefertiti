@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Menu, X, MapPin } from 'lucide-react'
 import { images } from '@/lib/data'
 import { setGoogleLang } from '@/hooks/useGoogleTranslate'
@@ -42,8 +42,25 @@ type Props = {
 export default function SiteNav({ solid, hidden, scrolled, compact, onAnchor, onBrand }: Props) {
   const [menuOpen, setMenuOpen] = useState(false)
   const closeMenu = () => setMenuOpen(false)
+  const navRef = useRef<HTMLElement>(null)
 
   const isScrolled = solid || scrolled
+
+  // Close the dropdown when clicking outside it, or on Escape — so the compact
+  // pill menu behaves like a normal dropdown, not a trap the user can't exit.
+  useEffect(() => {
+    if (!menuOpen) return
+    const onPointerDown = (e: MouseEvent) => {
+      if (navRef.current && !navRef.current.contains(e.target as Node)) closeMenu()
+    }
+    const onKeyDown = (e: KeyboardEvent) => { if (e.key === 'Escape') closeMenu() }
+    document.addEventListener('mousedown', onPointerDown)
+    document.addEventListener('keydown', onKeyDown)
+    return () => {
+      document.removeEventListener('mousedown', onPointerDown)
+      document.removeEventListener('keydown', onKeyDown)
+    }
+  }, [menuOpen])
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     closeMenu()
@@ -58,6 +75,7 @@ export default function SiteNav({ solid, hidden, scrolled, compact, onAnchor, on
 
   return (
     <header
+      ref={navRef}
       className={`site-nav ${isScrolled ? 'is-scrolled' : ''} ${menuOpen ? 'menu-open' : ''} ${hidden ? 'nav-hidden' : ''} ${compact ? 'nav-compact' : ''}`}
     >
       <a href="/" className="brand" onClick={handleBrand}>
