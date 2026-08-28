@@ -24,6 +24,9 @@ type Props = {
   hidden?: boolean
   /** When true the nav sits transparent over a hero and turns solid on scroll. */
   scrolled?: boolean
+  /** When true, the horizontal link row is replaced by a hamburger-only trigger
+   *  (used while the hero/intro is on screen, so nothing competes with it). */
+  compact?: boolean
   /**
    * Optional smooth-scroll handler for same-page anchor links (home page only).
    * If omitted, links behave as normal navigations.
@@ -36,7 +39,7 @@ type Props = {
   onBrand?: (e: React.MouseEvent<HTMLAnchorElement>) => void
 }
 
-export default function SiteNav({ solid, hidden, scrolled, onAnchor, onBrand }: Props) {
+export default function SiteNav({ solid, hidden, scrolled, compact, onAnchor, onBrand }: Props) {
   const [menuOpen, setMenuOpen] = useState(false)
   const closeMenu = () => setMenuOpen(false)
 
@@ -55,7 +58,7 @@ export default function SiteNav({ solid, hidden, scrolled, onAnchor, onBrand }: 
 
   return (
     <header
-      className={`site-nav ${isScrolled ? 'is-scrolled' : ''} ${menuOpen ? 'menu-open' : ''} ${hidden ? 'nav-hidden' : ''}`}
+      className={`site-nav ${isScrolled ? 'is-scrolled' : ''} ${menuOpen ? 'menu-open' : ''} ${hidden ? 'nav-hidden' : ''} ${compact ? 'nav-compact' : ''}`}
     >
       <a href="/" className="brand" onClick={handleBrand}>
         <span className="brand-badge notranslate"><MapPin size={9} strokeWidth={2.5} />EGYPT</span>
