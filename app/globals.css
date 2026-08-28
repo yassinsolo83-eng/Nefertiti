@@ -86,29 +86,31 @@ h2, h3 { font-family: 'Cormorant Garamond', serif; }
 .site-nav.nav-compact .nav-actions .menu-toggle { display: none !important; }
 .menu-toggle { display: none; border: 0; background: transparent; color: inherit; padding: 4px; }
 
-/* Centered pill trigger (compact mode) — brand name left, menu icon right */
+/* Centered pill trigger (compact mode) — brand name left, menu icon right.
+   Hollow outline style, matching the Ankh glyph (stroke only, no fill). */
 .nav-pill-trigger {
   position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
-  display: inline-flex; align-items: center; gap: 32px;
-  padding: 9px 9px 9px 22px;
-  border: 1px solid rgba(241,210,136,.4); border-radius: 40px;
-  background: rgba(46,24,64,.3); backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  display: inline-flex; align-items: center; gap: 42px;
+  padding: 12px 12px 12px 28px;
+  border: 1.2px solid rgba(241,210,136,.55); border-radius: 44px;
+  background: transparent;
   color: var(--gold); cursor: pointer; z-index: 30;
   transition: background .3s, border-color .3s;
 }
-.nav-pill-trigger:hover { background: rgba(241,210,136,.14); border-color: var(--gold); }
+.nav-pill-trigger:hover { background: rgba(241,210,136,.08); border-color: var(--gold); }
 .nav-pill-label {
-  font-family: 'Cormorant Garamond', serif; font-size: 16px; font-style: italic;
-  letter-spacing: .02em; white-space: nowrap; line-height: 1;
+  font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: 21px;
+  letter-spacing: .01em; white-space: nowrap; line-height: 1;
 }
 .nav-pill-icon {
   display: inline-flex; align-items: center; justify-content: center;
-  width: 30px; height: 30px; border-radius: 50%;
-  background: rgba(241,210,136,.14); flex-shrink: 0;
+  width: 36px; height: 36px; border-radius: 50%;
+  border: 1px solid rgba(241,210,136,.5); background: transparent; flex-shrink: 0;
+  transition: border-color .3s;
 }
-.site-nav.menu-open .nav-pill-trigger { color: #fff; border-color: rgba(255,255,255,.4); background: rgba(0,0,0,.15); }
-.site-nav.menu-open .nav-pill-icon { background: rgba(255,255,255,.14); }
+.nav-pill-trigger:hover .nav-pill-icon { border-color: var(--gold); }
+.site-nav.menu-open .nav-pill-trigger { color: #fff; border-color: rgba(255,255,255,.5); }
+.site-nav.menu-open .nav-pill-icon { border-color: rgba(255,255,255,.5); }
 
 /* Google Translate — hide its default UI, keep only our buttons */
 #google_translate_element { position: absolute; width: 0; height: 0; overflow: hidden; opacity: 0; pointer-events: none; }
