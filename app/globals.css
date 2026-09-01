@@ -104,7 +104,7 @@ h2, h3 { font-family: 'Cormorant Garamond', serif; }
   padding: 16px;
   border: 1px solid rgba(241,210,136,.28); border-radius: 20px;
   box-shadow: 0 28px 70px rgba(20,8,8,.45);
-  z-index: 40;
+  z-index: 40; pointer-events: auto;
 }
 .nav-menu.open { display: grid; }
 
