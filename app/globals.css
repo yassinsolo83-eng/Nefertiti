@@ -52,8 +52,8 @@ h2, h3 { font-family: 'Cormorant Garamond', serif; }
 .nav-pill {
   position: relative; pointer-events: auto;
   display: flex; align-items: center; justify-content: space-between;
-  width: clamp(200px, 18vw, 260px); gap: 16px;
-  padding: 10px 12px;
+  width: clamp(300px, 30vw, 440px);
+  padding: 10px 14px;
   border-radius: 16px; overflow: hidden; isolation: isolate;
   border: none;
   transition: background .35s, border-color .35s, width .35s;
@@ -831,7 +831,7 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
   /* NAV mobile — smaller pill, tighter padding */
   .site-nav { padding: 10px 5vw; }
   .nav-pill {
-    width: min(210px, 62vw); gap: 12px; padding: 8px 10px;
+    width: min(260px, 78vw); padding: 8px 12px;
   }
   .nav-pill-brand { height: 44px; }
   .nav-pill-icon { width: 36px; height: 36px; }
