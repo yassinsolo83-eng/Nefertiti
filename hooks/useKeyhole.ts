@@ -22,7 +22,7 @@ export function useKeyhole({ setIntroDone, setScrolled }: Setters) {
     const frost = document.getElementById('kh-frost')
 
     const isMobile = window.innerWidth <= 860
-    const MIN = isMobile ? 4.8 : 3.2 // larger visible Ankh on mobile
+    const MIN = isMobile ? 5.5 : 3.6 // larger visible Ankh
     const MAX = 42 // large enough to fully clear the viewport at end of track
     const CY = isMobile ? 500 : 500 // centred on both
     const clamp = (v: number, a: number, b: number) => Math.min(b, Math.max(a, v))
@@ -78,7 +78,7 @@ export function useKeyhole({ setIntroDone, setScrolled }: Setters) {
         const sy = (pb.top - offY) / scale
         const sw = pb.width / scale
         const sh = pb.height / scale
-        const sr = (18 / scale).toFixed(1) // border-radius 18px → SVG units
+        const sr = (16 / scale).toFixed(1) // border-radius 16px → SVG units
         const attrs = { x: sx.toFixed(1), y: sy.toFixed(1), width: sw.toFixed(1), height: sh.toFixed(1), rx: sr }
         for (const [k, v] of Object.entries(attrs)) {
           pillHole.setAttribute(k, v)
