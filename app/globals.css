@@ -41,11 +41,10 @@ h2, h3 { font-family: 'Cormorant Garamond', serif; }
 .site-nav {
   position: fixed; z-index: 20; top: 0; left: 0; right: 0;
   display: flex; align-items: center; justify-content: center;
-  padding: 18px max(20px, 5vw);
+  padding: 16px max(20px, 5vw);
   pointer-events: none;
   transition: padding .35s;
 }
-.site-nav.is-scrolled { padding-block: 12px; }
 .nav-hidden { opacity: 0; pointer-events: none; }
 
 /* ── The pill itself ── */
@@ -55,17 +54,20 @@ h2, h3 { font-family: 'Cormorant Garamond', serif; }
   width: clamp(300px, 30vw, 440px);
   padding: 10px 14px;
   border-radius: 16px; overflow: hidden; isolation: isolate;
-  border: none;
+  border: 1.4px solid transparent;
   transition: background .35s, border-color .35s, width .35s;
 }
 
-/* ── Video mode (home intro) — transparent pill over dark intro overlay ── */
-.pill-video .nav-pill { background: transparent; }
+/* ── Video mode (home intro) — transparent pill over dark intro overlay.
+   The gold outline is drawn by the SVG (#kh-pill-ring) so the border here
+   stays transparent, but the 1.4px border box is kept identical to solid mode
+   so the pill is exactly the same size in both states. ── */
+.pill-video .nav-pill { background: transparent; border-color: transparent; }
 
 /* ── Solid mode (scrolled / inner pages) — ivory bar ── */
 .pill-solid .nav-pill {
   background: rgba(243,240,232,.96); backdrop-filter: blur(14px);
-  border: 1.4px solid rgba(200,190,170,.4);
+  border-color: rgba(200,190,170,.4);
 }
 
 /* ── Logo inside the pill ── */
