@@ -50,12 +50,12 @@ h2, h3 { font-family: 'Cormorant Garamond', serif; }
 /* ── The pill itself ── */
 .nav-pill {
   position: relative; pointer-events: auto;
-  display: flex; align-items: center; gap: 48px;
-  width: auto;
-  padding: 10px 16px;
+  display: flex; align-items: center; justify-content: space-between;
+  width: clamp(300px, 30vw, 440px);
+  padding: 10px 14px;
   border-radius: 16px; overflow: hidden; isolation: isolate;
   border: 1.4px solid transparent;
-  transition: background .35s, border-color .35s;
+  transition: background .35s, border-color .35s, width .35s;
 }
 
 /* ── Video mode (home intro) — transparent pill over dark intro overlay.
@@ -73,10 +73,10 @@ h2, h3 { font-family: 'Cormorant Garamond', serif; }
 /* ── Logo inside the pill ── */
 .nav-pill-brand {
   position: relative; z-index: 2; flex-shrink: 0;
-  display: flex; align-items: center; justify-content: center;
-  height: 50px; width: 66px;
+  display: flex; align-items: center; height: 50px;
+  margin-left: -2px;
 }
-.nav-pill-brand img { max-height: 100%; max-width: 100%; width: auto; }
+.nav-pill-brand img { height: 100%; width: auto; }
 
 /* ── Menu toggle (hamburger / X) ── */
 .nav-pill-icon {
@@ -834,7 +834,7 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
   /* NAV mobile — smaller pill, tighter padding */
   .site-nav { padding: 10px 5vw; }
   .nav-pill {
-    width: auto; gap: 32px; padding: 8px 14px;
+    width: min(260px, 78vw); padding: 8px 12px;
   }
   .nav-pill-brand { height: 44px; }
   .nav-pill-icon { width: 36px; height: 36px; }
