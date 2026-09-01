@@ -59,9 +59,10 @@ export default function Page() {
   return (
     <>
     <main>
-      {/* NAV — same pill everywhere, including the intro */}
+      {/* NAV — transparent (video window) during intro, solid ivory after scroll */}
       <SiteNav
         scrolled={scrolled}
+        showVideo={!scrolled}
         onAnchor={navTo}
         onBrand={scrollToHero}
       />
@@ -108,12 +109,16 @@ export default function Page() {
                   <path id="kh-hole" fill="black" fillRule="evenodd"
                     transform="translate(500 500) scale(3.2) translate(-50 -50)"
                     d="M50 2 C40 2 31 12 31 27 C31 37 36 44 44 47 L44 49 L30 49 Q33 53.5 30 58 L44 58 L44 93 L56 93 L56 58 L70 58 Q67 53.5 70 49 L56 49 L56 47 C64 44 69 37 69 27 C69 12 60 2 50 2 Z M50 14 C54 14 58 20 58 27 C58 34 54 40 50 40 C46 40 42 34 42 27 C42 20 46 14 50 14 Z" />
+                  {/* Nav pill hole — position/size set by useKeyhole to match the HTML pill */}
+                  <rect id="kh-pill-hole" fill="black" x="0" y="0" width="0" height="0" rx="0" />
                 </mask>
               </defs>
               <rect id="kh-dark" width="1000" height="1000" fill="#2E1840" fillOpacity="0.9" mask="url(#kh-mask)" />
               <path id="kh-ring" fill="none" stroke="#F1D288" strokeWidth="1.2" fillRule="evenodd"
                 transform="translate(500 500) scale(3.2) translate(-50 -50)"
                 d="M50 2 C40 2 31 12 31 27 C31 37 36 44 44 47 L44 49 L30 49 Q33 53.5 30 58 L44 58 L44 93 L56 93 L56 58 L70 58 Q67 53.5 70 49 L56 49 L56 47 C64 44 69 37 69 27 C69 12 60 2 50 2 Z M50 14 C54 14 58 20 58 27 C58 34 54 40 50 40 C46 40 42 34 42 27 C42 20 46 14 50 14 Z" />
+              {/* Nav pill gold outline — position/size set by useKeyhole */}
+              <rect id="kh-pill-ring" fill="none" stroke="#F1D288" strokeWidth="1.2" x="0" y="0" width="0" height="0" rx="0" />
             </svg>
             <div id="kh-hint" className="kh-hint">Scroll to enter <span>↓</span></div>
           </div>
