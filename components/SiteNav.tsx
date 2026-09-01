@@ -71,7 +71,7 @@ export default function SiteNav({
           with a dropdown panel below. On the home intro it shows a clear-video
           window; elsewhere it's a solid ivory bar. */}
       <div className="nav-pill">
-        <a href="/" className="nav-pill-brand" onClick={handleBrand} aria-label="Nefertiti — home">
+        <a href="/#vision" className="nav-pill-brand" onClick={handleBrand} aria-label="Nefertiti — home">
           <img src={showVideo ? images.logo : images.logoDark} alt="Nefertiti Luxury Retreat Producer" />
         </a>
 
