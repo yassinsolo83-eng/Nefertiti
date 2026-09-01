@@ -59,10 +59,9 @@ export default function Page() {
   return (
     <>
     <main>
-      {/* NAV — hidden during the intro, appears once past the keyhole */}
+      {/* NAV — same pill everywhere, including the intro */}
       <SiteNav
         scrolled={scrolled}
-        hidden={!scrolled}
         onAnchor={navTo}
         onBrand={scrollToHero}
       />
