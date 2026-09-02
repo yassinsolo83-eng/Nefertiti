@@ -412,7 +412,7 @@ export type Partner = {
 export const partners: Partner[] = [
   {
     id: 'partner-1',
-    name: 'Partner Name',
+    name: 'Name',
     category: 'Boutique Accommodation',
     tagline: 'Placeholder tagline — a short line about this partner.',
     image: images.resort,
@@ -426,7 +426,7 @@ export const partners: Partner[] = [
   },
   {
     id: 'partner-2',
-    name: 'Partner Name',
+    name: 'Name',
     category: 'Wellness & Yoga',
     tagline: 'Placeholder tagline — a short line about this partner.',
     image: images.hero,
@@ -440,7 +440,7 @@ export const partners: Partner[] = [
   },
   {
     id: 'partner-3',
-    name: 'Partner Name',
+    name: 'Name',
     category: 'Photography & Film',
     tagline: 'Placeholder tagline — a short line about this partner.',
     image: images.vision,
@@ -454,7 +454,7 @@ export const partners: Partner[] = [
   },
   {
     id: 'partner-4',
-    name: 'Partner Name',
+    name: 'Name',
     category: 'Transport & Logistics',
     tagline: 'Placeholder tagline — a short line about this partner.',
     image: images.boat,
