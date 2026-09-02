@@ -643,7 +643,6 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
    PARTNERS — team-card style
 ══════════════════════════════════ */
 .page-hero-split { grid-template-columns: 1.2fr 1fr; }
-.team-title { max-width: 16ch; }
 
 /* ── Team grid (centered cards: image, name, role, socials) ── */
 .team-grid {
