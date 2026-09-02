@@ -5,7 +5,7 @@ import { ArrowUpRight, MessageCircle } from 'lucide-react'
 import Link from 'next/link'
 import {
   images, copy, featuredDestinations, moreDestinations,
-  combinations,
+  combinations, partners,
   whatsappLink,
 } from '@/lib/data'
 import DestinationModal from '@/components/DestinationModal'
@@ -284,6 +284,36 @@ export default function Page() {
             </a>
           ))}
         </div>
+      </section>
+
+      {/* PARTNERS PREVIEW */}
+      <section id="partners" className="section partners-preview">
+        <div className="section-heading reveal">
+          <div className="section-label">◆ OUR PARTNERS</div>
+          <h2>Meet the People Behind Your Retreat</h2>
+          <p className="section-sub">
+            The trusted collaborators we work with across Egypt to bring every retreat to life.
+          </p>
+        </div>
+        <div className="team-grid">
+          {partners.slice(0, 3).map((p) => (
+            <div className="team-card reveal" key={p.id}>
+              <a href={`/partners/${p.id}`} className="team-card-media">
+                <img src={p.image} alt={p.name} />
+              </a>
+              <a href={`/partners/${p.id}`} className="team-card-name">{p.name}</a>
+              <p className="team-card-role">{p.category}</p>
+              <div className="team-card-socials">
+                <a href={p.instagram ? `https://instagram.com/${p.instagram}` : '#'} target={p.instagram ? '_blank' : undefined} rel="noopener noreferrer">IN</a>
+                <a href={p.x ? `https://x.com/${p.x}` : '#'} target={p.x ? '_blank' : undefined} rel="noopener noreferrer">X</a>
+                <a href={p.tiktok ? `https://tiktok.com/@${p.tiktok}` : '#'} target={p.tiktok ? '_blank' : undefined} rel="noopener noreferrer">TT</a>
+              </div>
+            </div>
+          ))}
+        </div>
+        <a href="/partners" className="button button-gold partners-preview-cta">
+          View all partners <ArrowUpRight size={16} />
+        </a>
       </section>
 
       {/* FINAL CTA */}
