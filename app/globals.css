@@ -238,6 +238,8 @@ footer .footer-label,
 .button:hover { transform: translateY(-2px); }
 .button-gold { background: var(--gold); border-color: var(--gold); color: var(--plum); }
 .button-ghost { color: #fff; border-color: rgba(255,255,255,.55); }
+.button-ghost-dark { color: var(--primary); border-color: var(--primary); }
+.button-ghost-dark:hover { background: var(--primary); color: #fff; }
 .button-light { background: var(--background); color: var(--primary); border-color: var(--background); }
 .button-dark { background: var(--plum); border-color: var(--plum); color: var(--gold); }
 
