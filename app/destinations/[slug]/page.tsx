@@ -135,23 +135,21 @@ export default function DestinationPage({ params }: { params: Promise<{ slug: st
         </div>
       </section>
 
-      {/* ── PARALLAX CTA — fixed background reveal ── */}
+      {/* ── PARALLAX CTA — clear image, text on right ── */}
       <section
         className="dp-parallax"
         style={{ backgroundImage: `url(${detail.parallaxImage})` }}
       >
-        <div className="dp-parallax-overlay">
-          <div className="dp-parallax-content dp-reveal">
-            <h2>Create your retreat in {dest.title}</h2>
-            <p>Tell us your vision and we&apos;ll show you what {dest.title} can become for your community.</p>
-            <div className="dp-parallax-actions">
-              <Link href="/contact" className="button button-gold">
-                Create Your Retreat <ArrowUpRight size={16} />
-              </Link>
-              <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="button button-ghost-light">
-                <MessageCircle size={15} /> Book a Discovery Call
-              </a>
-            </div>
+        <div className="dp-parallax-panel dp-reveal">
+          <h2>Create your retreat in {dest.title}</h2>
+          <p>Tell us your vision and we&apos;ll show you what {dest.title} can become for your community.</p>
+          <div className="dp-parallax-actions">
+            <Link href="/contact" className="button button-gold">
+              Create Your Retreat <ArrowUpRight size={16} />
+            </Link>
+            <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="button button-ghost-light">
+              <MessageCircle size={15} /> Book a Discovery Call
+            </a>
           </div>
         </div>
       </section>
