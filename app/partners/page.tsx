@@ -1,50 +1,93 @@
 'use client'
 
-import { ArrowUpRight } from 'lucide-react'
+import { use } from 'react'
+import { ArrowUpRight, MapPin, Globe, Check } from 'lucide-react'
 import Link from 'next/link'
-import { partners } from '@/lib/data'
+import { partners, whatsappLink } from '@/lib/data'
 import SiteNav from '@/components/SiteNav'
 import SiteFooter from '@/components/SiteFooter'
 import BackButton from '@/components/BackButton'
 
-export default function PartnersPage() {
+export default function PartnerDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = use(params)
+  const partner = partners.find((p) => p.id === id)
+
+  if (!partner) {
+    return (
+      <main className="inner-page">
+        <SiteNav solid />
+        <section className="page-hero page-hero-single">
+          <div className="page-hero-text">
+            <BackButton />
+            <h1 className="page-title">Partner not found</h1>
+            <Link href="/partners" className="button button-gold inner-cta">
+              All Partners <ArrowUpRight size={16} />
+            </Link>
+          </div>
+        </section>
+        <SiteFooter />
+      </main>
+    )
+  }
+
   return (
     <main className="inner-page">
       <SiteNav solid />
 
-      <section className="page-hero page-hero-single">
+      <section className="page-hero page-hero-split">
         <div className="page-hero-text reveal is-in">
           <BackButton />
-          <p className="eyebrow">◆ OUR TEAM</p>
-          <h1 className="page-title">Our Team</h1>
-          <p className="page-lead">
-            The trusted collaborators we work with across Egypt — carefully chosen to
-            bring every retreat to life. Tap a partner to learn more.
-          </p>
+          <p className="eyebrow">{partner.category}</p>
+          <h1 className="page-title">{partner.name}</h1>
+          <p className="page-lead">{partner.tagline}</p>
+          <div className="partner-meta">
+            {partner.location && (
+              <span className="partner-meta-item"><MapPin size={14} /> {partner.location}</span>
+            )}
+            {partner.website && (
+              <a className="partner-meta-item" href={partner.website} target="_blank" rel="noopener noreferrer">
+                <Globe size={14} /> Website
+              </a>
+            )}
+            {partner.instagram && (
+              <a className="partner-meta-item" href={`https://instagram.com/${partner.instagram}`} target="_blank" rel="noopener noreferrer">
+                <Globe size={14} /> @{partner.instagram}
+              </a>
+            )}
+          </div>
+        </div>
+        <div className="page-hero-image reveal is-in">
+          <img src={partner.image} alt={partner.name} />
         </div>
       </section>
 
-      <section className="section inner-section">
-        <div className="team-grid">
-          {partners.map((p) => (
-            <div className="team-card reveal is-in" key={p.id}>
-              <Link href={`/partners/${p.id}`} className="team-card-media">
-                <img src={p.image} alt={p.name} />
-              </Link>
-              <Link href={`/partners/${p.id}`} className="team-card-name">{p.name}</Link>
-              <p className="team-card-role">{p.category}</p>
-              <div className="team-card-socials">
-                <a href={p.instagram ? `https://instagram.com/${p.instagram}` : '#'} target={p.instagram ? '_blank' : undefined} rel="noopener noreferrer">IN</a>
-                <a href={p.x ? `https://x.com/${p.x}` : '#'} target={p.x ? '_blank' : undefined} rel="noopener noreferrer">X</a>
-                <a href={p.tiktok ? `https://tiktok.com/@${p.tiktok}` : '#'} target={p.tiktok ? '_blank' : undefined} rel="noopener noreferrer">TT</a>
-              </div>
-            </div>
-          ))}
+      <section className="section inner-section partner-detail">
+        <div className="partner-detail-grid">
+          <div className="partner-bio">
+            <p className="eyebrow">ABOUT</p>
+            <p className="partner-bio-text">{partner.bio}</p>
+          </div>
+
+          <div className="partner-services">
+            <p className="eyebrow">WHAT THEY OFFER</p>
+            <ul className="partner-service-list">
+              {partner.services.map((s) => (
+                <li key={s}><Check size={15} /> {s}</li>
+              ))}
+            </ul>
+          </div>
         </div>
 
-        <a href="/contact" className="button button-gold inner-cta">
-          Become a Partner <ArrowUpRight size={16} />
-        </a>
+        <div className="partner-cta-row">
+          <a href="/contact" className="button button-gold">
+            Work with {partner.name} <ArrowUpRight size={16} />
+          </a>
+          <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="button button-ghost-dark">
+            Ask about this partner
+          </a>
+        </div>
+
+        <Link href="/partners" className="partner-back-link">← All partners</Link>
       </section>
 
       <SiteFooter />
