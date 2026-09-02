@@ -5,23 +5,17 @@ import Link from 'next/link'
 import { partners } from '@/lib/data'
 import SiteNav from '@/components/SiteNav'
 import SiteFooter from '@/components/SiteFooter'
-import BackButton from '@/components/BackButton'
 
 export default function PartnersPage() {
   return (
     <main className="inner-page">
       <SiteNav solid />
 
-      <section className="page-hero page-hero-single">
-        <div className="page-hero-text reveal is-in">
-          <BackButton />
-          <p className="eyebrow">◆ OUR TEAM</p>
-          <h1 className="page-title">Our Team</h1>
-          <p className="page-lead">
-            The trusted collaborators we work with across Egypt — carefully chosen to
-            bring every retreat to life. Tap a partner to learn more.
-          </p>
-        </div>
+      <section className="partners-hero">
+        <p className="eyebrow">◆ OUR TEAM</p>
+        <h1 className="partners-hero-title">
+          Meet the Practitioners Behind<br />Your Healing Journey
+        </h1>
       </section>
 
       <section className="section inner-section">
