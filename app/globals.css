@@ -646,14 +646,26 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
 ══════════════════════════════════ */
 .page-hero-split { grid-template-columns: 1.2fr 1fr; }
 
+/* ── Partners hero (centered heading) ── */
+.partners-hero {
+  text-align: center; padding: 140px max(28px, 6vw) 48px;
+}
+.partners-hero .eyebrow { margin-bottom: 18px; }
+.partners-hero-title {
+  font-family: 'Cormorant Garamond', serif; font-style: italic;
+  font-size: clamp(34px, 5vw, 58px); font-weight: 400;
+  line-height: 1.15; color: var(--foreground); letter-spacing: -.02em;
+}
+
 /* ── Team grid (centered cards: image, name, role, socials) ── */
 .team-grid {
-  display: grid; grid-template-columns: repeat(4, 1fr);
-  gap: 48px 32px; margin-bottom: 52px;
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 48px 40px; margin-bottom: 52px;
+  max-width: 960px; margin-left: auto; margin-right: auto;
 }
 .team-card { display: flex; flex-direction: column; align-items: center; text-align: center; }
 .team-card-media {
-  display: block; width: 100%; aspect-ratio: 1/1; max-width: 200px;
+  display: block; width: 100%; aspect-ratio: 3/4; max-width: 240px;
   border-radius: 14px; overflow: hidden; margin-bottom: 18px;
   box-shadow: 0 14px 34px rgba(46,24,64,.12);
 }
@@ -716,7 +728,7 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
   margin-top: 14px; max-width: 46ch;
   font-size: 14px; line-height: 1.8; color: var(--foreground); opacity: .7;
 }
-.partners-preview .team-grid { margin-top: 0; }
+.partners-preview .team-grid { margin-top: 0; grid-template-columns: repeat(4, 1fr); max-width: none; }
 .partners-preview-cta { display: inline-flex; margin-top: 8px; }
 
 @media (max-width: 1000px) {
