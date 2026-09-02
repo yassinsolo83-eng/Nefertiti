@@ -15,8 +15,8 @@ export default function PartnersPage() {
       <section className="page-hero page-hero-single">
         <div className="page-hero-text reveal is-in">
           <BackButton />
-          <p className="eyebrow">06 / PARTNERS</p>
-          <h1 className="page-title">Partners</h1>
+          <p className="eyebrow">◆ OUR TEAM</p>
+          <h1 className="page-title">Our Team</h1>
           <p className="page-lead">
             The trusted collaborators we work with across Egypt — carefully chosen to
             bring every retreat to life. Tap a partner to learn more.
