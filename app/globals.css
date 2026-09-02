@@ -708,7 +708,7 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
 .partner-back-link:hover { opacity: .7; }
 
 /* ── Partners preview (home page section) ── */
-.partners-preview { padding-top: 90px; padding-bottom: 90px; }
+.partners-preview { padding-top: 64px; padding-bottom: 90px; }
 .partners-preview .section-heading { margin-bottom: 56px; }
 .partners-preview .section-heading p {
   margin-top: 14px; max-width: 46ch;
@@ -888,7 +888,7 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
 /* ══════════════════════════════════
    EXPLORE MORE (home → inner pages)
 ══════════════════════════════════ */
-.explore { background: var(--background); border-top: 1px solid var(--border); }
+.explore { background: var(--background); border-top: 1px solid var(--border); padding-bottom: 40px; }
 .explore-head { max-width: 900px; margin-bottom: 48px; }
 .explore-head .section-label { display: block; margin-bottom: 16px; }
 .explore-head h2 {
