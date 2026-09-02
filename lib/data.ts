@@ -405,6 +405,8 @@ export type Partner = {
   location?: string
   website?: string          // external link (optional)
   instagram?: string        // handle without @ (optional)
+  x?: string                // X/Twitter handle without @ (optional)
+  tiktok?: string           // TikTok handle without @ (optional)
 }
 
 export const partners: Partner[] = [
@@ -419,6 +421,8 @@ export const partners: Partner[] = [
     location: 'Egypt',
     website: '',
     instagram: '',
+    x: '',
+    tiktok: '',
   },
   {
     id: 'partner-2',
@@ -431,6 +435,8 @@ export const partners: Partner[] = [
     location: 'Egypt',
     website: '',
     instagram: '',
+    x: '',
+    tiktok: '',
   },
   {
     id: 'partner-3',
@@ -443,6 +449,8 @@ export const partners: Partner[] = [
     location: 'Egypt',
     website: '',
     instagram: '',
+    x: '',
+    tiktok: '',
   },
   {
     id: 'partner-4',
@@ -455,6 +463,8 @@ export const partners: Partner[] = [
     location: 'Egypt',
     website: '',
     instagram: '',
+    x: '',
+    tiktok: '',
   },
   {
     id: 'partner-5',
@@ -467,6 +477,8 @@ export const partners: Partner[] = [
     location: 'Egypt',
     website: '',
     instagram: '',
+    x: '',
+    tiktok: '',
   },
   {
     id: 'partner-6',
@@ -479,6 +491,8 @@ export const partners: Partner[] = [
     location: 'Egypt',
     website: '',
     instagram: '',
+    x: '',
+    tiktok: '',
   },
 ]
 
