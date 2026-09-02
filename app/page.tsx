@@ -289,14 +289,14 @@ export default function Page() {
       {/* PARTNERS PREVIEW */}
       <section id="partners" className="section partners-preview">
         <div className="section-heading reveal">
-          <div className="section-label">05 / PARTNERS</div>
-          <h2>Our Partners</h2>
-          <p className="section-sub">
-            The trusted collaborators we work with across Egypt to bring every retreat to life.
-          </p>
+          <div className="section-label">05 / OUR TEAM</div>
+          <div>
+            <h2>Our Team</h2>
+            <p>The trusted collaborators we work with across Egypt to bring every retreat to life.</p>
+          </div>
         </div>
         <div className="team-grid">
-          {partners.slice(0, 3).map((p) => (
+          {partners.map((p) => (
             <div className="team-card reveal" key={p.id}>
               <a href={`/partners/${p.id}`} className="team-card-media">
                 <img src={p.image} alt={p.name} />
@@ -311,9 +311,6 @@ export default function Page() {
             </div>
           ))}
         </div>
-        <a href="/partners" className="button button-gold partners-preview-cta">
-          View all partners <ArrowUpRight size={16} />
-        </a>
       </section>
 
       {/* FINAL CTA */}
