@@ -289,8 +289,8 @@ export default function Page() {
       {/* PARTNERS PREVIEW */}
       <section id="partners" className="section partners-preview">
         <div className="section-heading reveal">
-          <div className="section-label">◆ OUR PARTNERS</div>
-          <h2>Meet the People Behind Your Retreat</h2>
+          <div className="section-label">05 / PARTNERS</div>
+          <h2>Our Partners</h2>
           <p className="section-sub">
             The trusted collaborators we work with across Egypt to bring every retreat to life.
           </p>
