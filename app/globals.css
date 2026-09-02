@@ -1239,14 +1239,18 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
   position: relative; min-height: 70vh;
   background-size: cover; background-position: center;
   background-attachment: fixed;
-  display: flex; align-items: center; justify-content: flex-end;
+  display: flex; align-items: center; justify-content: flex-start;
+}
+.dp-parallax::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to right, rgba(20,8,16,.88) 0%, rgba(20,8,16,.72) 40%, rgba(20,8,16,.18) 75%, transparent 100%);
+  pointer-events: none;
 }
 .dp-parallax-panel {
-  width: 44%; min-height: 70vh;
+  position: relative; z-index: 1;
+  width: 50%; min-height: 70vh;
   display: flex; flex-direction: column; align-items: flex-start; justify-content: center;
-  padding: 64px max(28px, 3vw);
-  background: rgba(46,24,64,.82);
-  backdrop-filter: blur(6px);
+  padding: 64px max(32px, 4vw);
 }
 .dp-parallax-panel h2 {
   font-family: 'Cormorant Garamond', serif; font-size: clamp(30px, 4vw, 48px);
@@ -1303,7 +1307,8 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
 
   .dp-activity-grid { grid-template-columns: 1fr 1fr; }
   .dp-parallax { background-attachment: scroll; min-height: 60vh; }
-  .dp-parallax-panel { width: 100%; min-height: 60vh; padding: 48px 6vw; background: rgba(46,24,64,.78); }
+  .dp-parallax::before { background: linear-gradient(to top, rgba(20,8,16,.88) 0%, rgba(20,8,16,.65) 50%, rgba(20,8,16,.25) 100%); }
+  .dp-parallax-panel { width: 100%; min-height: 60vh; padding: 48px 6vw; }
   .dp-parallax-actions { flex-direction: column; align-items: flex-start; }
 }
 
