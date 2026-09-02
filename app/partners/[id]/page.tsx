@@ -82,7 +82,7 @@ export default function PartnerDetailPage({ params }: { params: Promise<{ id: st
           <a href="/contact" className="button button-gold">
             Work with {partner.name} <ArrowUpRight size={16} />
           </a>
-          <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="button button-ghost">
+          <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="button button-ghost-dark">
             Ask about this partner
           </a>
         </div>
