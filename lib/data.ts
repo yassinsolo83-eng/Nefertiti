@@ -273,6 +273,8 @@ export const experiences = [
   { title: 'Sunrise yoga', text: 'Movement at dawn, beside the Pyramids, the sea or the desert.', image: images.hero },
   { title: 'Desert breathwork', text: 'Open sky, silence and breath in Egypt\'s most ancient landscape.', image: images.vision },
   { title: 'Egyptian beauty workshops', text: 'Natural oils, herbs and traditional skincare rituals.', image: images.resort },
+  { title: 'Belly dancing', text: 'Authentic Egyptian oriental dance — expressive, joyful and rooted in centuries of tradition.', image: images.cairo },
+  { title: 'Floating yoga', text: 'Yoga practiced on water — balance, breath and stillness held gently by the surface.', image: images.boat },
 ]
 
 export const serviceTiers = [
@@ -388,6 +390,97 @@ export type DestDetail = {
   bestTime: string
   parallaxImage: string
 }
+
+// ── Partners ──
+// Placeholder data — Azza will replace names, images and details later
+// (structured to map cleanly onto a future admin/DB).
+export type Partner = {
+  id: string
+  name: string
+  category: string          // e.g. 'Accommodation', 'Wellness', 'Photography'
+  tagline: string
+  image: string
+  bio: string               // longer description shown on the detail page
+  services: string[]        // what they offer
+  location?: string
+  website?: string          // external link (optional)
+  instagram?: string        // handle without @ (optional)
+}
+
+export const partners: Partner[] = [
+  {
+    id: 'partner-1',
+    name: 'Partner Name',
+    category: 'Boutique Accommodation',
+    tagline: 'Placeholder tagline — a short line about this partner.',
+    image: images.resort,
+    bio: 'This is placeholder text. A full description of the partner will go here — who they are, what makes them special, and why Nefertiti works with them. Azza will replace this with real content.',
+    services: ['Service one', 'Service two', 'Service three'],
+    location: 'Egypt',
+    website: '',
+    instagram: '',
+  },
+  {
+    id: 'partner-2',
+    name: 'Partner Name',
+    category: 'Wellness & Yoga',
+    tagline: 'Placeholder tagline — a short line about this partner.',
+    image: images.hero,
+    bio: 'This is placeholder text. A full description of the partner will go here — who they are, what makes them special, and why Nefertiti works with them. Azza will replace this with real content.',
+    services: ['Service one', 'Service two', 'Service three'],
+    location: 'Egypt',
+    website: '',
+    instagram: '',
+  },
+  {
+    id: 'partner-3',
+    name: 'Partner Name',
+    category: 'Photography & Film',
+    tagline: 'Placeholder tagline — a short line about this partner.',
+    image: images.vision,
+    bio: 'This is placeholder text. A full description of the partner will go here — who they are, what makes them special, and why Nefertiti works with them. Azza will replace this with real content.',
+    services: ['Service one', 'Service two', 'Service three'],
+    location: 'Egypt',
+    website: '',
+    instagram: '',
+  },
+  {
+    id: 'partner-4',
+    name: 'Partner Name',
+    category: 'Transport & Logistics',
+    tagline: 'Placeholder tagline — a short line about this partner.',
+    image: images.boat,
+    bio: 'This is placeholder text. A full description of the partner will go here — who they are, what makes them special, and why Nefertiti works with them. Azza will replace this with real content.',
+    services: ['Service one', 'Service two', 'Service three'],
+    location: 'Egypt',
+    website: '',
+    instagram: '',
+  },
+  {
+    id: 'partner-5',
+    name: 'Partner Name',
+    category: 'Cultural Experiences',
+    tagline: 'Placeholder tagline — a short line about this partner.',
+    image: images.cairo,
+    bio: 'This is placeholder text. A full description of the partner will go here — who they are, what makes them special, and why Nefertiti works with them. Azza will replace this with real content.',
+    services: ['Service one', 'Service two', 'Service three'],
+    location: 'Egypt',
+    website: '',
+    instagram: '',
+  },
+  {
+    id: 'partner-6',
+    name: 'Partner Name',
+    category: 'Catering & Cuisine',
+    tagline: 'Placeholder tagline — a short line about this partner.',
+    image: images.hammam,
+    bio: 'This is placeholder text. A full description of the partner will go here — who they are, what makes them special, and why Nefertiti works with them. Azza will replace this with real content.',
+    services: ['Service one', 'Service two', 'Service three'],
+    location: 'Egypt',
+    website: '',
+    instagram: '',
+  },
+]
 
 export const destinationDetails: Record<string, DestDetail> = {
   cairo: {

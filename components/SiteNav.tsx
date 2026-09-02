@@ -13,6 +13,7 @@ const NAV_ITEMS: NavItem[] = [
   ['Destinations', '/#destinations'],
   ['Experiences', '/experiences'],
   ['Services', '/services'],
+  ['Partners', '/partners'],
   ['How It Works', '/how-it-works'],
   ['Contact', '/contact'],
 ]
