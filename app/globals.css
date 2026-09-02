@@ -1227,24 +1227,23 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
   position: relative; min-height: 70vh;
   background-size: cover; background-position: center;
   background-attachment: fixed;
-  display: flex; align-items: center; justify-content: center;
+  display: flex; align-items: center; justify-content: flex-end;
 }
-.dp-parallax-overlay {
-  position: absolute; inset: 0;
-  background: rgba(12,4,9,.72); backdrop-filter: blur(2px);
-  display: flex; align-items: center; justify-content: center;
+.dp-parallax-panel {
+  width: 44%; min-height: 70vh;
+  display: flex; flex-direction: column; align-items: flex-start; justify-content: center;
+  padding: 64px max(28px, 3vw);
+  background: rgba(46,24,64,.82);
+  backdrop-filter: blur(6px);
 }
-.dp-parallax-content {
-  text-align: center; padding: 80px max(24px, 5vw); max-width: 680px;
+.dp-parallax-panel h2 {
+  font-family: 'Cormorant Garamond', serif; font-size: clamp(30px, 4vw, 48px);
+  color: #fff; font-weight: 400; line-height: 1.1; margin-bottom: 16px;
 }
-.dp-parallax-content h2 {
-  font-family: 'Cormorant Garamond', serif; font-size: clamp(32px, 5vw, 52px);
-  color: #fff; font-weight: 400; line-height: 1.1; margin-bottom: 18px;
+.dp-parallax-panel p {
+  font-size: 14px; color: rgba(243,240,232,.7); line-height: 1.8; margin-bottom: 32px; max-width: 38ch;
 }
-.dp-parallax-content p {
-  font-size: 14px; color: rgba(243,240,232,.65); line-height: 1.8; margin-bottom: 36px;
-}
-.dp-parallax-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+.dp-parallax-actions { display: flex; gap: 14px; flex-wrap: wrap; }
 
 /* Ghost button variant — light text on dark */
 .button-ghost-light {
@@ -1292,8 +1291,8 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
 
   .dp-activity-grid { grid-template-columns: 1fr 1fr; }
   .dp-parallax { background-attachment: scroll; min-height: 60vh; }
-  .dp-parallax-content { padding: 60px 6vw; }
-  .dp-parallax-actions { flex-direction: column; align-items: center; }
+  .dp-parallax-panel { width: 100%; min-height: 60vh; padding: 48px 6vw; background: rgba(46,24,64,.78); }
+  .dp-parallax-actions { flex-direction: column; align-items: flex-start; }
 }
 
 @media (max-width: 480px) {
