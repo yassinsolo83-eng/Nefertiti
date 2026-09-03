@@ -68,6 +68,7 @@ export default function ServicesPage() {
                   </div>
                   {i === activeIdx && (
                     <div className={styles.rowDetails}>
+                      <img src={tierImages[i]} alt={tier.title} className={styles.rowImg} />
                       <p className={styles.rowDesc}>{tier.desc}</p>
                       <ul className={styles.rowItems}>
                         {tier.items.map((item) => (
