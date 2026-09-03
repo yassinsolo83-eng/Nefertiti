@@ -500,7 +500,7 @@ export const destinationDetails: Record<string, DestDetail> = {
       },
     ],
     bestTime: 'October – April',
-    parallaxImage: images.cairo,
+    parallaxImage: '/cta-cairo.webp',
   },
   'red-sea': {
     overview:
@@ -533,7 +533,7 @@ export const destinationDetails: Record<string, DestDetail> = {
       },
     ],
     bestTime: 'Year-round (peak: March – May, September – November)',
-    parallaxImage: '/dest-red-sea.webp',
+    parallaxImage: '/cta-redsea.webp',
   },
   luxor: {
     overview:
@@ -561,7 +561,7 @@ export const destinationDetails: Record<string, DestDetail> = {
       },
     ],
     bestTime: 'October – April',
-    parallaxImage: '/dest-luxor.webp',
+    parallaxImage: '/cta-luxor.webp',
   },
   siwa: {
     overview:
@@ -589,7 +589,7 @@ export const destinationDetails: Record<string, DestDetail> = {
       },
     ],
     bestTime: 'October – April',
-    parallaxImage: images.siwa,
+    parallaxImage: '/cta-siwa.webp',
   },
   desert: {
     overview:
@@ -617,6 +617,6 @@ export const destinationDetails: Record<string, DestDetail> = {
       },
     ],
     bestTime: 'October – April',
-    parallaxImage: '/dest-desert.webp',
+    parallaxImage: '/cta-desert.webp',
   },
 }

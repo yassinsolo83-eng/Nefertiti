@@ -1234,11 +1234,10 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
 }
 .dp-ideal-tag:hover { background: rgba(177,182,149,.12); border-color: var(--rose); }
 
-/* ── Parallax CTA — fixed background reveal ── */
+/* ── Parallax CTA — gradient overlay, clear image ── */
 .dp-parallax {
   position: relative; min-height: 70vh;
   background-size: cover; background-position: center;
-  background-attachment: fixed;
   display: flex; align-items: center; justify-content: flex-start;
 }
 .dp-parallax::before {
@@ -1306,7 +1305,7 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
   .dp-grid-section { padding: 0 6vw 60px; }
 
   .dp-activity-grid { grid-template-columns: 1fr 1fr; }
-  .dp-parallax { background-attachment: scroll; min-height: 60vh; }
+  .dp-parallax { min-height: 60vh; }
   .dp-parallax::before { background: linear-gradient(to top, rgba(20,8,16,.88) 0%, rgba(20,8,16,.65) 50%, rgba(20,8,16,.25) 100%); }
   .dp-parallax-panel { width: 100%; min-height: 60vh; padding: 48px 6vw; }
   .dp-parallax-actions { flex-direction: column; align-items: flex-start; }
