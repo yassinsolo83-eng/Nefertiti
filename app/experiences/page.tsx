@@ -5,6 +5,7 @@ import { ArrowUpRight } from 'lucide-react'
 import { experiences, copy } from '@/lib/data'
 import SiteNav from '@/components/SiteNav'
 import SiteFooter from '@/components/SiteFooter'
+import BackButton from '@/components/BackButton'
 import styles from './experiences.module.css'
 
 export default function ExperiencesPage() {
@@ -14,6 +15,11 @@ export default function ExperiencesPage() {
   return (
     <main className="inner-page">
       <SiteNav solid />
+
+      {/* ── BACK BUTTON ── */}
+      <div className={styles.backWrap}>
+        <BackButton />
+      </div>
 
       {/* ── HERO IMAGE ── */}
       <section className={styles.hero}>
