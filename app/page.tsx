@@ -256,7 +256,7 @@ export default function Page() {
             ))}
           </div>
           <div className="dest-combo-actions">
-            <a href="/contact" className="button button-gold">{t.destCTA1} <ArrowUpRight size={14} /></a>
+            <a href="/contact" className="button button-dark">{t.destCTA1} <ArrowUpRight size={14} /></a>
           </div>
         </div>
       </section>

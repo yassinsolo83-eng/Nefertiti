@@ -401,30 +401,18 @@ h3 { font-size: 26px; line-height: 1.15; font-weight: 500; }
 .dest-more-card:hover .dest-more-link { gap: 9px; }
 
 /* Combinations */
-.dest-combos { margin-top: 72px; padding: 64px 6vw; background: rgba(18,5,14,.6); text-align: center; }
+.dest-combos { margin-top: 72px; padding: 64px 6vw; background: var(--gold); text-align: center; }
 .dest-combos-header { margin-bottom: 36px; }
-.dest-combos-header h2 { color: #fff !important; font-size: clamp(28px, 4vw, 56px) !important; margin-bottom: 10px; }
-.dest-combos-sub { font-family: 'Cormorant Garamond', serif; font-size: clamp(18px, 2vw, 26px); color: var(--gold); font-style: italic; margin-bottom: 16px; display: block; }
-.dest-combos-body { color: rgba(243,240,232,.6); max-width: 440px; margin: 0 auto; line-height: 1.9; font-size: 13px; }
+.dest-combos-header h2 { color: var(--plum) !important; font-size: clamp(28px, 4vw, 56px) !important; margin-bottom: 10px; }
+.dest-combos-sub { font-family: 'Cormorant Garamond', serif; font-size: clamp(18px, 2vw, 26px); color: var(--primary); font-style: italic; margin-bottom: 16px; display: block; }
+.dest-combos-body { color: var(--plum); opacity: .7; max-width: 440px; margin: 0 auto; line-height: 1.9; font-size: 13px; }
 .dest-combo-list { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 32px 0 36px; }
-.dest-combo-pill { padding: 8px 18px; border: 1px solid rgba(241,210,136,.28); color: rgba(243,240,232,.72); font-size: 10px; letter-spacing: .1em; transition: background .2s; }
-.dest-combo-pill:hover { background: rgba(241,210,136,.1); }
+.dest-combo-pill { padding: 8px 18px; border: 1px solid var(--plum); color: var(--plum); font-size: 10px; letter-spacing: .1em; transition: background .2s; }
+.dest-combo-pill:hover { background: rgba(46,24,64,.1); }
 .dest-combo-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
 
 /* ── EXPERIENCES ── */
-.experiences { background: var(--muted); }
-.experience-list { border-top: 1px solid var(--border); margin-top: 20px; }
-.experience-row {
-  display: grid; grid-template-columns: 56px 1fr 190px;
-  gap: 3vw; align-items: center;
-  padding: 26px 0; border-bottom: 1px solid var(--border);
-  transition: background .2s;
-}
-.experience-row:hover { background: rgba(199,162,90,.06); padding-left: 8px; }
-.experience-number { color: var(--gold-deep); font-size: 11px; letter-spacing: .1em; }
-.experience-text h3 { font-size: 28px; margin-bottom: 8px; }
-.experience-text p { color: var(--muted-fg); }
-.experience-row img { width: 190px; height: 125px; object-fit: cover; }
+/* experiences page styles moved to app/experiences/experiences.module.css */
 
 /* ── SERVICES ── */
 .bespoke { display: grid; grid-template-columns: 1fr 1fr; background: var(--navy); color: #fff; }
@@ -980,11 +968,6 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
   .dest-combo-actions { flex-direction: column; align-items: center; }
   .section-heading { display: block; margin-bottom: 32px; }
   .section-heading h2 { margin: 10px 0 16px; }
-
-  /* EXPERIENCES */
-  .experience-row { grid-template-columns: 44px 1fr; gap: 12px; padding: 22px 0; }
-  .experience-row img { grid-column: 2; width: 100%; height: 160px; margin-top: 10px; }
-  .experience-text h3 { font-size: 22px; }
 
   /* SERVICES */
   .bespoke { grid-template-columns: 1fr; }
