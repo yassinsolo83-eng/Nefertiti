@@ -66,7 +66,10 @@ export default function ExperiencesPage() {
                     <span className={styles.rowNum}>{String(i + 1).padStart(2, '0')}</span>
                   </div>
                   {i === activeIdx && (
-                    <p className={styles.rowText}>{item.text}</p>
+                    <div className={styles.rowExpanded}>
+                      <img src={item.image} alt={item.title} className={styles.rowImg} />
+                      <p className={styles.rowText}>{item.text}</p>
+                    </div>
                   )}
                 </div>
               ))}
