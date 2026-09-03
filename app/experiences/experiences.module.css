@@ -98,6 +98,15 @@
   margin-top: 10px; max-width: 50ch;
   animation: textSlide .3s ease;
 }
+
+/* Expanded row content (image + text) */
+.rowExpanded {
+  animation: textSlide .3s ease;
+}
+.rowImg {
+  display: none; /* hidden on desktop — floating image handles it */
+}
+
 @keyframes textSlide {
   from { opacity: 0; transform: translateY(-6px); }
   to { opacity: 1; transform: translateY(0); }
@@ -109,9 +118,15 @@
   .intro { position: static; }
   .floatingImg { display: none; }
   .hero { height: 45vh; margin-top: 80px; }
+  .rowImg {
+    display: block; width: 100%; height: 200px;
+    object-fit: cover; border-radius: 10px;
+    margin-top: 12px; margin-bottom: 8px;
+  }
 }
 
 @media (max-width: 520px) {
   .section { padding: 48px max(16px, 5vw) 80px; }
   .rowActive { padding-left: 14px; padding-right: 14px; margin: 0 -14px; }
+  .rowImg { height: 160px; }
 }
