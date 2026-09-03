@@ -14,6 +14,13 @@ export const images = {
   felucca: '/exp-felucca.webp',
   floatingYoga: '/exp-floating-yoga.webp',
   luxuryResort: '/exp-resort.webp',
+  meditation: '/exp-meditation.webp',
+  spa: '/exp-spa.webp',
+  beauty: '/exp-beauty.webp',
+  oils: '/exp-oils.webp',
+  drums: '/exp-drums.webp',
+  potteryShop: '/exp-pottery-shop.webp',
+  pottery: '/exp-pottery.webp',
 }
 
 export const copy = {
@@ -274,7 +281,7 @@ export const experiences = [
   { title: 'Felucca sunsets', text: 'Private sailing on the Nile as the sky turns gold.', image: images.felucca },
   { title: 'Sunrise yoga', text: 'Movement at dawn, beside the Pyramids, the sea or the desert.', image: images.hero },
   { title: 'Desert breathwork', text: 'Open sky, silence and breath in Egypt\'s most ancient landscape.', image: images.vision },
-  { title: 'Egyptian beauty workshops', text: 'Natural oils, herbs and traditional skincare rituals.', image: images.luxuryResort },
+  { title: 'Egyptian beauty workshops', text: 'Natural oils, herbs and traditional skincare rituals.', image: images.beauty },
   { title: 'Belly dancing', text: 'Authentic Egyptian oriental dance — expressive, joyful and rooted in centuries of tradition.', image: images.bellyDance },
   { title: 'Floating yoga', text: 'Yoga practiced on water — balance, breath and stillness held gently by the surface.', image: images.floatingYoga },
 ]
@@ -497,7 +504,7 @@ export const destinationDetails: Record<string, DestDetail> = {
       },
       {
         title: 'Art & Cultural Workshops',
-        image: images.vision,
+        image: images.drums,
         desc: 'Local artisan experiences, calligraphy, Egyptian food workshops and contemporary gallery visits.',
       },
     ],
@@ -520,7 +527,7 @@ export const destinationDetails: Record<string, DestDetail> = {
       },
       {
         title: 'Spa & Wellness',
-        image: images.hammam,
+        image: images.spa,
         desc: 'Thalasso spa, treatments, sound healing and private wellness sessions in resort settings.',
       },
       {
@@ -581,12 +588,12 @@ export const destinationDetails: Record<string, DestDetail> = {
       },
       {
         title: 'Natural Springs',
-        image: images.hammam,
+        image: images.oils,
         desc: 'Warm and cold springs hidden among the palms — ancient, restorative, private.',
       },
       {
         title: 'Stargazing & Night Ceremonies',
-        image: images.vision,
+        image: images.potteryShop,
         desc: 'Zero light pollution — the Saharan sky becomes the ceiling for evening practice.',
       },
     ],
@@ -599,7 +606,7 @@ export const destinationDetails: Record<string, DestDetail> = {
     highlights: [
       {
         title: 'Meditation & Breathwork',
-        image: images.vision,
+        image: images.meditation,
         desc: 'Practice in open space — no walls, no noise, no distractions. Just breath and sky.',
       },
       {
