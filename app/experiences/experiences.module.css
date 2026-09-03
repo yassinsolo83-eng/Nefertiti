@@ -1,9 +1,14 @@
 /* ── Experiences page ── */
 
+/* Back button */
+.backWrap {
+  padding: 110px max(28px, 6vw) 0;
+}
+
 /* Hero image — full-width, edge to edge */
 .hero {
   width: 100%; height: 60vh; overflow: hidden;
-  margin-top: 100px; /* clear the fixed nav */
+  margin-top: 24px;
 }
 .heroImg {
   width: 100%; height: 100%; object-fit: cover; object-position: center;
