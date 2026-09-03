@@ -6,12 +6,14 @@ export const images = {
   heroMain: '/hero-shirodhara.webp',
   hero: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/rs%3Dw_984%2Ch_1749-rKfCp42avy5gbGj4dM9sBkVg3ml9Vy.webp',
   vision: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/rs%3Dw_984%2Ch_1312-yhHGcLxbtC04mHWk2vOjX0Z3EjmrE5.webp',
-  cairo: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/900x600-1-50-130274e45d077f1d2dea84dec9156332-AuyATzxMn5KXFCvsvitJBwOPW3dXJ3.jpg',
-  siwa: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/sound-768x576-eGX9BM3R1R3tOWMSujIcQHKB09RAbX.jpeg',
-  resort: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/images%20%286%29-w13ctS2si3HTM3vqoklR1bxXykK1Lb.jpg',
   hammam: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/cleaning-woman-in-hammam_2048x2048-bm24VJd5mSMvY45Rtb7e2Kh7GWzeov.webp',
-  boat: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/images%20%284%29-vlT1vQQEG6bjLjkkJO5xPC79mUbp0Z.jpg',
   founder: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/OZ5A7176-scaled-1-900x600.jpg-xGKlXMGXHBn7aiD6bnPSh0vMbCCsbf.webp',
+  bellyDance: '/exp-belly-dance.webp',
+  pyramids: '/exp-pyramids.webp',
+  soundHealing: '/exp-sound-healing.webp',
+  felucca: '/exp-felucca.webp',
+  floatingYoga: '/exp-floating-yoga.webp',
+  luxuryResort: '/exp-resort.webp',
 }
 
 export const copy = {
@@ -99,7 +101,7 @@ export const featuredDestinations = [
     title: 'Cairo & Giza',
     tagline: 'Ancient Meets Contemporary',
     feeling: 'Rhythm · History · Connection',
-    image: images.cairo,
+    image: images.pyramids,
     video: '/cairo-giza.mp4',
     desc: 'For retreat leaders who want to combine wellness with history, culture, gastronomy and contemporary luxury.',
     experiences: [
@@ -145,7 +147,7 @@ export const featuredDestinations = [
     title: 'Siwa Oasis',
     tagline: 'Disconnect to Reconnect',
     feeling: 'Silence · Surrender · Timeless',
-    image: images.siwa,
+    image: images.soundHealing,
     video: '/siwa.mp4',
     desc: 'Surrounded by desert, palm groves, natural springs and salt lakes, Siwa offers an intimate environment for smaller groups seeking privacy and deep immersion.',
     experiences: [
@@ -268,13 +270,13 @@ export const combinations = [
 
 export const experiences = [
   { title: 'Hammam rituals', text: 'Traditional Egyptian purification rituals, steam and ancient beauty practices.', image: images.hammam },
-  { title: 'Sound healing', text: 'Gongs, singing bowls and breath in spaces designed for deep listening.', image: images.siwa },
-  { title: 'Felucca sunsets', text: 'Private sailing on the Nile as the sky turns gold.', image: images.boat },
+  { title: 'Sound healing', text: 'Gongs, singing bowls and breath in spaces designed for deep listening.', image: images.soundHealing },
+  { title: 'Felucca sunsets', text: 'Private sailing on the Nile as the sky turns gold.', image: images.felucca },
   { title: 'Sunrise yoga', text: 'Movement at dawn, beside the Pyramids, the sea or the desert.', image: images.hero },
   { title: 'Desert breathwork', text: 'Open sky, silence and breath in Egypt\'s most ancient landscape.', image: images.vision },
-  { title: 'Egyptian beauty workshops', text: 'Natural oils, herbs and traditional skincare rituals.', image: images.resort },
-  { title: 'Belly dancing', text: 'Authentic Egyptian oriental dance — expressive, joyful and rooted in centuries of tradition.', image: images.cairo },
-  { title: 'Floating yoga', text: 'Yoga practiced on water — balance, breath and stillness held gently by the surface.', image: images.boat },
+  { title: 'Egyptian beauty workshops', text: 'Natural oils, herbs and traditional skincare rituals.', image: images.luxuryResort },
+  { title: 'Belly dancing', text: 'Authentic Egyptian oriental dance — expressive, joyful and rooted in centuries of tradition.', image: images.bellyDance },
+  { title: 'Floating yoga', text: 'Yoga practiced on water — balance, breath and stillness held gently by the surface.', image: images.floatingYoga },
 ]
 
 export const serviceTiers = [
@@ -415,7 +417,7 @@ export const partners: Partner[] = [
     name: 'Name',
     category: 'Boutique Accommodation',
     tagline: 'Placeholder tagline — a short line about this partner.',
-    image: images.resort,
+    image: images.luxuryResort,
     bio: 'This is placeholder text. A full description of the partner will go here — who they are, what makes them special, and why Nefertiti works with them. Azza will replace this with real content.',
     services: ['Service one', 'Service two', 'Service three'],
     location: 'Egypt',
@@ -457,7 +459,7 @@ export const partners: Partner[] = [
     name: 'Name',
     category: 'Transport & Logistics',
     tagline: 'Placeholder tagline — a short line about this partner.',
-    image: images.boat,
+    image: images.felucca,
     bio: 'This is placeholder text. A full description of the partner will go here — who they are, what makes them special, and why Nefertiti works with them. Azza will replace this with real content.',
     services: ['Service one', 'Service two', 'Service three'],
     location: 'Egypt',
@@ -475,12 +477,12 @@ export const destinationDetails: Record<string, DestDetail> = {
     highlights: [
       {
         title: 'Pyramids at Sunrise',
-        image: images.cairo,
+        image: images.pyramids,
         desc: 'Begin the day with movement and meditation at the foot of the last standing ancient wonder.',
       },
       {
         title: 'Nile Experiences',
-        image: images.boat,
+        image: images.felucca,
         desc: 'Private felucca sailing, sunset river sessions and dinner on the water — the Nile as your retreat backdrop.',
       },
       {
@@ -490,7 +492,7 @@ export const destinationDetails: Record<string, DestDetail> = {
       },
       {
         title: 'Luxury Hotels & Dining',
-        image: images.resort,
+        image: images.luxuryResort,
         desc: 'World-class accommodations with rooftop dining, private wellness suites and views over the city.',
       },
       {
@@ -513,7 +515,7 @@ export const destinationDetails: Record<string, DestDetail> = {
       },
       {
         title: 'Private Boat Days',
-        image: images.boat,
+        image: images.felucca,
         desc: 'Yacht and boat experiences — snorkeling, swimming, breathwork sessions on the open water.',
       },
       {
@@ -556,7 +558,7 @@ export const destinationDetails: Record<string, DestDetail> = {
       },
       {
         title: 'Sunset River Sessions',
-        image: images.boat,
+        image: images.felucca,
         desc: 'Felucca sailing, breathwork and group circles on the Nile as the light fades.',
       },
     ],
@@ -569,7 +571,7 @@ export const destinationDetails: Record<string, DestDetail> = {
     highlights: [
       {
         title: 'Salt Lake Experiences',
-        image: images.siwa,
+        image: images.soundHealing,
         desc: 'Float in Siwa\'s mineral-rich salt lakes — a natural reset for body and mind.',
       },
       {
@@ -602,7 +604,7 @@ export const destinationDetails: Record<string, DestDetail> = {
       },
       {
         title: 'Sound Ceremonies',
-        image: images.siwa,
+        image: images.soundHealing,
         desc: 'Singing bowls, gongs and voice carry differently in the desert — deep, resonant, unforgettable.',
       },
       {
@@ -612,7 +614,7 @@ export const destinationDetails: Record<string, DestDetail> = {
       },
       {
         title: 'Desert Dining',
-        image: images.resort,
+        image: images.luxuryResort,
         desc: 'Private dining under the stars — fire-cooked food, lanterns, long tables in the sand.',
       },
     ],
