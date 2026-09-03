@@ -733,6 +733,7 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
 
 @media (max-width: 1000px) {
   .team-grid { grid-template-columns: repeat(2, 1fr); gap: 40px 28px; }
+  .partners-preview .team-grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 860px) {
   .page-hero-split { grid-template-columns: 1fr; }
@@ -741,6 +742,7 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
 }
 @media (max-width: 520px) {
   .team-grid { grid-template-columns: 1fr; }
+  .partners-preview .team-grid { grid-template-columns: 1fr; }
   .team-card-media { max-width: 260px; margin-left: auto; margin-right: auto; }
 }
 
