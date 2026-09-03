@@ -19,10 +19,10 @@ export default function ServicesPage() {
       <SiteNav solid />
 
       {/* ── HERO IMAGE ── */}
-      <div className={styles.backWrap}>
-        <BackButton />
-      </div>
       <section className={styles.hero}>
+        <div className={styles.backWrap}>
+          <BackButton />
+        </div>
         <img src="/srv-hero.webp" alt="Nefertiti Services" className={styles.heroImg} />
       </section>
 
