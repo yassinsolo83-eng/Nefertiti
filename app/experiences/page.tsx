@@ -16,13 +16,11 @@ export default function ExperiencesPage() {
     <main className="inner-page">
       <SiteNav solid />
 
-      {/* ── BACK BUTTON ── */}
-      <div className={styles.backWrap}>
-        <BackButton />
-      </div>
-
       {/* ── HERO IMAGE ── */}
       <section className={styles.hero}>
+        <div className={styles.backWrap}>
+          <BackButton />
+        </div>
         <img src="/exp-hero.webp" alt="Nefertiti Experiences" className={styles.heroImg} />
       </section>
 
