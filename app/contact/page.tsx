@@ -108,7 +108,7 @@ export default function ContactPage() {
           </div>
 
           <div className="contact-detail-image">
-            <img src={images.boat} alt="Golden light on the water" />
+            <img src={images.felucca} alt="Golden light on the water" />
           </div>
 
           <div className="contact-social">
