@@ -208,8 +208,6 @@ body { top: 0 !important; }
 /* on dark sections, labels use the bright gold */
 .destinations .section-label,
 .destinations .footer-label,
-.bespoke .eyebrow,
-.bespoke .section-label,
 footer .footer-label,
 .contact .form-label { color: var(--gold); }
 .hero h1 {
@@ -415,23 +413,7 @@ h3 { font-size: 26px; line-height: 1.15; font-weight: 500; }
 /* experiences page styles moved to app/experiences/experiences.module.css */
 
 /* ── SERVICES ── */
-.bespoke { display: grid; grid-template-columns: 1fr 1fr; background: var(--navy); color: #fff; }
-.bespoke-image { min-height: 700px; }
-.bespoke-image img { width: 100%; height: 100%; object-fit: cover; }
-.bespoke-copy { display: flex; flex-direction: column; justify-content: center; padding: 8vw 7vw; }
-.bespoke-copy .eyebrow { color: var(--gold); }
-.bespoke-copy h2 { margin: 16px 0 14px; font-size: clamp(26px, 3.2vw, 44px); }
-.bespoke-copy > p:not(.eyebrow) { color: rgba(243,240,232,.72); max-width: 400px; line-height: 1.9; margin-bottom: 30px; }
-.service-tiers { display: flex; flex-direction: column; margin-bottom: 34px; }
-.service-tier { border: 1px solid rgba(199,162,90,.28); padding: 18px 22px; border-bottom: none; }
-.service-tier:last-child { border-bottom: 1px solid rgba(199,162,90,.28); }
-.tier-header { display: flex; align-items: center; gap: 14px; margin-bottom: 7px; }
-.tier-num { font-family: 'Cormorant Garamond', serif; font-size: 22px; color: var(--gold); font-style: italic; }
-.tier-title { font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); font-weight: 500; }
-.tier-desc { font-size: 12px; color: rgba(243,240,232,.68); line-height: 1.7; margin-bottom: 9px; }
-.tier-list { list-style: none; display: flex; flex-wrap: wrap; gap: 4px 12px; }
-.tier-list li { font-size: 10px; color: rgba(243,240,232,.5); letter-spacing: .05em; }
-.tier-list li::before { content: '·'; margin-right: 5px; color: var(--gold); }
+/* services page styles moved to app/services/services.module.css */
 
 /* ── HOW IT WORKS ── */
 .process { background: var(--background); }
@@ -625,7 +607,6 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
 /* Inner section: sections lifted from the home page keep their look but
    the first block sits closer to the page hero and the CTA is centred. */
 .inner-section { padding-top: 40px; }
-.inner-bespoke { margin-top: 0; }
 .inner-founder { padding-top: 20px; }
 .inner-cta { display: inline-flex; margin-top: 8px; }
 
@@ -968,11 +949,6 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
   .dest-combo-actions { flex-direction: column; align-items: center; }
   .section-heading { display: block; margin-bottom: 32px; }
   .section-heading h2 { margin: 10px 0 16px; }
-
-  /* SERVICES */
-  .bespoke { grid-template-columns: 1fr; }
-  .bespoke-image { min-height: 320px; }
-  .bespoke-copy { padding: 60px 6vw; }
 
   /* HOW IT WORKS */
   .process-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
