@@ -121,16 +121,27 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* Inline image — hidden on desktop, visible on mobile */
+.rowImg {
+  display: none;
+}
+
 /* ── Responsive ── */
 @media (max-width: 900px) {
   .layout { grid-template-columns: 1fr; gap: 48px; }
   .intro { position: static; }
   .floatingImg { display: none; }
   .hero { height: 45vh; margin-top: 80px; }
+  .rowImg {
+    display: block; width: 100%; height: 200px;
+    object-fit: cover; border-radius: 10px;
+    margin-bottom: 12px;
+  }
 }
 
 @media (max-width: 520px) {
   .section { padding: 48px max(16px, 5vw) 80px; }
   .rowActive { padding-left: 14px; padding-right: 14px; margin: 0 -14px; }
   .rowItems { flex-direction: column; }
+  .rowImg { height: 160px; }
 }
