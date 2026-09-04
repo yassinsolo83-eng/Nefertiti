@@ -9,9 +9,9 @@
 /* Hero — parallax fixed background */
 .hero {
   position: relative;
-  width: 100%; height: 60vh;
+  width: 100%; height: 85vh;
   margin-top: 100px;
-  background: url('/about-hero.webp') center 75%/cover fixed;
+  background: url('/about-hero.webp') center bottom/cover fixed;
 }
 
 /* Main section */
@@ -68,7 +68,7 @@
 @media (max-width: 900px) {
   .layout { grid-template-columns: 1fr; gap: 48px; }
   .intro { position: static; }
-  .hero { height: 45vh; margin-top: 80px; background-attachment: scroll; }
+  .hero { height: 60vh; margin-top: 80px; background-attachment: scroll; }
 }
 
 @media (max-width: 520px) {

@@ -8,7 +8,7 @@
 /* Hero — parallax fixed background */
 .hero {
   position: relative;
-  width: 100%; height: 60vh;
+  width: 100%; height: 85vh;
   margin-top: 100px;
   background: url('/srv-hero.webp') center/cover fixed;
 }
@@ -50,6 +50,7 @@
   z-index: 2; pointer-events: none;
   box-shadow: 0 20px 50px rgba(46,24,64,.18);
   transition: transform .4s cubic-bezier(.25,.8,.25,1);
+  rotate: -6deg;
 }
 .floatingImg img {
   width: 100%; height: 100%; object-fit: cover;
@@ -129,7 +130,7 @@
   .layout { grid-template-columns: 1fr; gap: 48px; }
   .intro { position: static; }
   .floatingImg { display: none; }
-  .hero { height: 45vh; margin-top: 80px; background-attachment: scroll; }
+  .hero { height: 60vh; margin-top: 80px; background-attachment: scroll; }
   .rowImg {
     display: block; width: 100%; height: 200px;
     object-fit: cover; border-radius: 10px;
