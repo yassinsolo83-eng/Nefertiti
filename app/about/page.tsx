@@ -5,6 +5,7 @@ import { images, copy } from '@/lib/data'
 import SiteNav from '@/components/SiteNav'
 import SiteFooter from '@/components/SiteFooter'
 import BackButton from '@/components/BackButton'
+import styles from './about.module.css'
 
 export default function AboutPage() {
   const t = copy.en
@@ -12,27 +13,35 @@ export default function AboutPage() {
     <main className="inner-page">
       <SiteNav solid />
 
-      <section className="page-hero page-hero-single">
-        <div className="page-hero-text reveal is-in">
+      {/* ── HERO IMAGE ── */}
+      <section className={styles.hero}>
+        <div className={styles.backWrap}>
           <BackButton />
-          <p className="eyebrow">{t.founder}</p>
-          <h1 className="page-title">About</h1>
-          <p className="page-lead">The story and the people behind Nefertiti.</p>
         </div>
+        <img src="/about-hero.webp" alt="Community at sunset" className={styles.heroImg} />
       </section>
 
-      <section className="section founder inner-founder">
-        <div className="founder-image reveal is-in">
-          <img src={images.founder} alt="Founder at a waterfront event" />
-        </div>
-        <div className="founder-copy reveal is-in">
-          <p className="eyebrow">{t.founder}</p>
-          <h2>{t.founderText}</h2>
-          <p className="founder-name">
-            {t.founderName}<br />
-            <span>{t.founderRole}</span>
-          </p>
-          <a href="/contact" className="text-link">LET&apos;S TALK ABOUT YOUR IDEA <ArrowUpRight size={16} /></a>
+      {/* ── FOUNDER SECTION ── */}
+      <section className={styles.section}>
+        <div className={styles.layout}>
+          <div className={styles.intro}>
+            <p className="eyebrow">◆ {t.founder}</p>
+            <h1 className={styles.title}>The story and the people<br />behind Nefertiti.</h1>
+          </div>
+
+          <div className={styles.content}>
+            <div className={styles.founderImg}>
+              <img src={images.founder} alt="Founder" />
+            </div>
+            <h2 className={styles.founderText}>{t.founderText}</h2>
+            <p className={styles.founderName}>
+              {t.founderName}<br />
+              <span>{t.founderRole}</span>
+            </p>
+            <a href="/contact" className="button button-gold">
+              Let&apos;s Talk About Your Idea <ArrowUpRight size={14} />
+            </a>
+          </div>
         </div>
       </section>
 
