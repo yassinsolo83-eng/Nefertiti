@@ -18,7 +18,7 @@ export default function ExperiencesPage() {
 
       {/* ── HERO IMAGE ── */}
       <section className={styles.hero}>
-        <div className={styles.backWrap}>
+        <div className={`${styles.backWrap} hero-back`}>
           <BackButton />
         </div>
         <img src="/exp-hero.webp" alt="Nefertiti Experiences" className={styles.heroImg} />

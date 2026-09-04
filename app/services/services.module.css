@@ -2,6 +2,7 @@
 
 /* Back button — overlaid on hero */
 .backWrap {
+  /* Back button visible on image */
   position: absolute; top: 24px; left: max(28px, 6vw); z-index: 2;
 }
 

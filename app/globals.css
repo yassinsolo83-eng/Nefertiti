@@ -574,6 +574,15 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
 .back-btn:hover {
   background: var(--primary); color: #fff; border-color: var(--primary); gap: 12px;
 }
+/* Back button on hero images (inner pages) */
+.hero-back .back-btn {
+  color: var(--gold); border-color: rgba(241,210,136,.35);
+  background: rgba(12,4,9,.4); backdrop-filter: blur(4px);
+  margin-bottom: 0;
+}
+.hero-back .back-btn:hover {
+  background: rgba(241,210,136,.15); color: #fff; border-color: var(--gold);
+}
 
 /* Shared page hero */
 .page-hero {

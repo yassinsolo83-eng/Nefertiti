@@ -20,7 +20,7 @@ export default function ServicesPage() {
 
       {/* ── HERO IMAGE ── */}
       <section className={styles.hero}>
-        <div className={styles.backWrap}>
+        <div className={`${styles.backWrap} hero-back`}>
           <BackButton />
         </div>
         <img src="/srv-hero.webp" alt="Nefertiti Services" className={styles.heroImg} />

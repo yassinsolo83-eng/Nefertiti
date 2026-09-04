@@ -29,7 +29,7 @@ export default function HowItWorksPage() {
 
       {/* ── HERO IMAGE ── */}
       <section className={styles.hero}>
-        <div className={styles.backWrap}>
+        <div className={`${styles.backWrap} hero-back`}>
           <BackButton />
         </div>
         <img src="/cta-siwa.webp" alt="How It Works" className={styles.heroImg} />
