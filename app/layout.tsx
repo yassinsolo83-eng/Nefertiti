@@ -32,7 +32,8 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   colorScheme: 'light',
   themeColor: '#f4f0e8',
-  userScalable: true,
+  userScalable: false,
+  maximumScale: 1,
 }
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
