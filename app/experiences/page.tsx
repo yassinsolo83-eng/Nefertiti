@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { ArrowUpRight } from 'lucide-react'
 import { experiences, copy } from '@/lib/data'
 import SiteNav from '@/components/SiteNav'
@@ -11,23 +11,33 @@ import styles from './experiences.module.css'
 export default function ExperiencesPage() {
   const t = copy.en
   const [activeIdx, setActiveIdx] = useState(0)
+  const listRef = useRef<HTMLDivElement>(null)
+  const [imgY, setImgY] = useState(0)
+
+  const handleHover = (i: number) => {
+    setActiveIdx(i)
+    if (listRef.current) {
+      const rows = listRef.current.children
+      if (rows[i]) {
+        const listTop = listRef.current.getBoundingClientRect().top
+        const rowTop = (rows[i] as HTMLElement).getBoundingClientRect().top
+        setImgY(rowTop - listTop)
+      }
+    }
+  }
 
   return (
     <main className="inner-page">
       <SiteNav solid />
 
-      {/* ── HERO IMAGE ── */}
       <section className={styles.hero}>
         <div className={`${styles.backWrap} hero-back`}>
           <BackButton />
         </div>
-        <img src="/exp-hero.webp" alt="Nefertiti Experiences" className={styles.heroImg} />
       </section>
 
-      {/* ── EXPERIENCES LIST ── */}
       <section className={styles.section}>
         <div className={styles.layout}>
-          {/* Left: heading + description */}
           <div className={styles.intro}>
             <p className="eyebrow">◆ EXPERIENCES</p>
             <h1 className={styles.title}>
@@ -42,10 +52,11 @@ export default function ExperiencesPage() {
             </a>
           </div>
 
-          {/* Right: numbered list + hover image */}
           <div className={styles.listWrap}>
-            {/* Floating image */}
-            <div className={styles.floatingImg}>
+            <div
+              className={styles.floatingImg}
+              style={{ transform: `translateY(${imgY}px)` }}
+            >
               <img
                 src={experiences[activeIdx].image}
                 alt={experiences[activeIdx].title}
@@ -53,13 +64,13 @@ export default function ExperiencesPage() {
               />
             </div>
 
-            {/* Experience rows */}
-            <div className={styles.list}>
+            <div className={styles.list} ref={listRef}>
               {experiences.map((item, i) => (
                 <div
                   key={item.title}
                   className={`${styles.row} ${i === activeIdx ? styles.rowActive : ''}`}
-                  onMouseEnter={() => setActiveIdx(i)}
+                  onMouseEnter={() => handleHover(i)}
+                  onClick={() => handleHover(i)}
                 >
                   <div className={styles.rowContent}>
                     <span className={styles.rowTitle}>{item.title}</span>

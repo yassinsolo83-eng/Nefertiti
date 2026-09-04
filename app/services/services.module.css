@@ -2,18 +2,15 @@
 
 /* Back button — overlaid on hero */
 .backWrap {
-  /* Back button visible on image */
   position: absolute; top: 24px; left: max(28px, 6vw); z-index: 2;
 }
 
-/* Hero image — full-width */
+/* Hero — parallax fixed background */
 .hero {
   position: relative;
-  width: 100%; height: 60vh; overflow: hidden;
+  width: 100%; height: 60vh;
   margin-top: 100px;
-}
-.heroImg {
-  width: 100%; height: 100%; object-fit: cover; object-position: center;
+  background: url('/srv-hero.webp') center/cover fixed;
 }
 
 /* Main section */
@@ -47,16 +44,16 @@
 
 /* Floating image */
 .floatingImg {
-  position: absolute; top: 0; right: 0;
+  position: absolute; right: -20px;
   width: 200px; height: 240px;
   border-radius: 12px; overflow: hidden;
   z-index: 2; pointer-events: none;
   box-shadow: 0 20px 50px rgba(46,24,64,.18);
-  transform: translate(-20px, -40px) rotate(-4deg);
+  transition: transform .4s cubic-bezier(.25,.8,.25,1);
 }
 .floatingImg img {
   width: 100%; height: 100%; object-fit: cover;
-  animation: imgFadeIn .4s ease;
+  animation: imgFadeIn .35s ease;
 }
 @keyframes imgFadeIn {
   from { opacity: 0; transform: scale(1.05); }
@@ -132,7 +129,7 @@
   .layout { grid-template-columns: 1fr; gap: 48px; }
   .intro { position: static; }
   .floatingImg { display: none; }
-  .hero { height: 45vh; margin-top: 80px; }
+  .hero { height: 45vh; margin-top: 80px; background-attachment: scroll; }
   .rowImg {
     display: block; width: 100%; height: 200px;
     object-fit: cover; border-radius: 10px;

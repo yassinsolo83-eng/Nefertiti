@@ -18,7 +18,6 @@ export default function AboutPage() {
         <div className={`${styles.backWrap} hero-back`}>
           <BackButton />
         </div>
-        <img src="/about-hero.webp" alt="Community at sunset" className={styles.heroImg} />
       </section>
 
       {/* ── FOUNDER SECTION ── */}

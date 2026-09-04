@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { ArrowUpRight } from 'lucide-react'
 import { steps, copy } from '@/lib/data'
 import SiteNav from '@/components/SiteNav'
@@ -22,23 +22,33 @@ const stepImages = [
 export default function HowItWorksPage() {
   const t = copy.en
   const [activeIdx, setActiveIdx] = useState(0)
+  const listRef = useRef<HTMLDivElement>(null)
+  const [imgY, setImgY] = useState(0)
+
+  const handleHover = (i: number) => {
+    setActiveIdx(i)
+    if (listRef.current) {
+      const rows = listRef.current.children
+      if (rows[i]) {
+        const listTop = listRef.current.getBoundingClientRect().top
+        const rowTop = (rows[i] as HTMLElement).getBoundingClientRect().top
+        setImgY(rowTop - listTop)
+      }
+    }
+  }
 
   return (
     <main className="inner-page">
       <SiteNav solid />
 
-      {/* ── HERO IMAGE ── */}
       <section className={styles.hero}>
         <div className={`${styles.backWrap} hero-back`}>
           <BackButton />
         </div>
-        <img src="/cta-siwa.webp" alt="How It Works" className={styles.heroImg} />
       </section>
 
-      {/* ── STEPS LIST ── */}
       <section className={styles.section}>
         <div className={styles.layout}>
-          {/* Left: heading + description */}
           <div className={styles.intro}>
             <p className="eyebrow">◆ HOW IT WORKS</p>
             <h1 className={styles.title}>
@@ -46,18 +56,18 @@ export default function HowItWorksPage() {
             </h1>
             <p className={styles.lead}>
               Eight steps from your first message to standing in Egypt
-              with your community. We handle the complexity so you can
-              focus on what you do best.
+              with your community.
             </p>
             <a href="/contact" className="button button-gold">
               Start with a Discovery Call <ArrowUpRight size={14} />
             </a>
           </div>
 
-          {/* Right: numbered list + hover image */}
           <div className={styles.listWrap}>
-            {/* Floating image */}
-            <div className={styles.floatingImg}>
+            <div
+              className={styles.floatingImg}
+              style={{ transform: `translateY(${imgY}px)` }}
+            >
               <img
                 src={stepImages[activeIdx]}
                 alt={steps[activeIdx][0]}
@@ -65,13 +75,13 @@ export default function HowItWorksPage() {
               />
             </div>
 
-            {/* Step rows */}
-            <div className={styles.list}>
+            <div className={styles.list} ref={listRef}>
               {steps.map(([step, text], i) => (
                 <div
                   key={step}
                   className={`${styles.row} ${i === activeIdx ? styles.rowActive : ''}`}
-                  onMouseEnter={() => setActiveIdx(i)}
+                  onMouseEnter={() => handleHover(i)}
+                  onClick={() => handleHover(i)}
                 >
                   <div className={styles.rowContent}>
                     <span className={styles.rowTitle}>{step}</span>
