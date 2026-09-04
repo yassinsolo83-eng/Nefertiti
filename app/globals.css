@@ -375,9 +375,11 @@ h3 { font-size: 26px; line-height: 1.15; font-weight: 500; }
 .dest-modal-cta { margin-top: 30px; }
 .dest-sub-label { font-size: 9px; text-transform: uppercase; letter-spacing: .16em; color: rgba(241,210,136,.75); margin: 0 0 14px; display: block; }
 .dest-modal-content .dest-sub-label:not(:first-of-type) { margin-top: 26px; }
-.dest-tags { display: flex; flex-wrap: wrap; gap: 6px; }
-.dest-tag { font-size: 10px; padding: 5px 11px; border: 1px solid rgba(243,240,232,.2); color: rgba(243,240,232,.78); letter-spacing: .04em; }
-.dest-tag-ideal { border-color: rgba(177,182,149,.3); color: var(--rose); }
+.dest-tags { display: flex; flex-wrap: wrap; gap: 4px 6px; }
+.dest-tag { font-size: 10px; padding: 4px 0; color: rgba(243,240,232,.78); letter-spacing: .04em; pointer-events: none; }
+.dest-tag::after { content: '·'; margin-left: 6px; opacity: .35; }
+.dest-tag:last-child::after { content: none; }
+.dest-tag-ideal { color: var(--rose); }
 
 /* More destinations */
 .dest-more-section { margin-top: 56px; }
@@ -405,8 +407,9 @@ h3 { font-size: 26px; line-height: 1.15; font-weight: 500; }
 .dest-combos-sub { font-family: 'Cormorant Garamond', serif; font-size: clamp(18px, 2vw, 26px); color: var(--primary); font-style: italic; margin-bottom: 16px; display: block; }
 .dest-combos-body { color: var(--plum); opacity: .7; max-width: 440px; margin: 0 auto; line-height: 1.9; font-size: 13px; }
 .dest-combo-list { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 32px 0 36px; }
-.dest-combo-pill { padding: 8px 18px; border: 1px solid var(--plum); color: var(--plum); font-size: 10px; letter-spacing: .1em; transition: background .2s; }
-.dest-combo-pill:hover { background: rgba(46,24,64,.1); }
+.dest-combo-pill { padding: 6px 0; color: var(--plum); font-size: 11px; letter-spacing: .06em; pointer-events: none; }
+.dest-combo-pill::after { content: '·'; margin-left: 10px; color: var(--plum); opacity: .35; }
+.dest-combo-pill:last-child::after { content: none; }
 .dest-combo-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
 
 /* ── EXPERIENCES ── */
