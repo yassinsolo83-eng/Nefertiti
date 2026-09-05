@@ -7,6 +7,7 @@ import { partners, whatsappLink } from '@/lib/data'
 import SiteNav from '@/components/SiteNav'
 import SiteFooter from '@/components/SiteFooter'
 import BackButton from '@/components/BackButton'
+import s from '../partners.module.css'
 
 export default function PartnerDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params)
@@ -40,17 +41,17 @@ export default function PartnerDetailPage({ params }: { params: Promise<{ id: st
           <p className="eyebrow">{partner.category}</p>
           <h1 className="page-title">{partner.name}</h1>
           <p className="page-lead">{partner.tagline}</p>
-          <div className="partner-meta">
+          <div className={s.partnerMeta}>
             {partner.location && (
-              <span className="partner-meta-item"><MapPin size={14} /> {partner.location}</span>
+              <span className={s.partnerMetaItem}><MapPin size={14} /> {partner.location}</span>
             )}
             {partner.website && (
-              <a className="partner-meta-item" href={partner.website} target="_blank" rel="noopener noreferrer">
+              <a className={s.partnerMetaItem} href={partner.website} target="_blank" rel="noopener noreferrer">
                 <Globe size={14} /> Website
               </a>
             )}
             {partner.instagram && (
-              <a className="partner-meta-item" href={`https://instagram.com/${partner.instagram}`} target="_blank" rel="noopener noreferrer">
+              <a className={s.partnerMetaItem} href={`https://instagram.com/${partner.instagram}`} target="_blank" rel="noopener noreferrer">
                 <Globe size={14} /> @{partner.instagram}
               </a>
             )}
@@ -61,24 +62,24 @@ export default function PartnerDetailPage({ params }: { params: Promise<{ id: st
         </div>
       </section>
 
-      <section className="section inner-section partner-detail">
-        <div className="partner-detail-grid">
-          <div className="partner-bio">
+      <section className="section inner-section">
+        <div className={s.partnerDetailGrid}>
+          <div>
             <p className="eyebrow">ABOUT</p>
-            <p className="partner-bio-text">{partner.bio}</p>
+            <p className={s.partnerBioText}>{partner.bio}</p>
           </div>
 
-          <div className="partner-services">
+          <div>
             <p className="eyebrow">WHAT THEY OFFER</p>
-            <ul className="partner-service-list">
-              {partner.services.map((s) => (
-                <li key={s}><Check size={15} /> {s}</li>
+            <ul className={s.partnerServiceList}>
+              {partner.services.map((svc) => (
+                <li key={svc}><Check size={15} /> {svc}</li>
               ))}
             </ul>
           </div>
         </div>
 
-        <div className="partner-cta-row">
+        <div className={s.partnerCtaRow}>
           <a href="/contact" className="button button-gold">
             Work with {partner.name} <ArrowUpRight size={16} />
           </a>
@@ -87,7 +88,7 @@ export default function PartnerDetailPage({ params }: { params: Promise<{ id: st
           </a>
         </div>
 
-        <Link href="/partners" className="partner-back-link">← All partners</Link>
+        <Link href="/partners" className={s.partnerBackLink}>← All partners</Link>
       </section>
 
       <SiteFooter />

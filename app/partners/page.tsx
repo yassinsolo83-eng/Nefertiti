@@ -5,15 +5,16 @@ import Link from 'next/link'
 import { partners } from '@/lib/data'
 import SiteNav from '@/components/SiteNav'
 import SiteFooter from '@/components/SiteFooter'
+import s from './partners.module.css'
 
 export default function PartnersPage() {
   return (
     <main className="inner-page">
       <SiteNav solid />
 
-      <section className="partners-hero">
+      <section className={s.partnersHero}>
         <p className="eyebrow">◆ OUR TEAM</p>
-        <h1 className="partners-hero-title">
+        <h1 className={s.partnersHeroTitle}>
           Meet the Practitioners Behind<br />Your Healing Journey
         </h1>
       </section>
