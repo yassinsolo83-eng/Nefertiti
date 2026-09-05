@@ -4,6 +4,7 @@ import { ArrowUpRight, Compass } from 'lucide-react'
 import Link from 'next/link'
 import { featuredDestinations, destinationDetails } from '@/lib/data'
 import type { Destination } from '@/lib/data'
+import s from './DestinationModal.module.css'
 
 type Props = {
   destination: Destination | null
@@ -19,43 +20,43 @@ export default function DestinationModal({ destination, onClose }: Props) {
     destination.id in destinationDetails
 
   return (
-    <div className="dest-modal-overlay" onClick={onClose}>
-      <div className="dest-modal" onClick={(e) => e.stopPropagation()}>
-        <button className="dest-modal-close" onClick={onClose} aria-label="Close">✕</button>
-        <div className="dest-modal-media">
+    <div className={s.overlay} onClick={onClose}>
+      <div className={s.modal} onClick={(e) => e.stopPropagation()}>
+        <button className={s.close} onClick={onClose} aria-label="Close">✕</button>
+        <div className={s.media}>
           <img src={destination.image} alt={destination.title} />
         </div>
-        <div className="dest-modal-content">
-          <p className="dest-modal-feeling">{destination.feeling}</p>
-          <h2 className="dest-modal-title">{destination.title}</h2>
-          <p className="dest-modal-tagline">{destination.tagline}</p>
-          <p className="dest-modal-desc">{destination.desc}</p>
+        <div className={s.content}>
+          <p className={s.feeling}>{destination.feeling}</p>
+          <h2 className={s.title}>{destination.title}</h2>
+          <p className={s.tagline}>{destination.tagline}</p>
+          <p className={s.desc}>{destination.desc}</p>
 
-          <p className="dest-sub-label">Possible experiences</p>
-          <div className="dest-tags">
+          <p className={s.subLabel}>Possible experiences</p>
+          <div className={s.tags}>
             {destination.experiences.map((exp) => (
-              <span key={exp} className="dest-tag">{exp}</span>
+              <span key={exp} className={s.tag}>{exp}</span>
             ))}
           </div>
 
-          <p className="dest-sub-label">Ideal for</p>
-          <div className="dest-tags">
+          <p className={s.subLabel}>Ideal for</p>
+          <div className={s.tags}>
             {destination.idealFor.map((tag) => (
-              <span key={tag} className="dest-tag dest-tag-ideal">{tag}</span>
+              <span key={tag} className={`${s.tag} ${s.tagIdeal}`}>{tag}</span>
             ))}
           </div>
 
-          <div className="dest-modal-actions">
+          <div className={s.actions}>
             {hasDetailPage && (
               <Link
                 href={`/destinations/${destination.id}`}
-                className="button button-explore dest-modal-cta"
+                className={`button button-explore ${s.cta}`}
                 onClick={onClose}
               >
                 <Compass size={15} /> Explore {destination.title}
               </Link>
             )}
-            <a href="/contact" className="button button-gold dest-modal-cta" onClick={onClose}>
+            <a href="/contact" className={`button button-gold ${s.cta}`} onClick={onClose}>
               Create a retreat here <ArrowUpRight size={14} />
             </a>
           </div>

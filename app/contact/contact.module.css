@@ -1,204 +1,193 @@
-/* ── Contact page ── */
+/* ══════════════════════════════════
+   CONTACT PAGE — CSS Module
+══════════════════════════════════ */
 
-/* Back button — overlaid on hero */
-.backWrap {
-  position: absolute; top: 24px; left: max(28px, 6vw); z-index: 2;
+/* ── Contact block (two-column layout) ── */
+.contactBlock {
+  display: grid; grid-template-columns: 1fr 1.3fr; gap: 64px; align-items: start;
+  padding: 40px 8vw 90px; max-width: 1400px; margin: 0 auto;
 }
 
-/* Hero — parallax fixed background */
-.hero {
-  position: relative;
-  width: 100%; height: 85vh;
-  margin-top: 100px;
-  background: url('/exp-felucca.webp') center/cover fixed;
+.contactBlockTitle {
+  font-family: 'Cormorant Garamond', serif; font-weight: 500;
+  font-size: clamp(32px, 4vw, 52px); color: var(--primary);
+  letter-spacing: -.01em; margin-bottom: 30px;
 }
 
-/* ── Contact section ── */
-.section {
-  padding: 80px max(28px, 6vw) 60px;
+.contactBlockLead {
+  font-size: 14px; line-height: 1.8; color: var(--foreground);
+  opacity: .78; max-width: 34ch; margin-bottom: 40px;
 }
 
-.contactLayout {
-  display: grid; grid-template-columns: 1.2fr 1fr;
-  gap: 80px; max-width: 1200px; margin: 0 auto;
+/* Form card (right / main form) */
+.contactRight {
+  background: rgba(141,76,101,.05); border: 1px solid var(--border);
+  border-radius: 14px; padding: 40px;
 }
 
-/* ── Left: Form ── */
-.formSide {}
+/* Simple form */
+.contactSimpleForm { display: flex; flex-direction: column; gap: 24px; }
 
-.heading {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(28px, 4vw, 44px);
-  font-weight: 400; line-height: 1.15;
-  color: var(--foreground); margin: 16px 0 32px;
+.contactSimpleForm :global(.form-field) label {
+  display: block; font-family: 'Montserrat', sans-serif;
+  font-size: 12px; color: var(--foreground); margin-bottom: 8px; opacity: .9;
 }
-
-.form { display: flex; flex-direction: column; gap: 24px; }
-
-.fieldFull, .field { display: flex; flex-direction: column; gap: 6px; }
-
-.fieldRow {
+.contactSimpleForm :global(.form-field) input,
+.contactSimpleForm :global(.form-field) select,
+.contactSimpleForm :global(.form-field) textarea {
+  width: 100%; background: transparent; border: 0;
+  border-bottom: 1px solid var(--border);
+  padding: 8px 0; font-size: 14px; color: var(--foreground);
+  font-family: 'Montserrat', sans-serif;
+  transition: border-color .25s;
+}
+.contactSimpleForm :global(.form-field) select option {
+  background: var(--background); color: var(--foreground);
+}
+.contactSimpleForm :global(.form-field) input:focus,
+.contactSimpleForm :global(.form-field) select:focus,
+.contactSimpleForm :global(.form-field) textarea:focus {
+  outline: none; border-color: var(--primary);
+}
+.contactSimpleForm :global(.form-field) input::placeholder,
+.contactSimpleForm :global(.form-field) textarea::placeholder {
+  color: rgba(60,40,50,.4);
+}
+.contactSimpleForm :global(.form-row.two) {
   display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
 }
 
-.form label {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 10px; letter-spacing: .14em;
-  text-transform: uppercase; font-weight: 600;
-  color: var(--foreground);
+/* Submit button — filled variant */
+.formSubmitFilled {
+  align-self: flex-start; margin-top: 6px;
+  background: var(--primary); color: #fff; border: 0;
+  padding: 15px 40px; border-radius: 6px; cursor: pointer;
+  font-family: 'Montserrat', sans-serif; font-size: 12px;
+  letter-spacing: .1em; text-transform: uppercase;
+  transition: background .25s, transform .2s;
+  display: inline-flex; align-items: center; gap: 10px;
 }
+.formSubmitFilled:hover { background: #7a3f56; transform: translateY(-2px); }
 
-.form input,
-.form select,
-.form textarea {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 13px; padding: 12px 0; color: var(--foreground);
-  background: transparent;
-  border: none; border-bottom: 1px solid rgba(107,107,79,.2);
-  outline: none; transition: border-color .3s;
+/* Form success */
+.formSuccess {
+  background: rgba(141,76,101,.04); padding: 60px 44px; text-align: center;
+  border-radius: 10px;
 }
-.form input:focus,
-.form select:focus,
-.form textarea:focus {
-  border-color: var(--primary);
+.formSuccess h3 {
+  font-family: 'Cormorant Garamond', serif; font-size: 42px;
+  color: var(--primary); margin-bottom: 14px;
 }
-.form input::placeholder,
-.form textarea::placeholder {
-  color: rgba(60,40,50,.35);
-}
-.form select { cursor: pointer; }
-.form select option { background: var(--background); color: var(--foreground); }
-.form textarea { resize: vertical; min-height: 100px; }
+.formSuccess p { color: var(--foreground); opacity: .7; }
 
-.submitBtn {
-  align-self: flex-start;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 10px; letter-spacing: .14em; text-transform: uppercase;
-  font-weight: 600; padding: 14px 36px;
-  background: var(--primary); color: #fff; border: none;
-  cursor: pointer; transition: transform .2s, opacity .2s;
-}
-.submitBtn:hover { transform: translateY(-2px); opacity: .9; }
+/* Discovery card (left column) */
+.contactLeft { display: flex; flex-direction: column; gap: 32px; }
 
-.success {
-  padding: 40px 0;
+.discoveryCard {
+  background: rgba(141,76,101,.06); border: 1px solid var(--border);
+  border-radius: 14px; padding: 36px;
 }
-.success h3 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 28px; color: var(--primary); margin-bottom: 10px;
+.discoveryTitle {
+  font-family: 'Cormorant Garamond', serif; font-weight: 500;
+  font-size: clamp(24px, 3vw, 34px); color: var(--primary);
+  margin-bottom: 14px;
 }
-.success p {
-  font-size: 14px; color: var(--foreground); opacity: .6; line-height: 1.8;
-}
-
-/* ── Right: Discovery + Socials ── */
-.callSide {}
-
-.discoveryCard { margin-bottom: 48px; }
-
 .discoveryText {
-  font-size: 14px; line-height: 1.8;
-  color: var(--foreground); opacity: .6;
-  max-width: 38ch; margin-bottom: 24px;
+  font-size: 14px; line-height: 1.8; color: var(--foreground);
+  opacity: .75; margin-bottom: 24px;
 }
 
-.socials { border-top: 1px solid rgba(107,107,79,.15); padding-top: 32px; }
+/* Detail image */
+.contactDetailImage {
+  width: 190px; aspect-ratio: 1; border-radius: 12px;
+  overflow: hidden; margin-bottom: 0;
+}
+.contactDetailImage img { width: 100%; height: 100%; object-fit: cover; }
 
-.socialsTitle {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 24px; color: var(--foreground); margin-bottom: 20px;
+/* Social links */
+.contactSocialTitle {
+  font-family: 'Cormorant Garamond', serif; font-size: 22px;
+  color: var(--primary); margin-bottom: 14px;
+}
+.contactSocial { display: flex; flex-direction: column; gap: 4px; }
+.contactSocial a {
+  font-family: 'Montserrat', sans-serif; font-size: 13px;
+  color: var(--foreground); opacity: .75; padding: 4px 0;
+  transition: opacity .2s, color .2s; width: fit-content;
+}
+.contactSocial a:hover { opacity: 1; color: var(--primary); }
+
+
+/* ── Egypt map ── */
+.contactMap {
+  position: relative; padding: 0 8vw 110px;
+  max-width: 1400px; margin: 0 auto;
+}
+.contactMap iframe {
+  width: 100%; height: 440px; border: 0; border-radius: 14px;
+  filter: saturate(.85) contrast(.95);
+}
+.contactMapLink {
+  position: absolute; top: 16px; left: calc(8vw + 16px);
+  background: rgba(243,240,232,.95); backdrop-filter: blur(4px);
+  padding: 8px 14px; border-radius: 8px;
+  font-family: 'Montserrat', sans-serif; font-size: 11px;
+  letter-spacing: .06em; color: var(--primary); border: 1px solid var(--border);
 }
 
-.socialLink {
-  display: flex; align-items: center; gap: 6px;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 13px; color: var(--foreground);
-  padding: 12px 0; border-bottom: 1px solid rgba(107,107,79,.1);
-  transition: color .3s;
-}
-.socialLink:hover { color: var(--primary); }
 
-/* ── Map ── */
-.map {
-  width: 100%; height: 400px; overflow: hidden;
+/* ── FAQ ── */
+.faq { background: var(--background); }
+.faqGrid {
+  display: grid; grid-template-columns: .8fr 1.4fr;
+  gap: 72px; align-items: start;
 }
-.map iframe {
-  width: 100%; height: 100%; border: none;
-  filter: grayscale(.3) contrast(.95);
+.faqAsideImage {
+  width: 170px; aspect-ratio: 1; border-radius: 14px;
+  overflow: hidden; margin-bottom: 26px;
 }
-
-/* ── FAQ Section ── */
-.faqSection {
-  padding: 80px max(28px, 6vw) 120px;
-  background: var(--background);
+.faqAsideImage img { width: 100%; height: 100%; object-fit: cover; }
+.faqAsideText {
+  font-size: 14px; line-height: 1.7; color: var(--foreground);
+  opacity: .78; max-width: 26ch; margin-bottom: 26px;
 }
-
-.faqLayout {
-  display: grid; grid-template-columns: 1fr 1.3fr;
-  gap: 80px; max-width: 1200px; margin: 0 auto;
-}
-
-.faqIntro {}
-
 .faqTitle {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(28px, 4vw, 44px);
-  font-weight: 400; line-height: 1.15;
-  color: var(--foreground); margin: 16px 0 18px;
+  font-family: 'Cormorant Garamond', serif; font-weight: 500;
+  font-size: clamp(34px, 4.6vw, 60px); line-height: 1.02;
+  color: var(--primary); letter-spacing: -.02em; margin: 14px 0 34px;
 }
-
-.faqLead {
-  font-size: 14px; line-height: 1.8;
-  color: var(--foreground); opacity: .6;
-  max-width: 32ch; margin-bottom: 28px;
-}
-
-.faqList {}
-
-.faqItem {
-  border-bottom: 1px solid rgba(107,107,79,.15);
-}
-
+.faqList { border-top: 1px solid var(--border); }
+.faqItem { border-bottom: 1px solid var(--border); }
 .faqQuestion {
-  width: 100%; display: flex; justify-content: space-between;
-  align-items: center; padding: 20px 0; background: none; border: none;
-  cursor: pointer; text-align: left;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 15px; font-weight: 500; color: var(--foreground);
-  transition: color .3s;
+  width: 100%; background: transparent; border: 0; cursor: pointer;
+  display: flex; align-items: center; justify-content: space-between; gap: 24px;
+  padding: 24px 0; text-align: left;
+  font-family: 'Cormorant Garamond', serif; font-size: clamp(19px, 2vw, 25px);
+  color: var(--primary); transition: opacity .2s;
 }
-.faqQuestion:hover { color: var(--primary); }
-
-.faqIcon {
-  font-size: 20px; color: var(--primary); flex-shrink: 0; margin-left: 16px;
-}
-
-.faqOpen .faqQuestion { color: var(--primary); }
-
+.faqQuestion:hover { opacity: .7; }
+.faqIcon { font-size: 18px; color: var(--gold-deep); flex-shrink: 0; }
 .faqAnswer {
-  padding: 0 0 20px;
-  animation: faqSlide .3s ease;
+  overflow: hidden; max-height: 0; opacity: 0;
+  transition: max-height .4s ease, opacity .3s ease, padding .4s ease;
 }
+.faqItemOpen .faqAnswer { max-height: 260px; opacity: 1; padding-bottom: 24px; }
 .faqAnswer p {
-  font-size: 13px; line-height: 1.8;
-  color: var(--foreground); opacity: .6; max-width: 56ch;
+  font-family: 'Montserrat', sans-serif; font-size: 14px;
+  line-height: 1.85; color: var(--foreground); opacity: .8; max-width: 62ch;
 }
 
-@keyframes faqSlide {
-  from { opacity: 0; transform: translateY(-6px); }
-  to { opacity: 1; transform: translateY(0); }
-}
 
-/* ── Responsive ── */
-@media (max-width: 900px) {
-  .contactLayout { grid-template-columns: 1fr; gap: 48px; }
-  .faqLayout { grid-template-columns: 1fr; gap: 36px; }
-  .hero { height: 60vh; margin-top: 80px; background-attachment: scroll; }
-}
-
-@media (max-width: 520px) {
-  .section { padding: 48px max(16px, 5vw) 40px; }
-  .faqSection { padding: 48px max(16px, 5vw) 80px; }
-  .fieldRow { grid-template-columns: 1fr; }
-  .map { height: 280px; }
+/* ══════════════════════════════════
+   RESPONSIVE — 860px
+══════════════════════════════════ */
+@media (max-width: 860px) {
+  .contactBlock { grid-template-columns: 1fr; gap: 40px; padding: 20px 6vw 70px; }
+  .contactRight { padding: 28px 22px; }
+  .contactSimpleForm :global(.form-row.two) { grid-template-columns: 1fr; }
+  .contactMap { padding: 0 6vw 80px; }
+  .contactMap iframe { height: 340px; }
+  .contactMapLink { left: calc(6vw + 12px); }
+  .contactBlockTitle { font-size: clamp(28px, 7vw, 44px); }
+  .faqGrid { grid-template-columns: 1fr; gap: 40px; }
 }

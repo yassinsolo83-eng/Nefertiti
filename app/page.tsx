@@ -12,6 +12,7 @@ import DestinationModal from '@/components/DestinationModal'
 import SiteNav from '@/components/SiteNav'
 import SiteFooter from '@/components/SiteFooter'
 import { useKeyhole } from '@/hooks/useKeyhole'
+import s from './home.module.css'
 
 export default function Page() {
   const [scrolled, setScrolled] = useState(false)
@@ -92,24 +93,18 @@ export default function Page() {
             </div>
           </section>
 
-          {/* Frosted-glass layer — blurs the whole hero video. An Ankh-shaped
-              hole is punched through it (inverted mask) so the Ankh window
-              shows the video sharp while everything around stays blurred.
-              Blur eases off as the intro opens (driven by useKeyhole). */}
+          {/* Frosted-glass layer — blurs the whole hero video */}
           <div id="kh-frost" className={`kh-frost ${introDone ? 'kh-open' : ''}`} />
 
           {/* Keyhole overlay — the gold Ankh outline + hint */}
           <div className={`kh-overlay ${introDone ? 'kh-open' : ''}`}>
             <svg className="kh-svg" preserveAspectRatio="xMidYMid slice" viewBox="0 0 1000 1000" aria-hidden="true">
               <defs>
-                {/* mask used by the CSS frost layer: white = blurred, black = clear window.
-                    Two holes are punched: the Ankh (centre) and the nav pill (top). */}
                 <mask id="kh-mask">
                   <rect width="1000" height="1000" fill="white" />
                   <path id="kh-hole" fill="black" fillRule="evenodd"
                     transform="translate(500 500) scale(3.2) translate(-50 -50)"
                     d="M50 2 C40 2 31 12 31 27 C31 37 36 44 44 47 L44 49 L30 49 Q33 53.5 30 58 L44 58 L44 93 L56 93 L56 58 L70 58 Q67 53.5 70 49 L56 49 L56 47 C64 44 69 37 69 27 C69 12 60 2 50 2 Z M50 14 C54 14 58 20 58 27 C58 34 54 40 50 40 C46 40 42 34 42 27 C42 20 46 14 50 14 Z" />
-                  {/* Nav pill hole — position/size set by useKeyhole to match the HTML pill */}
                   <rect id="kh-pill-hole" fill="black" x="0" y="0" width="0" height="0" rx="0" />
                 </mask>
               </defs>
@@ -117,7 +112,6 @@ export default function Page() {
               <path id="kh-ring" fill="none" stroke="#F1D288" strokeWidth="1.2" fillRule="evenodd"
                 transform="translate(500 500) scale(3.2) translate(-50 -50)"
                 d="M50 2 C40 2 31 12 31 27 C31 37 36 44 44 47 L44 49 L30 49 Q33 53.5 30 58 L44 58 L44 93 L56 93 L56 58 L70 58 Q67 53.5 70 49 L56 49 L56 47 C64 44 69 37 69 27 C69 12 60 2 50 2 Z M50 14 C54 14 58 20 58 27 C58 34 54 40 50 40 C46 40 42 34 42 27 C42 20 46 14 50 14 Z" />
-              {/* Nav pill gold outline — position/size set by useKeyhole */}
               <rect id="kh-pill-ring" fill="none" stroke="#F1D288" strokeWidth="1.2" x="0" y="0" width="0" height="0" rx="0" />
             </svg>
             <div id="kh-hint" className="kh-hint">Scroll to enter <span>↓</span></div>
@@ -125,40 +119,40 @@ export default function Page() {
         </div>
       </div>
 
-      {/* VISION */}
-      {/* VISION / INTRO — Sarasvvati style */}
-      <section id="vision" className="section vision">
-        <div className="section-label reveal" style={{ marginBottom: 32 }}>01 / WHY EGYPT</div>
-        <h2 className="vision-statement reveal">
+      {/* VISION / WHY EGYPT */}
+      <section id="vision" className={`section ${s.vision}`}>
+        <div className="section-label reveal" style={{ marginBottom: 0 }}>01 / WHY EGYPT</div>
+        <hr className={s.visionDivider} />
+        <h2 className={`${s.visionStatement} reveal`}>
           You already know how you want your guests to feel.<br />
           <em>We know how to make it happen in Egypt.</em>
         </h2>
-        <div className="vision-grid">
-          <div className="vision-copy reveal">
+        <div className={s.visionGrid}>
+          <div className={`${s.visionCopy} reveal`}>
             <p className="eyebrow" style={{ marginBottom: 16 }}>THE NEFERTITI WAY</p>
             <p>{t.visionText}</p>
             <a href="#about" className="text-link">{t.philosophy} <ArrowUpRight size={16} /></a>
-            <div className="vision-stats reveal">
-              <div className="vision-stat">
-                <span className="vision-stat-num">20+</span>
-                <span className="vision-stat-label">Years of event production</span>
+            <div className={`${s.visionStats} reveal`}>
+              <div className={s.visionStat}>
+                <span className={s.visionStatNum}>20+</span>
+                <span className={s.visionStatLabel}>Years of event production</span>
               </div>
-              <div className="vision-stat">
-                <span className="vision-stat-num">5</span>
-                <span className="vision-stat-label">Destinations across Egypt</span>
+              <div className={s.visionStat}>
+                <span className={s.visionStatNum}>5</span>
+                <span className={s.visionStatLabel}>Destinations across Egypt</span>
               </div>
-              <div className="vision-stat">
-                <span className="vision-stat-num">100%</span>
-                <span className="vision-stat-label">Bespoke — no two retreats alike</span>
+              <div className={s.visionStat}>
+                <span className={s.visionStatNum}>100%</span>
+                <span className={s.visionStatLabel}>Bespoke — no two retreats alike</span>
               </div>
-              <div className="vision-stat">
-                <span className="vision-stat-num">∞</span>
-                <span className="vision-stat-label">Possibilities for your retreat</span>
+              <div className={s.visionStat}>
+                <span className={s.visionStatNum}>∞</span>
+                <span className={s.visionStatLabel}>Possibilities for your retreat</span>
               </div>
             </div>
           </div>
-          <div className="vision-right">
-            <div className="vision-image reveal">
+          <div className={s.visionRight}>
+            <div className={`${s.visionImage} reveal`}>
               <video
                 src="/why-egypt-video.mp4"
                 poster={images.vision}
@@ -175,7 +169,7 @@ export default function Page() {
       </section>
 
       {/* DESTINATIONS */}
-      <section id="destinations" className="section destinations">
+      <section id="destinations" className={`section ${s.destinations}`}>
         {/* Section heading */}
         <div className="section-heading reveal">
           <div className="section-label">02 / {t.destinationLabel}</div>
@@ -186,12 +180,12 @@ export default function Page() {
         </div>
 
         {/* Featured destinations — click goes to full page */}
-        <div className="dest-grid">
+        <div className={s.destGrid}>
           {featuredDestinations.map((dest, i) => (
             <Link
               key={dest.id}
               href={`/destinations/${dest.id}`}
-              className={`dest-card reveal delay-${Math.min(i + 1, 4)}`}
+              className={`${s.destCard} reveal delay-${Math.min(i + 1, 4)}`}
             >
               {dest.video ? (
                 <video
@@ -207,11 +201,11 @@ export default function Page() {
               ) : (
                 <img src={dest.image} alt={dest.title} />
               )}
-              <div className="dest-card-body">
-                <p className="dest-card-feeling">{dest.feeling}</p>
+              <div className={s.destCardBody}>
+                <p className={s.destCardFeeling}>{dest.feeling}</p>
                 <h3>{dest.title}</h3>
-                <p className="dest-card-tagline">{dest.tagline}</p>
-                <span className="dest-card-explore">Explore <ArrowUpRight size={13} /></span>
+                <p className={s.destCardTagline}>{dest.tagline}</p>
+                <span className={s.destCardExplore}>Explore <ArrowUpRight size={13} /></span>
               </div>
             </Link>
           ))}
@@ -221,22 +215,22 @@ export default function Page() {
         <DestinationModal destination={activeDest} onClose={() => setActiveDestId(null)} />
 
         {/* More destinations — secondary 7 */}
-        <div className="dest-more-section">
-          <p className="dest-more-label reveal">{t.destMoreLabel}</p>
-          <div className="dest-more-grid">
+        <div className={s.destMoreSection}>
+          <p className={`${s.destMoreLabel} reveal`}>{t.destMoreLabel}</p>
+          <div className={s.destMoreGrid}>
             {moreDestinations.map((dest, i) => (
               <article
                 key={dest.id}
-                className={`dest-more-card reveal delay-${(i % 3) + 1}`}
+                className={`${s.destMoreCard} reveal delay-${(i % 3) + 1}`}
                 onClick={() => setActiveDestId(dest.id)}
                 role="button"
                 tabIndex={0}
                 onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && setActiveDestId(dest.id)}
               >
                 <img src={dest.image} alt={dest.title} />
-                <div className="dest-more-body">
+                <div className={s.destMoreBody}>
                   <h3>{dest.title}</h3>
-                  <span className="dest-more-link">View details <ArrowUpRight size={13} /></span>
+                  <span className={s.destMoreLink}>View details <ArrowUpRight size={13} /></span>
                 </div>
               </article>
             ))}
@@ -244,50 +238,50 @@ export default function Page() {
         </div>
 
         {/* Multi-destination combinations */}
-        <div className="dest-combos reveal">
-          <div className="dest-combos-header">
+        <div className={`${s.destCombos} reveal`}>
+          <div className={s.destCombosHeader}>
             <h2>{t.destCombosTitle}</h2>
-            <p className="dest-combos-sub">{t.destCombosSubtitle}</p>
-            <p className="dest-combos-body">{t.destCombosText}</p>
+            <p className={s.destCombosSub}>{t.destCombosSubtitle}</p>
+            <p className={s.destCombosBody}>{t.destCombosText}</p>
           </div>
-          <div className="dest-combo-list">
+          <div className={s.destComboList}>
             {combinations.map(combo => (
-              <span key={combo} className="dest-combo-pill">{combo}</span>
+              <span key={combo} className={s.destComboPill}>{combo}</span>
             ))}
           </div>
-          <div className="dest-combo-actions">
+          <div className={s.destComboActions}>
             <a href="/contact" className="button button-dark">{t.destCTA1} <ArrowUpRight size={14} /></a>
           </div>
         </div>
       </section>
 
       {/* EXPLORE MORE — pathways into the deeper pages */}
-      <section id="explore" className="section explore">
-        <div className="explore-head reveal">
+      <section id="explore" className={`section ${s.explore}`}>
+        <div className={`${s.exploreHead} reveal`}>
           <div className="section-label">EXPLORE FURTHER</div>
           <h2>There&apos;s more to discover.</h2>
         </div>
-        <div className="explore-grid">
+        <div className={s.exploreGrid}>
           {[
             ['01', 'Experiences', 'Curated moments woven around your retreat&apos;s theme.', '/experiences'],
             ['02', 'Services', 'From light-touch support to full retreat production.', '/services'],
             ['03', 'How It Works', 'A clear, guided path from first idea to arrival.', '/how-it-works'],
             ['04', 'About', 'The story and the people behind Nefertiti.', '/about'],
           ].map(([num, title, desc, href]) => (
-            <a key={href} href={href} className="explore-card reveal">
-              <span className="explore-num">{num}</span>
-              <div className="explore-card-body">
+            <a key={href} href={href} className={`${s.exploreCard} reveal`}>
+              <span className={s.exploreNum}>{num}</span>
+              <div className={s.exploreCardBody}>
                 <h3>{title}</h3>
                 <p dangerouslySetInnerHTML={{ __html: desc }} />
               </div>
-              <ArrowUpRight className="explore-arrow" size={20} />
+              <ArrowUpRight className={s.exploreArrow} size={20} />
             </a>
           ))}
         </div>
       </section>
 
       {/* PARTNERS PREVIEW */}
-      <section id="partners" className="section partners-preview">
+      <section id="partners" className={`section ${s.partnersPreview}`}>
         <div className="section-heading reveal">
           <div className="section-label">05 / OUR TEAM</div>
           <div>
@@ -314,8 +308,8 @@ export default function Page() {
       </section>
 
       {/* FINAL CTA */}
-      <section className="cta-band">
-        <div className="cta-band-inner reveal">
+      <section className={s.ctaBand}>
+        <div className={`${s.ctaBandInner} reveal`}>
           <h2>{t.cta.split('\n').map((line) => <span key={line}>{line}<br /></span>)}</h2>
           <p>{t.ctaText}</p>
           <a className="button button-dark" href="/contact">{t.contact}<ArrowUpRight size={16} /></a>

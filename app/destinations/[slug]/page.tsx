@@ -11,6 +11,7 @@ import {
 import SiteNav from '@/components/SiteNav'
 import SiteFooter from '@/components/SiteFooter'
 import BackButton from '@/components/BackButton'
+import s from './destination-detail.module.css'
 
 export default function DestinationPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = use(params)
@@ -28,7 +29,7 @@ export default function DestinationPage({ params }: { params: Promise<{ slug: st
 
   // Reveal-on-scroll observer
   useEffect(() => {
-    const els = document.querySelectorAll('.dp-reveal')
+    const els = document.querySelectorAll(`.${s.dpReveal}`)
     if (!els.length) return
     const obs = new IntersectionObserver(
       entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-visible'); obs.unobserve(e.target) } }),
@@ -56,47 +57,47 @@ export default function DestinationPage({ params }: { params: Promise<{ slug: st
       <SiteNav scrolled={scrolled} />
 
       {/* ── HERO ── */}
-      <section className="dp-hero">
+      <section className={s.dpHero}>
         {dest.video ? (
           <video
-            className="dp-hero-media"
+            className={s.dpHeroMedia}
             src={dest.video}
             poster="/hero-shirodhara.webp"
             autoPlay muted loop playsInline preload="auto"
           />
         ) : (
-          <img className="dp-hero-media" src={dest.image} alt={dest.title} />
+          <img className={s.dpHeroMedia} src={dest.image} alt={dest.title} />
         )}
-        <div className="dp-hero-shade" />
-        <div className="dp-hero-content dp-reveal">
+        <div className={s.dpHeroShade} />
+        <div className={`${s.dpHeroContent} ${s.dpReveal}`}>
           <BackButton />
-          <p className="dp-hero-feeling">{dest.feeling}</p>
+          <p className={s.dpHeroFeeling}>{dest.feeling}</p>
           <h1>{dest.title}</h1>
-          <p className="dp-hero-tagline">{dest.tagline}</p>
-          <div className="dp-hero-meta">
+          <p className={s.dpHeroTagline}>{dest.tagline}</p>
+          <div className={s.dpHeroMeta}>
             <span><Calendar size={14} /> Best time: {detail.bestTime}</span>
           </div>
         </div>
       </section>
 
       {/* ── OVERVIEW ── */}
-      <section className="dp-overview dp-reveal">
-        <p className="dp-overview-text">{detail.overview}</p>
+      <section className={`${s.dpOverview} ${s.dpReveal}`}>
+        <p className={s.dpOverviewText}>{detail.overview}</p>
       </section>
 
-      {/* ── EXPERIENCE ACCORDION STRIP — flex grow on hover ── */}
-      <section className="dp-strip-section">
-        <div className="dp-section-head dp-reveal">
-          <p className="dp-label">SIGNATURE EXPERIENCES</p>
+      {/* ── EXPERIENCE ACCORDION STRIP ── */}
+      <section className={s.dpStripSection}>
+        <div className={`${s.dpSectionHead} ${s.dpReveal}`}>
+          <p className={s.dpLabel}>SIGNATURE EXPERIENCES</p>
           <h2>Moments that define {dest.title}</h2>
         </div>
-        <div className="dp-strip dp-reveal">
+        <div className={`${s.dpStrip} ${s.dpReveal}`}>
           {detail.highlights.map((h, i) => (
-            <div key={h.title} className="dp-strip-item">
+            <div key={h.title} className={s.dpStripItem}>
               <img src={h.image} alt={h.title} />
-              <div className="dp-strip-shade" />
-              <div className="dp-strip-num">{String(i + 1).padStart(2, '0')}</div>
-              <div className="dp-strip-info">
+              <div className={s.dpStripShade} />
+              <div className={s.dpStripNum}>{String(i + 1).padStart(2, '0')}</div>
+              <div className={s.dpStripInfo}>
                 <h3>{h.title}</h3>
                 <p>{h.desc}</p>
               </div>
@@ -105,18 +106,18 @@ export default function DestinationPage({ params }: { params: Promise<{ slug: st
         </div>
       </section>
 
-      {/* ── ACTIVITIES GRID — hover scale cards ── */}
+      {/* ── ACTIVITIES GRID ── */}
       {moreExperiences.length > 0 && (
-        <section className="dp-grid-section">
-          <div className="dp-section-head dp-reveal">
-            <p className="dp-label">WHAT ELSE AWAITS</p>
+        <section className={s.dpGridSection}>
+          <div className={`${s.dpSectionHead} ${s.dpReveal}`}>
+            <p className={s.dpLabel}>WHAT ELSE AWAITS</p>
             <h2>More to explore</h2>
           </div>
-          <div className="dp-activity-grid dp-reveal">
+          <div className={`${s.dpActivityGrid} ${s.dpReveal}`}>
             {moreExperiences.map((exp) => (
-              <div key={exp} className="dp-activity-card">
-                <div className="dp-activity-inner">
-                  <MapPin size={18} className="dp-activity-icon" />
+              <div key={exp} className={s.dpActivityCard}>
+                <div className={s.dpActivityInner}>
+                  <MapPin size={18} className={s.dpActivityIcon} />
                   <h3>{exp}</h3>
                 </div>
               </div>
@@ -126,24 +127,24 @@ export default function DestinationPage({ params }: { params: Promise<{ slug: st
       )}
 
       {/* ── IDEAL FOR ── */}
-      <section className="dp-ideal dp-reveal">
-        <p className="dp-label">IDEAL FOR</p>
-        <div className="dp-ideal-tags">
+      <section className={`${s.dpIdeal} ${s.dpReveal}`}>
+        <p className={s.dpLabel}>IDEAL FOR</p>
+        <div className={s.dpIdealTags}>
           {dest.idealFor.map(tag => (
-            <span key={tag} className="dp-ideal-tag">{tag}</span>
+            <span key={tag} className={s.dpIdealTag}>{tag}</span>
           ))}
         </div>
       </section>
 
-      {/* ── PARALLAX CTA — clear image, text on right ── */}
+      {/* ── PARALLAX CTA ── */}
       <section
-        className="dp-parallax"
+        className={s.dpParallax}
         style={{ backgroundImage: `url(${detail.parallaxImage})` }}
       >
-        <div className="dp-parallax-panel dp-reveal">
+        <div className={`${s.dpParallaxPanel} ${s.dpReveal}`}>
           <h2>Create your retreat in {dest.title}</h2>
           <p>Tell us your vision and we&apos;ll show you what {dest.title} can become for your community.</p>
-          <div className="dp-parallax-actions">
+          <div className={s.dpParallaxActions}>
             <Link href="/contact" className="button button-gold">
               Create Your Retreat <ArrowUpRight size={16} />
             </Link>
