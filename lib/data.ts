@@ -4,6 +4,7 @@ export const images = {
   logo: '/nefertiti-logo.png',
   logoDark: '/nefertiti-logo-dark.png',
   heroMain: '/hero-shirodhara.webp',
+  hero: '/hero-yoga.webp',
   vision: '/vision-poster.webp',
   hammam: '/hammam.webp',
   founder: '/founder.webp',
