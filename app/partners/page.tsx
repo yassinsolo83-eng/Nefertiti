@@ -1,13 +1,13 @@
-'use client'
-
 import { ArrowUpRight } from 'lucide-react'
 import Link from 'next/link'
-import { partners } from '@/lib/data'
+import { getPartners } from '@/sanity/lib/queries'
 import SiteNav from '@/components/SiteNav'
 import SiteFooter from '@/components/SiteFooter'
 import s from './partners.module.css'
 
-export default function PartnersPage() {
+export default async function PartnersPage() {
+  const partners = await getPartners()
+
   return (
     <main className="inner-page">
       <SiteNav solid />

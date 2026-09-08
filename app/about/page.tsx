@@ -1,26 +1,24 @@
-'use client'
-
 import { ArrowUpRight } from 'lucide-react'
-import { images, copy } from '@/lib/data'
+import { images } from '@/lib/data'
+import { getSiteContent } from '@/sanity/lib/queries'
 import SiteNav from '@/components/SiteNav'
 import SiteFooter from '@/components/SiteFooter'
 import BackButton from '@/components/BackButton'
 import styles from './about.module.css'
 
-export default function AboutPage() {
-  const t = copy.en
+export default async function AboutPage() {
+  const t = await getSiteContent()
+
   return (
     <main className="inner-page">
       <SiteNav solid />
 
-      {/* ── HERO IMAGE ── */}
       <section className={styles.hero}>
         <div className={`${styles.backWrap} hero-back`}>
           <BackButton />
         </div>
       </section>
 
-      {/* ── FOUNDER SECTION ── */}
       <section className={styles.section}>
         <div className={styles.layout}>
           <div className={styles.intro}>
