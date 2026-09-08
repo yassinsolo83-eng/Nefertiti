@@ -1,0 +1,249 @@
+import { client } from './client'
+import {
+  featuredDestinations as staticFeatured,
+  moreDestinations as staticMore,
+  experiences as staticExperiences,
+  partners as staticPartners,
+  faqs as staticFaqs,
+  serviceTiers as staticTiers,
+  copy as staticCopy,
+  destinationDetails as staticDetails,
+} from '@/lib/data'
+import type { Destination, DestDetail } from '@/lib/data'
+
+// ── Revalidation: Sanity data refreshes every 60 seconds ──
+const REVALIDATE = 60
+
+// ── Helper: safe fetch with fallback ──
+async function safeFetch<T>(query: string, fallback: T): Promise<T> {
+  try {
+    const result = await client.fetch(query, {}, { next: { revalidate: REVALIDATE } })
+    if (!result || (Array.isArray(result) && result.length === 0)) return fallback
+    return result
+  } catch {
+    return fallback
+  }
+}
+
+// ── Helper: merge Sanity data with local images ──
+function mergeDestImage(sanityDest: any, staticList: Destination[]): Destination {
+  const staticMatch = staticList.find(d => d.id === sanityDest.id)
+  return {
+    id: sanityDest.id,
+    title: sanityDest.title,
+    tagline: sanityDest.tagline || staticMatch?.tagline || '',
+    feeling: sanityDest.feeling || staticMatch?.feeling || '',
+    image: sanityDest.image || staticMatch?.image || '',
+    video: sanityDest.video || staticMatch?.video,
+    desc: sanityDest.desc || staticMatch?.desc || '',
+    experiences: sanityDest.experiences || staticMatch?.experiences || [],
+    idealFor: sanityDest.idealFor || staticMatch?.idealFor || [],
+  }
+}
+
+// ══════════════════════════════════════
+//  DESTINATIONS
+// ══════════════════════════════════════
+
+const DEST_QUERY = `*[_type == "destination"] | order(order asc) {
+  "id": slug.current,
+  title, tagline, feeling, desc, video,
+  "image": image.asset->url,
+  featured, order,
+  experiences, idealFor,
+  overview, bestTime,
+  "highlights": highlights[] {
+    _key, title, desc,
+    "image": image.asset->url
+  },
+  "parallaxImage": parallaxImage.asset->url
+}`
+
+export async function getFeaturedDestinations(): Promise<Destination[]> {
+  const all = await safeFetch<any[]>(DEST_QUERY, [])
+  if (all.length === 0) return staticFeatured
+
+  const featured = all.filter(d => d.featured)
+  if (featured.length === 0) return staticFeatured
+
+  return featured.map(d => mergeDestImage(d, staticFeatured))
+}
+
+export async function getMoreDestinations(): Promise<Destination[]> {
+  const all = await safeFetch<any[]>(DEST_QUERY, [])
+  if (all.length === 0) return staticMore
+
+  const more = all.filter(d => !d.featured)
+  if (more.length === 0) return staticMore
+
+  return more.map(d => mergeDestImage(d, staticMore))
+}
+
+export async function getDestinationBySlug(slug: string) {
+  const all = await safeFetch<any[]>(DEST_QUERY, [])
+  const dest = all.find(d => d.id === slug)
+
+  if (!dest) {
+    const staticDest = staticFeatured.find(d => d.id === slug)
+    const staticDetail = staticDetails[slug]
+    if (!staticDest || !staticDetail) return null
+    return { dest: staticDest, detail: staticDetail }
+  }
+
+  const staticDest = staticFeatured.find(d => d.id === dest.id)
+  const staticDetail = staticDetails[slug]
+
+  const mergedDest = mergeDestImage(dest, staticFeatured)
+
+  const detail: DestDetail = {
+    overview: dest.overview || staticDetail?.overview || '',
+    bestTime: dest.bestTime || staticDetail?.bestTime || '',
+    parallaxImage: dest.parallaxImage || staticDetail?.parallaxImage || '',
+    highlights: (dest.highlights || []).map((h: any, i: number) => ({
+      title: h.title,
+      desc: h.desc,
+      image: h.image || staticDetail?.highlights?.[i]?.image || '',
+    })),
+  }
+
+  // If no highlights from Sanity, use static
+  if (detail.highlights.length === 0 && staticDetail) {
+    detail.highlights = staticDetail.highlights
+  }
+
+  return { dest: mergedDest, detail }
+}
+
+// ══════════════════════════════════════
+//  EXPERIENCES
+// ══════════════════════════════════════
+
+const EXP_QUERY = `*[_type == "experience"] | order(order asc) {
+  title, text, "image": image.asset->url, order
+}`
+
+export async function getExperiences() {
+  const result = await safeFetch<any[]>(EXP_QUERY, [])
+  if (result.length === 0) return staticExperiences
+
+  return result.map((exp, i) => ({
+    title: exp.title,
+    text: exp.text || '',
+    image: exp.image || staticExperiences[i]?.image || '',
+  }))
+}
+
+// ══════════════════════════════════════
+//  PARTNERS
+// ══════════════════════════════════════
+
+const PARTNER_QUERY = `*[_type == "partner"] | order(order asc) {
+  "id": slug.current,
+  name, category, tagline, bio,
+  "image": image.asset->url,
+  services, location, website,
+  instagram, x, tiktok, order
+}`
+
+export async function getPartners() {
+  const result = await safeFetch<any[]>(PARTNER_QUERY, [])
+  if (result.length === 0) return staticPartners
+
+  return result.map((p, i) => ({
+    id: p.id || `partner-${i + 1}`,
+    name: p.name,
+    category: p.category || '',
+    tagline: p.tagline || '',
+    image: p.image || staticPartners[i]?.image || '',
+    bio: p.bio || '',
+    services: p.services || [],
+    location: p.location || '',
+    website: p.website || '',
+    instagram: p.instagram || '',
+    x: p.x || '',
+    tiktok: p.tiktok || '',
+  }))
+}
+
+// ══════════════════════════════════════
+//  FAQs
+// ══════════════════════════════════════
+
+const FAQ_QUERY = `*[_type == "faq"] | order(order asc) { question, answer }`
+
+export async function getFaqs(): Promise<[string, string][]> {
+  const result = await safeFetch<any[]>(FAQ_QUERY, [])
+  if (result.length === 0) return staticFaqs
+  return result.map(f => [f.question, f.answer])
+}
+
+// ══════════════════════════════════════
+//  SERVICE TIERS
+// ══════════════════════════════════════
+
+const TIER_QUERY = `*[_type == "serviceTier"] | order(order asc) {
+  name, price, description, features
+}`
+
+export async function getServiceTiers() {
+  const result = await safeFetch<any[]>(TIER_QUERY, [])
+  if (result.length === 0) return staticTiers
+  return result.map((t, i) => ({
+    num: staticTiers[i]?.num || `${i + 1}`,
+    title: t.name,
+    desc: t.description || '',
+    items: t.features || [],
+  }))
+}
+
+// ══════════════════════════════════════
+//  SITE CONTENT (hero, vision, CTA, etc.)
+// ══════════════════════════════════════
+
+const SITE_QUERY = `*[_type == "siteContent"] { section, heading, subheading, body, buttonText, buttonLink }`
+
+export async function getSiteContent() {
+  const result = await safeFetch<any[]>(SITE_QUERY, [])
+  if (result.length === 0) return staticCopy.en
+
+  // Build a map from Sanity, overlay on static copy
+  const map = new Map(result.map(r => [r.section, r]))
+  const t = { ...staticCopy.en }
+
+  const hero = map.get('hero')
+  if (hero) {
+    if (hero.heading) t.hero = hero.heading
+    if (hero.body) t.heroText = hero.body
+    if (hero.buttonText) t.explore = hero.buttonText
+  }
+
+  const vision = map.get('vision')
+  if (vision) {
+    if (vision.heading) t.visionTitle = vision.heading
+    if (vision.body) t.visionText = vision.body
+    if (vision.buttonText) t.philosophy = vision.buttonText
+  }
+
+  const dest = map.get('destinations')
+  if (dest) {
+    if (dest.heading) t.destinations = dest.heading
+    if (dest.subheading) t.destinationLabel = dest.subheading
+    if (dest.body) t.destinationText = dest.body
+  }
+
+  const cta = map.get('cta')
+  if (cta) {
+    if (cta.heading) t.cta = cta.heading
+    if (cta.body) t.ctaText = cta.body
+    if (cta.buttonText) t.contact = cta.buttonText
+  }
+
+  const founder = map.get('founder')
+  if (founder) {
+    if (founder.heading) t.founderName = founder.heading
+    if (founder.subheading) t.founderRole = founder.subheading
+    if (founder.body) t.founderText = founder.body
+  }
+
+  return t
+}
