@@ -1,7 +1,18 @@
-import { getFaqs } from '@/sanity/lib/queries'
+import { getFaqs, getSiteSettings } from '@/sanity/lib/queries'
 import ContactPage from '@/components/ContactPage'
 
 export default async function Page() {
-  const faqs = await getFaqs()
-  return <ContactPage faqs={faqs} />
+  const [faqs, settings] = await Promise.all([
+    getFaqs(),
+    getSiteSettings(),
+  ])
+
+  return (
+    <ContactPage
+      faqs={faqs}
+      whatsappLink={settings.whatsappLink}
+      socialLinks={settings.socialLinks}
+      appointmentServices={settings.appointmentServices}
+    />
+  )
 }

@@ -3,6 +3,8 @@ import { createClient } from 'next-sanity'
 import {
   featuredDestinations, moreDestinations, destinationDetails,
   experiences, partners, faqs, serviceTiers, copy,
+  steps, combinations, socialLinks,
+  whatsappNumber, whatsappMessage, appointmentServices,
 } from '@/lib/data'
 
 const client = createClient({
@@ -207,6 +209,44 @@ export async function GET(req: Request) {
 
       results.push(`✅ Site Content: ${block.section}`)
     }
+
+    // ────────────────────────────────────
+    // 7. STEPS (How It Works)
+    // ────────────────────────────────────
+    for (let i = 0; i < steps.length; i++) {
+      const [title, desc] = steps[i]
+
+      await client.createOrReplace({
+        _type: 'step',
+        _id: `step-${i + 1}`,
+        title,
+        description: desc,
+        order: i + 1,
+      })
+
+      results.push(`✅ Step ${i + 1}: ${title}`)
+    }
+
+    // ────────────────────────────────────
+    // 8. SITE SETTINGS (singleton)
+    // ────────────────────────────────────
+    await client.createOrReplace({
+      _type: 'siteSettings',
+      _id: 'siteSettings',
+      whatsappNumber,
+      whatsappMessage,
+      socialLinks: socialLinks.map(([label, url]) => ({
+        _type: 'object',
+        _key: label.toLowerCase().replace(/\s+/g, '-'),
+        label,
+        url,
+      })),
+      appointmentServices,
+      combinations,
+      contactEmail: 'hello@nefertitiretreats.com',
+    })
+
+    results.push('✅ Site Settings (WhatsApp, socials, services, combos)')
 
     // ────────────────────────────────────
     // DONE
