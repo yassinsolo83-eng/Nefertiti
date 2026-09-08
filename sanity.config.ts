@@ -9,7 +9,7 @@ export default defineConfig({
   name: 'nefertiti',
   title: 'Nefertiti Retreats',
 
-  projectId: '205j1scz',
+  projectId: '205jlscz',
   dataset: 'production',
 
   plugins: [structureTool(), visionTool()],
