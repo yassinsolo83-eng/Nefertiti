@@ -8,6 +8,12 @@ import {
   serviceTiers as staticTiers,
   copy as staticCopy,
   destinationDetails as staticDetails,
+  steps as staticSteps,
+  combinations as staticCombinations,
+  socialLinks as staticSocialLinks,
+  whatsappNumber as staticWhatsappNumber,
+  whatsappMessage as staticWhatsappMessage,
+  appointmentServices as staticAppointmentServices,
 } from '@/lib/data'
 import type { Destination, DestDetail } from '@/lib/data'
 
@@ -246,4 +252,52 @@ export async function getSiteContent() {
   }
 
   return t
+}
+
+// ══════════════════════════════════════
+//  STEPS (How It Works)
+// ══════════════════════════════════════
+
+const STEP_QUERY = `*[_type == "step"] | order(order asc) { title, description, order }`
+
+export async function getSteps(): Promise<[string, string][]> {
+  const result = await safeFetch<any[]>(STEP_QUERY, [])
+  if (result.length === 0) return staticSteps
+  return result.map(s => [s.title, s.description])
+}
+
+// ══════════════════════════════════════
+//  SITE SETTINGS (WhatsApp, socials, etc.)
+// ══════════════════════════════════════
+
+const SETTINGS_QUERY = `*[_type == "siteSettings"][0] {
+  whatsappNumber, whatsappMessage,
+  socialLinks[] { label, url },
+  appointmentServices,
+  combinations,
+  contactEmail
+}`
+
+export async function getSiteSettings() {
+  const result = await safeFetch<any>(SETTINGS_QUERY, null)
+
+  const whatsappNumber = result?.whatsappNumber || staticWhatsappNumber
+  const whatsappMessage = result?.whatsappMessage || staticWhatsappMessage
+  const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`
+
+  return {
+    whatsappNumber,
+    whatsappMessage,
+    whatsappLink,
+    socialLinks: result?.socialLinks?.length
+      ? result.socialLinks.map((l: any) => [l.label, l.url])
+      : staticSocialLinks,
+    appointmentServices: result?.appointmentServices?.length
+      ? result.appointmentServices
+      : staticAppointmentServices,
+    combinations: result?.combinations?.length
+      ? result.combinations
+      : staticCombinations,
+    contactEmail: result?.contactEmail || 'hello@nefertitiretreats.com',
+  }
 }

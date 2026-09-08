@@ -3,16 +3,15 @@
 import { useState, useEffect } from 'react'
 import { ArrowUpRight, MessageCircle, MapPin, Calendar } from 'lucide-react'
 import Link from 'next/link'
-import { whatsappLink } from '@/lib/data'
 import type { Destination, DestDetail } from '@/lib/data'
 import SiteNav from '@/components/SiteNav'
 import SiteFooter from '@/components/SiteFooter'
 import BackButton from '@/components/BackButton'
 import s from '@/app/destinations/[slug]/destination-detail.module.css'
 
-type Props = { dest: Destination | null; detail: DestDetail | null }
+type Props = { dest: Destination | null; detail: DestDetail | null; whatsappLink: string }
 
-export default function DestinationDetailPage({ dest, detail }: Props) {
+export default function DestinationDetailPage({ dest, detail, whatsappLink }: Props) {
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {

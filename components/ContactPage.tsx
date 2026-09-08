@@ -3,8 +3,7 @@
 import { useState } from 'react'
 import { MessageCircle, ArrowUpRight } from 'lucide-react'
 import {
-  images, socialLinks, egyptMapEmbed, egyptMapLink,
-  whatsappLink, appointmentServices,
+  images, egyptMapEmbed, egyptMapLink,
 } from '@/lib/data'
 import SiteNav from '@/components/SiteNav'
 import SiteFooter from '@/components/SiteFooter'
@@ -13,9 +12,12 @@ import s from '@/app/contact/contact.module.css'
 
 type Props = {
   faqs: [string, string][]
+  whatsappLink: string
+  socialLinks: [string, string][]
+  appointmentServices: string[]
 }
 
-export default function ContactPage({ faqs }: Props) {
+export default function ContactPage({ faqs, whatsappLink, socialLinks, appointmentServices }: Props) {
   const [form, setForm] = useState({
     name: '', email: '', phone: '', practice: '', message: '',
   })

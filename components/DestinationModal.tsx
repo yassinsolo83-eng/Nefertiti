@@ -2,22 +2,20 @@
 
 import { ArrowUpRight, Compass } from 'lucide-react'
 import Link from 'next/link'
-import { featuredDestinations, destinationDetails } from '@/lib/data'
 import type { Destination } from '@/lib/data'
 import s from './DestinationModal.module.css'
 
 type Props = {
   destination: Destination | null
   onClose: () => void
+  featuredIds?: string[]
 }
 
-export default function DestinationModal({ destination, onClose }: Props) {
+export default function DestinationModal({ destination, onClose, featuredIds = [] }: Props) {
   if (!destination) return null
 
   // Only featured destinations (with detail pages) get the Explore button
-  const hasDetailPage =
-    featuredDestinations.some(d => d.id === destination.id) &&
-    destination.id in destinationDetails
+  const hasDetailPage = featuredIds.includes(destination.id)
 
   return (
     <div className={s.overlay} onClick={onClose}>

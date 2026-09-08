@@ -4,6 +4,8 @@ import { partner } from './partner'
 import { faq } from './faq'
 import { serviceTier } from './serviceTier'
 import { siteContent } from './siteContent'
+import { step } from './step'
+import { siteSettings } from './siteSettings'
 
 export const schemaTypes = [
   destination,
@@ -12,4 +14,6 @@ export const schemaTypes = [
   faq,
   serviceTier,
   siteContent,
+  step,
+  siteSettings,
 ]

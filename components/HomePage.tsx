@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { ArrowUpRight, MessageCircle } from 'lucide-react'
 import Link from 'next/link'
 import {
-  images, combinations, whatsappLink,
+  images,
 } from '@/lib/data'
 import type { Destination, Partner } from '@/lib/data'
 import DestinationModal from '@/components/DestinationModal'
@@ -18,9 +18,11 @@ type Props = {
   moreDestinations: Destination[]
   partners: Partner[]
   t: Record<string, string>
+  combinations: string[]
+  whatsappLink: string
 }
 
-export default function HomePage({ featuredDestinations, moreDestinations, partners, t }: Props) {
+export default function HomePage({ featuredDestinations, moreDestinations, partners, t, combinations, whatsappLink }: Props) {
   const [scrolled, setScrolled] = useState(false)
   const [activeDestId, setActiveDestId] = useState<string | null>(null)
   const [introDone, setIntroDone] = useState(false)
@@ -216,7 +218,7 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
         </div>
 
         {/* Detail modal overlay (for secondary destinations only) */}
-        <DestinationModal destination={activeDest} onClose={() => setActiveDestId(null)} />
+        <DestinationModal destination={activeDest} onClose={() => setActiveDestId(null)} featuredIds={featuredDestinations.map(d => d.id)} />
 
         {/* More destinations — secondary 7 */}
         <div className={s.destMoreSection}>

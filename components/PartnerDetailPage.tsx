@@ -2,16 +2,15 @@
 
 import { ArrowUpRight, MapPin, Globe, Check } from 'lucide-react'
 import Link from 'next/link'
-import { whatsappLink } from '@/lib/data'
 import type { Partner } from '@/lib/data'
 import SiteNav from '@/components/SiteNav'
 import SiteFooter from '@/components/SiteFooter'
 import BackButton from '@/components/BackButton'
 import s from '@/app/partners/partners.module.css'
 
-type Props = { partner: Partner | null }
+type Props = { partner: Partner | null; whatsappLink: string }
 
-export default function PartnerDetailPage({ partner }: Props) {
+export default function PartnerDetailPage({ partner, whatsappLink }: Props) {
 
   if (!partner) {
     return (
