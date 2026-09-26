@@ -109,6 +109,11 @@ export const destination = defineType({
       type: 'image',
       options: { hotspot: true },
     }),
+    defineField({
+      name: 'seo',
+      title: 'SEO',
+      type: 'seo',
+    }),
   ],
   orderings: [{ title: 'Order', name: 'order', by: [{ field: 'order', direction: 'asc' }] }],
   preview: {

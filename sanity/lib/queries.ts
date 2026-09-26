@@ -16,6 +16,7 @@ import {
   appointmentServices as staticAppointmentServices,
 } from '@/lib/data'
 import type { Destination, DestDetail } from '@/lib/data'
+import type { SeoFields, SeoPageKey } from '@/lib/seo'
 
 // ── Revalidation: Sanity data refreshes every 60 seconds ──
 const REVALIDATE = 60
@@ -44,6 +45,7 @@ function mergeDestImage(sanityDest: any, staticList: Destination[]): Destination
     desc: sanityDest.desc || staticMatch?.desc || '',
     experiences: sanityDest.experiences || staticMatch?.experiences || [],
     idealFor: sanityDest.idealFor || staticMatch?.idealFor || [],
+    seo: sanityDest.seo || undefined,
   }
 }
 
@@ -62,7 +64,8 @@ const DEST_QUERY = `*[_type == "destination"] | order(order asc) {
     _key, title, desc,
     "image": image.asset->url
   },
-  "parallaxImage": parallaxImage.asset->url
+  "parallaxImage": parallaxImage.asset->url,
+  "seo": seo { metaTitle, metaDescription, noIndex, "ogImage": ogImage.asset->url }
 }`
 
 export async function getFeaturedDestinations(): Promise<Destination[]> {
@@ -85,7 +88,7 @@ export async function getMoreDestinations(): Promise<Destination[]> {
   return more.map(d => mergeDestImage(d, staticMore))
 }
 
-export async function getDestinationBySlug(slug: string) {
+export async function getDestinationBySlug(slug: string): Promise<{ dest: Destination; detail: DestDetail } | null> {
   const all = await safeFetch<any[]>(DEST_QUERY, [])
   const dest = all.find(d => d.id === slug)
 
@@ -148,7 +151,8 @@ const PARTNER_QUERY = `*[_type == "partner"] | order(order asc) {
   name, category, tagline, bio,
   "image": image.asset->url,
   services, location, website,
-  instagram, x, tiktok, order
+  instagram, x, tiktok, order,
+  "seo": seo { metaTitle, metaDescription, noIndex, "ogImage": ogImage.asset->url }
 }`
 
 export async function getPartners() {
@@ -168,6 +172,7 @@ export async function getPartners() {
     instagram: p.instagram || '',
     x: p.x || '',
     tiktok: p.tiktok || '',
+    seo: p.seo || undefined,
   }))
 }
 
@@ -275,7 +280,14 @@ const SETTINGS_QUERY = `*[_type == "siteSettings"][0] {
   socialLinks[] { label, url },
   appointmentServices,
   combinations,
-  contactEmail
+  contactEmail,
+  "defaultSeo": defaultSeo { metaTitle, metaDescription, noIndex, "ogImage": ogImage.asset->url },
+  "aboutSeo": aboutSeo { metaTitle, metaDescription, noIndex, "ogImage": ogImage.asset->url },
+  "servicesSeo": servicesSeo { metaTitle, metaDescription, noIndex, "ogImage": ogImage.asset->url },
+  "experiencesSeo": experiencesSeo { metaTitle, metaDescription, noIndex, "ogImage": ogImage.asset->url },
+  "howItWorksSeo": howItWorksSeo { metaTitle, metaDescription, noIndex, "ogImage": ogImage.asset->url },
+  "partnersSeo": partnersSeo { metaTitle, metaDescription, noIndex, "ogImage": ogImage.asset->url },
+  "contactSeo": contactSeo { metaTitle, metaDescription, noIndex, "ogImage": ogImage.asset->url }
 }`
 
 export async function getSiteSettings() {
@@ -299,5 +311,14 @@ export async function getSiteSettings() {
       ? result.combinations
       : staticCombinations,
     contactEmail: result?.contactEmail || 'hello@nefertitiretreats.com',
+    seo: {
+      default: result?.defaultSeo || null,
+      about: result?.aboutSeo || null,
+      services: result?.servicesSeo || null,
+      experiences: result?.experiencesSeo || null,
+      howItWorks: result?.howItWorksSeo || null,
+      partners: result?.partnersSeo || null,
+      contact: result?.contactSeo || null,
+    } as Record<SeoPageKey, SeoFields | null>,
   }
 }

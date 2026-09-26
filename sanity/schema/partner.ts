@@ -78,6 +78,11 @@ export const partner = defineType({
       title: 'Display Order',
       type: 'number',
     }),
+    defineField({
+      name: 'seo',
+      title: 'SEO',
+      type: 'seo',
+    }),
   ],
   orderings: [{ title: 'Order', name: 'order', by: [{ field: 'order', direction: 'asc' }] }],
   preview: {

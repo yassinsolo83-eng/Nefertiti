@@ -6,6 +6,7 @@ import { serviceTier } from './serviceTier'
 import { siteContent } from './siteContent'
 import { step } from './step'
 import { siteSettings } from './siteSettings'
+import { seo } from './seo'
 
 export const schemaTypes = [
   destination,
@@ -16,4 +17,5 @@ export const schemaTypes = [
   siteContent,
   step,
   siteSettings,
+  seo,
 ]
