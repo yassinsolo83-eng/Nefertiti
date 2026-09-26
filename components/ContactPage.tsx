@@ -22,15 +22,51 @@ export default function ContactPage({ faqs, whatsappLink, socialLinks, appointme
     name: '', email: '', phone: '', practice: '', message: '',
   })
   const [sent, setSent] = useState(false)
+  const [sending, setSending] = useState(false)
+  const [errors, setErrors] = useState<Record<string, string>>({})
+  const [formError, setFormError] = useState('')
+  const [company, setCompany] = useState('') // honeypot — hidden from real visitors
   const [openFaq, setOpenFaq] = useState<number | null>(0)
 
   const handle = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
     setForm((p) => ({ ...p, [e.target.name]: e.target.value }))
 
-  const submit = (e: React.MouseEvent) => {
+  const submit = async (e: React.MouseEvent) => {
     e.preventDefault()
-    setSent(true)
+    if (sending) return
+
+    // Quick checks in the browser; the server validates again
+    const next: Record<string, string> = {}
+    if (!form.name.trim()) next.name = 'Please enter your name.'
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(form.email.trim())) next.email = 'Please enter a valid email address.'
+    if (form.message.trim().length < 10) next.message = 'Please tell us a little more (at least 10 characters).'
+    setErrors(next)
+    setFormError('')
+    if (Object.keys(next).length) return
+
+    setSending(true)
+    try {
+      const res = await fetch('/api/enquiry', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...form, company }),
+      })
+      const data = await res.json().catch(() => ({}))
+      if (res.ok) {
+        setSent(true)
+      } else if (data.errors) {
+        setErrors(data.errors)
+      } else {
+        setFormError('Something went wrong. Please try again, or message us on WhatsApp.')
+      }
+    } catch {
+      setFormError('Could not connect. Please check your internet and try again.')
+    } finally {
+      setSending(false)
+    }
   }
+
+  const errorStyle = { color: '#b3261e', fontSize: 12, marginTop: 6 } as const
 
   return (
     <main className="inner-page">
@@ -69,12 +105,14 @@ export default function ContactPage({ faqs, whatsappLink, socialLinks, appointme
               <div className="form-field full">
                 <label>Your Name</label>
                 <input name="name" value={form.name} onChange={handle} placeholder="Your Name" />
+                {errors.name && <p style={errorStyle}>{errors.name}</p>}
               </div>
 
               <div className="form-row two">
                 <div className="form-field">
                   <label>Email Address</label>
                   <input name="email" type="email" value={form.email} onChange={handle} placeholder="Email Address" />
+                  {errors.email && <p style={errorStyle}>{errors.email}</p>}
                 </div>
                 <div className="form-field">
                   <label>Phone / WhatsApp</label>
@@ -93,9 +131,31 @@ export default function ContactPage({ faqs, whatsappLink, socialLinks, appointme
               <div className="form-field full">
                 <label>Message</label>
                 <textarea name="message" value={form.message} onChange={handle} placeholder="Tell us what you teach, who you serve, and what you'd love them to experience." rows={5} />
+                {errors.message && <p style={errorStyle}>{errors.message}</p>}
               </div>
 
-              <button className={s.formSubmitFilled} onClick={submit}>Send Message</button>
+              {/* Honeypot field: invisible to people, bots tend to fill it */}
+              <input
+                type="text"
+                name="company"
+                value={company}
+                onChange={(e) => setCompany(e.target.value)}
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                style={{ position: 'absolute', left: '-10000px', width: 1, height: 1, opacity: 0 }}
+              />
+
+              {formError && <p style={errorStyle}>{formError}</p>}
+
+              <button
+                className={s.formSubmitFilled}
+                onClick={submit}
+                disabled={sending}
+                style={sending ? { opacity: 0.6, cursor: 'wait' } : undefined}
+              >
+                {sending ? 'Sending…' : 'Send Message'}
+              </button>
             </div>
           )}
         </div>
