@@ -1,22 +1,21 @@
 import type { Metadata } from 'next'
-import { DEFAULT_OG_IMAGE } from '@/lib/site'
+import { buildMetadata } from '@/lib/seo'
 import { ArrowUpRight } from 'lucide-react'
 import Link from 'next/link'
-import { getPartners } from '@/sanity/lib/queries'
+import { getPartners, getSiteSettings } from '@/sanity/lib/queries'
 import SiteNav from '@/components/SiteNav'
 import SiteFooter from '@/components/SiteFooter'
 import s from './partners.module.css'
 
-export const metadata: Metadata = {
-  title: 'Our Practitioners & Partners',
-  description: 'Meet the yoga teachers, healers and wellness practitioners who bring Nefertiti retreats in Egypt to life.',
-  alternates: { canonical: '/partners' },
-  openGraph: {
-    title: 'Our Practitioners & Partners | Nefertiti Retreats',
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSiteSettings()
+  return buildMetadata({
+    seo: settings.seo.partners,
+    fallbackSeo: settings.seo.default,
+    title: 'Our Practitioners & Partners',
     description: 'Meet the yoga teachers, healers and wellness practitioners who bring Nefertiti retreats in Egypt to life.',
-    url: '/partners',
-    images: [DEFAULT_OG_IMAGE],
-  },
+    path: '/partners',
+  })
 }
 
 export default async function PartnersPage() {

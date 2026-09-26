@@ -30,7 +30,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // Only list destinations that actually resolve to a page (avoid 404s in the sitemap)
   const slugs = Array.from(new Set([...featured, ...more].map((d) => d.id)))
-  const resolved = await Promise.all(slugs.map(async (slug) => ((await getDestinationBySlug(slug)) ? slug : null)))
+  // and skip anything marked "Hide from Google" in Sanity
+  const resolved = await Promise.all(
+    slugs.map(async (slug) => {
+      const result = await getDestinationBySlug(slug)
+      return result && !result.dest.seo?.noIndex ? slug : null
+    }),
+  )
 
   const destinationRoutes: MetadataRoute.Sitemap = resolved
     .filter((slug): slug is string => Boolean(slug))
@@ -41,7 +47,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     }))
 
-  const partnerRoutes: MetadataRoute.Sitemap = partners.map((p) => ({
+  const partnerRoutes: MetadataRoute.Sitemap = partners
+    .filter((p) => !p.seo?.noIndex)
+    .map((p) => ({
     url: `${SITE_URL}/partners/${p.id}`,
     lastModified: now,
     changeFrequency: 'monthly',

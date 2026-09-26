@@ -2,6 +2,7 @@ import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import Script from 'next/script'
 import { SITE_URL, SITE_NAME, SITE_EMAIL, DEFAULT_DESCRIPTION, DEFAULT_OG_IMAGE } from '@/lib/site'
+import { getSiteSettings } from '@/sanity/lib/queries'
 import './globals.css'
 
 const shareDescription =
@@ -63,20 +64,38 @@ export const viewport: Viewport = {
   userScalable: true,
 }
 
-const organizationJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'TravelAgency',
-  name: SITE_NAME,
-  url: SITE_URL,
-  logo: `${SITE_URL}/nefertiti-logo-dark.png`,
-  image: `${SITE_URL}/og-image.png`,
-  email: SITE_EMAIL,
-  description: DEFAULT_DESCRIPTION,
-  areaServed: { '@type': 'Country', name: 'Egypt' },
-  founder: { '@type': 'Person', name: 'Azza' },
+// Only real profile links (e.g. https://instagram.com/nefertiti), not bare placeholders
+function profileLinks(links: string[][]) {
+  return links
+    .map(([, url]) => url)
+    .filter((url) => {
+      try {
+        return new URL(url).pathname.replace(/\/$/, '').length > 1
+      } catch {
+        return false
+      }
+    })
 }
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  const settings = await getSiteSettings()
+  const sameAs = profileLinks(settings.socialLinks)
+
+  const organizationJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'TravelAgency',
+    name: SITE_NAME,
+    url: SITE_URL,
+    logo: `${SITE_URL}/nefertiti-logo-dark.png`,
+    image: `${SITE_URL}/og-image.png`,
+    email: settings.contactEmail || SITE_EMAIL,
+    telephone: settings.whatsappNumber ? `+${settings.whatsappNumber}` : undefined,
+    description: DEFAULT_DESCRIPTION,
+    areaServed: { '@type': 'Country', name: 'Egypt' },
+    founder: { '@type': 'Person', name: 'Azza' },
+    ...(sameAs.length ? { sameAs } : {}),
+  }
+
   return (
     <html lang="en" className="bg-background">
       <body className="antialiased">

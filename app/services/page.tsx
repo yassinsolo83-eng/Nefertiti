@@ -1,18 +1,17 @@
 import type { Metadata } from 'next'
-import { DEFAULT_OG_IMAGE } from '@/lib/site'
-import { getServiceTiers } from '@/sanity/lib/queries'
+import { buildMetadata } from '@/lib/seo'
+import { getServiceTiers, getSiteSettings } from '@/sanity/lib/queries'
 import ServicesPage from '@/components/ServicesPage'
 
-export const metadata: Metadata = {
-  title: 'Retreat Production Services',
-  description: 'Full-service retreat production in Egypt for coaches and facilitators: venues, logistics, experiences, transport and on-the-ground hosting.',
-  alternates: { canonical: '/services' },
-  openGraph: {
-    title: 'Retreat Production Services | Nefertiti Retreats',
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSiteSettings()
+  return buildMetadata({
+    seo: settings.seo.services,
+    fallbackSeo: settings.seo.default,
+    title: 'Retreat Production Services',
     description: 'Full-service retreat production in Egypt for coaches and facilitators: venues, logistics, experiences, transport and on-the-ground hosting.',
-    url: '/services',
-    images: [DEFAULT_OG_IMAGE],
-  },
+    path: '/services',
+  })
 }
 
 export default async function Page() {

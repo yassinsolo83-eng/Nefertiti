@@ -2,7 +2,8 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { getDestinationBySlug, getSiteSettings } from '@/sanity/lib/queries'
 import DestinationDetailPage from '@/components/DestinationDetailPage'
-import { SITE_URL, DEFAULT_OG_IMAGE } from '@/lib/site'
+import { SITE_URL } from '@/lib/site'
+import { buildMetadata } from '@/lib/seo'
 
 type Params = { params: Promise<{ slug: string }> }
 
@@ -13,27 +14,19 @@ function absolute(url: string) {
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { slug } = await params
-  const result = await getDestinationBySlug(slug)
+  const [result, settings] = await Promise.all([getDestinationBySlug(slug), getSiteSettings()])
   if (!result) return { title: 'Destination not found', robots: { index: false } }
 
   const { dest, detail } = result
-  const title = `Wellness Retreats in ${dest.title}`
-  const description = (dest.desc || detail.overview || '').slice(0, 160)
-  const image = absolute(dest.image)
-
-  return {
-    title,
-    description,
-    alternates: { canonical: `/destinations/${slug}` },
-    openGraph: {
-      title: `${title} | Nefertiti Retreats`,
-      description,
-      url: `/destinations/${slug}`,
-      type: 'website',
-      images: image ? [{ url: image, alt: dest.title }] : [DEFAULT_OG_IMAGE],
-    },
-    twitter: { card: 'summary_large_image', title, description, images: image ? [image] : undefined },
-  }
+  return buildMetadata({
+    seo: dest.seo,
+    fallbackSeo: settings.seo.default,
+    title: `Wellness Retreats in ${dest.title}`,
+    description: dest.desc || detail.overview || '',
+    path: `/destinations/${slug}`,
+    image: dest.image,
+    imageAlt: dest.title,
+  })
 }
 
 export default async function Page({ params }: Params) {

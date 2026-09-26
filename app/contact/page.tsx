@@ -1,18 +1,17 @@
 import type { Metadata } from 'next'
-import { DEFAULT_OG_IMAGE } from '@/lib/site'
+import { buildMetadata } from '@/lib/seo'
 import { getFaqs, getSiteSettings } from '@/sanity/lib/queries'
 import ContactPage from '@/components/ContactPage'
 
-export const metadata: Metadata = {
-  title: 'Contact — Plan Your Retreat in Egypt',
-  description: 'Tell us about your retreat idea. Book a discovery call or message us on WhatsApp to start planning your wellness retreat in Egypt.',
-  alternates: { canonical: '/contact' },
-  openGraph: {
-    title: 'Contact — Plan Your Retreat in Egypt | Nefertiti Retreats',
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSiteSettings()
+  return buildMetadata({
+    seo: settings.seo.contact,
+    fallbackSeo: settings.seo.default,
+    title: 'Contact — Plan Your Retreat in Egypt',
     description: 'Tell us about your retreat idea. Book a discovery call or message us on WhatsApp to start planning your wellness retreat in Egypt.',
-    url: '/contact',
-    images: [DEFAULT_OG_IMAGE],
-  },
+    path: '/contact',
+  })
 }
 
 export default async function Page() {

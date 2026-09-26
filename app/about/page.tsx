@@ -1,23 +1,22 @@
 import type { Metadata } from 'next'
-import { DEFAULT_OG_IMAGE } from '@/lib/site'
+import { buildMetadata } from '@/lib/seo'
 import { ArrowUpRight } from 'lucide-react'
 import { images } from '@/lib/data'
-import { getSiteContent } from '@/sanity/lib/queries'
+import { getSiteContent, getSiteSettings } from '@/sanity/lib/queries'
 import SiteNav from '@/components/SiteNav'
 import SiteFooter from '@/components/SiteFooter'
 import BackButton from '@/components/BackButton'
 import styles from './about.module.css'
 
-export const metadata: Metadata = {
-  title: 'About Nefertiti — The Story Behind the Retreats',
-  description: 'Meet Azza, founder of Nefertiti, and discover the story behind our luxury wellness retreats across Egypt.',
-  alternates: { canonical: '/about' },
-  openGraph: {
-    title: 'About Nefertiti — The Story Behind the Retreats | Nefertiti Retreats',
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSiteSettings()
+  return buildMetadata({
+    seo: settings.seo.about,
+    fallbackSeo: settings.seo.default,
+    title: 'About Nefertiti — The Story Behind the Retreats',
     description: 'Meet Azza, founder of Nefertiti, and discover the story behind our luxury wellness retreats across Egypt.',
-    url: '/about',
-    images: [DEFAULT_OG_IMAGE],
-  },
+    path: '/about',
+  })
 }
 
 export default async function AboutPage() {

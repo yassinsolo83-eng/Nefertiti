@@ -1,18 +1,17 @@
 import type { Metadata } from 'next'
-import { DEFAULT_OG_IMAGE } from '@/lib/site'
-import { getSteps } from '@/sanity/lib/queries'
+import { buildMetadata } from '@/lib/seo'
+import { getSteps, getSiteSettings } from '@/sanity/lib/queries'
 import HowItWorksPage from '@/components/HowItWorksPage'
 
-export const metadata: Metadata = {
-  title: 'How It Works — Planning Your Retreat in Egypt',
-  description: 'From discovery call to the final day: how Nefertiti plans and produces your bespoke wellness retreat in Egypt, step by step.',
-  alternates: { canonical: '/how-it-works' },
-  openGraph: {
-    title: 'How It Works — Planning Your Retreat in Egypt | Nefertiti Retreats',
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSiteSettings()
+  return buildMetadata({
+    seo: settings.seo.howItWorks,
+    fallbackSeo: settings.seo.default,
+    title: 'How It Works — Planning Your Retreat in Egypt',
     description: 'From discovery call to the final day: how Nefertiti plans and produces your bespoke wellness retreat in Egypt, step by step.',
-    url: '/how-it-works',
-    images: [DEFAULT_OG_IMAGE],
-  },
+    path: '/how-it-works',
+  })
 }
 
 export default async function Page() {
