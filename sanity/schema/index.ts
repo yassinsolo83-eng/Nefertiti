@@ -7,8 +7,10 @@ import { siteContent } from './siteContent'
 import { step } from './step'
 import { siteSettings } from './siteSettings'
 import { seo } from './seo'
+import { enquiry } from './enquiry'
 
 export const schemaTypes = [
+  enquiry,
   destination,
   experience,
   partner,
