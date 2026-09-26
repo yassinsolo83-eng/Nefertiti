@@ -1,11 +1,38 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import Script from 'next/script'
+import { SITE_URL, SITE_NAME, SITE_EMAIL, DEFAULT_DESCRIPTION, DEFAULT_OG_IMAGE } from '@/lib/site'
 import './globals.css'
 
+const shareDescription =
+  'Bespoke retreat production for wellness coaches, facilitators and transformational leaders — from the Pyramids to the Red Sea.'
+
 export const metadata: Metadata = {
-  title: 'Nefertiti | Luxury Retreat Producer',
-  description: 'Immersive retreats, wellness journeys and beautifully produced experiences across Egypt and beyond.',
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: 'Nefertiti | Luxury Wellness Retreats in Egypt',
+    template: '%s | Nefertiti Retreats',
+  },
+  description: DEFAULT_DESCRIPTION,
+  applicationName: SITE_NAME,
+  keywords: [
+    'wellness retreats Egypt',
+    'luxury retreats Egypt',
+    'yoga retreat Egypt',
+    'retreat producer',
+    'host a retreat in Egypt',
+    'retreat planning Egypt',
+    'Red Sea retreat',
+    'Luxor retreat',
+    'Siwa retreat',
+    'Pyramids yoga',
+  ],
+  alternates: { canonical: '/' },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1, 'max-video-preview': -1 },
+  },
   icons: {
     icon: [
       { url: '/icon.svg', type: 'image/svg+xml' },
@@ -14,16 +41,18 @@ export const metadata: Metadata = {
     apple: '/apple-icon.png',
   },
   openGraph: {
-    title: 'Nefertiti | Luxury Retreat Producer',
-    description: 'Bespoke retreat production for wellness coaches, facilitators and transformational leaders — from the Pyramids to the Red Sea.',
-    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Nefertiti Luxury Retreat Producer' }],
+    title: 'Nefertiti | Luxury Wellness Retreats in Egypt',
+    description: shareDescription,
+    url: '/',
+    images: [DEFAULT_OG_IMAGE],
     type: 'website',
-    siteName: 'Nefertiti Retreats',
+    siteName: SITE_NAME,
+    locale: 'en_US',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Nefertiti | Luxury Retreat Producer',
-    description: 'Bespoke retreat production for wellness coaches, facilitators and transformational leaders — from the Pyramids to the Red Sea.',
+    title: 'Nefertiti | Luxury Wellness Retreats in Egypt',
+    description: shareDescription,
     images: ['/og-image.png'],
   },
 }
@@ -34,10 +63,27 @@ export const viewport: Viewport = {
   userScalable: true,
 }
 
+const organizationJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'TravelAgency',
+  name: SITE_NAME,
+  url: SITE_URL,
+  logo: `${SITE_URL}/nefertiti-logo-dark.png`,
+  image: `${SITE_URL}/og-image.png`,
+  email: SITE_EMAIL,
+  description: DEFAULT_DESCRIPTION,
+  areaServed: { '@type': 'Country', name: 'Egypt' },
+  founder: { '@type': 'Person', name: 'Azza' },
+}
+
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className="bg-background">
       <body className="antialiased">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
         {/* Google Translate — English + Italian only */}
         <div id="google_translate_element" aria-hidden="true" />
         <Script id="google-translate-init" strategy="afterInteractive">

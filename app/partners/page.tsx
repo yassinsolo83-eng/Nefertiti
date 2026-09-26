@@ -1,9 +1,23 @@
+import type { Metadata } from 'next'
+import { DEFAULT_OG_IMAGE } from '@/lib/site'
 import { ArrowUpRight } from 'lucide-react'
 import Link from 'next/link'
 import { getPartners } from '@/sanity/lib/queries'
 import SiteNav from '@/components/SiteNav'
 import SiteFooter from '@/components/SiteFooter'
 import s from './partners.module.css'
+
+export const metadata: Metadata = {
+  title: 'Our Practitioners & Partners',
+  description: 'Meet the yoga teachers, healers and wellness practitioners who bring Nefertiti retreats in Egypt to life.',
+  alternates: { canonical: '/partners' },
+  openGraph: {
+    title: 'Our Practitioners & Partners | Nefertiti Retreats',
+    description: 'Meet the yoga teachers, healers and wellness practitioners who bring Nefertiti retreats in Egypt to life.',
+    url: '/partners',
+    images: [DEFAULT_OG_IMAGE],
+  },
+}
 
 export default async function PartnersPage() {
   const partners = await getPartners()

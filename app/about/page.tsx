@@ -1,3 +1,5 @@
+import type { Metadata } from 'next'
+import { DEFAULT_OG_IMAGE } from '@/lib/site'
 import { ArrowUpRight } from 'lucide-react'
 import { images } from '@/lib/data'
 import { getSiteContent } from '@/sanity/lib/queries'
@@ -5,6 +7,18 @@ import SiteNav from '@/components/SiteNav'
 import SiteFooter from '@/components/SiteFooter'
 import BackButton from '@/components/BackButton'
 import styles from './about.module.css'
+
+export const metadata: Metadata = {
+  title: 'About Nefertiti — The Story Behind the Retreats',
+  description: 'Meet Azza, founder of Nefertiti, and discover the story behind our luxury wellness retreats across Egypt.',
+  alternates: { canonical: '/about' },
+  openGraph: {
+    title: 'About Nefertiti — The Story Behind the Retreats | Nefertiti Retreats',
+    description: 'Meet Azza, founder of Nefertiti, and discover the story behind our luxury wellness retreats across Egypt.',
+    url: '/about',
+    images: [DEFAULT_OG_IMAGE],
+  },
+}
 
 export default async function AboutPage() {
   const t = await getSiteContent()
@@ -28,7 +42,7 @@ export default async function AboutPage() {
 
           <div className={styles.content}>
             <div className={styles.founderImg}>
-              <img src={images.founder} alt="Founder" />
+              <img src={images.founder} alt={`${t.founderName}, founder of Nefertiti Retreats`} />
             </div>
             <h2 className={styles.founderText}>{t.founderText}</h2>
             <p className={styles.founderName}>
