@@ -1,3 +1,4 @@
+import type { SeoFields } from '@/lib/seo'
 // ── Central data for the Nefertiti site ──
 
 export const images = {
@@ -384,6 +385,7 @@ export type Destination = {
   desc: string
   experiences: string[]
   idealFor: string[]
+  seo?: SeoFields
 }
 
 // ── Destination detail pages — highlights for the accordion strip + activity grid ──
@@ -416,6 +418,7 @@ export type Partner = {
   instagram?: string        // handle without @ (optional)
   x?: string                // X/Twitter handle without @ (optional)
   tiktok?: string           // TikTok handle without @ (optional)
+  seo?: SeoFields
 }
 
 export const partners: Partner[] = [
