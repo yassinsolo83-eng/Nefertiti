@@ -14,8 +14,9 @@ import {
   whatsappNumber as staticWhatsappNumber,
   whatsappMessage as staticWhatsappMessage,
   appointmentServices as staticAppointmentServices,
+  sampleRetreats as staticSampleRetreats,
 } from '@/lib/data'
-import type { Destination, DestDetail } from '@/lib/data'
+import type { Destination, DestDetail, Retreat } from '@/lib/data'
 import type { SeoFields, SeoPageKey } from '@/lib/seo'
 
 // ── Revalidation: Sanity data refreshes every 60 seconds ──
@@ -287,7 +288,8 @@ const SETTINGS_QUERY = `*[_type == "siteSettings"][0] {
   "experiencesSeo": experiencesSeo { metaTitle, metaDescription, noIndex, "ogImage": ogImage.asset->url },
   "howItWorksSeo": howItWorksSeo { metaTitle, metaDescription, noIndex, "ogImage": ogImage.asset->url },
   "partnersSeo": partnersSeo { metaTitle, metaDescription, noIndex, "ogImage": ogImage.asset->url },
-  "contactSeo": contactSeo { metaTitle, metaDescription, noIndex, "ogImage": ogImage.asset->url }
+  "contactSeo": contactSeo { metaTitle, metaDescription, noIndex, "ogImage": ogImage.asset->url },
+  "retreatsSeo": retreatsSeo { metaTitle, metaDescription, noIndex, "ogImage": ogImage.asset->url }
 }`
 
 export async function getSiteSettings() {
@@ -319,6 +321,52 @@ export async function getSiteSettings() {
       howItWorks: result?.howItWorksSeo || null,
       partners: result?.partnersSeo || null,
       contact: result?.contactSeo || null,
+      retreats: result?.retreatsSeo || null,
     } as Record<SeoPageKey, SeoFields | null>,
   }
+}
+
+
+// ══════════════════════════════════════
+//  RETREATS
+// ══════════════════════════════════════
+
+const RETREAT_QUERY = `*[_type == "retreat" && defined(slug.current)] | order(startDate asc) {
+  "id": slug.current,
+  title, status, startDate, endDate, summary, description, included,
+  "image": coverImage.asset->url,
+  "destination": destination->{ "id": slug.current, title },
+  "itinerary": itinerary[] { day, title, description },
+  "facilitators": facilitators[]->{ "id": slug.current, name, category, "image": image.asset->url },
+  "seo": seo { metaTitle, metaDescription, noIndex, "ogImage": ogImage.asset->url }
+}`
+
+function normalizeRetreat(r: any): Retreat {
+  return {
+    id: r.id,
+    title: r.title || '',
+    image: r.image || '/retreats-hero.webp',
+    status: r.status || 'open',
+    startDate: r.startDate || '',
+    endDate: r.endDate || r.startDate || '',
+    destination: r.destination?.id ? r.destination : null,
+    summary: r.summary || '',
+    description: r.description || '',
+    itinerary: (r.itinerary || []).filter((d: any) => d?.title || d?.description),
+    included: (r.included || []).filter(Boolean),
+    facilitators: (r.facilitators || []).filter((f: any) => f?.id),
+    seo: r.seo || undefined,
+  }
+}
+
+// Sample retreats show only until the first real retreat exists in Sanity
+export async function getRetreats(): Promise<Retreat[]> {
+  const result = await safeFetch<any[]>(RETREAT_QUERY, [])
+  if (result.length === 0) return staticSampleRetreats
+  return result.map(normalizeRetreat)
+}
+
+export async function getRetreatBySlug(slug: string): Promise<Retreat | null> {
+  const all = await getRetreats()
+  return all.find((r) => r.id === slug) || null
 }
