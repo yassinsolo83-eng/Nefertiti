@@ -5,6 +5,7 @@ import {
   getMoreDestinations,
   getDestinationBySlug,
   getPartners,
+  getRetreats,
 } from '@/sanity/lib/queries'
 
 export const revalidate = 3600
@@ -14,6 +15,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const staticRoutes: MetadataRoute.Sitemap = [
     { url: `${SITE_URL}/`, lastModified: now, changeFrequency: 'weekly', priority: 1 },
+    { url: `${SITE_URL}/retreats`, lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
     { url: `${SITE_URL}/services`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
     { url: `${SITE_URL}/experiences`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${SITE_URL}/how-it-works`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
@@ -22,10 +24,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE_URL}/contact`, lastModified: now, changeFrequency: 'yearly', priority: 0.7 },
   ]
 
-  const [featured, more, partners] = await Promise.all([
+  const [featured, more, partners, retreats] = await Promise.all([
     getFeaturedDestinations(),
     getMoreDestinations(),
     getPartners(),
+    getRetreats(),
   ])
 
   // Only list destinations that actually resolve to a page (avoid 404s in the sitemap)
@@ -56,5 +59,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.5,
   }))
 
-  return [...staticRoutes, ...destinationRoutes, ...partnerRoutes]
+  // Sample retreats and hidden ones stay out of the sitemap
+  const retreatRoutes: MetadataRoute.Sitemap = retreats
+    .filter((r) => !r.id.startsWith('sample-') && !r.seo?.noIndex)
+    .map((r) => ({
+      url: `${SITE_URL}/retreats/${r.id}`,
+      lastModified: now,
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    }))
+
+  return [...staticRoutes, ...retreatRoutes, ...destinationRoutes, ...partnerRoutes]
 }
