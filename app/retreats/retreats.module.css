@@ -148,10 +148,29 @@
 .asideNote p { font-size: 13px; line-height: 1.7; }
 
 
+/* ── Home page: upcoming retreats strip ── */
+.homeRetreats { background: var(--background); border-top: 1px solid var(--border); }
+.homeHead {
+  display: flex; align-items: flex-end; justify-content: space-between; gap: 32px;
+  margin-bottom: 44px;
+}
+.homeHead :global(.section-heading) { margin-bottom: 0; }
+.homeHead :global(.button) { flex-shrink: 0; }
+.homeGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+.homeEmpty { font-size: 15px; line-height: 1.8; opacity: .8; max-width: 56ch; }
+.homeAllMobile { display: none !important; }
+
 /* ══════════════════════════════════
    RESPONSIVE
 ══════════════════════════════════ */
+@media (max-width: 1100px) {
+  .homeGrid { grid-template-columns: repeat(2, 1fr); }
+}
 @media (max-width: 860px) {
+  .homeHead { margin-bottom: 28px; }
+  .homeAllDesktop { display: none !important; }
+  .homeAllMobile { display: inline-flex !important; margin-top: 32px; }
+  .homeGrid { grid-template-columns: 1fr; gap: 24px; }
   .listSection { padding: 16px 5vw 56px; }
   .grid { grid-template-columns: 1fr; gap: 28px; }
   .detailBody { grid-template-columns: 1fr; gap: 44px; padding: 16px 5vw 72px; }
