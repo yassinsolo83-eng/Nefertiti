@@ -1,0 +1,374 @@
+/* ══════════════════════════════════
+   HOME PAGE — CSS Module
+   Sections: Vision, Destinations, Explore, Partners Preview, CTA Band
+══════════════════════════════════ */
+
+/* ── VISION / WHY EGYPT ── */
+.vision { background: var(--background); }
+
+.visionDivider {
+  width: 48px; height: 1.5px; border: 0;
+  background: var(--gold-deep); opacity: .45;
+  margin: 24px 0 32px;
+}
+
+.visionStatement {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(26px, 3.3vw, 46px);
+  font-weight: 500; line-height: 1.18;
+  letter-spacing: -.02em; color: var(--primary);
+  max-width: 1100px; margin-bottom: 64px;
+}
+
+.visionGrid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 6vw; align-items: stretch;
+}
+
+.visionCopy { display: flex; flex-direction: column; }
+.visionCopy p:not(:global(.eyebrow)) {
+  color: var(--muted-fg); line-height: 2;
+  font-size: 15.5px; max-width: 480px; margin-bottom: 24px;
+}
+
+.visionRight { display: flex; flex-direction: column; gap: 32px; }
+
+.visionImage {
+  flex: 1; min-height: 480px; overflow: hidden;
+  border-radius: 10px;
+}
+.visionImage img,
+.visionImage video {
+  width: 100%; height: 100%; object-fit: cover;
+  object-position: center center; transition: transform .8s; display: block;
+}
+.visionImage:hover img,
+.visionImage:hover video { transform: scale(1.03); }
+
+.visionStats {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 32px 20px; margin-top: auto; padding-top: 44px;
+}
+
+.visionStat {
+  display: flex; flex-direction: column; gap: 8px;
+  padding-left: 16px; border-left: 2px solid rgba(241,210,136,.3);
+}
+
+.visionStatNum {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(44px, 6vw, 72px);
+  font-weight: 400; color: var(--gold-deep); line-height: 1;
+}
+
+.visionStatLabel {
+  font-size: 12px; color: var(--muted-fg); line-height: 1.6;
+}
+
+
+/* ── DESTINATIONS ── */
+.destinations {
+  background: var(--primary); color: var(--primary-foreground);
+}
+.destinations :global(.section-label) { color: var(--gold); }
+.destinations :global(.section-heading) p { color: rgba(243,240,232,.68); }
+.destinations h2 {
+  color: var(--primary-foreground);
+  font-size: clamp(32px, 3.8vw, 54px);
+}
+
+/* Featured destinations — fixed responsive grid */
+.destGrid {
+  display: grid; grid-template-columns: repeat(6, 1fr);
+  gap: 20px; margin-bottom: 20px;
+}
+
+.destCard {
+  position: relative; overflow: hidden; cursor: pointer;
+  border-radius: 14px;
+  box-shadow: 0 10px 34px rgba(46,24,64,.14);
+  transition: box-shadow .4s ease, transform .4s ease;
+}
+.destCard:hover {
+  box-shadow: 0 20px 56px rgba(46,24,64,.3);
+  transform: translateY(-5px);
+}
+.destCard:nth-child(1),
+.destCard:nth-child(2) { grid-column: span 3; min-height: 460px; }
+.destCard:nth-child(3),
+.destCard:nth-child(4),
+.destCard:nth-child(5) { grid-column: span 2; min-height: 360px; }
+
+.destCard img,
+.destCard video {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; transition: transform .7s ease;
+}
+.destCard:hover img,
+.destCard:hover video { transform: scale(1.06); }
+
+.destCardBody {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 80px 24px 26px;
+  background: linear-gradient(transparent, rgba(20,6,14,.94));
+  z-index: 2;
+}
+
+.destCardFeeling {
+  font-size: 9px; text-transform: uppercase; letter-spacing: .14em;
+  color: var(--gold); margin-bottom: 8px;
+}
+
+.destCardBody h3 {
+  color: #fff; font-size: clamp(20px, 2.2vw, 32px);
+  margin-bottom: 5px; line-height: 1.1;
+}
+
+.destCardTagline {
+  font-size: 12px; color: rgba(243,240,232,.7);
+  font-style: italic; font-family: 'Cormorant Garamond', serif;
+}
+
+.destCardToggle {
+  position: absolute; bottom: 26px; right: 22px; z-index: 3;
+  width: 32px; height: 32px;
+  border: 1px solid rgba(241,210,136,.4); color: var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; font-weight: 200;
+  transition: background .25s, color .25s;
+  pointer-events: none;
+}
+.destCard:hover .destCardToggle {
+  background: var(--gold); color: var(--plum); border-color: var(--gold);
+}
+
+.destCardExplore {
+  display: inline-flex; align-items: center; gap: 6px; margin-top: 14px;
+  font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--gold); font-family: 'Montserrat', sans-serif;
+  padding: 8px 20px; border: 1px solid rgba(241,210,136,.3);
+  border-radius: 40px;
+  transition: gap .3s, background .3s, border-color .3s, box-shadow .3s;
+}
+.destCard:hover .destCardExplore {
+  gap: 10px; background: rgba(241,210,136,.12);
+  border-color: var(--gold);
+  box-shadow: 0 0 20px rgba(241,210,136,.1);
+}
+
+/* More destinations — secondary grid */
+.destMoreSection { margin-top: 56px; }
+.destMoreLabel {
+  display: block; font-size: 10px; text-transform: uppercase;
+  letter-spacing: .18em; color: var(--gold); margin-bottom: 18px;
+}
+.destMoreGrid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px;
+}
+.destMoreCard {
+  position: relative; min-height: 300px; overflow: hidden; display: block;
+  text-decoration: none; cursor: pointer;
+  border-radius: 12px;
+  box-shadow: 0 8px 26px rgba(46,24,64,.16);
+  transition: box-shadow .4s ease, transform .4s ease;
+}
+.destMoreCard:hover {
+  box-shadow: 0 18px 44px rgba(46,24,64,.28);
+  transform: translateY(-4px);
+}
+.destMoreCard img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; filter: brightness(.58);
+  transition: transform .7s ease, filter .7s ease;
+}
+.destMoreCard:hover img { transform: scale(1.06); filter: brightness(.48); }
+.destMoreCard::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(transparent 40%, rgba(20,6,14,.78));
+  z-index: 1;
+}
+.destMoreBody {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 20px; z-index: 2;
+}
+.destMoreBody h3 {
+  font-size: 20px; color: #fff; margin-bottom: 8px;
+  line-height: 1.15; font-weight: 500;
+}
+.destMoreLink {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 11px; letter-spacing: .06em;
+  color: var(--gold); font-family: 'Montserrat', sans-serif;
+  transition: gap .25s;
+}
+.destMoreCard:hover .destMoreLink { gap: 9px; }
+
+/* Combinations */
+.destCombos {
+  margin-top: 72px; padding: 64px 6vw;
+  background: var(--gold); text-align: center;
+  border-radius: 6px;
+}
+.destCombosHeader { margin-bottom: 36px; }
+.destCombosHeader h2 {
+  color: var(--plum) !important;
+  font-size: clamp(28px, 4vw, 56px) !important;
+  margin-bottom: 10px;
+}
+.destCombosSub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(18px, 2vw, 26px);
+  color: var(--primary); font-style: italic;
+  margin-bottom: 16px; display: block;
+}
+.destCombosBody {
+  color: var(--plum); opacity: .7; max-width: 440px;
+  margin: 0 auto; line-height: 1.9; font-size: 13px;
+}
+.destComboList {
+  display: flex; flex-wrap: wrap; justify-content: center;
+  gap: 10px; margin: 32px 0 36px;
+}
+.destComboPill {
+  padding: 6px 0; color: var(--plum);
+  font-size: 11px; letter-spacing: .06em; pointer-events: none;
+}
+.destComboPill::after {
+  content: '·'; margin-left: 10px;
+  color: var(--plum); opacity: .35;
+}
+.destComboPill:last-child::after { content: none; }
+.destComboActions {
+  display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;
+}
+
+
+/* ── EXPLORE MORE ── */
+.explore {
+  background: var(--background);
+  border-top: 1px solid var(--border);
+  padding-bottom: 40px;
+}
+.exploreHead { max-width: 900px; margin-bottom: 48px; }
+.exploreHead :global(.section-label) { display: block; margin-bottom: 16px; }
+.exploreHead h2 {
+  font-family: 'Cormorant Garamond', serif; font-weight: 500;
+  font-size: clamp(30px, 4vw, 52px);
+  color: var(--primary); letter-spacing: -.02em;
+}
+.exploreGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+.exploreCard {
+  display: flex; align-items: flex-start; gap: 22px;
+  padding: 34px 30px; border-top: 1px solid var(--border);
+  transition: background .3s, padding-left .3s; position: relative;
+}
+.exploreCard:nth-child(odd) { border-right: 1px solid var(--border); }
+.exploreCard:hover { background: rgba(141,76,101,.04); padding-left: 38px; }
+.exploreNum {
+  font-family: 'Cormorant Garamond', serif; font-size: 15px;
+  color: var(--gold-deep); padding-top: 6px; flex-shrink: 0;
+}
+.exploreCardBody { flex: 1; }
+.exploreCardBody h3 {
+  font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 500;
+  color: var(--foreground); margin-bottom: 8px; transition: color .25s;
+}
+.exploreCard:hover .exploreCardBody h3 { color: var(--primary); }
+.exploreCardBody p {
+  font-size: 13.5px; line-height: 1.7; color: var(--muted-fg); max-width: 40ch;
+}
+.exploreArrow {
+  color: var(--gold-deep); flex-shrink: 0; margin-top: 4px;
+  transition: transform .25s;
+}
+.exploreCard:hover .exploreArrow { transform: translate(3px, -3px); }
+
+
+/* ── PARTNERS PREVIEW (home page section) ── */
+.partnersPreview { padding-top: 64px; padding-bottom: 90px; }
+.partnersPreview :global(.section-heading) { margin-bottom: 56px; }
+.partnersPreview :global(.section-heading) p {
+  margin-top: 14px; max-width: 46ch;
+  font-size: 14px; line-height: 1.8;
+  color: var(--foreground); opacity: .7;
+}
+.partnersPreview :global(.team-grid) {
+  margin-top: 0; grid-template-columns: repeat(4, 1fr); max-width: none;
+}
+
+
+/* ── CTA BAND ── */
+.ctaBand {
+  background: var(--gold); padding: 120px 8vw; text-align: center;
+}
+.ctaBandInner { max-width: 780px; margin: auto; }
+.ctaBandInner h2 {
+  font-size: clamp(30px, 4.4vw, 56px);
+  color: var(--plum); margin-bottom: 22px;
+}
+.ctaBandInner p {
+  color: var(--plum); opacity: .78;
+  max-width: 420px; margin: 0 auto 34px; line-height: 1.9;
+}
+
+
+/* ══════════════════════════════════
+   RESPONSIVE — 1000px
+══════════════════════════════════ */
+@media (max-width: 1000px) {
+  .partnersPreview :global(.team-grid) { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ══════════════════════════════════
+   RESPONSIVE — 860px
+══════════════════════════════════ */
+@media (max-width: 860px) {
+  /* Vision */
+  .visionStatement { font-size: clamp(22px, 5.6vw, 30px); margin-bottom: 40px; line-height: 1.25; }
+  .visionGrid { grid-template-columns: 1fr; gap: 36px; }
+  .visionCopy p:not(:global(.eyebrow)) { max-width: 100%; font-size: 15px; }
+  .visionImage { aspect-ratio: 16/10; min-height: 0; }
+  .visionStats { grid-template-columns: 1fr 1fr; gap: 24px 12px; padding-top: 32px; margin-top: 8px; }
+
+  /* Destinations */
+  .destGrid { grid-template-columns: 1fr 1fr; }
+  .destCard:nth-child(1),
+  .destCard:nth-child(2),
+  .destCard:nth-child(3),
+  .destCard:nth-child(4),
+  .destCard:nth-child(5) { grid-column: span 1; min-height: 250px; }
+  .destCard:nth-child(1) { grid-column: span 2; min-height: 320px; }
+  .destMoreGrid { grid-template-columns: 1fr 1fr; }
+  .destMoreCard { min-height: 200px; }
+  .destCombos { padding: 48px max(20px, 5vw); margin-top: 48px; }
+  .destComboActions { flex-direction: column; align-items: center; }
+
+  /* CTA band */
+  .ctaBand { padding: 100px 6vw; }
+
+  /* Explore */
+  .exploreGrid { grid-template-columns: 1fr; }
+  .exploreCard:nth-child(odd) { border-right: 0; }
+  .exploreCard { padding: 26px 4px; }
+  .exploreCard:hover { padding-left: 12px; }
+}
+
+/* ══════════════════════════════════
+   RESPONSIVE — 520px
+══════════════════════════════════ */
+@media (max-width: 520px) {
+  .partnersPreview :global(.team-grid) { grid-template-columns: 1fr; }
+}
+
+/* ══════════════════════════════════
+   RESPONSIVE — 480px
+══════════════════════════════════ */
+@media (max-width: 480px) {
+  .destCard:nth-child(1),
+  .destCard:nth-child(2),
+  .destCard:nth-child(3),
+  .destCard:nth-child(4),
+  .destCard:nth-child(5) { grid-column: span 1; min-height: 280px; }
+  .destMoreGrid { grid-template-columns: 1fr 1fr; }
+}
