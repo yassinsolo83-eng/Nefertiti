@@ -99,6 +99,12 @@ export const siteSettings = defineType({
       group: 'seo',
     }),
     defineField({
+      name: 'retreatsSeo',
+      title: 'Retreats page SEO',
+      type: 'seo',
+      group: 'seo',
+    }),
+    defineField({
       name: 'contactSeo',
       title: 'Contact page SEO',
       type: 'seo',

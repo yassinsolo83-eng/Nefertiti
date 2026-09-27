@@ -26,6 +26,7 @@ export const enquiry = defineType({
     defineField({ name: 'email', title: 'Email', type: 'string', readOnly: true }),
     defineField({ name: 'phone', title: 'Phone / WhatsApp', type: 'string', readOnly: true }),
     defineField({ name: 'practice', title: 'Type of Retreat', type: 'string', readOnly: true }),
+    defineField({ name: 'retreat', title: 'Retreat Enquired About', type: 'string', readOnly: true, hidden: ({ value }) => !value }),
     defineField({ name: 'message', title: 'Message', type: 'text', rows: 8, readOnly: true }),
     defineField({ name: 'submittedAt', title: 'Received', type: 'datetime', readOnly: true }),
     defineField({
