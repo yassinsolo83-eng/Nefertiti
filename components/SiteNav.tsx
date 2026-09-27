@@ -11,6 +11,7 @@ const NAV_ITEMS: NavItem[] = [
   ['About', '/about'],
   ['Why Egypt', '/#vision'],
   ['Destinations', '/#destinations'],
+  ['Retreats', '/retreats'],
   ['Experiences', '/experiences'],
   ['Services', '/services'],
   ['Partners', '/partners'],

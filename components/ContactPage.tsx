@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { MessageCircle, ArrowUpRight } from 'lucide-react'
 import {
   images, egyptMapEmbed, egyptMapLink,
@@ -26,6 +26,15 @@ export default function ContactPage({ faqs, whatsappLink, socialLinks, appointme
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [formError, setFormError] = useState('')
   const [company, setCompany] = useState('') // honeypot — hidden from real visitors
+  const [retreat, setRetreat] = useState('')
+
+  // Arriving from a retreat page: /contact?retreat=<retreat name>
+  useEffect(() => {
+    const name = new URLSearchParams(window.location.search).get('retreat')?.trim().slice(0, 200)
+    if (!name) return
+    setRetreat(name)
+    setForm((p) => (p.message ? p : { ...p, message: `I'm interested in the retreat "${name}". ` }))
+  }, [])
   const [openFaq, setOpenFaq] = useState<number | null>(0)
 
   const handle = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
@@ -49,7 +58,7 @@ export default function ContactPage({ faqs, whatsappLink, socialLinks, appointme
       const res = await fetch('/api/enquiry', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...form, company }),
+        body: JSON.stringify({ ...form, company, retreat }),
       })
       const data = await res.json().catch(() => ({}))
       if (res.ok) {
@@ -91,7 +100,7 @@ export default function ContactPage({ faqs, whatsappLink, socialLinks, appointme
       {/* Two clear paths */}
       <section className={s.contactBlock}>
         {/* Left — enquiry form */}
-        <div className={`${s.contactRight} reveal is-in`}>
+        <div id="enquiry" className={`${s.contactRight} reveal is-in`} style={{ scrollMarginTop: 120 }}>
           <p className="eyebrow" style={{ marginBottom: 14 }}>OPTION 1 · SEND AN ENQUIRY</p>
           <h2 className={s.contactBlockTitle}>Tell us about your retreat</h2>
 
@@ -102,6 +111,11 @@ export default function ContactPage({ faqs, whatsappLink, socialLinks, appointme
             </div>
           ) : (
             <div className={s.contactSimpleForm}>
+              {retreat && (
+                <p style={{ fontSize: 12, color: 'var(--primary)', marginBottom: 18 }}>
+                  Enquiring about: <strong>{retreat}</strong>
+                </p>
+              )}
               <div className="form-field full">
                 <label>Your Name</label>
                 <input name="name" value={form.name} onChange={handle} placeholder="Your Name" />
