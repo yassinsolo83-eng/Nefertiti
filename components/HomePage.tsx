@@ -6,7 +6,9 @@ import Link from 'next/link'
 import {
   images,
 } from '@/lib/data'
-import type { Destination, Partner } from '@/lib/data'
+import type { Destination, Partner, Retreat } from '@/lib/data'
+import RetreatCard from '@/components/RetreatCard'
+import rs from '@/app/retreats/retreats.module.css'
 import DestinationModal from '@/components/DestinationModal'
 import SiteNav from '@/components/SiteNav'
 import SiteFooter from '@/components/SiteFooter'
@@ -20,9 +22,10 @@ type Props = {
   t: Record<string, string>
   combinations: string[]
   whatsappLink: string
+  upcomingRetreats: Retreat[]
 }
 
-export default function HomePage({ featuredDestinations, moreDestinations, partners, t, combinations, whatsappLink }: Props) {
+export default function HomePage({ featuredDestinations, moreDestinations, partners, t, combinations, whatsappLink, upcomingRetreats }: Props) {
   const [scrolled, setScrolled] = useState(false)
   const [activeDestId, setActiveDestId] = useState<string | null>(null)
   const [introDone, setIntroDone] = useState(false)
@@ -259,6 +262,34 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
             <a href="/contact" className="button button-dark">{t.destCTA1} <ArrowUpRight size={14} /></a>
           </div>
         </div>
+      </section>
+
+      {/* UPCOMING RETREATS — pulled from Sanity, next 3 by date */}
+      <section id="retreats" className={`section ${rs.homeRetreats}`}>
+        <div className={`${rs.homeHead} reveal`}>
+          <div className="section-heading">
+            <div className="section-label">03 / OUR RETREATS</div>
+            <div>
+              <h2>JOIN A NEFERTITI RETREAT.</h2>
+              <p>Small groups, thoughtful programmes and unforgettable places — hosted by us, across Egypt.</p>
+            </div>
+          </div>
+          <Link href="/retreats" className={`button button-ghost-dark ${rs.homeAllDesktop}`}>
+            See All Retreats <ArrowUpRight size={14} />
+          </Link>
+        </div>
+
+        {upcomingRetreats.length > 0 ? (
+          <div className={rs.homeGrid}>
+            {upcomingRetreats.map((r) => <RetreatCard key={r.id} r={r} />)}
+          </div>
+        ) : (
+          <p className={rs.homeEmpty}>New dates are being planned — take a look at our past retreats in the meantime.</p>
+        )}
+
+        <Link href="/retreats" className={`button button-ghost-dark ${rs.homeAllMobile}`}>
+          See All Retreats <ArrowUpRight size={14} />
+        </Link>
       </section>
 
       {/* EXPLORE MORE — pathways into the deeper pages */}
