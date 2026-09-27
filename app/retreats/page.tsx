@@ -1,10 +1,10 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { ArrowUpRight, MapPin, Calendar } from 'lucide-react'
+import { ArrowUpRight } from 'lucide-react'
 import { buildMetadata } from '@/lib/seo'
 import { getRetreats, getSiteSettings } from '@/sanity/lib/queries'
-import type { Retreat } from '@/lib/data'
-import { formatRetreatDates, retreatNights, splitRetreats, STATUS_LABELS } from '@/lib/retreat-utils'
+import { splitRetreats } from '@/lib/retreat-utils'
+import RetreatCard from '@/components/RetreatCard'
 import SiteNav from '@/components/SiteNav'
 import SiteFooter from '@/components/SiteFooter'
 import BackButton from '@/components/BackButton'
@@ -21,34 +21,6 @@ export async function generateMetadata(): Promise<Metadata> {
     path: '/retreats',
     image: '/retreats-hero.webp',
   })
-}
-
-function RetreatCard({ r, past }: { r: Retreat; past?: boolean }) {
-  const nights = retreatNights(r.startDate, r.endDate)
-  return (
-    <Link href={`/retreats/${r.id}`} className={`${s.card} ${past ? s.cardPast : ''}`}>
-      <div className={s.cardMedia}>
-        <img src={r.image} alt={r.title} loading="lazy" />
-        <span className={`${s.badge} ${past ? s.badgePast : s[`badge_${r.status}`]}`}>
-          {past ? 'Past retreat' : STATUS_LABELS[r.status]}
-        </span>
-      </div>
-      <div className={s.cardBody}>
-        <div className={s.cardMeta}>
-          {r.destination && (
-            <span><MapPin size={13} /> {r.destination.title}</span>
-          )}
-          <span><Calendar size={13} /> {formatRetreatDates(r.startDate, r.endDate)}</span>
-        </div>
-        <h3 className={s.cardTitle}>{r.title}</h3>
-        {r.summary && <p className={s.cardSummary}>{r.summary}</p>}
-        <span className={s.cardLink}>
-          {nights > 0 && <em>{nights} nights</em>}
-          View retreat <ArrowUpRight size={14} />
-        </span>
-      </div>
-    </Link>
-  )
 }
 
 export default async function RetreatsPage() {
