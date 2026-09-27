@@ -62,6 +62,14 @@ export const siteSettings = defineType({
       group: 'general',
     }),
     defineField({
+      name: 'showRetreatBar',
+      title: 'Show "Next retreat" bar',
+      type: 'boolean',
+      group: 'general',
+      description: 'Thin bar at the top of the site linking to the next upcoming retreat.',
+      initialValue: true,
+    }),
+    defineField({
       name: 'defaultSeo',
       title: 'Default SEO (whole site)',
       type: 'seo',
