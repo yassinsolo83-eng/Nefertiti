@@ -2,7 +2,9 @@ import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import Script from 'next/script'
 import { SITE_URL, SITE_NAME, SITE_EMAIL, DEFAULT_DESCRIPTION, DEFAULT_OG_IMAGE } from '@/lib/site'
-import { getSiteSettings } from '@/sanity/lib/queries'
+import { getSiteSettings, getRetreats } from '@/sanity/lib/queries'
+import { splitRetreats } from '@/lib/retreat-utils'
+import RetreatBar from '@/components/RetreatBar'
 import './globals.css'
 
 const shareDescription =
@@ -78,8 +80,23 @@ function profileLinks(links: string[][]) {
 }
 
 export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  const settings = await getSiteSettings()
+  const [settings, retreats] = await Promise.all([getSiteSettings(), getRetreats()])
   const sameAs = profileLinks(settings.socialLinks)
+
+  const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+  const next = settings.showRetreatBar
+    ? splitRetreats(retreats).upcoming.find((r) => r.status !== 'soldout')
+    : undefined
+  const barRetreat = next
+    ? {
+        id: next.id,
+        title: next.title,
+        place: next.destination?.title || 'Egypt',
+        month: next.startDate
+          ? `${MONTHS[Number(next.startDate.slice(5, 7)) - 1]} ${next.startDate.slice(0, 4)}`
+          : '',
+      }
+    : null
 
   const organizationJsonLd = {
     '@context': 'https://schema.org',
@@ -99,6 +116,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
   return (
     <html lang="en" className="bg-background">
       <body className="antialiased">
+        <RetreatBar retreat={barRetreat} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}

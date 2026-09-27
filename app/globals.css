@@ -475,3 +475,59 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
   .kh-stage { position: relative; }
   .kh-svg, .kh-hint { display: none; }
 }
+
+
+/* ══════════════════════════════════
+   RETREAT ANNOUNCEMENT BAR
+══════════════════════════════════ */
+:root { --retreat-bar-h: 38px; }
+.retreat-bar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 30;
+  height: var(--retreat-bar-h);
+  display: flex; align-items: center; justify-content: center;
+  background: var(--primary); color: var(--primary-foreground);
+  border-bottom: 1px solid rgba(241,210,136,.25);
+  padding: 0 44px;
+}
+.retreat-bar-link {
+  display: inline-flex; align-items: center; gap: 12px; min-width: 0;
+  font-family: 'Montserrat', sans-serif; font-size: 11px; letter-spacing: .06em;
+  white-space: nowrap;
+}
+.retreat-bar-label {
+  color: var(--gold); text-transform: uppercase; letter-spacing: .18em; font-size: 9.5px; font-weight: 500;
+}
+.retreat-bar-sep { color: var(--gold); font-size: 8px; opacity: .8; }
+.retreat-bar-title {
+  font-family: 'Cormorant Garamond', serif; font-size: 16px; font-style: italic;
+  overflow: hidden; text-overflow: ellipsis;
+}
+.retreat-bar-when { opacity: .75; }
+.retreat-bar-cta {
+  display: inline-flex; align-items: center; gap: 5px;
+  color: var(--gold); text-transform: uppercase; letter-spacing: .16em; font-size: 9.5px; font-weight: 500;
+  border-bottom: 1px solid rgba(241,210,136,.4); padding-bottom: 1px;
+  transition: gap .25s, border-color .25s;
+}
+.retreat-bar-link:hover .retreat-bar-cta { gap: 9px; border-color: var(--gold); }
+.retreat-bar-close {
+  position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+  width: 26px; height: 26px; border-radius: 50%; border: 0; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  background: transparent; color: var(--primary-foreground); opacity: .7;
+  transition: opacity .2s, background .2s;
+}
+.retreat-bar-close:hover { opacity: 1; background: rgba(243,240,232,.12); }
+
+/* While the bar is shown: move the fixed navigation below it,
+   and push the page content down by the same height */
+body:has(.retreat-bar) { padding-top: var(--retreat-bar-h); }
+body:has(.retreat-bar) .site-nav { top: var(--retreat-bar-h); }
+
+@media (max-width: 860px) {
+  :root { --retreat-bar-h: 34px; }
+  .retreat-bar { padding: 0 38px 0 14px; justify-content: flex-start; }
+  .retreat-bar-link { gap: 8px; font-size: 10px; }
+  .retreat-bar-title, .retreat-bar-sep { display: none; }
+  .retreat-bar-close { right: 6px; }
+}
