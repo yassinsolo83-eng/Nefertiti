@@ -1,0 +1,233 @@
+/* ══════════════════════════════════
+   DESTINATION DETAIL PAGES — CSS Module
+══════════════════════════════════ */
+
+/* ── Reveal animation ── */
+.dpReveal {
+  opacity: 0; transform: translateY(28px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+.dpReveal:global(.is-visible) { opacity: 1; transform: translateY(0); }
+
+/* ── Hero ── */
+.dpHero {
+  position: relative; width: 100%; height: 85vh; min-height: 500px;
+  overflow: hidden; display: flex; align-items: flex-end;
+}
+.dpHero :global(.back-btn) {
+  color: var(--gold); border-color: rgba(241,210,136,.35);
+  background: rgba(12,4,9,.3);
+}
+.dpHero :global(.back-btn):hover {
+  background: rgba(241,210,136,.15); color: #fff;
+  border-color: var(--gold); gap: 12px;
+}
+.dpHeroMedia {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
+}
+.dpHeroShade {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(12,4,9,.88) 0%, rgba(12,4,9,.35) 40%, transparent 70%);
+}
+.dpHeroContent {
+  position: relative; z-index: 2;
+  padding: 0 max(28px, 6vw) 64px; max-width: 760px;
+}
+.dpHeroFeeling {
+  font-size: 10px; text-transform: uppercase; letter-spacing: .18em;
+  color: var(--gold); margin-bottom: 14px;
+}
+.dpHero h1 {
+  font-family: 'Cormorant Garamond', serif; font-weight: 500;
+  font-size: clamp(40px, 7vw, 72px); color: #fff; line-height: 1.05;
+  margin-bottom: 10px;
+}
+.dpHeroTagline {
+  font-size: 18px; color: rgba(243,240,232,.65);
+  font-style: italic; font-family: 'Cormorant Garamond', serif;
+  margin-bottom: 20px;
+}
+.dpHeroMeta { display: flex; gap: 24px; flex-wrap: wrap; }
+.dpHeroMeta span {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-size: 11px; color: rgba(243,240,232,.6); letter-spacing: .04em;
+}
+
+/* ── Overview ── */
+.dpOverview {
+  padding: 80px max(28px, 8vw); max-width: 820px;
+  margin: 0 auto; text-align: center;
+}
+.dpOverviewText {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(20px, 2.6vw, 26px);
+  line-height: 1.7; color: var(--foreground);
+  font-weight: 400; font-style: italic;
+}
+
+/* ── Section headings (shared) ── */
+.dpSectionHead { text-align: center; margin-bottom: 48px; }
+.dpLabel {
+  font-size: 9px; text-transform: uppercase; letter-spacing: .18em;
+  color: var(--gold-deep); margin-bottom: 14px; display: block;
+  font-family: 'Montserrat', sans-serif;
+}
+.dpSectionHead h2 {
+  font-family: 'Cormorant Garamond', serif; font-weight: 400;
+  font-size: clamp(28px, 4vw, 44px); color: var(--foreground);
+}
+
+/* ── Accordion strip — flex grow on hover ── */
+.dpStripSection { padding: 0 max(20px, 5vw) 80px; }
+.dpStrip {
+  display: flex; gap: 5px; height: clamp(340px, 45vw, 520px);
+  border-radius: 12px; overflow: hidden;
+}
+.dpStripItem {
+  flex: 1; position: relative; overflow: hidden;
+  cursor: pointer; transition: flex .55s cubic-bezier(.4, 0, .2, 1);
+}
+.dpStripItem:hover { flex: 3; }
+.dpStripItem img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; transition: transform .6s ease;
+}
+.dpStripItem:hover img { transform: scale(1.05); }
+.dpStripShade {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(12,4,9,.85) 0%, rgba(12,4,9,.2) 50%, transparent 100%);
+  transition: background .4s;
+}
+.dpStripItem:hover .dpStripShade {
+  background: linear-gradient(to top, rgba(12,4,9,.9) 0%, rgba(12,4,9,.35) 60%, transparent 100%);
+}
+.dpStripNum {
+  position: absolute; bottom: 16px; left: 16px; z-index: 2;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(32px, 4vw, 56px);
+  color: rgba(241,210,136,.35); font-weight: 500; line-height: 1;
+  transition: opacity .4s;
+}
+.dpStripItem:hover .dpStripNum { opacity: 0; }
+.dpStripInfo {
+  position: absolute; bottom: 0; left: 0; right: 0; z-index: 2;
+  padding: 24px 22px; opacity: 0; transform: translateY(12px);
+  transition: opacity .4s .1s, transform .4s .1s;
+}
+.dpStripItem:hover .dpStripInfo { opacity: 1; transform: translateY(0); }
+.dpStripInfo h3 {
+  font-family: 'Cormorant Garamond', serif; font-size: 22px;
+  color: #fff; font-weight: 500; margin-bottom: 8px; line-height: 1.15;
+}
+.dpStripInfo p {
+  font-size: 12px; color: rgba(243,240,232,.72);
+  line-height: 1.7; max-width: 320px;
+}
+
+/* ── Activity grid — hover scale cards ── */
+.dpGridSection { padding: 0 max(20px, 5vw) 80px; }
+.dpActivityGrid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+}
+.dpActivityCard {
+  position: relative; overflow: hidden; border-radius: 10px;
+  background: linear-gradient(135deg, rgba(141,76,101,.08), rgba(46,24,64,.12));
+  border: 1px solid rgba(141,76,101,.12);
+  transition: transform .4s ease, box-shadow .4s ease, border-color .4s;
+  cursor: default;
+}
+.dpActivityCard:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 16px 40px rgba(46,24,64,.18);
+  border-color: rgba(241,210,136,.3);
+}
+.dpActivityInner {
+  padding: 28px 22px; display: flex; align-items: flex-start; gap: 12px;
+}
+.dpActivityIcon { color: var(--gold-deep); flex-shrink: 0; margin-top: 2px; }
+.dpActivityCard h3 {
+  font-family: 'Cormorant Garamond', serif; font-size: 18px;
+  font-weight: 500; color: var(--foreground); line-height: 1.25;
+}
+
+/* ── Ideal for ── */
+.dpIdeal { padding: 0 max(20px, 5vw) 80px; text-align: center; }
+.dpIdeal .dpLabel { margin-bottom: 20px; }
+.dpIdealTags { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+.dpIdealTag {
+  font-size: 12px; padding: 10px 22px; letter-spacing: .04em;
+  border: 1px solid rgba(177,182,149,.4); color: var(--plum);
+  font-family: 'Montserrat', sans-serif; border-radius: 40px;
+  transition: background .3s, border-color .3s;
+}
+.dpIdealTag:hover { background: rgba(177,182,149,.12); border-color: var(--rose); }
+
+/* ── Parallax CTA ── */
+.dpParallax {
+  position: relative; min-height: 90vh;
+  background-size: cover; background-position: center;
+  background-attachment: fixed;
+  display: flex; align-items: center; justify-content: flex-start;
+}
+.dpParallax::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to right, rgba(20,8,16,.88) 0%, rgba(20,8,16,.72) 40%, rgba(20,8,16,.18) 75%, transparent 100%);
+  pointer-events: none;
+}
+.dpParallaxPanel {
+  position: relative; z-index: 1;
+  width: 50%; min-height: 90vh;
+  display: flex; flex-direction: column; align-items: flex-start; justify-content: center;
+  padding: 64px max(32px, 4vw);
+}
+.dpParallaxPanel h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(30px, 4vw, 48px);
+  color: #fff; font-weight: 400; line-height: 1.1; margin-bottom: 16px;
+}
+.dpParallaxPanel p {
+  font-size: 14px; color: rgba(243,240,232,.7);
+  line-height: 1.8; margin-bottom: 32px; max-width: 38ch;
+}
+.dpParallaxActions { display: flex; gap: 14px; flex-wrap: wrap; }
+
+
+/* ══════════════════════════════════
+   RESPONSIVE — 860px
+══════════════════════════════════ */
+@media (max-width: 860px) {
+  .dpHero { height: 70vh; min-height: 420px; }
+  .dpHeroContent { padding: 0 6vw 48px; }
+  .dpHero h1 { font-size: clamp(32px, 9vw, 48px); }
+  .dpOverview { padding: 60px 6vw; }
+  .dpOverviewText { font-size: 20px; }
+
+  .dpStrip {
+    height: auto; flex-direction: column; gap: 12px; border-radius: 0;
+  }
+  .dpStripItem { flex: none !important; height: 280px; border-radius: 10px; }
+  .dpStripItem .dpStripInfo { opacity: 1; transform: translateY(0); }
+  .dpStripItem .dpStripNum { opacity: 0; }
+  .dpStripSection { padding: 0 6vw 60px; }
+  .dpGridSection { padding: 0 6vw 60px; }
+
+  .dpActivityGrid { grid-template-columns: 1fr 1fr; }
+  .dpParallax { min-height: 80vh; background-attachment: scroll; }
+  .dpParallax::before {
+    background: linear-gradient(to top, rgba(20,8,16,.88) 0%, rgba(20,8,16,.65) 50%, rgba(20,8,16,.25) 100%);
+  }
+  .dpParallaxPanel { width: 100%; min-height: 80vh; padding: 48px 6vw; }
+  .dpParallaxActions { flex-direction: column; align-items: flex-start; }
+}
+
+/* ══════════════════════════════════
+   RESPONSIVE — 480px
+══════════════════════════════════ */
+@media (max-width: 480px) {
+  .dpHero { height: 60vh; }
+  .dpHero h1 { font-size: clamp(28px, 10vw, 40px); }
+  .dpActivityGrid { grid-template-columns: 1fr; }
+  .dpStripItem { height: 240px; }
+}

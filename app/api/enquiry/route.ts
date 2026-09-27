@@ -41,6 +41,7 @@ export async function POST(req: Request) {
   const phone = clean(body.phone, 40)
   const practice = clean(body.practice, 120)
   const message = clean(body.message, 5000)
+  const retreat = clean(body.retreat, 200)
 
   const errors: Record<string, string> = {}
   if (!name) errors.name = 'Please enter your name.'
@@ -62,6 +63,7 @@ export async function POST(req: Request) {
       email,
       phone,
       practice,
+      retreat: retreat || undefined,
       message,
       submittedAt: new Date().toISOString(),
     })
