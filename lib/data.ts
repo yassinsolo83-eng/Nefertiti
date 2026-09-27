@@ -632,3 +632,77 @@ export const destinationDetails: Record<string, DestDetail> = {
     parallaxImage: '/cta-desert.webp',
   },
 }
+
+// ── Retreats ──
+export type RetreatStatus = 'open' | 'few' | 'soldout' | 'soon'
+
+export type RetreatDay = { day: string; title: string; description: string }
+
+export type RetreatFacilitator = { id: string; name: string; category: string; image: string }
+
+export type Retreat = {
+  id: string                 // slug used in the URL
+  title: string
+  image: string
+  status: RetreatStatus
+  startDate: string          // YYYY-MM-DD
+  endDate: string            // YYYY-MM-DD
+  destination?: { id: string; title: string } | null
+  summary: string
+  description: string
+  itinerary: RetreatDay[]
+  included: string[]
+  facilitators: RetreatFacilitator[]
+  seo?: SeoFields
+}
+
+// SAMPLE retreats — shown only while there are no retreats in Sanity.
+// They disappear automatically as soon as the first real retreat is published
+// in the Studio. Delete this list once real retreats exist.
+export const sampleRetreats: Retreat[] = [
+  {
+    id: 'sample-luxor-nile-awakening',
+    title: 'Nile Awakening — Yoga & Sound in Luxor',
+    image: images.felucca,
+    status: 'open',
+    startDate: '2027-03-12',
+    endDate: '2027-03-19',
+    destination: { id: 'luxor', title: 'Luxor' },
+    summary:
+      'Seven nights of sunrise yoga, sound healing and slow days on the Nile, framed by the temples of ancient Thebes.',
+    description:
+      'This is a sample retreat to preview how the page looks. Replace it with a real retreat from the Studio.\n\nNile Awakening brings together daily yoga, guided meditation and sound healing with the timeless setting of Luxor — mornings on the mat, afternoons exploring temples, and evenings drifting on a felucca as the sun sets over the West Bank.',
+    itinerary: [
+      { day: 'Day 1', title: 'Arrival & Welcome Circle', description: 'Private transfer to the retreat house, welcome dinner and an opening circle under the stars.' },
+      { day: 'Days 2–3', title: 'Temples & Practice', description: 'Sunrise yoga, then guided visits to Karnak and Luxor Temple with time to rest in between.' },
+      { day: 'Day 4', title: 'Sound Healing on the Nile', description: 'A sound bath on a private felucca, followed by a free afternoon.' },
+      { day: 'Days 5–6', title: 'West Bank & Stillness', description: 'Valley of the Kings, a hammam ritual and deeper meditation sessions.' },
+      { day: 'Day 7', title: 'Closing Ceremony', description: 'Final practice, closing circle and a farewell dinner by the river.' },
+    ],
+    included: [
+      '7 nights boutique accommodation',
+      'Daily yoga & meditation',
+      'Two sound healing sessions',
+      'All breakfasts and dinners',
+      'Private felucca sunset sail',
+      'Guided temple visits',
+      'Airport transfers',
+    ],
+    facilitators: [],
+  },
+  {
+    id: 'sample-red-sea-reset',
+    title: 'Red Sea Reset — A Women’s Wellness Retreat',
+    image: images.floatingYoga,
+    status: 'soldout',
+    startDate: '2026-04-05',
+    endDate: '2026-04-10',
+    destination: { id: 'red-sea', title: 'Red Sea' },
+    summary: 'Five days of floating yoga, breathwork and ocean swims on the Red Sea coast.',
+    description:
+      'This is a sample past retreat to preview the Past Retreats section. Replace it with a real retreat from the Studio.',
+    itinerary: [],
+    included: ['5 nights beachfront accommodation', 'Daily floating yoga', 'Breathwork sessions', 'All meals'],
+    facilitators: [],
+  },
+]

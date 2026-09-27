@@ -16,6 +16,7 @@ export type SeoPageKey =
   | 'howItWorks'
   | 'partners'
   | 'contact'
+  | 'retreats'
 
 type BuildOptions = {
   seo?: SeoFields | null            // values from Sanity (win when filled)
