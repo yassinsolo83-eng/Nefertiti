@@ -282,6 +282,7 @@ const SETTINGS_QUERY = `*[_type == "siteSettings"][0] {
   appointmentServices,
   combinations,
   contactEmail,
+  showRetreatBar,
   "defaultSeo": defaultSeo { metaTitle, metaDescription, noIndex, "ogImage": ogImage.asset->url },
   "aboutSeo": aboutSeo { metaTitle, metaDescription, noIndex, "ogImage": ogImage.asset->url },
   "servicesSeo": servicesSeo { metaTitle, metaDescription, noIndex, "ogImage": ogImage.asset->url },
@@ -313,6 +314,7 @@ export async function getSiteSettings() {
       ? result.combinations
       : staticCombinations,
     contactEmail: result?.contactEmail || 'hello@nefertitiretreats.com',
+    showRetreatBar: result?.showRetreatBar !== false,
     seo: {
       default: result?.defaultSeo || null,
       about: result?.aboutSeo || null,
