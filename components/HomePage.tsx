@@ -19,7 +19,7 @@ type Props = {
   featuredDestinations: Destination[]
   moreDestinations: Destination[]
   partners: Partner[]
-  t: Record<string, string>
+  t: (typeof import('@/lib/data').copy)['en']
   combinations: string[]
   whatsappLink: string
   upcomingRetreats: Retreat[]

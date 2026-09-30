@@ -2,7 +2,6 @@
 
 import { useState, useRef } from 'react'
 import { ArrowUpRight } from 'lucide-react'
-import { copy } from '@/lib/data'
 import SiteNav from '@/components/SiteNav'
 import SiteFooter from '@/components/SiteFooter'
 import BackButton from '@/components/BackButton'
@@ -11,7 +10,6 @@ import styles from '@/app/experiences/experiences.module.css'
 type Props = { experiences: { title: string; text: string; image: string }[] }
 
 export default function ExperiencesPage({ experiences }: Props) {
-  const t = copy.en
   const [activeIdx, setActiveIdx] = useState(0)
   const listRef = useRef<HTMLDivElement>(null)
   const [imgY, setImgY] = useState(0)

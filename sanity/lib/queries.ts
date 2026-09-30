@@ -100,7 +100,6 @@ export async function getDestinationBySlug(slug: string): Promise<{ dest: Destin
     return { dest: staticDest, detail: staticDetail }
   }
 
-  const staticDest = staticFeatured.find(d => d.id === dest.id)
   const staticDetail = staticDetails[slug]
 
   const mergedDest = mergeDestImage(dest, staticFeatured)
@@ -268,7 +267,7 @@ const STEP_QUERY = `*[_type == "step"] | order(order asc) { title, description, 
 
 export async function getSteps(): Promise<[string, string][]> {
   const result = await safeFetch<any[]>(STEP_QUERY, [])
-  if (result.length === 0) return staticSteps
+  if (result.length === 0) return staticSteps as [string, string][]
   return result.map(s => [s.title, s.description])
 }
 

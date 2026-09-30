@@ -2,7 +2,6 @@
 
 import { useState, useRef } from 'react'
 import { ArrowUpRight } from 'lucide-react'
-import { copy } from '@/lib/data'
 import SiteNav from '@/components/SiteNav'
 import SiteFooter from '@/components/SiteFooter'
 import BackButton from '@/components/BackButton'
@@ -22,7 +21,6 @@ const stepImages = [
 type Props = { steps: [string, string][] }
 
 export default function HowItWorksPage({ steps }: Props) {
-  const t = copy.en
   const [activeIdx, setActiveIdx] = useState(0)
   const listRef = useRef<HTMLDivElement>(null)
   const [imgY, setImgY] = useState(0)

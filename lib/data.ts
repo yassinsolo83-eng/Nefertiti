@@ -366,8 +366,6 @@ export const socialLinks = [
 // Replace with the real number in international format, digits only (no +, no spaces).
 export const whatsappNumber = '20XXXXXXXXXX'
 export const whatsappMessage = 'Hi Nefertiti! I\'d love to book a discovery call about hosting a retreat in Egypt.'
-export const whatsappLink =
-  `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`
 
 // Egypt-centred map (no fixed pin) — OpenStreetMap embed, licence-free
 export const egyptMapEmbed =
