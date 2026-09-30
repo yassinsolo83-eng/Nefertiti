@@ -129,18 +129,6 @@
   font-style: italic; font-family: 'Cormorant Garamond', serif;
 }
 
-.destCardToggle {
-  position: absolute; bottom: 26px; right: 22px; z-index: 3;
-  width: 32px; height: 32px;
-  border: 1px solid rgba(241,210,136,.4); color: var(--gold);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 18px; font-weight: 200;
-  transition: background .25s, color .25s;
-  pointer-events: none;
-}
-.destCard:hover .destCardToggle {
-  background: var(--gold); color: var(--plum); border-color: var(--gold);
-}
 
 .destCardExplore {
   display: inline-flex; align-items: center; gap: 6px; margin-top: 14px;

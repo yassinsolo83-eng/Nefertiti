@@ -14,10 +14,6 @@
   letter-spacing: -.01em; margin-bottom: 30px;
 }
 
-.contactBlockLead {
-  font-size: 14px; line-height: 1.8; color: var(--foreground);
-  opacity: .78; max-width: 34ch; margin-bottom: 40px;
-}
 
 /* Form card (right / main form) */
 .contactRight {

@@ -295,10 +295,6 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
 .reveal { opacity: 0; transform: translateY(20px); transition: opacity .8s ease, transform .8s ease; }
 .reveal.is-visible { opacity: 1; transform: none; }
 .reveal.is-in { opacity: 1; transform: none; }
-.delay-1 { transition-delay: .1s; }
-.delay-2 { transition-delay: .2s; }
-.delay-3 { transition-delay: .3s; }
-.delay-4 { transition-delay: .4s; }
 
 
 /* ══════════════════════════════════
