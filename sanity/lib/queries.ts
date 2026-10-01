@@ -347,7 +347,8 @@ const SETTINGS_QUERY = `*[_type == "siteSettings"][0] {
 export async function getSiteSettings() {
   const result = await safeFetch<any>(SETTINGS_QUERY, null)
 
-  const whatsappNumber = result?.whatsappNumber || staticWhatsappNumber
+  // Keep digits only: wa.me links break with "+", spaces or dashes (e.g. "+39 331 448 6876")
+  const whatsappNumber = String(result?.whatsappNumber || staticWhatsappNumber).replace(/\D/g, '')
   const whatsappMessage = result?.whatsappMessage || staticWhatsappMessage
   const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`
 
