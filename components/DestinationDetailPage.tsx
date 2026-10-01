@@ -56,7 +56,7 @@ export default function DestinationDetailPage({ dest, detail, whatsappLink }: Pr
           <video
             className={s.dpHeroMedia}
             src={dest.video}
-            poster="/hero-shirodhara.webp"
+            poster={dest.image || undefined}
             autoPlay muted loop playsInline preload="auto"
           />
         ) : (

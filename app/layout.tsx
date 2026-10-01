@@ -5,6 +5,7 @@ import { SITE_URL, SITE_NAME, SITE_EMAIL, DEFAULT_DESCRIPTION, DEFAULT_OG_IMAGE 
 import { getSiteSettings, getRetreats } from '@/sanity/lib/queries'
 import { splitRetreats } from '@/lib/retreat-utils'
 import RetreatBar from '@/components/RetreatBar'
+import { SiteSettingsProvider } from '@/components/SiteSettingsProvider'
 import './globals.css'
 
 const shareDescription =
@@ -138,7 +139,9 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
           src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
           strategy="afterInteractive"
         />
-        {children}
+        <SiteSettingsProvider value={{ contactEmail: settings.contactEmail, socialLinks: settings.socialLinks }}>
+          {children}
+        </SiteSettingsProvider>
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>

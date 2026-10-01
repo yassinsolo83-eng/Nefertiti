@@ -1,7 +1,8 @@
 'use client'
 
-import { Camera, Mail, MapPin } from 'lucide-react'
+import { ArrowUpRight, Mail, MapPin } from 'lucide-react'
 import { images } from '@/lib/data'
+import { useSiteSettings } from '@/components/SiteSettingsProvider'
 
 const NAV = [
   ['About', '/about'],
@@ -14,7 +15,19 @@ const NAV = [
   ['Contact', '/contact'],
 ]
 
+// Only real profile links (e.g. https://instagram.com/nefertiti), not bare placeholders
+function isProfileLink(url: string) {
+  try {
+    return new URL(url).pathname.replace(/\/$/, '').length > 1
+  } catch {
+    return false
+  }
+}
+
 export default function SiteFooter() {
+  const { contactEmail, socialLinks } = useSiteSettings()
+  const socials = socialLinks.filter(([, url]) => isProfileLink(url))
+
   return (
     <footer>
       <div className="footer-brand">
@@ -31,13 +44,17 @@ export default function SiteFooter() {
         </div>
         <div>
           <p className="footer-label">Contact</p>
-          <a href="mailto:hello@nefertitiretreats.com"><Mail size={14} /> hello@nefertitiretreats.com</a>
+          <a href={`mailto:${contactEmail}`}><Mail size={14} /> {contactEmail}</a>
           <p><MapPin size={14} /> Cairo · Siwa · Everywhere</p>
-          <a href="/contact"><Camera size={14} /> Instagram</a>
+          {socials.map(([label, url]) => (
+            <a key={url} href={url} target="_blank" rel="noopener noreferrer">
+              <ArrowUpRight size={14} /> {label}
+            </a>
+          ))}
         </div>
       </div>
       <div className="footer-bottom">
-        <span>© 2026 Nefertiti Retreats</span>
+        <span>© {new Date().getFullYear()} Nefertiti Retreats</span>
         <span className="footer-legal">
           <a href="/terms">Terms &amp; Conditions</a>
           <a href="/privacy">Privacy Policy</a>

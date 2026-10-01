@@ -136,10 +136,15 @@ export async function getExperiences() {
   const result = await safeFetch<any[]>(EXP_QUERY, [])
   if (result.length === 0) return staticExperiences
 
+  // An experience without its own image falls back to the built-in image with the same title
+  const byTitle = new Map(staticExperiences.map((e) => [e.title.toLowerCase(), e.image]))
   return result.map((exp, i) => ({
     title: exp.title,
     text: exp.text || '',
-    image: exp.image || staticExperiences[i]?.image || '',
+    image:
+      exp.image ||
+      byTitle.get(String(exp.title || '').toLowerCase()) ||
+      staticExperiences[i % staticExperiences.length].image,
   }))
 }
 
@@ -209,7 +214,10 @@ export async function getServiceTiers(): Promise<ServiceTier[]> {
     title: t.name,
     desc: t.description || '',
     items: t.features || [],
-    image: t.image || staticTiers[i]?.image || staticTiers[0].image,
+    image:
+      t.image ||
+      staticTiers.find((x) => x.title.toLowerCase() === String(t.name || '').toLowerCase())?.image ||
+      staticTiers[i % staticTiers.length].image,
   }))
 }
 
@@ -279,10 +287,11 @@ export async function getSteps(): Promise<Step[]> {
   if (result.length === 0) {
     return staticSteps.map(([title, description], i) => ({ title, description, image: fallbackImage(i) }))
   }
+  const byTitle = new Map(staticSteps.map(([title], i) => [title.toLowerCase(), staticStepImages[i]]))
   return result.map((s, i) => ({
     title: s.title || '',
     description: s.description || '',
-    image: s.image || fallbackImage(i),
+    image: s.image || byTitle.get(String(s.title || '').toLowerCase()) || fallbackImage(i),
   }))
 }
 
