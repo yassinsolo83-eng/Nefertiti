@@ -17,7 +17,12 @@ import {
 
 type Item = { id: string; fields: Record<string, unknown>; image?: string }
 
-const lower = (v: unknown) => String(v || '').trim().toLowerCase()
+// Compare titles loosely: ignore case and a leading number like "I." / "2." / "III -"
+const lower = (v: unknown) =>
+  String(v || '')
+    .trim()
+    .toLowerCase()
+    .replace(/^([ivx]+|\d+)\s*[.\-–—:)]\s*/, '')
 
 /**
  * Studio tool that brings the site's built-in content into Sanity so it can be edited:
