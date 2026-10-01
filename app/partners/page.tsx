@@ -41,11 +41,13 @@ export default async function PartnersPage() {
               </Link>
               <Link href={`/partners/${p.id}`} className="team-card-name">{p.name}</Link>
               <p className="team-card-role">{p.category}</p>
-              <div className="team-card-socials">
-                <a href={p.instagram ? `https://instagram.com/${p.instagram}` : '#'} target={p.instagram ? '_blank' : undefined} rel="noopener noreferrer">IN</a>
-                <a href={p.x ? `https://x.com/${p.x}` : '#'} target={p.x ? '_blank' : undefined} rel="noopener noreferrer">X</a>
-                <a href={p.tiktok ? `https://tiktok.com/@${p.tiktok}` : '#'} target={p.tiktok ? '_blank' : undefined} rel="noopener noreferrer">TT</a>
-              </div>
+              {(p.instagram || p.x || p.tiktok) && (
+                <div className="team-card-socials">
+                  {p.instagram && <a href={`https://instagram.com/${p.instagram}`} target="_blank" rel="noopener noreferrer" aria-label={`${p.name} on Instagram`}>IN</a>}
+                  {p.x && <a href={`https://x.com/${p.x}`} target="_blank" rel="noopener noreferrer" aria-label={`${p.name} on X`}>X</a>}
+                  {p.tiktok && <a href={`https://tiktok.com/@${p.tiktok}`} target="_blank" rel="noopener noreferrer" aria-label={`${p.name} on TikTok`}>TT</a>}
+                </div>
+              )}
             </div>
           ))}
         </div>
