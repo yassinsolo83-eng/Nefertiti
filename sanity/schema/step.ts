@@ -19,6 +19,13 @@ export const step = defineType({
       validation: (r) => r.required(),
     }),
     defineField({
+      name: 'image',
+      title: 'Image',
+      type: 'image',
+      options: { hotspot: true },
+      description: 'Shown when this step is selected on the How It Works page.',
+    }),
+    defineField({
       name: 'order',
       title: 'Step Number',
       type: 'number',
@@ -27,7 +34,7 @@ export const step = defineType({
   ],
   orderings: [{ title: 'Step Number', name: 'order', by: [{ field: 'order', direction: 'asc' }] }],
   preview: {
-    select: { title: 'title', order: 'order' },
-    prepare: ({ title, order }) => ({ title: `${order}. ${title}` }),
+    select: { title: 'title', order: 'order', media: 'image' },
+    prepare: ({ title, order, media }) => ({ title: `${order}. ${title}`, media }),
   },
 })

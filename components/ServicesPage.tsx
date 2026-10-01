@@ -3,21 +3,19 @@
 import { useState, useRef } from 'react'
 import { ArrowUpRight, Check } from 'lucide-react'
 import { copy } from '@/lib/data'
+import type { ServiceTier } from '@/sanity/lib/queries'
 import SiteNav from '@/components/SiteNav'
 import SiteFooter from '@/components/SiteFooter'
 import BackButton from '@/components/BackButton'
 import styles from '@/app/services/services.module.css'
 
-type Tier = { num: string; title: string; desc: string; items: string[] }
-type Props = { serviceTiers: Tier[] }
+type Props = { serviceTiers: ServiceTier[]; heroImage: string }
 
-export default function ServicesPage({ serviceTiers }: Props) {
+export default function ServicesPage({ serviceTiers, heroImage }: Props) {
   const t = copy.en
   const [activeIdx, setActiveIdx] = useState(0)
   const listRef = useRef<HTMLDivElement>(null)
   const [imgY, setImgY] = useState(0)
-
-  const tierImages = ['/srv-hero.webp', '/srv-yoga.webp', '/exp-spa.webp']
 
   const handleHover = (i: number) => {
     setActiveIdx(i)
@@ -35,7 +33,7 @@ export default function ServicesPage({ serviceTiers }: Props) {
     <main className="inner-page">
       <SiteNav solid />
 
-      <section className={styles.hero}>
+      <section className={styles.hero} style={{ backgroundImage: `url('${heroImage}')` }}>
         <div className={`${styles.backWrap} hero-back`}>
           <BackButton />
         </div>
@@ -60,7 +58,7 @@ export default function ServicesPage({ serviceTiers }: Props) {
               style={{ transform: `translateY(${imgY}px)` }}
             >
               <img
-                src={tierImages[activeIdx]}
+                src={serviceTiers[activeIdx].image}
                 alt={serviceTiers[activeIdx].title}
                 key={activeIdx}
               />
@@ -69,7 +67,7 @@ export default function ServicesPage({ serviceTiers }: Props) {
             <div className={styles.list} ref={listRef}>
               {serviceTiers.map((tier, i) => (
                 <div
-                  key={tier.num}
+                  key={`${tier.num}-${tier.title}`}
                   className={`${styles.row} ${i === activeIdx ? styles.rowActive : ''}`}
                   onMouseEnter={() => handleHover(i)}
                   onClick={() => handleHover(i)}
@@ -80,7 +78,7 @@ export default function ServicesPage({ serviceTiers }: Props) {
                   </div>
                   {i === activeIdx && (
                     <div className={styles.rowDetails}>
-                      <img src={tierImages[i]} alt={tier.title} className={styles.rowImg} />
+                      <img src={tier.image} alt={tier.title} className={styles.rowImg} />
                       <p className={styles.rowDesc}>{tier.desc}</p>
                       <ul className={styles.rowItems}>
                         {tier.items.map((item) => (

@@ -22,6 +22,7 @@ export const experience = defineType({
       title: 'Image',
       type: 'image',
       options: { hotspot: true },
+      description: 'Shown when this experience is selected on the Experiences page.',
     }),
     defineField({
       name: 'order',

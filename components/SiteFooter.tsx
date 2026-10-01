@@ -38,6 +38,10 @@ export default function SiteFooter() {
       </div>
       <div className="footer-bottom">
         <span>© 2026 Nefertiti Retreats</span>
+        <span className="footer-legal">
+          <a href="/terms">Terms &amp; Conditions</a>
+          <a href="/privacy">Privacy Policy</a>
+        </span>
         <span className="notranslate">Translations powered by Google · Traduzioni offerte da Google</span>
         <span>Made with presence</span>
       </div>

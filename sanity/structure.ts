@@ -30,6 +30,10 @@ export const structure: StructureResolver = (S) =>
       S.documentTypeListItem('step').title('How It Works — Steps'),
       S.documentTypeListItem('faq').title('FAQs'),
       S.documentTypeListItem('siteContent').title('Site Content'),
+      S.listItem()
+        .title('Page Images')
+        .schemaType('pageImages')
+        .child(S.document().schemaType('pageImages').documentId('pageImages').title('Page Images')),
 
       S.divider(),
 

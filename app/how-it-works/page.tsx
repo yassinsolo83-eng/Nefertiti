@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { buildMetadata } from '@/lib/seo'
-import { getSteps, getSiteSettings } from '@/sanity/lib/queries'
+import { getPageImages, getSteps, getSiteSettings } from '@/sanity/lib/queries'
 import HowItWorksPage from '@/components/HowItWorksPage'
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -15,6 +15,6 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Page() {
-  const steps = await getSteps()
-  return <HowItWorksPage steps={steps} />
+  const [steps, pageImages] = await Promise.all([getSteps(), getPageImages()])
+  return <HowItWorksPage steps={steps} heroImage={pageImages.howItWorksHero} />
 }

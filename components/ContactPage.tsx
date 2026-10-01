@@ -2,9 +2,8 @@
 
 import { useState, useEffect } from 'react'
 import { MessageCircle, ArrowUpRight } from 'lucide-react'
-import {
-  images, egyptMapEmbed, egyptMapLink,
-} from '@/lib/data'
+import { egyptMapEmbed, egyptMapLink } from '@/lib/data'
+import type { PageImages } from '@/lib/data'
 import SiteNav from '@/components/SiteNav'
 import SiteFooter from '@/components/SiteFooter'
 import BackButton from '@/components/BackButton'
@@ -15,9 +14,10 @@ type Props = {
   whatsappLink: string
   socialLinks: [string, string][]
   appointmentServices: string[]
+  pageImages: PageImages
 }
 
-export default function ContactPage({ faqs, whatsappLink, socialLinks, appointmentServices }: Props) {
+export default function ContactPage({ faqs, whatsappLink, socialLinks, appointmentServices, pageImages }: Props) {
   const [form, setForm] = useState({
     name: '', email: '', phone: '', practice: '', message: '',
   })
@@ -93,7 +93,7 @@ export default function ContactPage({ faqs, whatsappLink, socialLinks, appointme
           </p>
         </div>
         <div className="page-hero-image reveal is-in">
-          <img src={images.hammam} alt="A quiet moment of care" />
+          <img src={pageImages.contactHero} alt="A quiet moment of care" />
         </div>
       </section>
 
@@ -162,6 +162,12 @@ export default function ContactPage({ faqs, whatsappLink, socialLinks, appointme
 
               {formError && <p style={errorStyle}>{formError}</p>}
 
+              <p style={{ fontSize: 11, lineHeight: 1.6, opacity: 0.7, margin: 0 }}>
+                By sending this form you agree that we use your details to reply to your enquiry, as described in
+                our{' '}
+                <a href="/privacy" style={{ color: 'var(--primary)', textDecoration: 'underline' }}>Privacy Policy</a>.
+              </p>
+
               <button
                 className={s.formSubmitFilled}
                 onClick={submit}
@@ -189,7 +195,7 @@ export default function ContactPage({ faqs, whatsappLink, socialLinks, appointme
           </div>
 
           <div className={s.contactDetailImage}>
-            <img src={images.felucca} alt="Golden light on the water" />
+            <img src={pageImages.contactSide} alt="Golden light on the water" />
           </div>
 
           <div className={s.contactSocial}>
@@ -219,7 +225,7 @@ export default function ContactPage({ faqs, whatsappLink, socialLinks, appointme
         <div className={s.faqGrid}>
           <div className="reveal is-in">
             <div className={s.faqAsideImage}>
-              <img src={images.hammam} alt="A quiet ritual moment" />
+              <img src={pageImages.contactFaq} alt="A quiet ritual moment" />
             </div>
             <p className={s.faqAsideText}>Still have a question? Send us a message above and our team will get back to you.</p>
             <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="button button-berry">Ask on WhatsApp <ArrowUpRight size={16} /></a>

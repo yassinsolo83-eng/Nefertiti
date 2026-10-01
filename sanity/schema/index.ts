@@ -9,6 +9,7 @@ import { siteSettings } from './siteSettings'
 import { seo } from './seo'
 import { enquiry } from './enquiry'
 import { retreat } from './retreat'
+import { pageImages } from './pageImages'
 
 export const schemaTypes = [
   enquiry,
@@ -21,5 +22,6 @@ export const schemaTypes = [
   siteContent,
   step,
   siteSettings,
+  pageImages,
   seo,
 ]

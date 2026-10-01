@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   if (!r) return { title: 'Retreat not found', robots: { index: false } }
 
   const where = r.destination ? ` in ${r.destination.title}` : ' in Egypt'
-  const meta = buildMetadata({
+  return buildMetadata({
     seo: r.seo,
     fallbackSeo: settings.seo.default,
     title: r.title,
@@ -28,9 +28,6 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
     image: r.image,
     imageAlt: r.title,
   })
-  // Keep sample retreats out of Google
-  if (r.id.startsWith('sample-')) meta.robots = { index: false, follow: true }
-  return meta
 }
 
 export default async function RetreatDetailPage({ params }: Params) {

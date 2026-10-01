@@ -22,6 +22,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE_URL}/partners`, lastModified: now, changeFrequency: 'monthly', priority: 0.6 },
     { url: `${SITE_URL}/about`, lastModified: now, changeFrequency: 'yearly', priority: 0.6 },
     { url: `${SITE_URL}/contact`, lastModified: now, changeFrequency: 'yearly', priority: 0.7 },
+    { url: `${SITE_URL}/terms`, lastModified: now, changeFrequency: 'yearly', priority: 0.3 },
+    { url: `${SITE_URL}/privacy`, lastModified: now, changeFrequency: 'yearly', priority: 0.3 },
   ]
 
   const [featured, more, partners, retreats] = await Promise.all([
@@ -59,9 +61,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.5,
   }))
 
-  // Sample retreats and hidden ones stay out of the sitemap
+  // Retreats marked "Hide from Google" stay out of the sitemap
   const retreatRoutes: MetadataRoute.Sitemap = retreats
-    .filter((r) => !r.id.startsWith('sample-') && !r.seo?.noIndex)
+    .filter((r) => !r.seo?.noIndex)
     .map((r) => ({
       url: `${SITE_URL}/retreats/${r.id}`,
       lastModified: now,

@@ -6,21 +6,11 @@ import SiteNav from '@/components/SiteNav'
 import SiteFooter from '@/components/SiteFooter'
 import BackButton from '@/components/BackButton'
 import styles from '@/app/how-it-works/how-it-works.module.css'
+import type { Step } from '@/sanity/lib/queries'
 
-const stepImages = [
-  '/exp-sound-healing.webp',
-  '/exp-meditation.webp',
-  '/cta-cairo.webp',
-  '/exp-beauty.webp',
-  '/srv-hero.webp',
-  '/exp-felucca.webp',
-  '/cta-luxor.webp',
-  '/srv-yoga.webp',
-]
+type Props = { steps: Step[]; heroImage: string }
 
-type Props = { steps: [string, string][] }
-
-export default function HowItWorksPage({ steps }: Props) {
+export default function HowItWorksPage({ steps, heroImage }: Props) {
   const [activeIdx, setActiveIdx] = useState(0)
   const listRef = useRef<HTMLDivElement>(null)
   const [imgY, setImgY] = useState(0)
@@ -41,7 +31,7 @@ export default function HowItWorksPage({ steps }: Props) {
     <main className="inner-page">
       <SiteNav solid />
 
-      <section className={styles.hero}>
+      <section className={styles.hero} style={{ backgroundImage: `url('${heroImage}')` }}>
         <div className={`${styles.backWrap} hero-back`}>
           <BackButton />
         </div>
@@ -69,16 +59,16 @@ export default function HowItWorksPage({ steps }: Props) {
               style={{ transform: `translateY(${imgY}px)` }}
             >
               <img
-                src={stepImages[activeIdx]}
-                alt={steps[activeIdx][0]}
+                src={steps[activeIdx].image}
+                alt={steps[activeIdx].title}
                 key={activeIdx}
               />
             </div>
 
             <div className={styles.list} ref={listRef}>
-              {steps.map(([step, text], i) => (
+              {steps.map(({ title: step, description: text, image }, i) => (
                 <div
-                  key={step}
+                  key={`${i}-${step}`}
                   className={`${styles.row} ${i === activeIdx ? styles.rowActive : ''}`}
                   onMouseEnter={() => handleHover(i)}
                   onClick={() => handleHover(i)}
@@ -89,7 +79,7 @@ export default function HowItWorksPage({ steps }: Props) {
                   </div>
                   {i === activeIdx && (
                     <div className={styles.rowExpanded}>
-                      <img src={stepImages[i]} alt={step} className={styles.rowImg} />
+                      <img src={image} alt={step} className={styles.rowImg} />
                       <p className={styles.rowText}>{text}</p>
                     </div>
                   )}

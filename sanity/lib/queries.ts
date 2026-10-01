@@ -14,9 +14,10 @@ import {
   whatsappNumber as staticWhatsappNumber,
   whatsappMessage as staticWhatsappMessage,
   appointmentServices as staticAppointmentServices,
-  sampleRetreats as staticSampleRetreats,
+  stepImages as staticStepImages,
+  pageImageDefaults,
 } from '@/lib/data'
-import type { Destination, DestDetail, Retreat } from '@/lib/data'
+import type { Destination, DestDetail, Retreat, PageImages } from '@/lib/data'
 import type { SeoFields, SeoPageKey } from '@/lib/seo'
 
 // ── Revalidation: Sanity data refreshes every 60 seconds ──
@@ -193,17 +194,22 @@ export async function getFaqs(): Promise<[string, string][]> {
 // ══════════════════════════════════════
 
 const TIER_QUERY = `*[_type == "serviceTier"] | order(order asc) {
-  name, price, description, features
+  name, price, description, features, "image": image.asset->url
 }`
 
-export async function getServiceTiers() {
+const ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X']
+
+export type ServiceTier = { num: string; title: string; desc: string; items: string[]; image: string }
+
+export async function getServiceTiers(): Promise<ServiceTier[]> {
   const result = await safeFetch<any[]>(TIER_QUERY, [])
   if (result.length === 0) return staticTiers
   return result.map((t, i) => ({
-    num: staticTiers[i]?.num || `${i + 1}`,
+    num: ROMAN[i] || `${i + 1}`,
     title: t.name,
     desc: t.description || '',
     items: t.features || [],
+    image: t.image || staticTiers[i]?.image || staticTiers[0].image,
   }))
 }
 
@@ -263,12 +269,49 @@ export async function getSiteContent() {
 //  STEPS (How It Works)
 // ══════════════════════════════════════
 
-const STEP_QUERY = `*[_type == "step"] | order(order asc) { title, description, order }`
+const STEP_QUERY = `*[_type == "step"] | order(order asc) { title, description, order, "image": image.asset->url }`
 
-export async function getSteps(): Promise<[string, string][]> {
+export type Step = { title: string; description: string; image: string }
+
+export async function getSteps(): Promise<Step[]> {
   const result = await safeFetch<any[]>(STEP_QUERY, [])
-  if (result.length === 0) return staticSteps as [string, string][]
-  return result.map(s => [s.title, s.description])
+  const fallbackImage = (i: number) => staticStepImages[i % staticStepImages.length]
+  if (result.length === 0) {
+    return staticSteps.map(([title, description], i) => ({ title, description, image: fallbackImage(i) }))
+  }
+  return result.map((s, i) => ({
+    title: s.title || '',
+    description: s.description || '',
+    image: s.image || fallbackImage(i),
+  }))
+}
+
+// ══════════════════════════════════════
+//  PAGE IMAGES (banners and fixed photos on each page)
+// ══════════════════════════════════════
+
+const PAGE_IMAGES_QUERY = `*[_id == "pageImages"][0] {
+  "aboutHero": aboutHero.asset->url,
+  "founderPhoto": founderPhoto.asset->url,
+  "servicesHero": servicesHero.asset->url,
+  "experiencesHero": experiencesHero.asset->url,
+  "howItWorksHero": howItWorksHero.asset->url,
+  "retreatsHero": retreatsHero.asset->url,
+  "contactHero": contactHero.asset->url,
+  "contactSide": contactSide.asset->url,
+  "contactFaq": contactFaq.asset->url
+}`
+
+// Any image not set in the Studio keeps the original one
+export async function getPageImages(): Promise<PageImages> {
+  const result = await safeFetch<Partial<PageImages> | null>(PAGE_IMAGES_QUERY, null)
+  const merged = { ...pageImageDefaults }
+  if (result) {
+    for (const key of Object.keys(merged) as (keyof PageImages)[]) {
+      if (result[key]) merged[key] = result[key] as string
+    }
+  }
+  return merged
 }
 
 // ══════════════════════════════════════
@@ -360,10 +403,9 @@ function normalizeRetreat(r: any): Retreat {
   }
 }
 
-// Sample retreats show only until the first real retreat exists in Sanity
+// Retreats come only from Sanity — there is no built-in fallback list
 export async function getRetreats(): Promise<Retreat[]> {
   const result = await safeFetch<any[]>(RETREAT_QUERY, [])
-  if (result.length === 0) return staticSampleRetreats
   return result.map(normalizeRetreat)
 }
 

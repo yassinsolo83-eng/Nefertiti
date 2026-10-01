@@ -7,9 +7,9 @@ import SiteFooter from '@/components/SiteFooter'
 import BackButton from '@/components/BackButton'
 import styles from '@/app/experiences/experiences.module.css'
 
-type Props = { experiences: { title: string; text: string; image: string }[] }
+type Props = { experiences: { title: string; text: string; image: string }[]; heroImage: string }
 
-export default function ExperiencesPage({ experiences }: Props) {
+export default function ExperiencesPage({ experiences, heroImage }: Props) {
   const [activeIdx, setActiveIdx] = useState(0)
   const listRef = useRef<HTMLDivElement>(null)
   const [imgY, setImgY] = useState(0)
@@ -30,7 +30,7 @@ export default function ExperiencesPage({ experiences }: Props) {
     <main className="inner-page">
       <SiteNav solid />
 
-      <section className={styles.hero}>
+      <section className={styles.hero} style={{ backgroundImage: `url('${heroImage}')` }}>
         <div className={`${styles.backWrap} hero-back`}>
           <BackButton />
         </div>

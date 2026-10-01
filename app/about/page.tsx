@@ -1,8 +1,7 @@
 import type { Metadata } from 'next'
 import { buildMetadata } from '@/lib/seo'
 import { ArrowUpRight } from 'lucide-react'
-import { images } from '@/lib/data'
-import { getSiteContent, getSiteSettings } from '@/sanity/lib/queries'
+import { getPageImages, getSiteContent, getSiteSettings } from '@/sanity/lib/queries'
 import SiteNav from '@/components/SiteNav'
 import SiteFooter from '@/components/SiteFooter'
 import BackButton from '@/components/BackButton'
@@ -20,13 +19,13 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function AboutPage() {
-  const t = await getSiteContent()
+  const [t, pageImages] = await Promise.all([getSiteContent(), getPageImages()])
 
   return (
     <main className="inner-page">
       <SiteNav solid />
 
-      <section className={styles.hero}>
+      <section className={styles.hero} style={{ backgroundImage: `url('${pageImages.aboutHero}')` }}>
         <div className={`${styles.backWrap} hero-back`}>
           <BackButton />
         </div>
@@ -41,7 +40,7 @@ export default async function AboutPage() {
 
           <div className={styles.content}>
             <div className={styles.founderImg}>
-              <img src={images.founder} alt={`${t.founderName}, founder of Nefertiti Retreats`} />
+              <img src={pageImages.founderPhoto} alt={`${t.founderName}, founder of Nefertiti Retreats`} />
             </div>
             <h2 className={styles.founderText}>{t.founderText}</h2>
             <p className={styles.founderName}>

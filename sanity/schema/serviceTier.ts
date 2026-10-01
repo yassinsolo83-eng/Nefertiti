@@ -24,6 +24,13 @@ export const serviceTier = defineType({
       rows: 2,
     }),
     defineField({
+      name: 'image',
+      title: 'Image',
+      type: 'image',
+      options: { hotspot: true },
+      description: 'Shown when this tier is selected on the Services page.',
+    }),
+    defineField({
       name: 'features',
       title: 'Features',
       type: 'array',
@@ -37,6 +44,6 @@ export const serviceTier = defineType({
   ],
   orderings: [{ title: 'Order', name: 'order', by: [{ field: 'order', direction: 'asc' }] }],
   preview: {
-    select: { title: 'name', subtitle: 'price' },
+    select: { title: 'name', subtitle: 'description', media: 'image' },
   },
 })

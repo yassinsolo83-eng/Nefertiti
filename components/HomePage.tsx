@@ -284,7 +284,7 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
             {upcomingRetreats.map((r) => <RetreatCard key={r.id} r={r} />)}
           </div>
         ) : (
-          <p className={rs.homeEmpty}>New dates are being planned — take a look at our past retreats in the meantime.</p>
+          <p className={rs.homeEmpty}>New dates are being planned — get in touch and we will let you know first.</p>
         )}
 
         <Link href="/retreats" className={`button button-ghost-dark ${rs.homeAllMobile}`}>

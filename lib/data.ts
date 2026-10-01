@@ -291,18 +291,21 @@ export const serviceTiers = [
   {
     num: 'I',
     title: 'RETREAT CONSULTATION',
+    image: '/srv-hero.webp',
     desc: 'For coaches who have an idea but need help turning it into a viable retreat.',
     items: ['Discovery session', 'Destination consultation', 'Concept development', 'Preliminary itinerary', 'Venue recommendations', 'Budget framework'],
   },
   {
     num: 'II',
     title: 'RETREAT DESIGN & PLANNING',
+    image: '/srv-yoga.webp',
     desc: 'For coaches who want us to develop the complete retreat with them.',
     items: ['Everything in Consultation', 'Detailed itinerary', 'Accommodation sourcing', 'Hotel negotiations', 'Transportation', 'Activity sourcing', 'Wellness suppliers', 'Budget management'],
   },
   {
     num: 'III',
     title: 'FULL RETREAT PRODUCTION',
+    image: '/exp-spa.webp',
     desc: 'Our complete end-to-end service. You arrive and lead. We manage the experience.',
     items: ['Complete design', 'Hotel management', 'Airport transfers', 'Supplier management', 'On-site production', 'Photography coordination', 'Multilingual support'],
   },
@@ -318,6 +321,33 @@ export const steps = [
   ['WELCOME TO EGYPT', 'Our team receives you and manages the retreat on the ground.'],
   ['YOU LEAD. WE PRODUCE.', 'You focus on what you do best. We remain behind the scenes.'],
 ]
+
+// Default image for each How It Works step (same order as `steps`).
+// Used until an image is uploaded to the step in the Studio.
+export const stepImages = [
+  '/exp-sound-healing.webp',
+  '/exp-meditation.webp',
+  '/cta-cairo.webp',
+  '/exp-beauty.webp',
+  '/srv-hero.webp',
+  '/exp-felucca.webp',
+  '/cta-luxor.webp',
+  '/srv-yoga.webp',
+]
+
+// Default page images. Each one can be replaced from Studio → Page Images.
+export const pageImageDefaults = {
+  aboutHero: '/about-hero.webp',
+  founderPhoto: images.founder,
+  servicesHero: '/srv-hero.webp',
+  experiencesHero: '/exp-hero.webp',
+  howItWorksHero: '/cta-siwa.webp',
+  retreatsHero: '/retreats-hero.webp',
+  contactHero: images.hammam,
+  contactSide: images.felucca,
+  contactFaq: images.hammam,
+}
+export type PageImages = typeof pageImageDefaults
 
 // ── FAQ (home page) ──
 export const faqs: [question: string, answer: string][] = [
@@ -653,54 +683,3 @@ export type Retreat = {
   facilitators: RetreatFacilitator[]
   seo?: SeoFields
 }
-
-// SAMPLE retreats — shown only while there are no retreats in Sanity.
-// They disappear automatically as soon as the first real retreat is published
-// in the Studio. Delete this list once real retreats exist.
-export const sampleRetreats: Retreat[] = [
-  {
-    id: 'sample-luxor-nile-awakening',
-    title: 'Nile Awakening — Yoga & Sound in Luxor',
-    image: images.felucca,
-    status: 'open',
-    startDate: '2027-03-12',
-    endDate: '2027-03-19',
-    destination: { id: 'luxor', title: 'Luxor' },
-    summary:
-      'Seven nights of sunrise yoga, sound healing and slow days on the Nile, framed by the temples of ancient Thebes.',
-    description:
-      'This is a sample retreat to preview how the page looks. Replace it with a real retreat from the Studio.\n\nNile Awakening brings together daily yoga, guided meditation and sound healing with the timeless setting of Luxor — mornings on the mat, afternoons exploring temples, and evenings drifting on a felucca as the sun sets over the West Bank.',
-    itinerary: [
-      { day: 'Day 1', title: 'Arrival & Welcome Circle', description: 'Private transfer to the retreat house, welcome dinner and an opening circle under the stars.' },
-      { day: 'Days 2–3', title: 'Temples & Practice', description: 'Sunrise yoga, then guided visits to Karnak and Luxor Temple with time to rest in between.' },
-      { day: 'Day 4', title: 'Sound Healing on the Nile', description: 'A sound bath on a private felucca, followed by a free afternoon.' },
-      { day: 'Days 5–6', title: 'West Bank & Stillness', description: 'Valley of the Kings, a hammam ritual and deeper meditation sessions.' },
-      { day: 'Day 7', title: 'Closing Ceremony', description: 'Final practice, closing circle and a farewell dinner by the river.' },
-    ],
-    included: [
-      '7 nights boutique accommodation',
-      'Daily yoga & meditation',
-      'Two sound healing sessions',
-      'All breakfasts and dinners',
-      'Private felucca sunset sail',
-      'Guided temple visits',
-      'Airport transfers',
-    ],
-    facilitators: [],
-  },
-  {
-    id: 'sample-red-sea-reset',
-    title: 'Red Sea Reset — A Women’s Wellness Retreat',
-    image: images.floatingYoga,
-    status: 'soldout',
-    startDate: '2026-04-05',
-    endDate: '2026-04-10',
-    destination: { id: 'red-sea', title: 'Red Sea' },
-    summary: 'Five days of floating yoga, breathwork and ocean swims on the Red Sea coast.',
-    description:
-      'This is a sample past retreat to preview the Past Retreats section. Replace it with a real retreat from the Studio.',
-    itinerary: [],
-    included: ['5 nights beachfront accommodation', 'Daily floating yoga', 'Breathwork sessions', 'All meals'],
-    facilitators: [],
-  },
-]
