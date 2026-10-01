@@ -14,7 +14,9 @@ export const siteSettings = defineType({
       title: 'WhatsApp Number',
       type: 'string',
       group: 'general',
-      description: 'International format, digits only (e.g. 201234567890)',
+      description: 'Country code + number, digits only — no +, spaces or dashes (e.g. 393314486876).',
+      validation: (r) =>
+        r.custom<string>((v) => !v || /^\d+$/.test(v) || 'Digits only — remove the +, spaces and dashes.').warning(),
     }),
     defineField({
       name: 'whatsappMessage',
