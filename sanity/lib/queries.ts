@@ -202,6 +202,16 @@ const TIER_QUERY = `*[_type == "serviceTier"] | order(order asc) {
   name, price, description, features, "image": image.asset->url
 }`
 
+// Compare titles loosely: ignore case and a leading number like "I." / "2."
+// Remove a leading number like "I. " / "2. " — the page already shows the tier number
+function stripNumber(v: unknown) {
+  return String(v || '').trim().replace(/^([ivx]+|\d+)\s*[.\-–—:)]\s*/i, '')
+}
+
+function sameTitle(a: unknown, b: unknown) {
+  return stripNumber(a).toLowerCase() === stripNumber(b).toLowerCase()
+}
+
 const ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X']
 
 export type ServiceTier = { num: string; title: string; desc: string; items: string[]; image: string }
@@ -211,12 +221,12 @@ export async function getServiceTiers(): Promise<ServiceTier[]> {
   if (result.length === 0) return staticTiers
   return result.map((t, i) => ({
     num: ROMAN[i] || `${i + 1}`,
-    title: t.name,
+    title: stripNumber(t.name),
     desc: t.description || '',
     items: t.features || [],
     image:
       t.image ||
-      staticTiers.find((x) => x.title.toLowerCase() === String(t.name || '').toLowerCase())?.image ||
+      staticTiers.find((x) => sameTitle(x.title, t.name))?.image ||
       staticTiers[i % staticTiers.length].image,
   }))
 }
