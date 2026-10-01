@@ -11,6 +11,7 @@ const NAV = [
   ['Retreats', '/retreats'],
   ['Experiences', '/experiences'],
   ['Services', '/services'],
+  ['Partners', '/partners'],
   ['How It Works', '/how-it-works'],
   ['Contact', '/contact'],
 ]
