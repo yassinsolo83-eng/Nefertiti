@@ -140,7 +140,7 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
           <div className={`${s.visionCopy} reveal`}>
             <p className="eyebrow" style={{ marginBottom: 16 }}>THE NEFERTITI WAY</p>
             <p>{t.visionText}</p>
-            <a href="#about" className="text-link">{t.philosophy} <ArrowUpRight size={16} /></a>
+            <a href="/about" className="text-link">{t.philosophy} <ArrowUpRight size={16} /></a>
             <div className={`${s.visionStats} reveal`}>
               <div className={s.visionStat}>
                 <span className={s.visionStatNum}>20+</span>
