@@ -14,6 +14,14 @@ export const structure: StructureResolver = (S) =>
             .title('Enquiries')
             .defaultOrdering([{ field: 'submittedAt', direction: 'desc' }]),
         ),
+      S.listItem()
+        .title('Pre-Call Submissions')
+        .schemaType('preCallSubmission')
+        .child(
+          S.documentTypeList('preCallSubmission')
+            .title('Pre-Call Submissions')
+            .defaultOrdering([{ field: 'submittedAt', direction: 'desc' }]),
+        ),
 
       S.divider(),
 
@@ -29,6 +37,10 @@ export const structure: StructureResolver = (S) =>
       S.documentTypeListItem('serviceTier').title('Service Tiers'),
       S.documentTypeListItem('step').title('How It Works — Steps'),
       S.documentTypeListItem('faq').title('FAQs'),
+      S.listItem()
+        .title('Pre-Call Form')
+        .schemaType('preCallForm')
+        .child(S.document().schemaType('preCallForm').documentId('preCallForm').title('Pre-Call Form')),
       S.documentTypeListItem('siteContent').title('Site Content'),
       S.listItem()
         .title('Page Images')

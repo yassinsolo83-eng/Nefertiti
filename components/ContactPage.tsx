@@ -186,12 +186,17 @@ export default function ContactPage({ faqs, whatsappLink, socialLinks, appointme
             <p className="eyebrow" style={{ marginBottom: 12 }}>OPTION 2 · TALK TO US</p>
             <h2 className={s.discoveryTitle}>Book a discovery call</h2>
             <p className={s.discoveryText}>
-              Prefer to talk it through? Message us on WhatsApp and we&apos;ll find a time
-              to explore your retreat together.
+              Planning a retreat for your community? Share your vision in our short pre-call
+              form so our first conversation is as useful as possible — or message us on WhatsApp.
             </p>
-            <a className="button button-berry" href={whatsappLink} target="_blank" rel="noopener noreferrer">
-              <MessageCircle size={16} /> Chat on WhatsApp
-            </a>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
+              <a className="button button-berry" href="/pre-call">
+                Fill in the pre-call form <ArrowUpRight size={16} />
+              </a>
+              <a className="button button-ghost-dark" href={whatsappLink} target="_blank" rel="noopener noreferrer">
+                <MessageCircle size={16} /> Chat on WhatsApp
+              </a>
+            </div>
           </div>
 
           <div className={s.contactDetailImage}>

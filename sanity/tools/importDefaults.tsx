@@ -14,6 +14,7 @@ import {
   moreDestinations,
   destinationDetails,
 } from '@/lib/data'
+import { defaultPreCallForm } from '@/lib/preCallForm'
 
 type Item = { id: string; fields: Record<string, unknown>; image?: string }
 
@@ -92,6 +93,25 @@ function ImportDefaults() {
     if (exists > 0) return
     await client.createIfNotExists({ _id: 'pageImages', _type: 'pageImages' })
     add('✓ Page Images: created.')
+  }
+
+  async function importPreCallForm() {
+    const exists = await client.fetch<number>('count(*[_id in ["preCallForm", "drafts.preCallForm"]])')
+    if (exists > 0) return
+    const { notificationEmail, steps, ...texts } = defaultPreCallForm
+    await client.createIfNotExists({
+      _id: 'preCallForm',
+      _type: 'preCallForm',
+      ...texts,
+      steps: steps.map((st) => ({
+        _type: 'step',
+        _key: st._key,
+        title: st.title,
+        description: st.description,
+        questions: st.questions.map((qq) => ({ _type: 'question', ...qq })),
+      })),
+    })
+    add('✓ Pre-Call Form: created with all questions.')
   }
 
   // ── Step 2: fill empty image fields ──
@@ -196,6 +216,7 @@ function ImportDefaults() {
       )
       await importSiteContent()
       await importPageImagesDoc()
+      await importPreCallForm()
 
       await fillByTitle('experience', 'Experiences', 'title', new Map(experiences.map((e) => [lower(e.title), e.image])))
       await fillByTitle('serviceTier', 'Service Tiers', 'name', new Map(serviceTiers.map((t) => [lower(t.title), t.image])))

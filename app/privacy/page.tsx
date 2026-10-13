@@ -45,7 +45,9 @@ export default async function PrivacyPage() {
           </ul>
           <p>
             If you contact us by email or WhatsApp, we receive your name, contact details and whatever you choose to
-            share in the conversation. If you go on to book a retreat, we may ask for further details needed to
+            share in the conversation. If you fill in our pre-call form, we also collect the answers you choose to
+            give about your work, your community and the retreat you are planning (for example group size, dates,
+            destinations and an estimated budget). If you go on to book a retreat, we may ask for further details needed to
             organise it (such as passport details, dietary needs or health information you choose to share); these
             are handled as described in this policy and in your booking agreement.
           </p>

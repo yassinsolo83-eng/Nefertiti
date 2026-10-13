@@ -10,9 +10,13 @@ import { seo } from './seo'
 import { enquiry } from './enquiry'
 import { retreat } from './retreat'
 import { pageImages } from './pageImages'
+import { preCallForm } from './preCallForm'
+import { preCallSubmission } from './preCallSubmission'
 
 export const schemaTypes = [
   enquiry,
+  preCallSubmission,
+  preCallForm,
   retreat,
   destination,
   experience,

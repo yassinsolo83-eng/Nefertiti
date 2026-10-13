@@ -8,10 +8,10 @@ import { structure } from '@/sanity/structure'
 import { importDefaultsTool } from '@/sanity/tools/importDefaults'
 
 // Types that must never be created by hand in the Studio:
-// - siteSettings / pageImages: there is exactly one document of each
-// - enquiry: created only by the website's contact form
-const NO_CREATE = new Set(['siteSettings', 'pageImages', 'enquiry'])
-const SINGLETONS = new Set(['siteSettings', 'pageImages'])
+// - siteSettings / pageImages / preCallForm: there is exactly one document of each
+// - enquiry / preCallSubmission: created only by the website's forms
+const NO_CREATE = new Set(['siteSettings', 'pageImages', 'preCallForm', 'enquiry', 'preCallSubmission'])
+const SINGLETONS = new Set(['siteSettings', 'pageImages', 'preCallForm'])
 
 export default defineConfig({
   name: 'nefertiti',

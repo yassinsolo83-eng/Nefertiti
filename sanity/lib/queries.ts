@@ -19,6 +19,7 @@ import {
 } from '@/lib/data'
 import type { Destination, DestDetail, Retreat, PageImages } from '@/lib/data'
 import type { SeoFields, SeoPageKey } from '@/lib/seo'
+import { PRE_CALL_FORM_QUERY, normalizePreCallForm, type PreCallForm } from '@/lib/preCallForm'
 
 // ── Revalidation: Sanity data refreshes every 60 seconds ──
 const REVALIDATE = 60
@@ -432,4 +433,15 @@ export async function getRetreats(): Promise<Retreat[]> {
 export async function getRetreatBySlug(slug: string): Promise<Retreat | null> {
   const all = await getRetreats()
   return all.find((r) => r.id === slug) || null
+}
+
+// ══════════════════════════════════════
+//  PRE-CALL FORM
+// ══════════════════════════════════════
+
+// The notification email stays on the server: it is removed before reaching the page
+export async function getPreCallForm(): Promise<PreCallForm> {
+  const result = await safeFetch<any>(PRE_CALL_FORM_QUERY, null)
+  const form = normalizePreCallForm(result)
+  return { ...form, notificationEmail: undefined }
 }

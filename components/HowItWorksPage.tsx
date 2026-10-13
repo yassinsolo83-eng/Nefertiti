@@ -48,7 +48,7 @@ export default function HowItWorksPage({ steps, heroImage }: Props) {
               Eight steps from your first message to standing in Egypt
               with your community.
             </p>
-            <a href="/contact" className="button button-gold">
+            <a href="/pre-call" className="button button-gold">
               Start with a Discovery Call <ArrowUpRight size={14} />
             </a>
           </div>
