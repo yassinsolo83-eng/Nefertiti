@@ -88,8 +88,8 @@ export default function ContactPage({ faqs, whatsappLink, socialLinks, appointme
           <p className="eyebrow">GET IN TOUCH</p>
           <h1 className="page-title">Contact</h1>
           <p className="page-lead">
-            Whether you have a question or a retreat idea taking shape, there are two easy
-            ways to reach us — send an enquiry, or book a discovery call.
+            Planning a retreat for your community? Start with our pre-call form. Just have a
+            quick question? Send us a message — we&apos;ll get back to you within 48 hours.
           </p>
         </div>
         <div className="page-hero-image reveal is-in">
@@ -99,10 +99,47 @@ export default function ContactPage({ faqs, whatsappLink, socialLinks, appointme
 
       {/* Two clear paths */}
       <section className={s.contactBlock}>
-        {/* Left — enquiry form */}
+        {/* Left — pre-call form (main path) + details */}
+        <div className={`${s.contactLeft} reveal is-in`}>
+          <div className={s.discoveryCard}>
+            <p className="eyebrow" style={{ marginBottom: 12 }}>PLANNING A RETREAT?</p>
+            <h2 className={s.discoveryTitle}>Start with our pre-call form</h2>
+            <p className={s.discoveryText}>
+              Tell us about your community, your vision and the experience you would like to create.
+              We&apos;ll review your answers before our discovery call, so it is as useful and
+              personal as possible. It takes about 10 minutes.
+            </p>
+            <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 12 }}>
+              <a className="button button-berry" href="/pre-call">
+                Fill in the pre-call form <ArrowUpRight size={16} />
+              </a>
+              <a className="button button-ghost-dark" href={whatsappLink} target="_blank" rel="noopener noreferrer">
+                <MessageCircle size={16} /> Chat on WhatsApp
+              </a>
+            </div>
+            <p style={{ fontSize: 11, opacity: 0.6, marginTop: 14 }}>
+              Prefer to talk first? Message us on WhatsApp and we&apos;ll find a time.
+            </p>
+          </div>
+
+          <div className={s.contactDetailImage}>
+            <img src={pageImages.contactSide} alt="Golden light on the water" />
+          </div>
+
+          <div className={s.contactSocial}>
+            <p className={s.contactSocialTitle}>Social Media</p>
+            {socialLinks.map(([label, url]) => (
+              <a key={label} href={url} target="_blank" rel="noopener noreferrer">{label} <ArrowUpRight size={12} /></a>
+            ))}
+          </div>
+        </div>
+        {/* Right — quick question form */}
         <div id="enquiry" className={`${s.contactRight} reveal is-in`} style={{ scrollMarginTop: 120 }}>
-          <p className="eyebrow" style={{ marginBottom: 14 }}>OPTION 1 · SEND AN ENQUIRY</p>
-          <h2 className={s.contactBlockTitle}>Tell us about your retreat</h2>
+          <p className="eyebrow" style={{ marginBottom: 14 }}>QUICK QUESTION</p>
+          <h2 className={s.contactBlockTitle} style={{ marginBottom: 12 }}>Send us a message</h2>
+          <p style={{ fontSize: 14, lineHeight: 1.7, opacity: 0.75, marginBottom: 30 }}>
+            For any question about our retreats, destinations or services.
+          </p>
 
           {sent ? (
             <div className={s.formSuccess}>
@@ -180,36 +217,6 @@ export default function ContactPage({ faqs, whatsappLink, socialLinks, appointme
           )}
         </div>
 
-        {/* Right — discovery call + details */}
-        <div className={`${s.contactLeft} reveal is-in`}>
-          <div className={s.discoveryCard}>
-            <p className="eyebrow" style={{ marginBottom: 12 }}>OPTION 2 · TALK TO US</p>
-            <h2 className={s.discoveryTitle}>Book a discovery call</h2>
-            <p className={s.discoveryText}>
-              Planning a retreat for your community? Share your vision in our short pre-call
-              form so our first conversation is as useful as possible — or message us on WhatsApp.
-            </p>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
-              <a className="button button-berry" href="/pre-call">
-                Fill in the pre-call form <ArrowUpRight size={16} />
-              </a>
-              <a className="button button-ghost-dark" href={whatsappLink} target="_blank" rel="noopener noreferrer">
-                <MessageCircle size={16} /> Chat on WhatsApp
-              </a>
-            </div>
-          </div>
-
-          <div className={s.contactDetailImage}>
-            <img src={pageImages.contactSide} alt="Golden light on the water" />
-          </div>
-
-          <div className={s.contactSocial}>
-            <p className={s.contactSocialTitle}>Social Media</p>
-            {socialLinks.map(([label, url]) => (
-              <a key={label} href={url} target="_blank" rel="noopener noreferrer">{label} <ArrowUpRight size={12} /></a>
-            ))}
-          </div>
-        </div>
       </section>
 
       {/* Egypt map */}
