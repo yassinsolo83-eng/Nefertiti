@@ -1,6 +1,6 @@
 'use client'
 
-import { ArrowUpRight, Mail, MapPin } from 'lucide-react'
+import { ArrowUpRight, Mail, MapPin, MessageCircle } from 'lucide-react'
 import { images } from '@/lib/data'
 import { useSiteSettings } from '@/components/SiteSettingsProvider'
 
@@ -26,7 +26,7 @@ function isProfileLink(url: string) {
 }
 
 export default function SiteFooter() {
-  const { contactEmail, socialLinks } = useSiteSettings()
+  const { contactEmail, socialLinks, whatsappLink } = useSiteSettings()
   const socials = socialLinks.filter(([, url]) => isProfileLink(url))
 
   return (
@@ -46,6 +46,9 @@ export default function SiteFooter() {
         <div>
           <p className="footer-label">Contact</p>
           <a href={`mailto:${contactEmail}`}><Mail size={14} /> {contactEmail}</a>
+          {whatsappLink && (
+            <a href={whatsappLink} target="_blank" rel="noopener noreferrer"><MessageCircle size={14} /> WhatsApp</a>
+          )}
           <p><MapPin size={14} /> Cairo · Siwa · Everywhere</p>
           {socials.map(([label, url]) => (
             <a key={url} href={url} target="_blank" rel="noopener noreferrer">
