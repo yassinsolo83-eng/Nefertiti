@@ -25,12 +25,33 @@ import { PRE_CALL_FORM_QUERY, normalizePreCallForm, type PreCallForm } from '@/l
 // ── Revalidation: Sanity data refreshes every 60 seconds ──
 const REVALIDATE = 60
 
+// ── Helper: light Sanity images ──
+// Images are stored in Sanity at the size they were uploaded (often several MB from a phone).
+// Every image URL is rewritten so Sanity's CDN serves a resized, compressed copy instead:
+// at most 2000px wide (never enlarged), WebP/AVIF when the browser supports it, quality 75.
+// The original file in the Studio is never changed.
+const SANITY_IMAGE_PREFIX = 'https://cdn.sanity.io/images/'
+const IMAGE_PARAMS = 'w=2000&fit=max&auto=format&q=75'
+
+function optimizeImageUrls<T>(value: T): T {
+  if (typeof value === 'string') {
+    return (value.startsWith(SANITY_IMAGE_PREFIX) && !value.includes('?') ? `${value}?${IMAGE_PARAMS}` : value) as T
+  }
+  if (Array.isArray(value)) return value.map(optimizeImageUrls) as T
+  if (value && typeof value === 'object') {
+    const out: Record<string, unknown> = {}
+    for (const [k, v] of Object.entries(value)) out[k] = optimizeImageUrls(v)
+    return out as T
+  }
+  return value
+}
+
 // ── Helper: safe fetch with fallback ──
 async function safeFetch<T>(query: string, fallback: T): Promise<T> {
   try {
     const result = await client.fetch(query, {}, { next: { revalidate: REVALIDATE } })
     if (!result || (Array.isArray(result) && result.length === 0)) return fallback
-    return result
+    return optimizeImageUrls(result)
   } catch {
     return fallback
   }
