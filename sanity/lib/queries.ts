@@ -16,8 +16,9 @@ import {
   appointmentServices as staticAppointmentServices,
   stepImages as staticStepImages,
   pageImageDefaults,
+  homeStats as staticHomeStats,
 } from '@/lib/data'
-import type { Destination, DestDetail, Retreat, PageImages } from '@/lib/data'
+import type { Destination, DestDetail, Retreat, PageImages, HomeStat, Testimonial } from '@/lib/data'
 import type { SeoFields, SeoPageKey } from '@/lib/seo'
 import { PRE_CALL_FORM_QUERY, normalizePreCallForm, type PreCallForm } from '@/lib/preCallForm'
 
@@ -444,4 +445,41 @@ export async function getPreCallForm(): Promise<PreCallForm> {
   const result = await safeFetch<any>(PRE_CALL_FORM_QUERY, null)
   const form = normalizePreCallForm(result)
   return { ...form, notificationEmail: undefined }
+}
+
+// ══════════════════════════════════════
+//  HOME NUMBERS (Why Egypt)
+// ══════════════════════════════════════
+
+const STATS_QUERY = `*[_type == "siteContent" && section == "vision"][0].stats[]{ value, label, autoDestinations }`
+
+// destinationCount fills the number marked "count destinations automatically"
+export async function getHomeStats(destinationCount: number): Promise<HomeStat[]> {
+  const result = await safeFetch<any[]>(STATS_QUERY, [])
+  const list: HomeStat[] = (result || [])
+    .filter((st) => st && (st.label || st.value))
+    .map((st) => ({ value: st.value || '', label: st.label || '', autoDestinations: !!st.autoDestinations }))
+  const stats = list.length ? list : staticHomeStats
+  return stats
+    .map((st) => (st.autoDestinations ? { ...st, value: String(destinationCount) } : st))
+    .filter((st) => st.value)
+}
+
+// ══════════════════════════════════════
+//  TESTIMONIALS (Sanity only)
+// ══════════════════════════════════════
+
+const TESTIMONIAL_QUERY = `*[_type == "testimonial" && defined(quote) && defined(name)] | order(order asc, _createdAt asc) {
+  "id": _id, quote, name, role, "image": image.asset->url
+}`
+
+export async function getTestimonials(): Promise<Testimonial[]> {
+  const result = await safeFetch<any[]>(TESTIMONIAL_QUERY, [])
+  return result.map((t) => ({
+    id: t.id,
+    quote: t.quote || '',
+    name: t.name || '',
+    role: t.role || '',
+    image: t.image || '',
+  }))
 }

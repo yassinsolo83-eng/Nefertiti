@@ -11,6 +11,7 @@ import { enquiry } from './enquiry'
 import { retreat } from './retreat'
 import { pageImages } from './pageImages'
 import { preCallForm } from './preCallForm'
+import { testimonial } from './testimonial'
 import { preCallSubmission } from './preCallSubmission'
 
 export const schemaTypes = [
@@ -21,6 +22,7 @@ export const schemaTypes = [
   destination,
   experience,
   partner,
+  testimonial,
   faq,
   serviceTier,
   siteContent,

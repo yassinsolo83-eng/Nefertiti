@@ -15,6 +15,7 @@ import {
   destinationDetails,
 } from '@/lib/data'
 import { defaultPreCallForm } from '@/lib/preCallForm'
+import { homeStats } from '@/lib/data'
 
 type Item = { id: string; fields: Record<string, unknown>; image?: string }
 
@@ -112,6 +113,18 @@ function ImportDefaults() {
       })),
     })
     add('✓ Pre-Call Form: created with all questions.')
+  }
+
+  // The "Why Egypt" numbers start empty in the Studio — copy the current ones in
+  async function fillHomeStats() {
+    const ids = await client.fetch<string[]>('*[_type == "siteContent" && section == "vision" && !defined(stats[0])]._id')
+    for (const id of ids) {
+      await client
+        .patch(id)
+        .set({ stats: homeStats.map((st, i) => ({ _type: 'stat', _key: `stat-${i + 1}`, ...st, autoDestinations: !!st.autoDestinations })) })
+        .commit()
+    }
+    if (ids.length) add('✓ Home numbers: added to Site Content → Home — Why Egypt.')
   }
 
   // ── Step 2: fill empty image fields ──
@@ -217,6 +230,7 @@ function ImportDefaults() {
       await importSiteContent()
       await importPageImagesDoc()
       await importPreCallForm()
+      await fillHomeStats()
 
       await fillByTitle('experience', 'Experiences', 'title', new Map(experiences.map((e) => [lower(e.title), e.image])))
       await fillByTitle('serviceTier', 'Service Tiers', 'name', new Map(serviceTiers.map((t) => [lower(t.title), t.image])))

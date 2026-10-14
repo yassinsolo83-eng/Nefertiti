@@ -335,6 +335,19 @@ export const stepImages = [
   '/srv-yoga.webp',
 ]
 
+// Home "Why Egypt" numbers. Editable in Studio → Site Content → Home — Why Egypt.
+// autoDestinations: the value is the number of destinations on the site, counted automatically.
+export type HomeStat = { value: string; label: string; autoDestinations?: boolean }
+export const homeStats: HomeStat[] = [
+  { value: '20+', label: 'Years of event production' },
+  { value: '', label: 'Destinations across Egypt', autoDestinations: true },
+  { value: '100%', label: 'Bespoke — no two retreats alike' },
+  { value: '∞', label: 'Possibilities for your retreat' },
+]
+
+// Client testimonials (from Sanity only — no built-in ones)
+export type Testimonial = { id: string; quote: string; name: string; role: string; image: string }
+
 // Default page images. Each one can be replaced from Studio → Page Images.
 export const pageImageDefaults = {
   aboutHero: '/about-hero.webp',

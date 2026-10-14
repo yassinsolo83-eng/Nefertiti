@@ -6,7 +6,7 @@ import Link from 'next/link'
 import {
   images,
 } from '@/lib/data'
-import type { Destination, Partner, Retreat } from '@/lib/data'
+import type { Destination, HomeStat, Partner, Retreat, Testimonial } from '@/lib/data'
 import RetreatCard from '@/components/RetreatCard'
 import rs from '@/app/retreats/retreats.module.css'
 import DestinationModal from '@/components/DestinationModal'
@@ -23,9 +23,11 @@ type Props = {
   combinations: string[]
   whatsappLink: string
   upcomingRetreats: Retreat[]
+  stats: HomeStat[]
+  testimonials: Testimonial[]
 }
 
-export default function HomePage({ featuredDestinations, moreDestinations, partners, t, combinations, whatsappLink, upcomingRetreats }: Props) {
+export default function HomePage({ featuredDestinations, moreDestinations, partners, t, combinations, whatsappLink, upcomingRetreats, stats, testimonials }: Props) {
   const [scrolled, setScrolled] = useState(false)
   const [activeDestId, setActiveDestId] = useState<string | null>(null)
   const [introDone, setIntroDone] = useState(false)
@@ -142,22 +144,12 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
             <p>{t.visionText}</p>
             <a href="/about" className="text-link">{t.philosophy} <ArrowUpRight size={16} /></a>
             <div className={`${s.visionStats} reveal`}>
-              <div className={s.visionStat}>
-                <span className={s.visionStatNum}>20+</span>
-                <span className={s.visionStatLabel}>Years of event production</span>
-              </div>
-              <div className={s.visionStat}>
-                <span className={s.visionStatNum}>5</span>
-                <span className={s.visionStatLabel}>Destinations across Egypt</span>
-              </div>
-              <div className={s.visionStat}>
-                <span className={s.visionStatNum}>100%</span>
-                <span className={s.visionStatLabel}>Bespoke — no two retreats alike</span>
-              </div>
-              <div className={s.visionStat}>
-                <span className={s.visionStatNum}>∞</span>
-                <span className={s.visionStatLabel}>Possibilities for your retreat</span>
-              </div>
+              {stats.map((st, i) => (
+                <div className={s.visionStat} key={`${i}-${st.label}`}>
+                  <span className={s.visionStatNum}>{st.value}</span>
+                  <span className={s.visionStatLabel}>{st.label}</span>
+                </div>
+              ))}
             </div>
           </div>
           <div className={s.visionRight}>
@@ -345,6 +337,31 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
           ))}
         </div>
       </section>
+
+      {/* TESTIMONIALS — shown only when real ones are published in the Studio */}
+      {testimonials.length > 0 && (
+        <section id="testimonials" className={`section ${s.testimonials}`}>
+          <div className="section-heading reveal">
+            <div className="section-label">IN THEIR WORDS</div>
+            <h2>What retreat leaders say</h2>
+          </div>
+          <div className={`${s.testimonialGrid} ${testimonials.length > 3 ? s.testimonialScroll : ''}`}>
+            {testimonials.map((tm) => (
+              <figure className={`${s.testimonialCard} reveal`} key={tm.id}>
+                <span className={s.testimonialMark} aria-hidden="true">&ldquo;</span>
+                <blockquote>{tm.quote}</blockquote>
+                <figcaption className={s.testimonialWho}>
+                  {tm.image && <img src={tm.image} alt="" loading="lazy" />}
+                  <span>
+                    <strong>{tm.name}</strong>
+                    {tm.role && <em>{tm.role}</em>}
+                  </span>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* FINAL CTA */}
       <section className={s.ctaBand}>

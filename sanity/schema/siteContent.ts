@@ -54,6 +54,44 @@ export const siteContent = defineType({
       type: 'string',
       hidden: onlyFor('hero', 'vision', 'cta'),
     }),
+    defineField({
+      name: 'stats',
+      title: 'Numbers',
+      type: 'array',
+      description: 'The numbers shown under the "Why Egypt" text. Leave empty to keep the original ones.',
+      hidden: onlyFor('vision'),
+      validation: (r) => r.max(6),
+      of: [
+        {
+          type: 'object',
+          name: 'stat',
+          fields: [
+            defineField({
+              name: 'autoDestinations',
+              title: 'Count destinations automatically',
+              type: 'boolean',
+              initialValue: false,
+              description: 'Shows how many destinations are on the site, updated by itself.',
+            }),
+            defineField({
+              name: 'value',
+              title: 'Number',
+              type: 'string',
+              description: 'e.g. 20+, 100%, ∞',
+              hidden: ({ parent }) => !!(parent as { autoDestinations?: boolean })?.autoDestinations,
+            }),
+            defineField({ name: 'label', title: 'Text under the number', type: 'string', validation: (r) => r.required() }),
+          ],
+          preview: {
+            select: { value: 'value', label: 'label', auto: 'autoDestinations' },
+            prepare: ({ value, label, auto }) => ({
+              title: auto ? '(auto) destinations count' : value || '—',
+              subtitle: label,
+            }),
+          },
+        },
+      ],
+    }),
     // Not used by the site — kept hidden so older documents still open cleanly
     defineField({ name: 'buttonLink', title: 'Button Link', type: 'string', hidden: true }),
     defineField({ name: 'image', title: 'Image', type: 'image', hidden: true }),

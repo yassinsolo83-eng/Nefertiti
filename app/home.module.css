@@ -287,6 +287,46 @@
 
 
 /* ── CTA BAND ── */
+
+/* ── TESTIMONIALS ── */
+.testimonials { background: var(--muted); padding-top: 90px; padding-bottom: 100px; }
+.testimonialGrid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px;
+}
+/* More than three: one row that scrolls sideways */
+.testimonialScroll {
+  grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: minmax(300px, 32%);
+  overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 12px;
+}
+.testimonialScroll .testimonialCard { scroll-snap-align: start; }
+.testimonialCard {
+  position: relative; margin: 0; display: flex; flex-direction: column;
+  background: var(--background); border: 1px solid var(--border); border-radius: 14px;
+  padding: 44px 34px 30px;
+}
+.testimonialMark {
+  position: absolute; top: 6px; left: 26px;
+  font-family: 'Cormorant Garamond', serif; font-size: 84px; line-height: 1; color: var(--gold-deep); opacity: .55;
+}
+.testimonialCard blockquote {
+  margin: 0 0 28px; font-family: 'Cormorant Garamond', serif; font-style: italic;
+  font-size: clamp(19px, 1.6vw, 22px); line-height: 1.55; color: var(--primary);
+  white-space: pre-line;
+}
+.testimonialWho {
+  margin-top: auto; display: flex; align-items: center; gap: 14px;
+  padding-top: 20px; border-top: 1px solid var(--border);
+}
+.testimonialWho img { width: 46px; height: 46px; border-radius: 50%; object-fit: cover; flex: none; }
+.testimonialWho span { display: flex; flex-direction: column; gap: 3px; }
+.testimonialWho strong { font-size: 13px; font-weight: 600; color: var(--foreground); }
+.testimonialWho em { font-style: normal; font-size: 12px; color: var(--muted-fg); }
+@media (max-width: 860px) {
+  .testimonials { padding-top: 64px; padding-bottom: 72px; }
+  .testimonialScroll { grid-auto-columns: 85%; }
+  .testimonialCard { padding: 40px 24px 24px; }
+}
+
 .ctaBand {
   background: var(--gold); padding: 120px 8vw; text-align: center;
 }

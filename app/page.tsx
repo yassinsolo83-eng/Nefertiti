@@ -8,6 +8,8 @@ import {
   getSiteContent,
   getSiteSettings,
   getRetreats,
+  getHomeStats,
+  getTestimonials,
 } from '@/sanity/lib/queries'
 import { splitRetreats } from '@/lib/retreat-utils'
 import HomePage from '@/components/HomePage'
@@ -24,14 +26,17 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Page() {
-  const [featuredDestinations, moreDestinations, partners, t, settings, retreats] = await Promise.all([
+  const [featuredDestinations, moreDestinations, partners, t, settings, retreats, testimonials] = await Promise.all([
     getFeaturedDestinations(),
     getMoreDestinations(),
     getPartners(),
     getSiteContent(),
     getSiteSettings(),
     getRetreats(),
+    getTestimonials(),
   ])
+  const destinationCount = new Set([...featuredDestinations, ...moreDestinations].map((d) => d.id)).size
+  const stats = await getHomeStats(destinationCount)
   const upcomingRetreats = splitRetreats(retreats).upcoming.slice(0, 3)
 
   return (
@@ -43,6 +48,8 @@ export default async function Page() {
       combinations={settings.combinations}
       whatsappLink={settings.whatsappLink}
       upcomingRetreats={upcomingRetreats}
+      stats={stats}
+      testimonials={testimonials}
     />
   )
 }
