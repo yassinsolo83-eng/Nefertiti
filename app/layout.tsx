@@ -139,7 +139,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
           src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
           strategy="afterInteractive"
         />
-        <SiteSettingsProvider value={{ contactEmail: settings.contactEmail, socialLinks: settings.socialLinks }}>
+        <SiteSettingsProvider value={{ contactEmail: settings.contactEmail, socialLinks: settings.socialLinks, whatsappLink: settings.whatsappLink }}>
           {children}
         </SiteSettingsProvider>
         {process.env.NODE_ENV === 'production' && <Analytics />}
