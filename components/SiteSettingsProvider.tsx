@@ -8,6 +8,7 @@ import { SITE_EMAIL } from '@/lib/site'
 type SiteSettingsValue = {
   contactEmail: string
   socialLinks: [string, string][]
+  whatsappLink?: string
 }
 
 const SiteSettingsContext = createContext<SiteSettingsValue>({
