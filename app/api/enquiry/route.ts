@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { randomUUID } from 'crypto'
 import { createClient } from 'next-sanity'
+import { getNotifyWhatsappNumber, sendWhatsApp } from '@/lib/notify'
 
 // Server-only client with write access. The token never reaches the browser.
 const writeClient = createClient({
@@ -67,9 +68,26 @@ export async function POST(req: Request) {
       message,
       submittedAt: new Date().toISOString(),
     })
-    return NextResponse.json({ ok: true })
   } catch (e: any) {
     console.error('Enquiry failed:', e?.message)
     return NextResponse.json({ error: 'Could not send message' }, { status: 500 })
   }
+
+  // The enquiry is already saved: a WhatsApp problem must not show an error to the visitor.
+  try {
+    const notifyPhone = await getNotifyWhatsappNumber()
+    const text =
+      `🌸 New enquiry — Nefertiti\n\n` +
+      `Name: ${name}\n` +
+      `Email: ${email}\n` +
+      (phone ? `Phone: ${phone}\n` : '') +
+      (practice ? `Practice: ${practice}\n` : '') +
+      (retreat ? `Retreat: ${retreat}\n` : '') +
+      `\n${message}`
+    await sendWhatsApp(text, notifyPhone)
+  } catch (e: any) {
+    console.error('Enquiry WhatsApp failed:', e?.message)
+  }
+
+  return NextResponse.json({ ok: true })
 }
