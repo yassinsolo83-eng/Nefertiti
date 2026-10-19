@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server'
 import { randomUUID } from 'crypto'
 import { createClient } from 'next-sanity'
 import nodemailer from 'nodemailer'
+import { getNotifyWhatsappNumber, sendWhatsApp } from '@/lib/notify'
 import {
   OTHER_LABEL,
   PRE_CALL_FORM_QUERY,
@@ -161,6 +162,16 @@ export async function POST(req: Request) {
     await sendNotification(form, rows, name, email)
   } catch (e: any) {
     console.error('Pre-call email failed:', e?.message)
+  }
+
+  // Same rule for WhatsApp: already saved, so a failure is only logged
+  try {
+    const notifyPhone = await getNotifyWhatsappNumber()
+    const header = `🌸 New pre-call form — Nefertiti\n` + (name ? `From: ${name}\n` : '') + (email ? `Email: ${email}\n` : '')
+    const body = rows.map((r) => `• ${r.question}\n${r.answer}`).join('\n\n')
+    await sendWhatsApp(`${header}\n${body}`, notifyPhone)
+  } catch (e: any) {
+    console.error('Pre-call WhatsApp failed:', e?.message)
   }
 
   return NextResponse.json({ ok: true })
