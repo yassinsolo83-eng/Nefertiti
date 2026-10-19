@@ -361,7 +361,7 @@ export async function getPageImages(): Promise<PageImages> {
 // ══════════════════════════════════════
 
 const SETTINGS_QUERY = `*[_type == "siteSettings"][0] {
-  whatsappNumber, whatsappMessage,
+  whatsappNumber, whatsappMessage, notifyWhatsappNumber,
   socialLinks[] { label, url },
   appointmentServices,
   combinations,
