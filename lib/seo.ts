@@ -33,6 +33,8 @@ type BuildOptions = {
 // Sanity CDN images can be cropped on the fly to the ideal share size
 function shareImageUrl(url: string) {
   if (url.includes('cdn.sanity.io')) {
+    // Already cropped to the share size around the Studio hotspot: keep it as is
+    if (url.includes('rect=')) return url
     // Drop the page-size parameters first, then crop to the share size
     return `${url.split('?')[0]}?w=1200&h=630&fit=crop&auto=format`
   }
