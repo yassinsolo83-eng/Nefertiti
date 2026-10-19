@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server'
 import { randomUUID } from 'crypto'
 import { createClient } from 'next-sanity'
-import nodemailer from 'nodemailer'
 import { getNotifyWhatsappNumber, sendWhatsApp } from '@/lib/notify'
 import {
   OTHER_LABEL,
@@ -58,12 +57,15 @@ const escapeHtml = (v: string) =>
   v.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 
 async function sendNotification(form: PreCallForm, rows: Row[], name: string, email: string) {
-  const user = process.env.GMAIL_USER
-  const pass = process.env.GMAIL_APP_PASSWORD
-  if (!user || !pass) return // Email not set up yet: the submission is still saved in the Studio
+  const apiKey = process.env.RESEND_API_KEY
+  const to = form.notificationEmail
+  // Email not set up yet (no API key, or no notification address in the Studio):
+  // the submission is still saved in the Studio, so just skip.
+  if (!apiKey || !to) return
 
-  const to = form.notificationEmail || user
-  const transporter = nodemailer.createTransport({ service: 'gmail', auth: { user, pass } })
+  // Resend's shared sender — works with no domain setup. Swap for your own
+  // verified domain later (e.g. "Nefertiti <noreply@nefertitiretreats.com>").
+  const from = 'Nefertiti Website <onboarding@resend.dev>'
 
   let lastStep = ''
   const htmlRows = rows
@@ -80,18 +82,26 @@ async function sendNotification(form: PreCallForm, rows: Row[], name: string, em
     })
     .join('')
 
-  await transporter.sendMail({
-    from: `"Nefertiti Website" <${user}>`,
-    to,
-    replyTo: email ? `"${name.replace(/"/g, '')}" <${email}>` : undefined,
-    subject: `New pre-call form: ${name || email || 'New submission'}`,
-    text: rows.map((r) => `${r.question}\n${r.answer}`).join('\n\n'),
-    html: `<div style="max-width:640px;margin:0 auto;padding:24px">
+  const res = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      from,
+      to,
+      reply_to: email ? `${name.replace(/[<>"]/g, '')} <${email}>` : undefined,
+      subject: `New pre-call form: ${name || email || 'New submission'}`,
+      text: rows.map((r) => `${r.question}\n${r.answer}`).join('\n\n'),
+      html: `<div style="max-width:640px;margin:0 auto;padding:24px">
       <h2 style="font:500 24px Georgia,serif;color:#8D4C65;margin:0 0 6px">New pre-call form</h2>
       <p style="font:13px Arial,sans-serif;color:#666;margin:0">Reply to this email to answer ${escapeHtml(name || 'them')} directly.</p>
       <table style="width:100%;border-collapse:collapse">${htmlRows}</table>
     </div>`,
+    }),
   })
+  if (!res.ok) throw new Error(`Resend responded ${res.status}`)
 }
 
 export async function POST(req: Request) {
