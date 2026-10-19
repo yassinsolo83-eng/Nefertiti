@@ -25,6 +25,16 @@ export const siteSettings = defineType({
       group: 'general',
     }),
     defineField({
+      name: 'notifyWhatsappNumber',
+      title: 'Notifications → WhatsApp Number',
+      type: 'string',
+      group: 'general',
+      description:
+        'Form submissions are sent to this WhatsApp number. Country code + number, digits only — no +, spaces or dashes (e.g. 393314486876).',
+      validation: (r) =>
+        r.custom<string>((v) => !v || /^\d+$/.test(v) || 'Digits only — remove the +, spaces and dashes.').warning(),
+    }),
+    defineField({
       name: 'socialLinks',
       title: 'Social Media Links',
       type: 'array',
