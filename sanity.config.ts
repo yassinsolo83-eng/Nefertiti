@@ -9,8 +9,8 @@ import { importDefaultsTool } from '@/sanity/tools/importDefaults'
 
 // Types that must never be created by hand in the Studio:
 // - siteSettings / pageImages / preCallForm: there is exactly one document of each
-// - enquiry / preCallSubmission: created only by the website's forms
-const NO_CREATE = new Set(['siteSettings', 'pageImages', 'preCallForm', 'enquiry', 'preCallSubmission'])
+// - enquiry / preCallSubmission / visitorCounter: created only by the website itself
+const NO_CREATE = new Set(['siteSettings', 'pageImages', 'preCallForm', 'enquiry', 'preCallSubmission', 'visitorCounter'])
 const SINGLETONS = new Set(['siteSettings', 'pageImages', 'preCallForm'])
 
 export default defineConfig({

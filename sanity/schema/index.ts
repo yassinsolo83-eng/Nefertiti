@@ -13,8 +13,10 @@ import { pageImages } from './pageImages'
 import { preCallForm } from './preCallForm'
 import { testimonial } from './testimonial'
 import { preCallSubmission } from './preCallSubmission'
+import { visitorCounter } from './visitorCounter'
 
 export const schemaTypes = [
+  visitorCounter,
   enquiry,
   preCallSubmission,
   preCallForm,

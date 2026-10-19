@@ -82,6 +82,23 @@ export const siteSettings = defineType({
       initialValue: true,
     }),
     defineField({
+      name: 'showVisitorCounter',
+      title: 'Show visitor counter',
+      type: 'boolean',
+      group: 'general',
+      description: 'Small live counter at the top of the home page.',
+      initialValue: true,
+    }),
+    defineField({
+      name: 'visitorCounterStart',
+      title: 'Visitor counter — starting number',
+      type: 'number',
+      group: 'general',
+      description: 'The number shown on the site = this starting number + the home page visits the site has counted.',
+      initialValue: 1000,
+      validation: (r) => r.min(0).integer(),
+    }),
+    defineField({
       name: 'defaultSeo',
       title: 'Default SEO (whole site)',
       type: 'seo',

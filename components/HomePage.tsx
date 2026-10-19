@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { ArrowUpRight, MessageCircle } from 'lucide-react'
+import { ArrowUpRight, MessageCircle, Plane } from 'lucide-react'
 import Link from 'next/link'
 import {
   images,
@@ -9,6 +9,8 @@ import {
 import type { Destination, HomeStat, Partner, Retreat, Testimonial } from '@/lib/data'
 import { cropUrl } from '@/sanity/lib/image'
 import RetreatCard from '@/components/RetreatCard'
+import VisitorCounter from '@/components/VisitorCounter'
+import ex from '@/components/HeroExtras.module.css'
 import rs from '@/app/retreats/retreats.module.css'
 import DestinationModal from '@/components/DestinationModal'
 import SiteNav from '@/components/SiteNav'
@@ -98,11 +100,13 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
             <div className="hero-shade" />
             <div className={`hero-content ${introDone ? 'kh-text-in' : 'kh-text-out'}`}>
               <h1>{t.hero}</h1>
+              <p className={ex.route}><Plane size={15} strokeWidth={1.6} aria-hidden="true" /> From Airport to Airport</p>
               <div className="hero-buttons">
                 <a className="button button-gold" href="/contact">{t.explore}<ArrowUpRight size={16} /></a>
                 <a className="button button-ghost" href={whatsappLink} target="_blank" rel="noopener noreferrer"><MessageCircle size={15} />{t.inquire}</a>
               </div>
             </div>
+            <VisitorCounter visible={introDone} />
           </section>
 
           {/* Frosted-glass layer — blurs the whole hero video */}
