@@ -3,6 +3,7 @@
 import { ArrowUpRight, MapPin, Globe, Check } from 'lucide-react'
 import Link from 'next/link'
 import type { Partner } from '@/lib/data'
+import { cropUrl } from '@/sanity/lib/image'
 import SiteNav from '@/components/SiteNav'
 import SiteFooter from '@/components/SiteFooter'
 import BackButton from '@/components/BackButton'
@@ -57,7 +58,7 @@ export default function PartnerDetailPage({ partner, whatsappLink }: Props) {
           </div>
         </div>
         <div className="page-hero-image reveal is-in">
-          <img src={partner.image} alt={partner.name} />
+          <img src={cropUrl(partner.image, 900, 675)} alt={partner.name} />
         </div>
       </section>
 

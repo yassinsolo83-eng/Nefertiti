@@ -446,12 +446,16 @@ export type DestDetail = {
 // ── Partners ──
 // Placeholder data — Azza will replace names, images and details later
 // (structured to map cleanly onto a future admin/DB).
+// A Sanity image object (with hotspot/crop) when it comes from the Studio,
+// or a plain URL string for the built-in fallback images.
+export type PartnerImage = string | { asset?: unknown; hotspot?: unknown; crop?: unknown; _type?: string }
+
 export type Partner = {
   id: string
   name: string
   category: string          // e.g. 'Accommodation', 'Wellness', 'Photography'
   tagline: string
-  image: string
+  image: PartnerImage
   bio: string               // longer description shown on the detail page
   services: string[]        // what they offer
   location?: string

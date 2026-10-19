@@ -7,6 +7,7 @@ import {
   images,
 } from '@/lib/data'
 import type { Destination, HomeStat, Partner, Retreat, Testimonial } from '@/lib/data'
+import { cropUrl } from '@/sanity/lib/image'
 import RetreatCard from '@/components/RetreatCard'
 import rs from '@/app/retreats/retreats.module.css'
 import DestinationModal from '@/components/DestinationModal'
@@ -322,7 +323,7 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
           {partners.map((p) => (
             <div className="team-card reveal" key={p.id}>
               <a href={`/partners/${p.id}`} className="team-card-media">
-                <img src={p.image} alt={p.name} />
+                <img src={cropUrl(p.image, 480, 640)} alt={p.name} />
               </a>
               <a href={`/partners/${p.id}`} className="team-card-name">{p.name}</a>
               <p className="team-card-role">{p.category}</p>

@@ -9,6 +9,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@sanity/image-url": "^2.1.1",
     "@sanity/vision": "^3.72.1",
     "@vercel/analytics": "1.6.1",
     "lucide-react": "^1.16.0",

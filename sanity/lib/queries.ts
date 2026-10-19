@@ -178,7 +178,7 @@ export async function getExperiences() {
 const PARTNER_QUERY = `*[_type == "partner"] | order(order asc) {
   "id": slug.current,
   name, category, tagline, bio,
-  "image": image.asset->url,
+  image,
   services, location, website,
   instagram, x, tiktok, order,
   "seo": seo { metaTitle, metaDescription, noIndex, "ogImage": ogImage.asset->url }
