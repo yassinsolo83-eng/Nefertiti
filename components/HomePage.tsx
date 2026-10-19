@@ -87,13 +87,13 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
             <video
               className="hero-image"
               src="/hero-video.mp4"
-              poster={images.heroMain}
+              poster="/hero-poster.webp"
               autoPlay
               muted
               loop
               playsInline
               preload="auto"
-              aria-label="Shirodhara oil ritual — Ayurvedic retreat"
+              aria-label="Woman meditating by the sea at sunset"
             />
             <div className="hero-shade" />
             <div className={`hero-content ${introDone ? 'kh-text-in' : 'kh-text-out'}`}>
