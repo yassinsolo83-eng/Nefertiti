@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { getPartners, getSiteSettings } from '@/sanity/lib/queries'
+import { cropUrl } from '@/sanity/lib/image'
 import PartnerDetailPage from '@/components/PartnerDetailPage'
 import { buildMetadata } from '@/lib/seo'
 
@@ -18,7 +19,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
     title: partner.category ? `${partner.name} — ${partner.category}` : partner.name,
     description: partner.tagline || partner.bio || `${partner.name}, retreat practitioner with Nefertiti Retreats in Egypt.`,
     path: `/partners/${id}`,
-    image: partner.image,
+    image: cropUrl(partner.image, 1200, 630),
     imageAlt: partner.name,
     type: 'profile',
   })
