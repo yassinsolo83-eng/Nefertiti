@@ -46,9 +46,11 @@ export function useKeyhole({ setIntroDone, setScrolled }: Setters) {
       ring.setAttribute('transform', tf)
 
       // clean finish: fade the frost out as the keyhole completes
-      const darkOp = op > 0.92 ? clamp(1 - (op - 0.92) / 0.08, 0, 1) : 1
-      // fade the beige veil from 0.82 toward 0 across the open
-      if (darkRect) darkRect.setAttribute('fill-opacity', String(0.9 * darkOp * (1 - op * 0.5)))
+      // The Ankh is tall and narrow, so its corners stay dark while it grows.
+      // Dissolve the veil gradually (from 45% to 85% of the open) so no purple
+      // leftovers are visible when the hero is fully revealed.
+      const darkOp = op > 0.45 ? smooth(clamp(1 - (op - 0.45) / 0.4, 0, 1)) : 1
+      if (darkRect) darkRect.setAttribute('fill-opacity', String(0.9 * darkOp))
 
       // frosted glass: heavy blur at the start, easing to none as we open
       if (frost) {
