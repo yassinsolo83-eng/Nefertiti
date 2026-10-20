@@ -1,7 +1,7 @@
 // Egyptian brand motifs from the Nefertiti identity (drawn as SVG files in /public/brand).
 // They are painted with the current text colour, so any colour can be set from CSS.
 const RATIO: Record<string, number> = {
-  ankh: 426 / 700,
+  ankh: 568 / 941,
   cartouche: 435 / 700,
   'cartouche-ankh': 435 / 700,
   lotus: 569 / 700,
