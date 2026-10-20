@@ -15,6 +15,7 @@ import rs from '@/app/retreats/retreats.module.css'
 import DestinationModal from '@/components/DestinationModal'
 import SiteNav from '@/components/SiteNav'
 import SiteFooter from '@/components/SiteFooter'
+import Motif from '@/components/Motif'
 import { useKeyhole } from '@/hooks/useKeyhole'
 import s from '@/app/home.module.css'
 
@@ -138,7 +139,7 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
       {/* VISION / WHY EGYPT */}
       <section id="vision" className={`section ${s.vision}`}>
         <div className="section-label reveal" style={{ marginBottom: 0 }}>01 / WHY EGYPT</div>
-        <hr className={s.visionDivider} />
+        <div className="ornament" aria-hidden="true"><Motif name="ankh" height={30} /></div>
         <h2 className={`${s.visionStatement} reveal`}>
           You already know how you want your guests to feel.<br />
           <em>We know how to make it happen in Egypt.</em>
@@ -370,7 +371,9 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
 
       {/* FINAL CTA */}
       <section className={s.ctaBand}>
+        <Motif name="sun" height={420} className={s.ctaSun} />
         <div className={`${s.ctaBandInner} reveal`}>
+          <p className={s.ctaTagline}>Return to your inner balance</p>
           <h2>{t.cta.split('\n').map((line) => <span key={line}>{line}<br /></span>)}</h2>
           <p>{t.ctaText}</p>
           <a className="button button-dark" href="/contact">{t.contact}<ArrowUpRight size={16} /></a>

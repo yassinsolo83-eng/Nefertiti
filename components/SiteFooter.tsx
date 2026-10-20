@@ -3,6 +3,7 @@
 import { ArrowUpRight, Mail, MapPin, MessageCircle } from 'lucide-react'
 import { images } from '@/lib/data'
 import { useSiteSettings } from '@/components/SiteSettingsProvider'
+import { BrandBand } from '@/components/Motif'
 
 const NAV = [
   ['About', '/about'],
@@ -31,8 +32,10 @@ export default function SiteFooter() {
 
   return (
     <footer>
+      <BrandBand className="footer-band" />
       <div className="footer-brand">
         <img src={images.logo} alt="Nefertiti Luxury Retreat Producer" />
+        <p className="footer-tagline">Find your peace within.</p>
         <p>You lead the transformation. We create the experience.</p>
         <p>Based between Egypt &amp; Italy.</p>
       </div>

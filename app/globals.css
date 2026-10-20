@@ -10,14 +10,19 @@
 
 :root {
   --background: #F3F0E8;
-  --foreground: #6B6B4F;
+  --foreground: #6B3A4E;
   --primary: #8D4C65;
   --primary-foreground: #F3F0E8;
   --gold: #F1D288;
   --gold-deep: #B8923D;
-  --plum: #6B6B4F;
-  --rose: #B1B695;
-  --navy: #567A91;
+  --plum: #8D4C65;
+  --rose: #A2D1B1;
+  --navy: #65C0B7;
+  --cream: #F8F5C7;
+  --brown: #AB6D48;
+  --mint: #A2D1B1;
+  --teal: #65C0B7;
+  --plum-deep: #6B3A4E;
   --muted: #E8E3D8;
   --muted-fg: #7a5c65;
   --border: #D4C8B8;
@@ -251,9 +256,32 @@ h3 { font-size: 26px; line-height: 1.15; font-weight: 500; }
 
 
 /* ══════════════════════════════════
+   BRAND MOTIFS (Egyptian identity)
+══════════════════════════════════ */
+.motif {
+  display: inline-block; flex: none; background: currentColor;
+  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+  -webkit-mask-position: center; mask-position: center;
+  -webkit-mask-size: contain; mask-size: contain;
+}
+/* Repeating arch band — one arch is 209 x 300 */
+.brand-band {
+  height: 64px; background: #BA8686;
+  -webkit-mask: url(/brand/band.svg) repeat-x left center / auto 100%;
+  mask: url(/brand/band.svg) repeat-x left center / auto 100%;
+}
+.footer-band { position: absolute; top: 0; left: 0; right: 0; height: 72px; opacity: .9; }
+.footer-brand .footer-tagline {
+  font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 19px;
+  color: var(--gold); margin: 0 0 12px; line-height: 1.3;
+}
+.ornament { display: flex; align-items: center; gap: 16px; color: var(--gold-deep); margin: 24px 0 32px; }
+.ornament::before, .ornament::after { content: ''; height: 1px; width: 56px; background: currentColor; opacity: .5; }
+
+/* ══════════════════════════════════
    FOOTER
 ══════════════════════════════════ */
-footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+footer { position: relative; padding: 130px 8vw 24px; background: var(--primary); color: #f4f0e8; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
 .footer-brand img { width: 84px; margin-bottom: 14px; }
 .footer-brand p { color: rgba(243,240,232,.6); font-size: 12px; line-height: 1.8; }
 .footer-links { display: grid; grid-template-columns: 1fr 1.6fr; gap: 5vw; }
@@ -441,7 +469,7 @@ footer { padding: 70px 8vw 24px; background: var(--primary); color: #f4f0e8; dis
   .section-heading h2 { margin: 10px 0 16px; }
 
   /* Footer */
-  footer { grid-template-columns: 1fr; padding: 56px 6vw 22px; gap: 40px; }
+  footer { grid-template-columns: 1fr; padding: 110px 6vw 22px; gap: 40px; }
   .footer-links { grid-template-columns: 1fr 1fr; }
   .footer-bottom { grid-column: 1; }
 

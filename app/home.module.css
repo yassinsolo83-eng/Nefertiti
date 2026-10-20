@@ -328,9 +328,18 @@
 }
 
 .ctaBand {
+  position: relative; overflow: hidden;
   background: var(--gold); padding: 120px 8vw; text-align: center;
 }
-.ctaBandInner { max-width: 780px; margin: auto; }
+.ctaSun {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  color: var(--plum); opacity: .07; pointer-events: none;
+}
+.ctaBandInner { position: relative; max-width: 780px; margin: auto; }
+.ctaBandInner p.ctaTagline {
+  font-size: 11px; letter-spacing: .3em; text-transform: uppercase; font-weight: 500;
+  color: var(--plum); opacity: 1; margin: 0 auto 22px; max-width: none;
+}
 .ctaBandInner h2 {
   font-size: clamp(30px, 4.4vw, 56px);
   color: var(--plum); margin-bottom: 22px;
