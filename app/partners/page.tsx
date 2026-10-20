@@ -7,6 +7,7 @@ import { cropUrl } from '@/sanity/lib/image'
 import SiteNav from '@/components/SiteNav'
 import SiteFooter from '@/components/SiteFooter'
 import s from './partners.module.css'
+import { Ornament } from '@/components/Motif'
 
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSiteSettings()
@@ -28,6 +29,7 @@ export default async function PartnersPage() {
 
       <section className={s.partnersHero}>
         <p className="eyebrow">◆ OUR TEAM</p>
+<Ornament name="ankh" center />
         <h1 className={s.partnersHeroTitle}>
           Meet the Practitioners Behind<br />Your Healing Journey
         </h1>

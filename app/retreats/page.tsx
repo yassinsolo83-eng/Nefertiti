@@ -9,6 +9,7 @@ import SiteNav from '@/components/SiteNav'
 import SiteFooter from '@/components/SiteFooter'
 import BackButton from '@/components/BackButton'
 import s from './retreats.module.css'
+import { Ornament } from '@/components/Motif'
 
 export async function generateMetadata(): Promise<Metadata> {
   const [settings, pageImages] = await Promise.all([getSiteSettings(), getPageImages()])
@@ -35,6 +36,7 @@ export default async function RetreatsPage() {
         <div className="page-hero-text reveal is-in">
           <BackButton />
           <p className="eyebrow">◆ NEFERTITI RETREATS</p>
+<Ornament name="cartouche-ankh" />
           <h1 className="page-title">Retreats</h1>
           <p className="page-lead">
             Our own retreats across Egypt — small groups, thoughtful programmes and places that

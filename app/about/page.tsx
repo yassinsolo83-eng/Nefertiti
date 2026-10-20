@@ -6,6 +6,7 @@ import SiteNav from '@/components/SiteNav'
 import SiteFooter from '@/components/SiteFooter'
 import BackButton from '@/components/BackButton'
 import styles from './about.module.css'
+import { Ornament } from '@/components/Motif'
 
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSiteSettings()
@@ -35,6 +36,7 @@ export default async function AboutPage() {
         <div className={styles.layout}>
           <div className={styles.intro}>
             <p className="eyebrow">◆ {t.founder}</p>
+<Ornament name="cartouche-ankh" />
             <h1 className={styles.title}>The story and the people<br />behind Nefertiti.</h1>
           </div>
 

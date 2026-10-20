@@ -15,7 +15,7 @@ import rs from '@/app/retreats/retreats.module.css'
 import DestinationModal from '@/components/DestinationModal'
 import SiteNav from '@/components/SiteNav'
 import SiteFooter from '@/components/SiteFooter'
-import Motif from '@/components/Motif'
+import Motif, { Ornament } from '@/components/Motif'
 import { useKeyhole } from '@/hooks/useKeyhole'
 import s from '@/app/home.module.css'
 
@@ -139,7 +139,7 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
       {/* VISION / WHY EGYPT */}
       <section id="vision" className={`section ${s.vision}`}>
         <div className="section-label reveal" style={{ marginBottom: 0 }}>01 / WHY EGYPT</div>
-        <div className="ornament" aria-hidden="true"><Motif name="ankh" height={30} /></div>
+        <Ornament name="ankh" />
         <h2 className={`${s.visionStatement} reveal`}>
           You already know how you want your guests to feel.<br />
           <em>We know how to make it happen in Egypt.</em>
@@ -180,6 +180,7 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
         {/* Section heading */}
         <div className="section-heading reveal">
           <div className="section-label">02 / {t.destinationLabel}</div>
+<Ornament name="sun" />
           <div>
             <h2>{t.destinations}</h2>
             <p>{t.destinationText}</p>
@@ -267,6 +268,7 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
         <div className={`${rs.homeHead} reveal`}>
           <div className="section-heading">
             <div className="section-label">03 / OUR RETREATS</div>
+<Ornament name="cartouche-ankh" />
             <div>
               <h2>JOIN A NEFERTITI RETREAT.</h2>
               <p>Small groups, thoughtful programmes and unforgettable places — hosted by us, across Egypt.</p>
@@ -294,6 +296,7 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
       <section id="explore" className={`section ${s.explore}`}>
         <div className={`${s.exploreHead} reveal`}>
           <div className="section-label">EXPLORE FURTHER</div>
+<Ornament name="lotus" />
           <h2>There&apos;s more to discover.</h2>
         </div>
         <div className={s.exploreGrid}>
@@ -319,6 +322,7 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
       <section id="partners" className={`section ${s.partnersPreview}`}>
         <div className="section-heading reveal">
           <div className="section-label">05 / OUR TEAM</div>
+<Ornament name="cartouche" />
           <div>
             <h2>Our Team</h2>
             <p>The trusted collaborators we work with across Egypt to bring every retreat to life.</p>
@@ -349,6 +353,7 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
         <section id="testimonials" className={`section ${s.testimonials}`}>
           <div className="section-heading reveal">
             <div className="section-label">IN THEIR WORDS</div>
+<Ornament name="ankh" />
             <h2>What retreat leaders say</h2>
           </div>
           <div className={`${s.testimonialGrid} ${testimonials.length > 3 ? s.testimonialScroll : ''}`}>

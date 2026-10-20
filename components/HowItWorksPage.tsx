@@ -7,6 +7,7 @@ import SiteFooter from '@/components/SiteFooter'
 import BackButton from '@/components/BackButton'
 import styles from '@/app/how-it-works/how-it-works.module.css'
 import type { Step } from '@/sanity/lib/queries'
+import { Ornament } from '@/components/Motif'
 
 type Props = { steps: Step[]; heroImage: string }
 
@@ -41,6 +42,7 @@ export default function HowItWorksPage({ steps, heroImage }: Props) {
         <div className={styles.layout}>
           <div className={styles.intro}>
             <p className="eyebrow">◆ HOW IT WORKS</p>
+<Ornament name="cartouche" />
             <h1 className={styles.title}>
               A clear, guided path<br />from idea to arrival.
             </h1>

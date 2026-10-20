@@ -6,6 +6,7 @@ import SiteNav from '@/components/SiteNav'
 import SiteFooter from '@/components/SiteFooter'
 import BackButton from '@/components/BackButton'
 import styles from '@/app/experiences/experiences.module.css'
+import { Ornament } from '@/components/Motif'
 
 type Props = { experiences: { title: string; text: string; image: string }[]; heroImage: string }
 
@@ -40,6 +41,7 @@ export default function ExperiencesPage({ experiences, heroImage }: Props) {
         <div className={styles.layout}>
           <div className={styles.intro}>
             <p className="eyebrow">◆ EXPERIENCES</p>
+<Ornament name="lotus" />
             <h1 className={styles.title}>
               Curated moments woven<br />around your retreat.
             </h1>

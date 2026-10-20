@@ -8,6 +8,7 @@ import SiteNav from '@/components/SiteNav'
 import SiteFooter from '@/components/SiteFooter'
 import BackButton from '@/components/BackButton'
 import s from '@/app/contact/contact.module.css'
+import { Ornament } from '@/components/Motif'
 
 type Props = {
   faqs: [string, string][]
@@ -86,6 +87,7 @@ export default function ContactPage({ faqs, whatsappLink, socialLinks, appointme
         <div className="page-hero-text reveal is-in">
           <BackButton />
           <p className="eyebrow">GET IN TOUCH</p>
+<Ornament name="sun" />
           <h1 className="page-title">Contact</h1>
           <p className="page-lead">
             Planning a retreat for your community? Start with our pre-call form. Just have a

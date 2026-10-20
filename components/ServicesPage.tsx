@@ -8,6 +8,7 @@ import SiteNav from '@/components/SiteNav'
 import SiteFooter from '@/components/SiteFooter'
 import BackButton from '@/components/BackButton'
 import styles from '@/app/services/services.module.css'
+import { Ornament } from '@/components/Motif'
 
 type Props = { serviceTiers: ServiceTier[]; heroImage: string }
 
@@ -43,6 +44,7 @@ export default function ServicesPage({ serviceTiers, heroImage }: Props) {
         <div className={styles.layout}>
           <div className={styles.intro}>
             <p className="eyebrow">◆ SERVICES</p>
+<Ornament name="sun" />
             <h1 className={styles.title}>
               Bespoke retreat production,<br />tailored to your vision.
             </h1>
