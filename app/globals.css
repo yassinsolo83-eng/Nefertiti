@@ -332,6 +332,8 @@ h3 { font-size: 26px; line-height: 1.15; font-weight: 500; }
 .egm-feeling { font-size: 9px; letter-spacing: .2em; text-transform: uppercase; color: var(--gold-deep); margin: 0 0 4px; line-height: 1.5; }
 .egm-body h4 { font-family: 'Cormorant Garamond', serif; font-size: 23px; font-weight: 500; line-height: 1.1; color: var(--primary); margin: 0 0 4px; }
 .egm-tagline { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 15px; color: var(--muted-fg); margin: 0 0 10px; line-height: 1.3; }
+.egm-travel { font-size: 11px; color: var(--foreground); margin: 0 0 10px; line-height: 1.5; }
+.egm-travel span { display: block; font-size: 9px; letter-spacing: .14em; text-transform: uppercase; color: var(--gold-deep); margin-bottom: 1px; }
 .egm-chips { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 12px; }
 .egm-chips span { font-size: 9.5px; letter-spacing: .06em; padding: 3px 9px; border-radius: 999px; border: 1px solid var(--border); color: var(--primary); background: #fff8; }
 .egm-link { display: inline-block; font: inherit; font-size: 10px; letter-spacing: .14em; text-transform: uppercase; font-weight: 500; color: var(--primary); background: none; border: 0; border-bottom: 1px solid var(--primary); padding: 0 0 3px; cursor: pointer; }
