@@ -79,7 +79,7 @@ h2, h3 { font-family: 'Cormorant Garamond', serif; }
   -webkit-mask-size: contain; mask-size: contain;
 }
 .brand-logo-emblem { aspect-ratio: 2157 / 2748; -webkit-mask-image: url(/brand/logo-emblem.svg); mask-image: url(/brand/logo-emblem.svg); }
-.brand-logo-word { height: 54%; aspect-ratio: 4677 / 1044; -webkit-mask-image: url(/brand/logo-wordmark.svg); mask-image: url(/brand/logo-wordmark.svg); }
+.brand-logo-word { height: 54%; aspect-ratio: 4677 / 1044; -webkit-mask-size: 100% 100%; mask-size: 100% 100%; -webkit-mask-image: url(/brand/logo-wordmark.svg); mask-image: url(/brand/logo-wordmark.svg); }
 .brand-logo-footer { height: 78px; margin-bottom: 18px; color: var(--gold); }
 
 .nav-pill-icon {
