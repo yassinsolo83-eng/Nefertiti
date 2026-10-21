@@ -430,6 +430,8 @@ export type Destination = {
   /** Map position. When empty, the default for this destination (below) is used. */
   lat?: number
   lng?: number
+  /** Travel time from Cairo, shown on the map card. Falls back to the default below. */
+  fromCairo?: string
 }
 
 // Where each destination sits on the Egypt map: [latitude, longitude].
@@ -448,6 +450,22 @@ export const destinationCoords: Record<string, [number, number]> = {
   dahab: [28.51, 34.51],
   sharm: [27.92, 34.33],
   'north-coast': [30.9, 28.8],
+}
+
+// Approximate travel time from Cairo (shown on the map). Editable per destination in Sanity.
+export const destinationTravel: Record<string, string> = {
+  countryside: '~1 hr by road',
+  fayoum: '~1.5 to 2 hrs by road',
+  'north-coast': '~3 hrs by road',
+  siwa: '~8 hrs by road',
+  desert: '~6 to 7 hrs by road',
+  'red-sea': '~1 hr flight · ~5 hrs by road',
+  'soma-bay': '~1 hr flight · ~5.5 hrs by road',
+  'marsa-alam': '~1.25 hr flight · ~8 hrs by road',
+  luxor: '~1.25 hr flight · ~10 hrs by road · ~10 hrs sleeper train',
+  aswan: '~1.5 hr flight · ~13.5 hrs sleeper train',
+  sharm: '~1 hr flight · ~6 hrs by road',
+  dahab: '~1 hr flight to Sharm + ~1.25 hr transfer',
 }
 
 // ── Destination detail pages — highlights for the accordion strip + activity grid ──
