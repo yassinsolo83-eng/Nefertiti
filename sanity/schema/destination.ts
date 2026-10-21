@@ -64,6 +64,12 @@ export const destination = defineType({
       validation: (r) => r.min(24).max(37),
     }),
     defineField({
+      name: 'fromCairo',
+      title: 'Travel time from Cairo',
+      type: 'string',
+      description: 'Optional. Shown on the map card, e.g. "~1 hr flight · ~5 hrs by road". Leave empty to use the default.',
+    }),
+    defineField({
       name: 'featured',
       title: 'Featured?',
       type: 'boolean',
