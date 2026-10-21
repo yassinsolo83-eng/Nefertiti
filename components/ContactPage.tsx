@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react'
 import { MessageCircle, ArrowUpRight } from 'lucide-react'
-import { egyptMapEmbed, egyptMapLink } from '@/lib/data'
 import type { PageImages } from '@/lib/data'
 import SiteNav from '@/components/SiteNav'
 import SiteFooter from '@/components/SiteFooter'
@@ -10,6 +9,8 @@ import BackButton from '@/components/BackButton'
 import s from '@/app/contact/contact.module.css'
 import { Ornament } from '@/components/Motif'
 import { openWhatsapp } from '@/lib/openWhatsapp'
+import EgyptMap from '@/components/EgyptMap'
+import type { Destination } from '@/lib/data'
 
 type Props = {
   faqs: [string, string][]
@@ -17,9 +18,11 @@ type Props = {
   socialLinks: [string, string][]
   appointmentServices: string[]
   pageImages: PageImages
+  destinations: Destination[]
+  featuredIds: string[]
 }
 
-export default function ContactPage({ faqs, whatsappLink, socialLinks, appointmentServices, pageImages }: Props) {
+export default function ContactPage({ faqs, whatsappLink, socialLinks, appointmentServices, pageImages, destinations, featuredIds }: Props) {
   const [form, setForm] = useState({
     name: '', email: '', phone: '', practice: '', message: '',
   })
@@ -229,14 +232,9 @@ export default function ContactPage({ faqs, whatsappLink, socialLinks, appointme
 
       {/* Egypt map */}
       <section className={s.contactMap}>
-        <iframe
-          title="Egypt"
-          src={egyptMapEmbed}
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-        />
-        <a className={s.contactMapLink} href={egyptMapLink} target="_blank" rel="noopener noreferrer">
-          View larger map
+        <EgyptMap destinations={destinations} featuredIds={featuredIds} height={440} />
+        <a className={s.contactMapLink} href="/destinations">
+          See all destinations
         </a>
       </section>
 

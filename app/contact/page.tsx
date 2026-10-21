@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { buildMetadata } from '@/lib/seo'
-import { getFaqs, getPageImages, getSiteSettings } from '@/sanity/lib/queries'
+import { getFaqs, getFeaturedDestinations, getMoreDestinations, getPageImages, getSiteSettings } from '@/sanity/lib/queries'
 import ContactPage from '@/components/ContactPage'
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -15,10 +15,12 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Page() {
-  const [faqs, settings, pageImages] = await Promise.all([
+  const [faqs, settings, pageImages, featured, more] = await Promise.all([
     getFaqs(),
     getSiteSettings(),
     getPageImages(),
+    getFeaturedDestinations(),
+    getMoreDestinations(),
   ])
 
   return (
@@ -28,6 +30,8 @@ export default async function Page() {
       socialLinks={settings.socialLinks}
       appointmentServices={settings.appointmentServices}
       pageImages={pageImages}
+      destinations={[...featured, ...more]}
+      featuredIds={featured.map((d) => d.id)}
     />
   )
 }

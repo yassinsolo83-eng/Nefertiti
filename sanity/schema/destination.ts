@@ -50,6 +50,20 @@ export const destination = defineType({
       validation: (r) => r.uri({ allowRelative: true, scheme: ['http', 'https'] }),
     }),
     defineField({
+      name: 'lat',
+      title: 'Map position — Latitude',
+      type: 'number',
+      description: 'Optional. Moves this destination\'s pin on the Egypt map, e.g. 29.2 for Siwa. Leave empty to use the default position.',
+      validation: (r) => r.min(21).max(32),
+    }),
+    defineField({
+      name: 'lng',
+      title: 'Map position — Longitude',
+      type: 'number',
+      description: 'Optional. e.g. 25.52 for Siwa. Leave empty to use the default position.',
+      validation: (r) => r.min(24).max(37),
+    }),
+    defineField({
       name: 'featured',
       title: 'Featured?',
       type: 'boolean',

@@ -427,6 +427,27 @@ export type Destination = {
   experiences: string[]
   idealFor: string[]
   seo?: SeoFields
+  /** Map position. When empty, the default for this destination (below) is used. */
+  lat?: number
+  lng?: number
+}
+
+// Where each destination sits on the Egypt map: [latitude, longitude].
+// A destination can override this from the Studio (Map position fields).
+export const destinationCoords: Record<string, [number, number]> = {
+  cairo: [30.0, 31.2],
+  countryside: [30.35, 30.95],
+  'red-sea': [27.26, 33.81],
+  'soma-bay': [26.85, 34.0],
+  'marsa-alam': [25.07, 34.88],
+  luxor: [25.69, 32.64],
+  aswan: [24.09, 32.9],
+  siwa: [29.2, 25.52],
+  desert: [27.3, 28.2],
+  fayoum: [29.31, 30.84],
+  dahab: [28.51, 34.51],
+  sharm: [27.92, 34.33],
+  'north-coast': [30.9, 28.8],
 }
 
 // ── Destination detail pages — highlights for the accordion strip + activity grid ──

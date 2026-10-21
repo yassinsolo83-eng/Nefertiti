@@ -144,6 +144,29 @@
   box-shadow: 0 0 20px rgba(241,210,136,.1);
 }
 
+/* Map teaser (inside the Destinations section) */
+.destMapTeaser { margin-top: 64px; }
+.destMapAction { display: flex; justify-content: center; margin-top: 28px; }
+
+/* How it works (home teaser) */
+.howHome { background: var(--background); }
+.howHomeHead { margin-bottom: 40px; }
+.howHomeHead h2 {
+  font-size: clamp(30px, 4vw, 52px); font-weight: 500; line-height: 1.1;
+  color: var(--primary); letter-spacing: -.02em;
+}
+.howHomeList {
+  list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+  border-top: 1px solid var(--border);
+}
+.howHomeItem { padding: 34px 32px 30px 0; border-right: 1px solid var(--border); margin-right: 32px; }
+.howHomeItem:last-child { border-right: 0; margin-right: 0; }
+.howHomeNum { display: block; font-family: 'Cormorant Garamond', serif; font-size: 44px; line-height: 1; color: var(--gold-deep); opacity: .7; margin-bottom: 16px; }
+.howHomeItem h3 { font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 500; letter-spacing: .16em; color: var(--primary); margin-bottom: 10px; }
+.howHomeItem p { color: var(--muted-fg); line-height: 1.8; font-size: 13.5px; max-width: 34ch; }
+.howHomeAction { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; margin-top: 36px; }
+.howHomeAction :global(.text-link) { margin-top: 0; }
+
 /* More destinations — secondary grid */
 .destMoreSection { margin-top: 56px; }
 .destMoreLabel {
@@ -378,6 +401,10 @@
   .destCard:nth-child(1) { grid-column: span 2; min-height: 320px; }
   .destMoreGrid { grid-template-columns: 1fr 1fr; }
   .destMoreCard { min-height: 200px; }
+  .howHomeList { grid-template-columns: 1fr; }
+  .howHomeItem { border-right: 0; border-bottom: 1px solid var(--border); margin-right: 0; padding: 26px 0; }
+  .howHomeItem:last-child { border-bottom: 0; }
+  .destMapTeaser { margin-top: 48px; }
   .destCombos { padding: 48px max(20px, 5vw); margin-top: 48px; }
   .destComboActions { flex-direction: column; align-items: center; }
 

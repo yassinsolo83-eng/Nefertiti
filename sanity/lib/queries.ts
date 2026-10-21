@@ -71,6 +71,8 @@ function mergeDestImage(sanityDest: any, staticList: Destination[]): Destination
     experiences: sanityDest.experiences || staticMatch?.experiences || [],
     idealFor: sanityDest.idealFor || staticMatch?.idealFor || [],
     seo: sanityDest.seo || undefined,
+    lat: typeof sanityDest.lat === 'number' ? sanityDest.lat : undefined,
+    lng: typeof sanityDest.lng === 'number' ? sanityDest.lng : undefined,
   }
 }
 
@@ -82,7 +84,7 @@ const DEST_QUERY = `*[_type == "destination"] | order(order asc) {
   "id": slug.current,
   title, tagline, feeling, desc, video,
   "image": image.asset->url,
-  featured, order,
+  featured, order, lat, lng,
   experiences, idealFor,
   overview, bestTime,
   "highlights": highlights[] {

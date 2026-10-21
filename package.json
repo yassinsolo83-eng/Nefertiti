@@ -19,7 +19,8 @@
     "react": "^19",
     "react-dom": "^19",
     "sanity": "^3.72.1",
-    "styled-components": "^6.1.14"
+    "styled-components": "^6.1.14",
+    "leaflet": "^1.9.4"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.3.3",
@@ -29,6 +30,7 @@
     "@types/react-dom": "^19",
     "postcss": "^8.5",
     "tailwindcss": "^4.3.3",
-    "typescript": "5.7.3"
+    "typescript": "5.7.3",
+    "@types/leaflet": "^1.9.12"
   }
 }

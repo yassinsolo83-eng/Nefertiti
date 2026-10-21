@@ -12,7 +12,7 @@ import RetreatCard from '@/components/RetreatCard'
 import VisitorCounter from '@/components/VisitorCounter'
 import ex from '@/components/HeroExtras.module.css'
 import rs from '@/app/retreats/retreats.module.css'
-import DestinationModal from '@/components/DestinationModal'
+import EgyptMap from '@/components/EgyptMap'
 import SiteNav from '@/components/SiteNav'
 import SiteFooter from '@/components/SiteFooter'
 import Motif, { Ornament } from '@/components/Motif'
@@ -29,11 +29,13 @@ type Props = {
   upcomingRetreats: Retreat[]
   stats: HomeStat[]
   testimonials: Testimonial[]
+  steps: { title: string; description: string }[]
 }
 
-export default function HomePage({ featuredDestinations, moreDestinations, partners, t, combinations, whatsappLink, upcomingRetreats, stats, testimonials }: Props) {
+export default function HomePage({ featuredDestinations, moreDestinations, partners, t, combinations, whatsappLink, upcomingRetreats, stats, testimonials, steps }: Props) {
+  // Three moments of the full process: first call, the concept, and the hand-over
+  const homeSteps = steps.length >= 3 ? [steps[0], steps[2], steps[steps.length - 1]] : steps
   const [scrolled, setScrolled] = useState(false)
-  const [activeDestId, setActiveDestId] = useState<string | null>(null)
   const [introDone, setIntroDone] = useState(false)
   // scroll-driven Ankh intro + nav state + reveal animations
   useKeyhole({ setIntroDone, setScrolled })
@@ -69,8 +71,6 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
     const target = track ? track.offsetHeight - window.innerHeight : 0
     window.scrollTo({ top: Math.max(target, 0), behavior: 'smooth' })
   }
-
-  const activeDest = moreDestinations.find(d => d.id === activeDestId) ?? null
 
   return (
     <>
@@ -219,29 +219,16 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
           ))}
         </div>
 
-        {/* Detail modal overlay (for secondary destinations only) */}
-        <DestinationModal destination={activeDest} onClose={() => setActiveDestId(null)} featuredIds={featuredDestinations.map(d => d.id)} />
-
-        {/* More destinations — secondary 7 */}
-        <div className={s.destMoreSection}>
-          <p className={`${s.destMoreLabel} reveal`}>{t.destMoreLabel}</p>
-          <div className={s.destMoreGrid}>
-            {moreDestinations.map((dest, i) => (
-              <article
-                key={dest.id}
-                className={`${s.destMoreCard} reveal delay-${(i % 3) + 1}`}
-                onClick={() => setActiveDestId(dest.id)}
-                role="button"
-                tabIndex={0}
-                onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && setActiveDestId(dest.id)}
-              >
-                <img src={dest.image} alt={dest.title} />
-                <div className={s.destMoreBody}>
-                  <h3>{dest.title}</h3>
-                  <span className={s.destMoreLink}>View details <ArrowUpRight size={13} /></span>
-                </div>
-              </article>
-            ))}
+        {/* Where we work: map teaser, the full map lives on /destinations */}
+        <div className={`${s.destMapTeaser} reveal`}>
+          <p className={s.destMoreLabel}>Where we work</p>
+          <EgyptMap
+            destinations={[...featuredDestinations, ...moreDestinations]}
+            featuredIds={featuredDestinations.map((d) => d.id)}
+            height={440}
+          />
+          <div className={s.destMapAction}>
+            <Link href="/destinations" className="button button-gold">See all destinations <ArrowUpRight size={14} /></Link>
           </div>
         </div>
 
@@ -262,6 +249,30 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
           </div>
         </div>
       </section>
+
+      {/* HOW IT WORKS — three steps, the full flow lives on its own page */}
+      {homeSteps.length > 0 && (
+        <section className={`section ${s.howHome}`}>
+          <div className={`${s.howHomeHead} reveal`}>
+            <div className="section-label">HOW IT WORKS</div>
+            <Ornament name="cartouche" />
+            <h2>From first idea to arrival.</h2>
+          </div>
+          <ol className={s.howHomeList}>
+            {homeSteps.map((st, i) => (
+              <li key={st.title} className={`${s.howHomeItem} reveal delay-${i + 1}`}>
+                <span className={s.howHomeNum}>{String(i + 1).padStart(2, '0')}</span>
+                <h3>{st.title}</h3>
+                <p>{st.description}</p>
+              </li>
+            ))}
+          </ol>
+          <div className={s.howHomeAction}>
+            <Link href="/how-it-works" className="text-link">See the full process <ArrowUpRight size={16} /></Link>
+            <Link href="/pre-call" className="button button-dark">Start with a discovery call <ArrowUpRight size={14} /></Link>
+          </div>
+        </section>
+      )}
 
       {/* UPCOMING RETREATS — pulled from Sanity, next 3 by date */}
       <section id="retreats" className={`section ${rs.homeRetreats}`}>
