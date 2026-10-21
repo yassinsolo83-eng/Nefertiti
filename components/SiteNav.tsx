@@ -1,8 +1,8 @@
 'use client'
 
+import BrandLogo from '@/components/BrandLogo'
 import { useState, useEffect, useRef } from 'react'
 import { Menu, X } from 'lucide-react'
-import { images } from '@/lib/data'
 import { setGoogleLang } from '@/hooks/useGoogleTranslate'
 
 type NavItem = [label: string, href: string]
@@ -74,7 +74,7 @@ export default function SiteNav({
           window; elsewhere it's a solid ivory bar. */}
       <div className="nav-pill">
         <a href="/#vision" className="nav-pill-brand" onClick={handleBrand} aria-label="Nefertiti — home">
-          <img src={showVideo ? images.logo : images.logoDark} alt="Nefertiti Luxury Retreat Producer" />
+          <BrandLogo />
         </a>
 
         <button

@@ -67,7 +67,20 @@ h2, h3 { font-family: 'Cormorant Garamond', serif; }
   position: relative; z-index: 2; flex-shrink: 0;
   display: flex; align-items: center; height: 62px; margin-left: 0;
 }
-.nav-pill-brand img { height: 100%; width: auto; transition: opacity .4s ease; }
+.nav-pill-brand .brand-logo { height: 100%; padding: 4px 0 4px 10px; box-sizing: border-box; transition: color .4s ease; }
+.pill-video .nav-pill-brand { color: var(--gold); }
+.pill-solid .nav-pill-brand { color: var(--plum); }
+/* Logo lockup */
+.brand-logo { display: inline-flex; align-items: center; gap: 12px; height: 100%; }
+.brand-logo-emblem, .brand-logo-word {
+  display: block; flex: none; height: 100%; background: currentColor;
+  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+  -webkit-mask-position: center; mask-position: center;
+  -webkit-mask-size: contain; mask-size: contain;
+}
+.brand-logo-emblem { aspect-ratio: 2142 / 2734; -webkit-mask-image: url(/brand/logo-emblem.svg); mask-image: url(/brand/logo-emblem.svg); }
+.brand-logo-word { height: 54%; aspect-ratio: 4677 / 1044; -webkit-mask-image: url(/brand/logo-wordmark.svg); mask-image: url(/brand/logo-wordmark.svg); }
+.brand-logo-footer { height: 78px; margin-bottom: 18px; color: var(--gold); }
 
 .nav-pill-icon {
   position: relative; z-index: 2;
@@ -332,7 +345,6 @@ h3 { font-size: 26px; line-height: 1.15; font-weight: 500; }
    FOOTER
 ══════════════════════════════════ */
 footer { position: relative; padding: 130px 8vw 24px; background: var(--primary); color: #f4f0e8; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
-.footer-brand img { width: 84px; margin-bottom: 14px; }
 .footer-brand p { color: rgba(243,240,232,.6); font-size: 12px; line-height: 1.8; }
 .footer-links { display: grid; grid-template-columns: 1fr 1.6fr; gap: 5vw; }
 .footer-links div { display: flex; flex-direction: column; gap: 9px; }

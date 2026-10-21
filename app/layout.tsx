@@ -104,7 +104,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
     '@type': 'TravelAgency',
     name: SITE_NAME,
     url: SITE_URL,
-    logo: `${SITE_URL}/nefertiti-logo-dark.png`,
+    logo: `${SITE_URL}/nefertiti-lockup.png`,
     image: `${SITE_URL}/og-image.png`,
     email: settings.contactEmail || SITE_EMAIL,
     telephone: settings.whatsappNumber ? `+${settings.whatsappNumber}` : undefined,
