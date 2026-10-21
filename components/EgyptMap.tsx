@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from 'react'
 import 'leaflet/dist/leaflet.css'
-import { destinationCoords } from '@/lib/data'
+import { destinationCoords, destinationTravel } from '@/lib/data'
 import type { Destination } from '@/lib/data'
 
 type Props = {
@@ -101,6 +101,9 @@ export default function EgyptMap({ destinations, featuredIds, height = 520, onOp
       sea('Mediterranean Sea', 33.0, 28.0)
       sea('Red Sea', 22.6, 37.3)
 
+      const cairo: [number, number] = destinationCoords.cairo
+      let routeLine: import('leaflet').Polyline | null = null
+
       for (const d of destinations) {
         const fallback = destinationCoords[d.id]
         const lat = d.lat ?? fallback?.[0]
@@ -134,6 +137,13 @@ export default function EgyptMap({ destinations, featuredIds, height = 520, onOp
         if (d.feeling) body.appendChild(el('p', 'egm-feeling', d.feeling))
         body.appendChild(el('h4', undefined, d.title))
         if (d.tagline) body.appendChild(el('p', 'egm-tagline', d.tagline))
+        const travel = d.fromCairo || destinationTravel[d.id]
+        if (travel) {
+          const row = el('p', 'egm-travel')
+          row.appendChild(el('span', undefined, 'From Cairo'))
+          row.appendChild(document.createTextNode(travel))
+          body.appendChild(row)
+        }
         if (d.idealFor?.length) {
           const chips = el('div', 'egm-chips')
           d.idealFor.slice(0, 3).forEach((c) => chips.appendChild(el('span', undefined, c)))
@@ -154,6 +164,17 @@ export default function EgyptMap({ destinations, featuredIds, height = 520, onOp
           body.appendChild(a)
         }
         card.appendChild(body)
+        // A light dashed line from Cairo to the chosen destination
+        if (d.id !== 'cairo') {
+          marker.on('popupopen', () => {
+            routeLine?.remove()
+            routeLine = L.polyline([cairo, [lat, lng]], { color: '#8d4c65', weight: 2, opacity: 0.55, dashArray: '2 7', lineCap: 'round', interactive: false }).addTo(map!)
+          })
+          marker.on('popupclose', () => {
+            routeLine?.remove()
+            routeLine = null
+          })
+        }
         marker.bindPopup(card, { maxWidth: 260, minWidth: 220, className: 'egm-popup', autoPanPaddingTopLeft: [20, 70], autoPanPaddingBottomRight: [20, 20] })
       }
 
