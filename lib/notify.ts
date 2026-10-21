@@ -9,14 +9,15 @@ const client = createClient({
   token: process.env.SANITY_WRITE_TOKEN,
 })
 
-const NOTIFY_QUERY = `*[_type == "siteSettings"][0]{ notifyWhatsappNumber }`
+const NOTIFY_QUERY = `*[_type == "siteSettings"][0]{ notifyWhatsappNumber, whatsappNumber }`
 
 // The destination WhatsApp number is controlled from the Studio (Site Settings),
 // never hardcoded here.
 export async function getNotifyWhatsappNumber(): Promise<string> {
   try {
-    const r = await client.fetch<{ notifyWhatsappNumber?: string }>(NOTIFY_QUERY)
-    return String(r?.notifyWhatsappNumber || '').replace(/\D/g, '')
+    const r = await client.fetch<{ notifyWhatsappNumber?: string; whatsappNumber?: string }>(NOTIFY_QUERY)
+    // Falls back to the site's public WhatsApp number when no notification number is set
+    return String(r?.notifyWhatsappNumber || r?.whatsappNumber || '').replace(/\D/g, '')
   } catch {
     return ''
   }
@@ -34,4 +35,11 @@ export async function sendWhatsApp(text: string, phone: string): Promise<void> {
     `&apikey=${encodeURIComponent(apikey)}`
   const res = await fetch(url, { method: 'GET' })
   if (!res.ok) throw new Error(`CallMeBot responded ${res.status}`)
+}
+
+// A wa.me link that opens WhatsApp with the full details already typed in.
+// The visitor's browser opens it right after submitting; the number never lives in the code.
+export function buildWhatsappUrl(text: string, phone: string): string | undefined {
+  if (!phone) return undefined
+  return `https://wa.me/${phone}?text=${encodeURIComponent(text.slice(0, 1400))}`
 }

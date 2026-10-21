@@ -11,6 +11,7 @@ import {
   type PreCallQuestion,
 } from '@/lib/preCallForm'
 import s from '@/app/pre-call/pre-call.module.css'
+import { openWhatsapp } from '@/lib/openWhatsapp'
 
 const DRAFT_KEY = 'nefertiti-pre-call-draft'
 
@@ -44,6 +45,7 @@ export default function PreCallForm({ form }: Props) {
   const [sending, setSending] = useState(false)
   const [formError, setFormError] = useState('')
   const [sent, setSent] = useState(false)
+  const [waUrl, setWaUrl] = useState('')
   const [company, setCompany] = useState('') // honeypot
   const [loaded, setLoaded] = useState(false)
   const cardRef = useRef<HTMLDivElement>(null)
@@ -137,6 +139,7 @@ export default function PreCallForm({ form }: Props) {
       if (res.ok) {
         clearDraft()
         setSent(true)
+        if (data.whatsappUrl && !openWhatsapp(data.whatsappUrl)) setWaUrl(data.whatsappUrl)
         scrollToCard()
         return
       }
@@ -166,6 +169,9 @@ export default function PreCallForm({ form }: Props) {
           <p key={i} className={s.successText}>{p}</p>
         ))}
         {form.successSignature && <p className={s.signature}>{form.successSignature}</p>}
+        {waUrl && (
+          <a className="button button-gold" href={waUrl} target="_blank" rel="noopener noreferrer" style={{ marginRight: 12 }}>Send details on WhatsApp</a>
+        )}
         <a href="/" className="button button-gold">Back to home</a>
       </div>
     )

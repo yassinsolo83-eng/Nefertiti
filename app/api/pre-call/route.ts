@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { randomUUID } from 'crypto'
 import { createClient } from 'next-sanity'
-import { getNotifyWhatsappNumber, sendWhatsApp } from '@/lib/notify'
+import { buildWhatsappUrl, getNotifyWhatsappNumber, sendWhatsApp } from '@/lib/notify'
 import {
   OTHER_LABEL,
   PRE_CALL_FORM_QUERY,
@@ -175,14 +175,16 @@ export async function POST(req: Request) {
   }
 
   // Same rule for WhatsApp: already saved, so a failure is only logged
+  let whatsappUrl: string | undefined
   try {
     const notifyPhone = await getNotifyWhatsappNumber()
     const header = `🌸 New pre-call form — Nefertiti\n` + (name ? `From: ${name}\n` : '') + (email ? `Email: ${email}\n` : '')
     const body = rows.map((r) => `• ${r.question}\n${r.answer}`).join('\n\n')
+    whatsappUrl = buildWhatsappUrl(`${header}\n${body}`, notifyPhone)
     await sendWhatsApp(`${header}\n${body}`, notifyPhone)
   } catch (e: any) {
     console.error('Pre-call WhatsApp failed:', e?.message)
   }
 
-  return NextResponse.json({ ok: true })
+  return NextResponse.json({ ok: true, whatsappUrl })
 }

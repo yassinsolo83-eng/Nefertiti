@@ -9,6 +9,7 @@ import SiteFooter from '@/components/SiteFooter'
 import BackButton from '@/components/BackButton'
 import s from '@/app/contact/contact.module.css'
 import { Ornament } from '@/components/Motif'
+import { openWhatsapp } from '@/lib/openWhatsapp'
 
 type Props = {
   faqs: [string, string][]
@@ -23,6 +24,7 @@ export default function ContactPage({ faqs, whatsappLink, socialLinks, appointme
     name: '', email: '', phone: '', practice: '', message: '',
   })
   const [sent, setSent] = useState(false)
+  const [waUrl, setWaUrl] = useState('')
   const [sending, setSending] = useState(false)
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [formError, setFormError] = useState('')
@@ -64,6 +66,7 @@ export default function ContactPage({ faqs, whatsappLink, socialLinks, appointme
       const data = await res.json().catch(() => ({}))
       if (res.ok) {
         setSent(true)
+        if (data.whatsappUrl && !openWhatsapp(data.whatsappUrl)) setWaUrl(data.whatsappUrl)
       } else if (data.errors) {
         setErrors(data.errors)
       } else {
@@ -147,6 +150,9 @@ export default function ContactPage({ faqs, whatsappLink, socialLinks, appointme
             <div className={s.formSuccess}>
               <h3>Message sent.</h3>
               <p>Thank you for reaching out — we&apos;ll get back to you within 48 hours.</p>
+              {waUrl && (
+                <a className="button button-gold" href={waUrl} target="_blank" rel="noopener noreferrer">Send details on WhatsApp</a>
+              )}
             </div>
           ) : (
             <div className={s.contactSimpleForm}>

@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { randomUUID } from 'crypto'
 import { createClient } from 'next-sanity'
-import { getNotifyWhatsappNumber, sendWhatsApp } from '@/lib/notify'
+import { buildWhatsappUrl, getNotifyWhatsappNumber, sendWhatsApp } from '@/lib/notify'
 
 // Server-only client with write access. The token never reaches the browser.
 const writeClient = createClient({
@@ -74,6 +74,7 @@ export async function POST(req: Request) {
   }
 
   // The enquiry is already saved: a WhatsApp problem must not show an error to the visitor.
+  let whatsappUrl: string | undefined
   try {
     const notifyPhone = await getNotifyWhatsappNumber()
     const text =
@@ -84,10 +85,11 @@ export async function POST(req: Request) {
       (practice ? `Practice: ${practice}\n` : '') +
       (retreat ? `Retreat: ${retreat}\n` : '') +
       `\n${message}`
+    whatsappUrl = buildWhatsappUrl(text, notifyPhone)
     await sendWhatsApp(text, notifyPhone)
   } catch (e: any) {
     console.error('Enquiry WhatsApp failed:', e?.message)
   }
 
-  return NextResponse.json({ ok: true })
+  return NextResponse.json({ ok: true, whatsappUrl })
 }
