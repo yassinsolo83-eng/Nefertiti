@@ -1,5 +1,6 @@
 'use client'
 
+import LazyVideo from '@/components/LazyVideo'
 import { useState, useEffect } from 'react'
 import { ArrowUpRight, MessageCircle, Plane } from 'lucide-react'
 import Link from 'next/link'
@@ -160,14 +161,9 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
           </div>
           <div className={s.visionRight}>
             <div className={`${s.visionImage} reveal`}>
-              <video
+              <LazyVideo
                 src="/why-egypt-video.mp4"
                 poster={images.vision}
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="metadata"
                 aria-label="Egypt desert at golden hour"
               />
             </div>
@@ -196,14 +192,9 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
               className={`${s.destCard} reveal delay-${Math.min(i + 1, 4)}`}
             >
               {dest.video ? (
-                <video
+                <LazyVideo
                   src={dest.video}
                   poster={dest.image}
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  preload="metadata"
                   aria-label={dest.title}
                 />
               ) : (

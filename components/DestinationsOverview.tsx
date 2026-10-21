@@ -1,5 +1,6 @@
 'use client'
 
+import LazyVideo from '@/components/LazyVideo'
 import { useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
 import { ArrowUpRight } from 'lucide-react'
@@ -38,7 +39,7 @@ export default function DestinationsOverview({ featured, more, moreLabel }: Prop
         {featured.map((dest, i) => (
           <Link key={dest.id} href={`/destinations/${dest.id}`} className={`${s.destCard} reveal is-in delay-${Math.min(i + 1, 4)}`}>
             {dest.video ? (
-              <video src={dest.video} poster={dest.image} autoPlay muted loop playsInline preload="metadata" aria-label={dest.title} />
+              <LazyVideo src={dest.video} poster={dest.image} aria-label={dest.title} />
             ) : (
               <img src={dest.image} alt={dest.title} />
             )}
