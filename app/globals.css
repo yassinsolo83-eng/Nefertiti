@@ -65,7 +65,7 @@ h2, h3 { font-family: 'Cormorant Garamond', serif; }
 
 .nav-pill-brand {
   position: relative; z-index: 2; flex-shrink: 0;
-  display: flex; align-items: center; height: 62px; margin-left: 0;
+  display: flex; align-items: center; height: 72px; margin-left: 0;
 }
 .nav-pill-brand .brand-logo { height: 100%; padding: 4px 0 4px 10px; box-sizing: border-box; transition: color .4s ease; }
 .pill-video .nav-pill-brand { color: var(--gold); }
@@ -510,7 +510,7 @@ footer { position: relative; padding: 130px 8vw 24px; background: var(--primary)
   /* Nav */
   .site-nav { padding: 10px 5vw; }
   .nav-pill { width: min(340px, calc(100vw - 32px)); padding: 8px 12px 8px 6px; }
-  .nav-pill-brand { height: 54px; }
+  .nav-pill-brand { height: 62px; }
   .nav-pill-icon { width: 36px; height: 36px; }
   .nav-menu { width: min(280px, 86vw); }
 
