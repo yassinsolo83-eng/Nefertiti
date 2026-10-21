@@ -46,7 +46,8 @@ export const destination = defineType({
       name: 'video',
       title: 'Cover Video URL (optional)',
       type: 'url',
-      description: 'If set, video plays instead of cover image',
+      description: 'If set, video plays instead of cover image. A file in the site\'s public folder is written like /red-sea.mp4',
+      validation: (r) => r.uri({ allowRelative: true, scheme: ['http', 'https'] }),
     }),
     defineField({
       name: 'featured',
