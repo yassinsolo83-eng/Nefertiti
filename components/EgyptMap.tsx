@@ -89,7 +89,7 @@ export default function EgyptMap({ destinations, featuredIds, height = 520, onOp
       land('LIBYA', 27.0, 21.8)
       land('SUDAN', 20.6, 29.6)
       land('SAUDI ARABIA', 26.4, 38.4)
-      land('ISRAEL · JORDAN', 30.2, 36.4)
+      land('JORDAN', 30.6, 36.9)
 
       // Sea names (the base map is label-free so it stays clean)
       const sea = (text: string, lat: number, lng: number) =>
