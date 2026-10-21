@@ -45,21 +45,51 @@ export default function EgyptMap({ destinations, featuredIds, height = 520, onOp
         minZoom: 5,
         maxZoom: 9,
         zoomControl: false,
-        attributionControl: true,
+        attributionControl: false,
         scrollWheelZoom: false, // never trap the page scroll; enabled after a click
         dragging: !touch, // phones: one finger scrolls the page, two fingers move the map
         maxBounds: [[18, 20], [37, 40.5]],
         maxBoundsViscosity: 0.4,
       })
-      map.fitBounds([[22.2, 24.9], [31.6, 36.4]], { padding: [10, 10] })
+      map.fitBounds([[21.8, 24.6], [32.2, 36.6]], { padding: [10, 10] })
       L.control.zoom({ position: 'bottomright' }).addTo(map)
-      map.attributionControl.setPrefix(false)
 
-      L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
-        subdomains: 'abcd',
-        maxZoom: 19,
-        attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> · © <a href="https://carto.com/attributions">CARTO</a>',
-      }).addTo(map)
+      // The map is drawn by us from country outlines (no map service, no keys, no tiles)
+      try {
+        const res = await fetch('/brand/egypt-map.json')
+        const geo = await res.json()
+        if (cancelled) return
+        L.geoJSON(geo, {
+          interactive: false,
+          style: (f) =>
+            f?.properties?.egypt
+              ? { fillColor: '#fbf8ee', fillOpacity: 1, color: '#8d4c65', weight: 1.4, opacity: 0.55 }
+              : { fillColor: '#e8e0d1', fillOpacity: 1, color: '#d3c6b3', weight: 0.8, opacity: 1 },
+        }).addTo(map)
+      } catch {
+        /* the pins still work on the plain background */
+      }
+
+      // The Nile and Lake Nasser, drawn lightly
+      const nile: [number, number][] = [
+        [22.0, 31.3], [22.8, 32.0], [23.97, 32.88], [24.09, 32.9], [25.0, 32.8], [25.69, 32.64], [26.17, 32.72],
+        [26.55, 31.9], [27.18, 31.18], [28.1, 30.75], [29.07, 31.1], [29.9, 31.25], [30.2, 31.2],
+      ]
+      L.polyline(nile, { color: '#65c0b7', weight: 3, opacity: 0.55, smoothFactor: 1.5, interactive: false, lineCap: 'round' }).addTo(map)
+      L.polyline([[30.2, 31.2], [30.9, 30.9], [31.4, 30.4]], { color: '#65c0b7', weight: 2.5, opacity: 0.55, interactive: false }).addTo(map)
+      L.polyline([[30.2, 31.2], [30.9, 31.4], [31.42, 31.8]], { color: '#65c0b7', weight: 2.5, opacity: 0.55, interactive: false }).addTo(map)
+
+      // Names of the neighbours (soft, so they never compete with the pins)
+      const land = (text: string, lat: number, lng: number) =>
+        L.marker([lat, lng], {
+          interactive: false,
+          keyboard: false,
+          icon: L.divIcon({ className: 'egm-land', html: `<span>${text}</span>`, iconSize: [120, 16], iconAnchor: [60, 8] }),
+        }).addTo(map!)
+      land('LIBYA', 27.0, 21.8)
+      land('SUDAN', 20.6, 29.6)
+      land('SAUDI ARABIA', 26.4, 38.4)
+      land('ISRAEL · JORDAN', 30.2, 36.4)
 
       // Sea names (the base map is label-free so it stays clean)
       const sea = (text: string, lat: number, lng: number) =>
@@ -68,8 +98,8 @@ export default function EgyptMap({ destinations, featuredIds, height = 520, onOp
           keyboard: false,
           icon: L.divIcon({ className: 'egm-sea', html: `<span>${text}</span>`, iconSize: [160, 20], iconAnchor: [80, 10] }),
         }).addTo(map!)
-      sea('Mediterranean Sea', 32.6, 28.6)
-      sea('Red Sea', 24.4, 36.0)
+      sea('Mediterranean Sea', 33.0, 28.0)
+      sea('Red Sea', 22.6, 37.3)
 
       for (const d of destinations) {
         const fallback = destinationCoords[d.id]
