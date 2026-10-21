@@ -6,6 +6,7 @@ import SiteNav from '@/components/SiteNav'
 import SiteFooter from '@/components/SiteFooter'
 import DestinationsOverview from '@/components/DestinationsOverview'
 import { Ornament } from '@/components/Motif'
+import BackButton from '@/components/BackButton'
 
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSiteSettings()
@@ -26,6 +27,7 @@ export default async function DestinationsPage() {
       <SiteNav solid />
 
       <section className="dest-index-hero">
+        <div className="dest-index-back"><BackButton /></div>
         <p className="eyebrow">◆ DESTINATIONS</p>
         <Ornament name="sun" center />
         <h1 className="dest-index-title">Where we take your retreat</h1>
