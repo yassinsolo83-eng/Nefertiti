@@ -37,6 +37,7 @@ button { font: inherit; cursor: pointer; }
 img { display: block; max-width: 100%; }
 h2, h3 { font-family: 'Cormorant Garamond', serif; }
 
+
 /* ══════════════════════════════════
    NAV — Unified pill navigation
 ══════════════════════════════════ */
@@ -56,7 +57,7 @@ h2, h3 { font-family: 'Cormorant Garamond', serif; }
   border: 1.4px solid transparent;
   transition: background .45s ease, border-color .45s ease;
 }
-.pill-video .nav-pill { background: transparent; border-color: transparent; }
+.pill-video .nav-pill { background: rgba(243,240,232,.93); backdrop-filter: blur(12px); border-color: rgba(200,190,170,.4); }
 .pill-solid .nav-pill {
   background: rgba(243,240,232,.96); backdrop-filter: blur(14px);
   border-color: rgba(200,190,170,.4);
@@ -67,7 +68,7 @@ h2, h3 { font-family: 'Cormorant Garamond', serif; }
   display: flex; align-items: center; height: 72px; margin-left: 0;
 }
 .nav-pill-brand .brand-logo { height: 100%; padding: 4px 0 4px 10px; box-sizing: border-box; transition: color .4s ease; }
-.pill-video .nav-pill-brand { color: var(--gold); }
+.pill-video .nav-pill-brand { color: var(--plum); }
 .pill-solid .nav-pill-brand { color: var(--plum); }
 /* Logo lockup */
 .brand-logo { display: inline-flex; align-items: center; gap: 12px; height: 100%; }
@@ -79,7 +80,10 @@ h2, h3 { font-family: 'Cormorant Garamond', serif; }
 }
 .brand-logo-emblem { aspect-ratio: 2157 / 2748; -webkit-mask-image: url(/brand/logo-emblem.svg); mask-image: url(/brand/logo-emblem.svg); }
 .brand-logo-word { height: 54%; aspect-ratio: 4677 / 1044; -webkit-mask-size: 100% 100%; mask-size: 100% 100%; -webkit-mask-image: url(/brand/logo-wordmark.svg); mask-image: url(/brand/logo-wordmark.svg); }
-.brand-logo-footer { height: 78px; margin-bottom: 18px; color: var(--gold); }
+.brand-logo-footer {
+  height: 98px; margin-bottom: 18px; color: var(--plum); box-sizing: border-box;
+  padding: 10px 22px 10px 16px; background: var(--background); border-radius: 18px;
+}
 
 .nav-pill-icon {
   position: relative; z-index: 2;
@@ -91,10 +95,12 @@ h2, h3 { font-family: 'Cormorant Garamond', serif; }
   box-shadow: 0 1px 6px rgba(0,0,0,.3);
 }
 .nav-pill-icon:hover { border-color: #fff; background: rgba(20,8,8,.25); }
+.pill-video .nav-pill-icon,
 .pill-solid .nav-pill-icon {
   border-color: rgba(141,76,101,.25); color: var(--foreground);
   background: transparent; box-shadow: none;
 }
+.pill-video .nav-pill-icon:hover,
 .pill-solid .nav-pill-icon:hover { border-color: var(--primary); background: rgba(141,76,101,.06); }
 
 /* Dropdown panel */
