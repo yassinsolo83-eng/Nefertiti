@@ -31,7 +31,7 @@ export default function DestinationsOverview({ featured, more, moreLabel }: Prop
   return (
     <>
       <div className="egm-wrap">
-        <EgyptMap destinations={all} featuredIds={featuredIds} height={560} onOpen={setActiveId} />
+        <EgyptMap destinations={all} featuredIds={featuredIds} onOpen={setActiveId} />
         <p className="egm-hint">Tap a pin to see what each destination is about. Larger gold pins have their own page.</p>
       </div>
 

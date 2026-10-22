@@ -305,27 +305,104 @@ h3 { font-size: 26px; line-height: 1.15; font-weight: 500; }
 /* ══════════════════════════════════
    EGYPT MAP (Leaflet, brand-tinted)
 ══════════════════════════════════ */
-/* The map runs full browser width; the card is a fixed panel over its corner */
-.egm-stage { position: relative; width: 100vw; margin-left: calc(50% - 50vw); background: #dbe8e3; }
-.egm.leaflet-container, .egm { width: 100%; height: 100%; overflow: hidden; background: #dbe8e3; position: relative; z-index: 0; font-family: 'Montserrat', sans-serif; }
-@media (max-width: 900px) { .egm-stage { width: 100%; margin-left: 0; border-radius: 14px; overflow: hidden; } }
+/* The map is a framed atlas of Egypt: wide on desktop, tall enough to use the full width on phones.
+   The card is a fixed panel over its corner. */
+.egm-stage {
+  position: relative; width: 100%; max-width: 1180px; margin: 0 auto;
+  height: clamp(540px, 54vw, 700px);
+  background: #d4e5e0; border-radius: 18px; overflow: hidden;
+  box-shadow: 0 18px 50px rgba(60,20,40,.12), 0 0 0 1px rgba(141,76,101,.12);
+}
+.egm.leaflet-container, .egm { width: 100%; height: 100%; overflow: hidden; background: #d4e5e0; position: relative; z-index: 0; font-family: 'Montserrat', sans-serif; -webkit-tap-highlight-color: transparent; }
+@media (max-width: 760px) {
+  .egm-stage { height: clamp(420px, 116vw, 540px); border-radius: 14px; }
+}
 .egm .leaflet-control-attribution { background: rgba(243,240,232,.85); color: #7a5c65; font-size: 9px; }
 .egm .leaflet-control-attribution a { color: var(--primary); }
 .egm .leaflet-bar { border: 0; box-shadow: 0 6px 20px rgba(60,20,40,.18); border-radius: 10px; overflow: hidden; }
 .egm .leaflet-bar a { background: var(--background); color: var(--primary); border-bottom-color: var(--border); width: 34px; height: 34px; line-height: 34px; }
 .egm .leaflet-bar a:hover { background: var(--gold); color: var(--primary); }
 
-.egm-land span { display: block; text-align: center; font-size: 9px; letter-spacing: .3em; color: rgba(141,76,101,.4); white-space: nowrap; }
-.egm.leaflet-container { background: #dbe8e3; }
-.egm-sea span { display: block; text-align: center; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 15px; letter-spacing: .12em; color: rgba(30,100,95,.55); white-space: nowrap; }
+/* Map labels (all non-interactive; JS shows only the ones that fit) */
+.egm-l { pointer-events: none; width: 0; height: 0; transition: opacity .25s; }
+.egm-l.is-off { opacity: 0; }
+.egm-l span { position: absolute; display: block; white-space: nowrap; line-height: 14px; }
+.egm-l[data-side="r"] span { left: var(--off, 8px); top: -7px; }
+.egm-l[data-side="l"] span { right: var(--off, 8px); top: -7px; }
+.egm-l[data-side="t"] span { left: 50%; bottom: var(--off, 14px); transform: translateX(-50%); }
+.egm-l[data-side="b"] span { left: 50%; top: var(--off, 14px); transform: translateX(-50%); }
+.egm-l[data-side="c"] span { left: 0; top: -7px; transform: translateX(-50%) rotate(var(--rot, 0deg)); }
+.egm-l b { position: absolute; left: -2.5px; top: -2.5px; width: 5px; height: 5px; border-radius: 50%; background: #8d4c65; opacity: .55; }
+.egm-l span { text-shadow: 0 0 3px #fbf8ee, 0 0 3px #fbf8ee, 0 0 6px #fbf8ee; }
 
-/* Pins */
-.egm-pin { background: none; border: 0; }
-.egm-pin i { display: block; width: 100%; height: 100%; border-radius: 50%; background: var(--primary); border: 2px solid var(--gold); box-shadow: 0 2px 8px rgba(60,20,40,.35); transition: transform .2s; }
+.egm-k-land span { font-size: 9px; letter-spacing: .3em; color: rgba(141,76,101,.42); text-shadow: none; }
+.egm-k-region span { font-size: 9px; letter-spacing: .26em; text-transform: uppercase; color: rgba(171,109,72,.6); text-shadow: none; }
+.egm-k-water span { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 14px; letter-spacing: .1em; color: rgba(30,100,95,.6); text-shadow: none; }
+.egm-k-gov span { font-size: 8px; letter-spacing: .18em; text-transform: uppercase; color: rgba(141,76,101,.38); text-shadow: none; }
+.egm-k-city span { font-size: 10px; letter-spacing: .04em; color: #6b3a4e; }
+.egm-k-city.egm-s-xl span { font-size: 12px; font-weight: 500; }
+.egm-k-city.egm-s-l span { font-size: 11px; font-weight: 500; }
+.egm-k-city.egm-s-s span { font-size: 9px; color: rgba(107,58,78,.75); }
+.egm-k-city.egm-s-s b { width: 4px; height: 4px; left: -2px; top: -2px; }
+.egm-k-far span { font-size: 9px; letter-spacing: .04em; color: rgba(122,92,101,.7); text-shadow: 0 0 3px #e9e1d2, 0 0 3px #e9e1d2; }
+.egm-k-far b { background: #9a8374; }
+.egm-k-peak span, .egm-k-poi span { font-size: 9px; font-style: italic; letter-spacing: .03em; color: rgba(107,58,78,.78); }
+.egm-k-peak b.egm-peak { width: 0; height: 0; border-radius: 0; background: none; opacity: .8; left: -4px; top: -6px; border-left: 4px solid transparent; border-right: 4px solid transparent; border-bottom: 7px solid #ab6d48; }
+.egm-k-poi b.egm-poi { width: 6px; height: 6px; border-radius: 1px; left: -3px; top: -3px; transform: rotate(45deg); background: #b8923d; opacity: 1; }
+/* names of destinations: beside their pin */
+.egm-k-pin s { text-decoration: none; }
+.egm-k-pin span { font-size: 10.5px; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; color: #8d4c65; }
+.egm-k-pin.egm-s-main span { font-size: 11.5px; font-weight: 600; color: #6b3a4e; }
+.egm-k-pin.is-active span { color: #6b3a4e; font-weight: 600; }
+@media (max-width: 760px) {
+  .egm-k-pin span { font-size: 9.5px; letter-spacing: .04em; }
+  .egm-k-pin s { display: none; }
+  .egm-k-pin.egm-s-main span { font-size: 10px; }
+  .egm-k-city span { font-size: 9px; }
+  .egm-k-city.egm-s-xl span, .egm-k-city.egm-s-l span { font-size: 10px; }
+  .egm-k-city.egm-s-s span { font-size: 8.5px; }
+  .egm-k-land span { font-size: 8px; letter-spacing: .22em; }
+  .egm-k-region span { font-size: 8px; letter-spacing: .18em; }
+  .egm-k-water span { font-size: 12px; }
+  .egm-k-far span { font-size: 8.5px; }
+}
+
+/* Lines that appear as you zoom in */
+.egm .egm-rail, .egm .egm-road-minor { stroke-opacity: 0; transition: stroke-opacity .3s; }
+.egm.egm-z1 .egm-rail { stroke-opacity: .75; }
+.egm.egm-z1 .egm-road-minor { stroke-opacity: .55; }
+.egm.egm-z2 .egm-road-minor { stroke-opacity: .85; }
+.egm .egm-gov { transition: stroke-opacity .3s; }
+.egm.egm-z1 .egm-gov { stroke-opacity: .5; }
+
+/* Pins: the hit area is bigger than the dot so they are easy to tap */
+.egm-pin { background: none; border: 0; display: flex; align-items: center; justify-content: center; --d: 18px; }
+.egm-pin-main { --d: 26px; }
+.egm-pin i { display: block; width: var(--d); height: var(--d); border-radius: 50%; background: var(--primary); border: 2px solid var(--gold); box-shadow: 0 2px 8px rgba(60,20,40,.35); transition: transform .2s; }
 .egm-pin-main i { background: var(--gold); border: 3px solid var(--primary); position: relative; }
 .egm-pin-main i::after { content: ''; position: absolute; inset: -8px; border-radius: 50%; border: 1px solid rgba(141,76,101,.55); animation: egm-ping 2.6s cubic-bezier(0,0,.2,1) infinite; }
 .egm-pin:hover i, .egm-pin:focus i { transform: scale(1.25); }
 @keyframes egm-ping { 0% { transform: scale(.6); opacity: .9; } 80%, 100% { transform: scale(1.7); opacity: 0; } }
+@media (max-width: 760px) {
+  .egm-pin { --d: 13px; }
+  .egm-pin-main { --d: 20px; }
+  .egm-pin i { border-width: 1.5px; }
+  .egm-pin-main i { border-width: 2.5px; }
+}
+
+/* Extra map controls */
+.egm .egm-reset a { display: flex; align-items: center; justify-content: center; }
+.egm-touch {
+  position: absolute; z-index: 900; left: 50%; top: 12px; transform: translateX(-50%);
+  padding: 6px 14px; border-radius: 999px; background: rgba(107,58,78,.88); color: #fff;
+  font-size: 10px; letter-spacing: .06em; line-height: 1.4; white-space: nowrap; pointer-events: none;
+  animation: egm-touch-in .4s ease both;
+}
+@media (max-width: 400px) {
+  .egm-k-pin span { font-size: 9px; }
+  .egm-k-pin.egm-s-main span { font-size: 9.5px; }
+}
+@keyframes egm-touch-in { from { opacity: 0; transform: translate(-50%, -6px); } to { opacity: 1; transform: translate(-50%, 0); } }
 
 .egm-tip { background: var(--primary); color: #fff; border: 0; border-radius: 6px; font-size: 11px; letter-spacing: .06em; padding: 4px 9px; box-shadow: 0 4px 14px rgba(60,20,40,.3); }
 .egm-tip::before { border-top-color: var(--primary) !important; }

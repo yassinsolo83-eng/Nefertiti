@@ -233,7 +233,7 @@ export default function ContactPage({ faqs, whatsappLink, socialLinks, appointme
 
       {/* Egypt map */}
       <section className={s.contactMap}>
-        <EgyptMap destinations={destinations} featuredIds={featuredIds} height={470} />
+        <EgyptMap destinations={destinations} featuredIds={featuredIds} />
         <a className={s.contactMapLink} href="/destinations">
           See all destinations
         </a>
