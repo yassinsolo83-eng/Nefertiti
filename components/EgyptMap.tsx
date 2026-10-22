@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import 'leaflet/dist/leaflet.css'
 import { destinationCoords, destinationTravel } from '@/lib/data'
 import type { Destination } from '@/lib/data'
@@ -15,32 +15,35 @@ type Props = {
   onOpen?: (id: string) => void
 }
 
-const el = <K extends keyof HTMLElementTagNameMap>(tag: K, className?: string, text?: string) => {
-  const node = document.createElement(tag)
-  if (className) node.className = className
-  if (text) node.textContent = text
-  return node
-}
+type Marker = { marker: import('leaflet').Marker; lat: number; lng: number }
 
 // Soft brand-tinted map of Egypt with one pin per destination.
+// Tapping a pin opens a fixed detail card in the corner of the map (never a
+// floating popup, so it is never clipped), and draws a line back to Cairo.
 // Leaflet is loaded only when the map scrolls into view, so it never slows the page down.
 export default function EgyptMap({ destinations, featuredIds, height = 520, onOpen }: Props) {
   const box = useRef<HTMLDivElement>(null)
+  const mapRef = useRef<import('leaflet').Map | null>(null)
+  const LRef = useRef<typeof import('leaflet') | null>(null)
+  const markersRef = useRef<Record<string, Marker>>({})
+  const routeRef = useRef<import('leaflet').Polyline | null>(null)
+  const [active, setActive] = useState<Destination | null>(null)
   const onOpenRef = useRef(onOpen)
   onOpenRef.current = onOpen
 
+  // ── Build the map once ──────────────────────────────────────────────
   useEffect(() => {
     const host = box.current
     if (!host) return
-    let map: import('leaflet').Map | null = null
     let cancelled = false
 
     const build = async () => {
       const L = (await import('leaflet')).default
       if (cancelled || !host) return
+      LRef.current = L
 
       const touch = L.Browser.mobile
-      map = L.map(host, {
+      const map = L.map(host, {
         zoomSnap: 0.25,
         minZoom: 5,
         maxZoom: 9,
@@ -48,10 +51,11 @@ export default function EgyptMap({ destinations, featuredIds, height = 520, onOp
         attributionControl: false,
         scrollWheelZoom: false, // never trap the page scroll; enabled after a click
         dragging: !touch, // phones: one finger scrolls the page, two fingers move the map
-        maxBounds: [[18, 20], [37, 40.5]],
+        maxBounds: [[17.5, 19], [37.5, 42]],
         maxBoundsViscosity: 0.4,
       })
-      map.fitBounds([[21.8, 24.6], [32.2, 36.6]], { padding: [10, 10] })
+      mapRef.current = map
+      map.fitBounds([[21.6, 24.4], [32.2, 36.8]], { padding: [6, 6] })
       L.control.zoom({ position: 'bottomright' }).addTo(map)
 
       // The map is drawn by us from country outlines (no map service, no keys, no tiles)
@@ -70,7 +74,7 @@ export default function EgyptMap({ destinations, featuredIds, height = 520, onOp
         /* the pins still work on the plain background */
       }
 
-      // The Nile and Lake Nasser, drawn lightly
+      // The Nile and its Delta, drawn lightly
       const nile: [number, number][] = [
         [22.0, 31.3], [22.8, 32.0], [23.97, 32.88], [24.09, 32.9], [25.0, 32.8], [25.69, 32.64], [26.17, 32.72],
         [26.55, 31.9], [27.18, 31.18], [28.1, 30.75], [29.07, 31.1], [29.9, 31.25], [30.2, 31.2],
@@ -85,7 +89,7 @@ export default function EgyptMap({ destinations, featuredIds, height = 520, onOp
           interactive: false,
           keyboard: false,
           icon: L.divIcon({ className: 'egm-land', html: `<span>${text}</span>`, iconSize: [120, 16], iconAnchor: [60, 8] }),
-        }).addTo(map!)
+        }).addTo(map)
       land('LIBYA', 27.0, 21.8)
       land('SUDAN', 20.6, 29.6)
       land('SAUDI ARABIA', 26.4, 38.4)
@@ -97,12 +101,9 @@ export default function EgyptMap({ destinations, featuredIds, height = 520, onOp
           interactive: false,
           keyboard: false,
           icon: L.divIcon({ className: 'egm-sea', html: `<span>${text}</span>`, iconSize: [160, 20], iconAnchor: [80, 10] }),
-        }).addTo(map!)
+        }).addTo(map)
       sea('Mediterranean Sea', 33.0, 28.0)
       sea('Red Sea', 22.6, 37.3)
-
-      const cairo: [number, number] = destinationCoords.cairo
-      let routeLine: import('leaflet').Polyline | null = null
 
       for (const d of destinations) {
         const fallback = destinationCoords[d.id]
@@ -123,63 +124,16 @@ export default function EgyptMap({ destinations, featuredIds, height = 520, onOp
         }).addTo(map)
 
         marker.bindTooltip(d.title, { direction: 'top', offset: [0, featured ? -12 : -9], className: 'egm-tip' })
-
-        // Popup card
-        const card = el('div', 'egm-card')
-        if (d.image) {
-          const img = el('img')
-          img.src = d.image
-          img.alt = d.title
-          img.loading = 'lazy'
-          card.appendChild(img)
-        }
-        const body = el('div', 'egm-body')
-        if (d.feeling) body.appendChild(el('p', 'egm-feeling', d.feeling))
-        body.appendChild(el('h4', undefined, d.title))
-        if (d.tagline) body.appendChild(el('p', 'egm-tagline', d.tagline))
-        const travel = d.fromCairo || destinationTravel[d.id]
-        if (travel) {
-          const row = el('p', 'egm-travel')
-          row.appendChild(el('span', undefined, 'From Cairo'))
-          row.appendChild(document.createTextNode(travel))
-          body.appendChild(row)
-        }
-        if (d.idealFor?.length) {
-          const chips = el('div', 'egm-chips')
-          d.idealFor.slice(0, 3).forEach((c) => chips.appendChild(el('span', undefined, c)))
-          body.appendChild(chips)
-        }
-        if (featured) {
-          const a = el('a', 'egm-link', 'Explore ↗')
-          a.href = `/destinations/${d.id}`
-          body.appendChild(a)
-        } else if (onOpenRef.current) {
-          const b = el('button', 'egm-link', 'View details ↗')
-          b.type = 'button'
-          b.addEventListener('click', () => onOpenRef.current?.(d.id))
-          body.appendChild(b)
-        } else {
-          const a = el('a', 'egm-link', 'View details ↗')
-          a.href = `/destinations?open=${encodeURIComponent(d.id)}`
-          body.appendChild(a)
-        }
-        card.appendChild(body)
-        // A light dashed line from Cairo to the chosen destination
-        if (d.id !== 'cairo') {
-          marker.on('popupopen', () => {
-            routeLine?.remove()
-            routeLine = L.polyline([cairo, [lat, lng]], { color: '#8d4c65', weight: 2, opacity: 0.55, dashArray: '2 7', lineCap: 'round', interactive: false }).addTo(map!)
-          })
-          marker.on('popupclose', () => {
-            routeLine?.remove()
-            routeLine = null
-          })
-        }
-        marker.bindPopup(card, { maxWidth: 260, minWidth: 220, className: 'egm-popup', autoPanPaddingTopLeft: [20, 70], autoPanPaddingBottomRight: [20, 20] })
+        marker.on('click', () => setActive(d))
+        markersRef.current[d.id] = { marker, lat, lng }
       }
 
-      map.on('click', () => map?.scrollWheelZoom.enable())
-      map.on('mouseout', () => map?.scrollWheelZoom.disable())
+      // Clicking empty map closes the card and frees the scroll wheel
+      map.on('click', () => {
+        setActive(null)
+        map.scrollWheelZoom.enable()
+      })
+      map.on('mouseout', () => map.scrollWheelZoom.disable())
     }
 
     // Start loading just before the map comes into view
@@ -197,17 +151,79 @@ export default function EgyptMap({ destinations, featuredIds, height = 520, onOp
     return () => {
       cancelled = true
       io.disconnect()
-      map?.remove()
+      mapRef.current?.remove()
+      mapRef.current = null
+      markersRef.current = {}
     }
   }, [destinations, featuredIds])
 
+  // ── React to the selected destination: highlight pin + line to Cairo ──
+  useEffect(() => {
+    const map = mapRef.current
+    const L = LRef.current
+    if (!map || !L) return
+
+    Object.values(markersRef.current).forEach(({ marker }) => marker.getElement()?.classList.remove('is-active'))
+    routeRef.current?.remove()
+    routeRef.current = null
+    if (!active) return
+
+    const m = markersRef.current[active.id]
+    if (!m) return
+    m.marker.getElement()?.classList.add('is-active')
+
+    if (active.id !== 'cairo') {
+      routeRef.current = L.polyline([destinationCoords.cairo, [m.lat, m.lng]], {
+        color: '#8d4c65', weight: 2, opacity: 0.6, dashArray: '2 7', lineCap: 'round', interactive: false,
+      }).addTo(map)
+    }
+
+    // Keep the chosen pin clear of the card (card sits top-left on wide screens, bottom on phones)
+    const wide = typeof window !== 'undefined' && window.innerWidth >= 760
+    map.panInside([m.lat, m.lng], {
+      paddingTopLeft: wide ? [360, 40] : [30, 40],
+      paddingBottomRight: wide ? [40, 40] : [30, 320],
+    })
+  }, [active])
+
+  const travel = active ? active.fromCairo || destinationTravel[active.id] : null
+  const featured = active ? featuredIds.includes(active.id) : false
+
   return (
-    <div
-      ref={box}
-      className="egm"
-      style={{ height }}
-      role="region"
-      aria-label="Map of our destinations in Egypt"
-    />
+    <div className="egm-stage" style={{ height }}>
+      <div ref={box} className="egm" style={{ height }} role="region" aria-label="Map of our destinations in Egypt" />
+
+      {active && (
+        <div className="egm-panel" role="dialog" aria-label={active.title}>
+          <button className="egm-panel-x" type="button" onClick={() => setActive(null)} aria-label="Close">×</button>
+          {active.image && <img src={active.image} alt={active.title} loading="lazy" />}
+          <div className="egm-body">
+            {active.feeling && <p className="egm-feeling">{active.feeling}</p>}
+            <h4>{active.title}</h4>
+            {active.tagline && <p className="egm-tagline">{active.tagline}</p>}
+            {travel && (
+              <p className="egm-travel">
+                <span>From Cairo</span>
+                {travel}
+              </p>
+            )}
+            {active.idealFor?.length ? (
+              <div className="egm-chips">
+                {active.idealFor.slice(0, 3).map((c) => (
+                  <span key={c}>{c}</span>
+                ))}
+              </div>
+            ) : null}
+            {featured ? (
+              <a className="egm-link" href={`/destinations/${active.id}`}>Explore ↗</a>
+            ) : onOpenRef.current ? (
+              <button className="egm-link" type="button" onClick={() => onOpenRef.current?.(active.id)}>View details ↗</button>
+            ) : (
+              <a className="egm-link" href={`/destinations?open=${encodeURIComponent(active.id)}`}>View details ↗</a>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
   )
 }
