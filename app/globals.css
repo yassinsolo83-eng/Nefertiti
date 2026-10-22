@@ -99,6 +99,8 @@ h2, h3 { font-family: 'Cormorant Garamond', serif; }
   box-shadow: 0 1px 6px rgba(0,0,0,.3);
 }
 .nav-pill-icon:hover { border-color: #fff; background: rgba(20,8,8,.25); }
+.pill-video .nav-pill-icon { border-color: rgba(241,210,136,.75); color: var(--gold); }
+.pill-video .nav-pill-icon:hover { border-color: var(--gold); background: rgba(241,210,136,.1); }
 .pill-solid .nav-pill-icon {
   border-color: rgba(141,76,101,.25); color: var(--foreground);
   background: transparent; box-shadow: none;
