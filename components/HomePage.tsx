@@ -216,7 +216,7 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
           <EgyptMap
             destinations={[...featuredDestinations, ...moreDestinations]}
             featuredIds={featuredDestinations.map((d) => d.id)}
-            height={440}
+            height={500}
           />
           <div className={s.destMapAction}>
             <Link href="/destinations" className="button button-gold">See all destinations <ArrowUpRight size={14} /></Link>
