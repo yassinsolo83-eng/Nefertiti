@@ -81,9 +81,12 @@ h2, h3 { font-family: 'Cormorant Garamond', serif; }
 .brand-logo-emblem { aspect-ratio: 2157 / 2748; -webkit-mask-image: url(/brand/logo-emblem.svg); mask-image: url(/brand/logo-emblem.svg); }
 .brand-logo-word { height: 54%; aspect-ratio: 4677 / 1044; -webkit-mask-size: 100% 100%; mask-size: 100% 100%; -webkit-mask-image: url(/brand/logo-wordmark.svg); mask-image: url(/brand/logo-wordmark.svg); }
 .brand-logo-footer { height: 78px; margin-bottom: 18px; color: var(--gold); }
-/* On dark backgrounds the lines of the face must stay open, so use the lighter-weight emblem */
+/* On dark backgrounds: the designer's reversed (light-on-dark) artwork */
 .pill-video .brand-logo-emblem, .brand-logo-footer .brand-logo-emblem {
-  aspect-ratio: 2142 / 2734; -webkit-mask-image: url(/brand/logo-emblem-light.svg); mask-image: url(/brand/logo-emblem-light.svg);
+  aspect-ratio: 895 / 1143; -webkit-mask-image: url(/brand/logo-emblem-light.svg); mask-image: url(/brand/logo-emblem-light.svg);
+}
+.pill-video .brand-logo-word, .brand-logo-footer .brand-logo-word {
+  -webkit-mask-image: url(/brand/logo-wordmark-light.svg); mask-image: url(/brand/logo-wordmark-light.svg);
 }
 
 .nav-pill-icon {
