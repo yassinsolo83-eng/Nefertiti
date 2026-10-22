@@ -63,9 +63,8 @@ async function sendNotification(form: PreCallForm, rows: Row[], name: string, em
   // the submission is still saved in the Studio, so just skip.
   if (!apiKey || !to) return
 
-  // Resend's shared sender — works with no domain setup. Swap for your own
-  // verified domain later (e.g. "Nefertiti <noreply@nefertitiretreats.com>").
-  const from = 'Nefertiti Website <onboarding@resend.dev>'
+  // Sender on the verified nefertitiretreats.com domain (verified in Resend).
+  const from = 'Nefertiti Website <noreply@nefertitiretreats.com>'
 
   let lastStep = ''
   const htmlRows = rows
