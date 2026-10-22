@@ -163,7 +163,7 @@ export default function PreCallForm({ form }: Props) {
   if (sent) {
     return (
       <div ref={cardRef} className={`${s.card} ${s.success}`}>
-        <span className={s.successIcon}><Check size={26} /></span>
+        <img className={s.successStamp} src="/brand/stamp.webp" alt="" />
         <h2 className={s.successTitle}>{form.successTitle}</h2>
         {form.successText.split(/\n{2,}/).map((p, i) => (
           <p key={i} className={s.successText}>{p}</p>

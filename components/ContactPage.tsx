@@ -151,7 +151,8 @@ export default function ContactPage({ faqs, whatsappLink, socialLinks, appointme
 
           {sent ? (
             <div className={s.formSuccess}>
-              <h3>Message sent.</h3>
+              <img className={s.successStamp} src="/brand/stamp.webp" alt="" />
+              <h3>Your request is on its way.</h3>
               <p>Thank you for reaching out — we&apos;ll get back to you within 48 hours.</p>
               {waUrl && (
                 <a className="button button-gold" href={waUrl} target="_blank" rel="noopener noreferrer">Send details on WhatsApp</a>

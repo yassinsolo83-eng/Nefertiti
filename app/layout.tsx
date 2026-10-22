@@ -64,7 +64,11 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   colorScheme: 'light',
   themeColor: '#f4f0e8',
-  userScalable: true,
+  // Lock pinch-zoom so the site stays fixed like an app (iOS Safari may still allow it)
+  userScalable: false,
+  maximumScale: 1,
+  initialScale: 1,
+  width: 'device-width',
 }
 
 // Only real profile links (e.g. https://instagram.com/nefertiti), not bare placeholders

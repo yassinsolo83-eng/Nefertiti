@@ -20,6 +20,13 @@
   font-size: 14px; line-height: 1.85; color: var(--foreground); opacity: .82;
 }
 .introText + .introText { margin-top: 14px; }
+.introFigure { margin: 34px 0 0; }
+.introFigure img { display: block; width: 100%; border-radius: 14px; box-shadow: 0 20px 48px rgba(60,20,40,.22); }
+.introFigure figcaption {
+  font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 19px;
+  color: var(--muted-fg); text-align: center; margin-top: 16px;
+}
+@media (max-width: 860px) { .introFigure { max-width: 420px; } }
 
 /* ── Card ── */
 .formCol { min-width: 0; }
@@ -161,6 +168,10 @@ textarea.input { resize: vertical; min-height: 96px; line-height: 1.7; }
   width: 60px; height: 60px; border-radius: 50%; margin: 0 auto 26px;
   display: flex; align-items: center; justify-content: center;
   background: var(--primary); color: var(--gold);
+}
+.successStamp {
+  display: block; width: 160px; height: auto; margin: 0 auto 28px;
+  border-radius: 4px; box-shadow: 0 16px 38px rgba(60,20,40,.26); transform: rotate(-4deg);
 }
 .successTitle {
   font-family: 'Cormorant Garamond', serif; font-weight: 500;

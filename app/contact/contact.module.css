@@ -67,8 +67,12 @@
 
 /* Form success */
 .formSuccess {
-  background: rgba(141,76,101,.04); padding: 60px 44px; text-align: center;
+  background: rgba(141,76,101,.04); padding: 52px 44px 60px; text-align: center;
   border-radius: 10px;
+}
+.successStamp {
+  display: block; width: 150px; height: auto; margin: 0 auto 26px;
+  border-radius: 4px; box-shadow: 0 14px 34px rgba(60,20,40,.26); transform: rotate(-4deg);
 }
 .formSuccess h3 {
   font-family: 'Cormorant Garamond', serif; font-size: 42px;

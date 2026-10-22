@@ -16,7 +16,7 @@ import rs from '@/app/retreats/retreats.module.css'
 import EgyptMap from '@/components/EgyptMap'
 import SiteNav from '@/components/SiteNav'
 import SiteFooter from '@/components/SiteFooter'
-import Motif, { Ornament } from '@/components/Motif'
+import { Ornament } from '@/components/Motif'
 import { useKeyhole } from '@/hooks/useKeyhole'
 import s from '@/app/home.module.css'
 
@@ -378,12 +378,11 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
 
       {/* FINAL CTA */}
       <section className={s.ctaBand}>
-        <Motif name="sun" height={420} className={s.ctaSun} />
         <div className={`${s.ctaBandInner} reveal`}>
           <p className={s.ctaTagline}>Return to your inner balance</p>
           <h2>{t.cta.split('\n').map((line) => <span key={line}>{line}<br /></span>)}</h2>
           <p>{t.ctaText}</p>
-          <a className="button button-dark" href="/contact">{t.contact}<ArrowUpRight size={16} /></a>
+          <a className="button button-gold" href="/contact">{t.contact}<ArrowUpRight size={16} /></a>
         </div>
       </section>
 

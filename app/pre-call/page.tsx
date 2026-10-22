@@ -33,6 +33,10 @@ export default async function PreCallPage() {
           {form.intro.split(/\n{2,}/).map((p, i) => (
             <p key={i} className={s.introText}>{p}</p>
           ))}
+          <figure className={s.introFigure}>
+            <img src="/brand/journal.webp" alt="" loading="lazy" />
+            <figcaption>Tell us your story.</figcaption>
+          </figure>
         </aside>
 
         <div className={s.formCol}>
