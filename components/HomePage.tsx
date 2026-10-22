@@ -259,7 +259,7 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
           </ol>
           <div className={s.howHomeAction}>
             <Link href="/how-it-works" className="text-link">See the full process <ArrowUpRight size={16} /></Link>
-            <Link href="/pre-call" className="button button-dark">Start with a discovery call <ArrowUpRight size={14} /></Link>
+            <Link href="/pre-call" className="button button-dark">Share your idea, then book a call <ArrowUpRight size={14} /></Link>
           </div>
         </section>
       )}
