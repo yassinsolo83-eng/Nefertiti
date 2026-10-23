@@ -7,4 +7,4 @@ export const DEFAULT_DESCRIPTION =
   'Nefertiti produces luxury wellness retreats in Egypt for coaches, facilitators and retreat leaders — from the Pyramids of Giza and Luxor to the Red Sea, Siwa and the desert.'
 // Next.js replaces (does not merge) a parent's openGraph object, so pages that set
 // their own openGraph must include the image again.
-export const DEFAULT_OG_IMAGE = { url: '/og-image.png', width: 1200, height: 630, alt: 'Nefertiti Luxury Retreat Producer' }
+export const DEFAULT_OG_IMAGE = { url: '/og-image.jpg', width: 1200, height: 630, alt: 'Nefertiti Luxury Retreat Producer' }
