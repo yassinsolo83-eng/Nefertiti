@@ -486,7 +486,7 @@ footer { position: relative; padding: 130px 8vw 24px; background: var(--primary)
 /* ══════════════════════════════════
    KEYHOLE INTRO — scroll-driven reveal
 ══════════════════════════════════ */
-.kh-track { height: 300vh; position: relative; }
+.kh-track { height: 300vh; position: relative; background: #2E1840; } /* purple, so a mobile address-bar resize never flashes the cream page colour */
 .kh-stage { position: sticky; top: 0; height: 100vh; height: 100dvh; overflow: hidden; background: #2E1840; }
 .kh-stage .hero { position: absolute; inset: 0; min-height: 100%; }
 
@@ -505,7 +505,7 @@ footer { position: relative; padding: 130px 8vw 24px; background: var(--primary)
 }
 .kh-hint {
   position: absolute; bottom: 14%; left: 50%; transform: translateX(-50%);
-  z-index: 16; font-size: 10px; letter-spacing: .18em; text-transform: uppercase;
+  z-index: 16; font-size: 10px; letter-spacing: .18em; text-transform: uppercase; white-space: nowrap;
   color: var(--gold); pointer-events: none; animation: kh-bob 1.6s ease-in-out infinite;
 }
 .kh-hint span { margin-left: 6px; }
@@ -643,7 +643,7 @@ footer { position: relative; padding: 130px 8vw 24px; background: var(--primary)
 
   /* Keyhole */
   .kh-track { height: 280vh; }
-  .kh-hint { display: none; }
+  .kh-hint { bottom: 15%; font-size: 11px; }
 
   /* Hero */
   .hero-content { padding: 0 6vw 12vh; }
