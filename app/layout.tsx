@@ -57,7 +57,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Nefertiti | Luxury Wellness Retreats in Egypt',
     description: shareDescription,
-    images: ['/og-image.png'],
+    images: ['/og-image.jpg'],
   },
 }
 
@@ -109,7 +109,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
     name: SITE_NAME,
     url: SITE_URL,
     logo: `${SITE_URL}/nefertiti-lockup.png`,
-    image: `${SITE_URL}/og-image.png`,
+    image: `${SITE_URL}/og-image.jpg`,
     email: settings.contactEmail || SITE_EMAIL,
     telephone: settings.whatsappNumber ? `+${settings.whatsappNumber}` : undefined,
     description: DEFAULT_DESCRIPTION,
