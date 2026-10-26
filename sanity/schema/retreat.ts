@@ -53,6 +53,16 @@ export const retreat = defineType({
       validation: (r) => r.required(),
     }),
     defineField({
+      name: 'gallery',
+      title: 'Gallery',
+      type: 'array',
+      group: 'main',
+      description: 'Extra photos shown on the retreat page, up to 8. Drag to reorder. Leave empty to hide the gallery.',
+      of: [{ type: 'image', options: { hotspot: true } }],
+      options: { layout: 'grid' },
+      validation: (r) => r.max(8).warning('Up to 8 photos works best'),
+    }),
+    defineField({
       name: 'destination',
       title: 'Destination',
       type: 'reference',
