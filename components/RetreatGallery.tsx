@@ -4,9 +4,12 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { ChevronLeft, ChevronRight, X } from 'lucide-react'
 import s from './RetreatGallery.module.css'
 
-// Sanity serves resized images through URL parameters
+// Sanity serves resized images through URL parameters. The query layer already
+// appends some, so start from the bare URL to avoid a doubled "?".
 const sized = (url: string, width: number, quality: number) =>
-  url.includes('cdn.sanity.io') ? `${url}?w=${width}&auto=format&q=${quality}` : url
+  url.includes('cdn.sanity.io')
+    ? `${url.split('?')[0]}?w=${width}&fit=max&auto=format&q=${quality}`
+    : url
 
 type Props = { images: string[]; title: string }
 
