@@ -9,6 +9,7 @@ import { formatRetreatDates, isPastRetreat, retreatNights, STATUS_LABELS } from 
 import SiteNav from '@/components/SiteNav'
 import SiteFooter from '@/components/SiteFooter'
 import BackButton from '@/components/BackButton'
+import RetreatGallery from '@/components/RetreatGallery'
 import s from '../retreats.module.css'
 
 type Params = { params: Promise<{ slug: string }> }
@@ -107,6 +108,13 @@ export default async function RetreatDetailPage({ params }: Params) {
           {paragraphs.length > 0 && (
             <div className={s.detailText}>
               {paragraphs.map((p, i) => <p key={i}>{p}</p>)}
+            </div>
+          )}
+
+          {r.gallery.length > 0 && (
+            <div className={s.block}>
+              <p className="section-label">GALLERY</p>
+              <RetreatGallery images={r.gallery} title={r.title} />
             </div>
           )}
 

@@ -728,6 +728,7 @@ export type Retreat = {
   id: string                 // slug used in the URL
   title: string
   image: string
+  gallery: string[]          // extra photos from the Studio (may be empty)
   status: RetreatStatus
   startDate: string          // YYYY-MM-DD
   endDate: string            // YYYY-MM-DD
