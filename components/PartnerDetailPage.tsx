@@ -5,6 +5,7 @@ import Link from 'next/link'
 import type { Partner } from '@/lib/data'
 import { fitUrl } from '@/sanity/lib/image'
 import SiteNav from '@/components/SiteNav'
+import StampImage from '@/components/StampImage'
 import SiteFooter from '@/components/SiteFooter'
 import BackButton from '@/components/BackButton'
 import s from '@/app/partners/partners.module.css'
@@ -58,7 +59,7 @@ export default function PartnerDetailPage({ partner, whatsappLink }: Props) {
           </div>
         </div>
         <div className="stamp-photo reveal is-in">
-          <span className="stamp-frame"><img src={fitUrl(partner.image, 1000)} alt={partner.name} /></span>
+          <StampImage src={fitUrl(partner.image, 1000)} alt={partner.name} size="lg" />
         </div>
       </section>
 

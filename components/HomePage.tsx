@@ -1,6 +1,7 @@
 'use client'
 
 import LazyVideo from '@/components/LazyVideo'
+import StampImage from '@/components/StampImage'
 import { useState, useEffect } from 'react'
 import { ArrowUpRight, MessageCircle, Plane } from 'lucide-react'
 import Link from 'next/link'
@@ -333,7 +334,7 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
           {partners.map((p) => (
             <div className="team-card reveal" key={p.id}>
               <a href={`/partners/${p.id}`} className="team-card-media">
-                <span className="stamp-frame"><img src={cropUrl(p.image, 480, 640)} alt={p.name} /></span>
+                <StampImage src={cropUrl(p.image, 480, 640)} alt={p.name} />
               </a>
               <a href={`/partners/${p.id}`} className="team-card-name">{p.name}</a>
               <p className="team-card-role">{p.category}</p>
