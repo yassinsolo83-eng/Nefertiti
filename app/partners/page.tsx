@@ -40,7 +40,7 @@ export default async function PartnersPage() {
           {partners.map((p) => (
             <div className="team-card reveal is-in" key={p.id}>
               <Link href={`/partners/${p.id}`} className="team-card-media">
-                <img src={cropUrl(p.image, 480, 640)} alt={p.name} />
+                <span className="stamp-frame"><img src={cropUrl(p.image, 480, 640)} alt={p.name} /></span>
               </Link>
               <Link href={`/partners/${p.id}`} className="team-card-name">{p.name}</Link>
               <p className="team-card-role">{p.category}</p>
