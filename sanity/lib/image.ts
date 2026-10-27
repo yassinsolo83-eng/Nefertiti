@@ -19,3 +19,15 @@ export function cropUrl(source: ImageSource, w: number, h: number): string {
     return ''
   }
 }
+
+// Same photo at its natural proportions (no cropping), limited to a maximum width.
+// The editor's Studio crop is still honoured; the hotspot only matters when cropping.
+export function fitUrl(source: ImageSource, maxWidth: number): string {
+  if (!source) return ''
+  if (typeof source === 'string') return source // built-in fallback: already a URL
+  try {
+    return builder.image(source as any).width(maxWidth).fit('max').auto('format').quality(75).url() || ''
+  } catch {
+    return ''
+  }
+}
