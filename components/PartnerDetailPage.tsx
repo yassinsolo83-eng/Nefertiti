@@ -58,7 +58,7 @@ export default function PartnerDetailPage({ partner, whatsappLink }: Props) {
           </div>
         </div>
         <div className="stamp-photo reveal is-in">
-          <img src={fitUrl(partner.image, 1000)} alt={partner.name} />
+          <span className="stamp-frame"><img src={fitUrl(partner.image, 1000)} alt={partner.name} /></span>
         </div>
       </section>
 
