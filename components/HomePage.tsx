@@ -8,7 +8,7 @@ import {
   images,
 } from '@/lib/data'
 import type { Destination, HomeStat, Partner, Retreat, Testimonial } from '@/lib/data'
-import { cropUrl } from '@/sanity/lib/image'
+import { fitUrl } from '@/sanity/lib/image'
 import RetreatCard from '@/components/RetreatCard'
 import VisitorCounter from '@/components/VisitorCounter'
 import ex from '@/components/HeroExtras.module.css'
@@ -333,7 +333,7 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
           {partners.map((p) => (
             <div className="team-card reveal" key={p.id}>
               <a href={`/partners/${p.id}`} className="team-card-media">
-                <img src={cropUrl(p.image, 480, 640)} alt={p.name} />
+                <img src={fitUrl(p.image, 640)} alt={p.name} />
               </a>
               <a href={`/partners/${p.id}`} className="team-card-name">{p.name}</a>
               <p className="team-card-role">{p.category}</p>
