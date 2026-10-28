@@ -3,7 +3,7 @@ import { buildMetadata } from '@/lib/seo'
 import { ArrowUpRight } from 'lucide-react'
 import Link from 'next/link'
 import { getPartners, getSiteSettings } from '@/sanity/lib/queries'
-import { cropUrl } from '@/sanity/lib/image'
+import { fitUrl } from '@/sanity/lib/image'
 import SiteNav from '@/components/SiteNav'
 import SiteFooter from '@/components/SiteFooter'
 import s from './partners.module.css'
@@ -40,7 +40,7 @@ export default async function PartnersPage() {
           {partners.map((p) => (
             <div className="team-card reveal is-in" key={p.id}>
               <Link href={`/partners/${p.id}`} className="team-card-media">
-                <img src={cropUrl(p.image, 480, 640)} alt={p.name} />
+                <img src={fitUrl(p.image, 640)} alt={p.name} />
               </Link>
               <Link href={`/partners/${p.id}`} className="team-card-name">{p.name}</Link>
               <p className="team-card-role">{p.category}</p>
