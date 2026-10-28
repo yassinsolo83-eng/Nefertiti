@@ -3,9 +3,8 @@
 import { ArrowUpRight, MapPin, Globe, Check } from 'lucide-react'
 import Link from 'next/link'
 import type { Partner } from '@/lib/data'
-import { fitUrl } from '@/sanity/lib/image'
+import { cropUrl } from '@/sanity/lib/image'
 import SiteNav from '@/components/SiteNav'
-import StampImage from '@/components/StampImage'
 import SiteFooter from '@/components/SiteFooter'
 import BackButton from '@/components/BackButton'
 import s from '@/app/partners/partners.module.css'
@@ -58,8 +57,8 @@ export default function PartnerDetailPage({ partner, whatsappLink }: Props) {
             )}
           </div>
         </div>
-        <div className="stamp-photo reveal is-in">
-          <StampImage src={fitUrl(partner.image, 1000)} alt={partner.name} size="lg" />
+        <div className="page-hero-image reveal is-in">
+          <img src={cropUrl(partner.image, 900, 675)} alt={partner.name} />
         </div>
       </section>
 
