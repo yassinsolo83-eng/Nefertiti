@@ -47,6 +47,13 @@ export const partner = defineType({
       type: 'string',
     }),
     defineField({
+      name: 'showServices',
+      title: 'Show "What they offer" on the page',
+      type: 'boolean',
+      initialValue: true,
+      description: 'Turn off to hide the "What they offer" list on this partner\'s page.',
+    }),
+    defineField({
       name: 'services',
       title: 'Services Offered',
       type: 'array',
