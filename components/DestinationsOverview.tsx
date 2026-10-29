@@ -8,6 +8,7 @@ import type { Destination } from '@/lib/data'
 import EgyptMap from '@/components/EgyptMap'
 import DestinationModal from '@/components/DestinationModal'
 import s from '@/app/home.module.css'
+import Img from '@/components/Img'
 
 type Props = {
   featured: Destination[]
@@ -41,7 +42,7 @@ export default function DestinationsOverview({ featured, more, moreLabel }: Prop
             {dest.video ? (
               <LazyVideo src={dest.video} poster={dest.image} aria-label={dest.title} />
             ) : (
-              <img src={dest.image} alt={dest.title} />
+              <Img src={dest.image} alt={dest.title} />
             )}
             <div className={s.destCardBody}>
               <p className={s.destCardFeeling}>{dest.feeling}</p>
@@ -68,7 +69,7 @@ export default function DestinationsOverview({ featured, more, moreLabel }: Prop
                 tabIndex={0}
                 onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && setActiveId(dest.id)}
               >
-                <img src={dest.image} alt={dest.title} />
+                <Img src={dest.image} alt={dest.title} />
                 <div className={s.destMoreBody}>
                   <h3>{dest.title}</h3>
                   <span className={s.destMoreLink}>View details <ArrowUpRight size={13} /></span>

@@ -1,6 +1,7 @@
 'use client'
 
 import { useLayoutEffect, useRef, useState } from 'react'
+import Img from '@/components/Img'
 
 /**
  * Postage-stamp photo. The photo is cut with true half-circle perforations and
@@ -76,7 +77,7 @@ export default function StampImage({ src, alt, size = 'md' }: Props) {
             strokeWidth={2 * spec.rim} />
         </svg>
       )}
-      <img
+      <Img
         ref={ref}
         src={src}
         alt={alt}

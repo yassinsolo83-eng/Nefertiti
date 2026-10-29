@@ -9,6 +9,7 @@ import styles from '@/app/how-it-works/how-it-works.module.css'
 import type { Step } from '@/sanity/lib/queries'
 import { Ornament } from '@/components/Motif'
 import Link from 'next/link'
+import Img from '@/components/Img'
 
 type Props = { steps: Step[]; heroImage: string }
 
@@ -61,7 +62,7 @@ export default function HowItWorksPage({ steps, heroImage }: Props) {
               className={styles.floatingImg}
               style={{ transform: `translateY(${imgY}px)` }}
             >
-              <img
+              <Img
                 src={steps[activeIdx].image}
                 alt={steps[activeIdx].title}
                 key={activeIdx}
@@ -82,7 +83,7 @@ export default function HowItWorksPage({ steps, heroImage }: Props) {
                   </div>
                   {i === activeIdx && (
                     <div className={styles.rowExpanded}>
-                      <img src={image} alt={step} className={styles.rowImg} />
+                      <Img src={image} alt={step} className={styles.rowImg} />
                       <p className={styles.rowText}>{text}</p>
                     </div>
                   )}

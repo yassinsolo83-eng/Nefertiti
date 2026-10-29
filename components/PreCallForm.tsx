@@ -13,6 +13,7 @@ import {
 import s from '@/app/pre-call/pre-call.module.css'
 import { openWhatsapp } from '@/lib/openWhatsapp'
 import Link from 'next/link'
+import Img from '@/components/Img'
 
 const DRAFT_KEY = 'nefertiti-pre-call-draft'
 
@@ -164,7 +165,7 @@ export default function PreCallForm({ form }: Props) {
   if (sent) {
     return (
       <div ref={cardRef} className={`${s.card} ${s.success}`}>
-        <img className={s.successStamp} src="/brand/stamp.webp" alt="" />
+        <Img className={s.successStamp} src="/brand/stamp.webp" alt="" />
         <h2 className={s.successTitle}>{form.successTitle}</h2>
         {form.successText.split(/\n{2,}/).map((p, i) => (
           <p key={i} className={s.successText}>{p}</p>

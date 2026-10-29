@@ -5,6 +5,7 @@ import 'leaflet/dist/leaflet.css'
 import { destinationCoords, destinationTravel } from '@/lib/data'
 import type { Destination } from '@/lib/data'
 import Link from 'next/link'
+import Img from '@/components/Img'
 
 type Props = {
   destinations: Destination[]
@@ -456,7 +457,7 @@ export default function EgyptMap({ destinations, featuredIds, onOpen }: Props) {
       {active && (
         <div ref={panelRef} className="egm-panel" role="dialog" aria-label={active.title}>
           <button className="egm-panel-x" type="button" onClick={() => setActive(null)} aria-label="Close">×</button>
-          {active.image && <img src={active.image} alt={active.title} loading="lazy" />}
+          {active.image && <Img src={active.image} alt={active.title} loading="lazy" />}
           <div className="egm-body">
             {active.feeling && <p className="egm-feeling">{active.feeling}</p>}
             <h4>{active.title}</h4>

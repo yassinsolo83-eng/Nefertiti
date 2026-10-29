@@ -8,6 +8,7 @@ import SiteNav from '@/components/SiteNav'
 import SiteFooter from '@/components/SiteFooter'
 import BackButton from '@/components/BackButton'
 import s from '@/app/destinations/[slug]/destination-detail.module.css'
+import Img from '@/components/Img'
 
 type Props = { dest: Destination | null; detail: DestDetail | null; whatsappLink: string }
 
@@ -60,7 +61,7 @@ export default function DestinationDetailPage({ dest, detail, whatsappLink }: Pr
             autoPlay muted loop playsInline preload="auto"
           />
         ) : (
-          <img className={s.dpHeroMedia} src={dest.image} alt={dest.title} />
+          <Img priority className={s.dpHeroMedia} src={dest.image} alt={dest.title} />
         )}
         <div className={s.dpHeroShade} />
         <div className={`${s.dpHeroContent} ${s.dpReveal}`}>
@@ -88,7 +89,7 @@ export default function DestinationDetailPage({ dest, detail, whatsappLink }: Pr
         <div className={`${s.dpStrip} ${s.dpReveal}`}>
           {detail.highlights.map((h, i) => (
             <div key={h.title} className={s.dpStripItem}>
-              <img src={h.image} alt={h.title} />
+              <Img src={h.image} alt={h.title} />
               <div className={s.dpStripShade} />
               <div className={s.dpStripNum}>{String(i + 1).padStart(2, '0')}</div>
               <div className={s.dpStripInfo}>
@@ -142,9 +143,11 @@ export default function DestinationDetailPage({ dest, detail, whatsappLink }: Pr
             <Link href="/contact" className="button button-gold">
               Create Your Retreat <ArrowUpRight size={16} />
             </Link>
-            <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="button button-ghost-light">
+            {whatsappLink && (
+<a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="button button-ghost-light">
               <MessageCircle size={15} /> Book a Discovery Call
             </a>
+)}
           </div>
         </div>
       </section>

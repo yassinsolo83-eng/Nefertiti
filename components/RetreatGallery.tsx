@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { ChevronLeft, ChevronRight, X } from 'lucide-react'
 import s from './RetreatGallery.module.css'
+import Img from '@/components/Img'
 
 // Sanity serves resized images through URL parameters. The query layer already
 // appends some, so start from the bare URL to avoid a doubled "?".
@@ -53,7 +54,7 @@ export default function RetreatGallery({ images, title }: Props) {
             onClick={() => setOpen(i)}
             aria-label={`Open photo ${i + 1} of ${total}`}
           >
-            <img
+            <Img
               src={sized(url, 900, 75)}
               alt={`${title}, photo ${i + 1}`}
               loading="lazy"
@@ -91,7 +92,7 @@ export default function RetreatGallery({ images, title }: Props) {
               <ChevronLeft size={26} />
             </button>
           )}
-          <img
+          <Img
             className={s.full}
             src={sized(images[open], 1800, 80)}
             alt={`${title}, photo ${open + 1}`}

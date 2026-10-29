@@ -3,6 +3,7 @@ import { ArrowUpRight, MapPin, Calendar } from 'lucide-react'
 import type { Retreat } from '@/lib/data'
 import { formatRetreatDates, retreatNights, STATUS_LABELS } from '@/lib/retreat-utils'
 import s from '@/app/retreats/retreats.module.css'
+import Img from '@/components/Img'
 
 // Shared retreat card — used on /retreats and on the home page
 export default function RetreatCard({ r, past }: { r: Retreat; past?: boolean }) {
@@ -10,7 +11,7 @@ export default function RetreatCard({ r, past }: { r: Retreat; past?: boolean })
   return (
     <Link href={`/retreats/${r.id}`} className={`${s.card} ${past ? s.cardPast : ''}`}>
       <div className={s.cardMedia}>
-        <img src={r.image} alt={r.title} loading="lazy" />
+        <Img src={r.image} alt={r.title} loading="lazy" />
         <span className={`${s.badge} ${past ? s.badgePast : s[`badge_${r.status}`]}`}>
           {past ? 'Past retreat' : STATUS_LABELS[r.status]}
         </span>

@@ -4,6 +4,7 @@ import { ArrowUpRight, Compass } from 'lucide-react'
 import Link from 'next/link'
 import type { Destination } from '@/lib/data'
 import s from './DestinationModal.module.css'
+import Img from '@/components/Img'
 
 type Props = {
   destination: Destination | null
@@ -22,7 +23,7 @@ export default function DestinationModal({ destination, onClose, featuredIds = [
       <div className={s.modal} onClick={(e) => e.stopPropagation()}>
         <button className={s.close} onClick={onClose} aria-label="Close">✕</button>
         <div className={s.media}>
-          <img src={destination.image} alt={destination.title} />
+          <Img src={destination.image} alt={destination.title} />
         </div>
         <div className={s.content}>
           <p className={s.feeling}>{destination.feeling}</p>

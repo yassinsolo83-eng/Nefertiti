@@ -11,7 +11,6 @@ import {
   steps as staticSteps,
   combinations as staticCombinations,
   socialLinks as staticSocialLinks,
-  whatsappNumber as staticWhatsappNumber,
   whatsappMessage as staticWhatsappMessage,
   appointmentServices as staticAppointmentServices,
   stepImages as staticStepImages,
@@ -384,9 +383,10 @@ export async function getSiteSettings() {
   const result = await safeFetch<any>(SETTINGS_QUERY, null)
 
   // Keep digits only: wa.me links break with "+", spaces or dashes (e.g. "+39 331 448 6876")
-  const whatsappNumber = String(result?.whatsappNumber || staticWhatsappNumber).replace(/\D/g, '')
+  const whatsappNumber = String(result?.whatsappNumber || '').replace(/\D/g, '')
   const whatsappMessage = result?.whatsappMessage || staticWhatsappMessage
-  const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`
+  // No number set in the Studio: no link, so the WhatsApp buttons are hidden instead of pointing nowhere
+  const whatsappLink = whatsappNumber ? `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}` : ''
 
   return {
     whatsappNumber,

@@ -12,6 +12,7 @@ import { openWhatsapp } from '@/lib/openWhatsapp'
 import EgyptMap from '@/components/EgyptMap'
 import type { Destination } from '@/lib/data'
 import Link from 'next/link'
+import Img from '@/components/Img'
 
 type Props = {
   faqs: [string, string][]
@@ -102,7 +103,7 @@ export default function ContactPage({ faqs, whatsappLink, socialLinks, appointme
           </p>
         </div>
         <div className="page-hero-image reveal is-in">
-          <img src={pageImages.contactHero} alt="A quiet moment of care" />
+          <Img priority src={pageImages.contactHero} alt="A quiet moment of care" />
         </div>
       </section>
 
@@ -122,9 +123,11 @@ export default function ContactPage({ faqs, whatsappLink, socialLinks, appointme
               <Link className="button button-berry" href="/pre-call">
                 Fill in the pre-call form <ArrowUpRight size={16} />
               </Link>
-              <a className="button button-ghost-dark" href={whatsappLink} target="_blank" rel="noopener noreferrer">
+              {whatsappLink && (
+<a className="button button-ghost-dark" href={whatsappLink} target="_blank" rel="noopener noreferrer">
                 <MessageCircle size={16} /> Chat on WhatsApp
               </a>
+)}
             </div>
             <p style={{ fontSize: 11, opacity: 0.6, marginTop: 14 }}>
               Prefer to talk first? Message us on WhatsApp and we&apos;ll find a time.
@@ -132,7 +135,7 @@ export default function ContactPage({ faqs, whatsappLink, socialLinks, appointme
           </div>
 
           <div className={s.contactDetailImage}>
-            <img src={pageImages.contactSide} alt="Golden light on the water" />
+            <Img src={pageImages.contactSide} alt="Golden light on the water" />
           </div>
 
           <div className={s.contactSocial}>
@@ -152,7 +155,7 @@ export default function ContactPage({ faqs, whatsappLink, socialLinks, appointme
 
           {sent ? (
             <div className={s.formSuccess}>
-              <img className={s.successStamp} src="/brand/stamp.webp" alt="" />
+              <Img className={s.successStamp} src="/brand/stamp.webp" alt="" />
               <h3>Your request is on its way.</h3>
               <p>Thank you for reaching out — we&apos;ll get back to you within 48 hours.</p>
               {waUrl && (
@@ -245,10 +248,12 @@ export default function ContactPage({ faqs, whatsappLink, socialLinks, appointme
         <div className={s.faqGrid}>
           <div className="reveal is-in">
             <div className={s.faqAsideImage}>
-              <img src={pageImages.contactFaq} alt="A quiet ritual moment" />
+              <Img src={pageImages.contactFaq} alt="A quiet ritual moment" />
             </div>
             <p className={s.faqAsideText}>Still have a question? Send us a message above and our team will get back to you.</p>
-            <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="button button-berry">Ask on WhatsApp <ArrowUpRight size={16} /></a>
+            {whatsappLink && (
+<a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="button button-berry">Ask on WhatsApp <ArrowUpRight size={16} /></a>
+)}
           </div>
 
           <div className="reveal is-in">

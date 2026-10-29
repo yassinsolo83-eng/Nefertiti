@@ -8,6 +8,7 @@ import BackButton from '@/components/BackButton'
 import styles from '@/app/experiences/experiences.module.css'
 import { Ornament } from '@/components/Motif'
 import Link from 'next/link'
+import Img from '@/components/Img'
 
 type Props = { experiences: { title: string; text: string; image: string }[]; heroImage: string }
 
@@ -60,7 +61,7 @@ export default function ExperiencesPage({ experiences, heroImage }: Props) {
               className={styles.floatingImg}
               style={{ transform: `translateY(${imgY}px)` }}
             >
-              <img
+              <Img
                 src={experiences[activeIdx].image}
                 alt={experiences[activeIdx].title}
                 key={activeIdx}
@@ -81,7 +82,7 @@ export default function ExperiencesPage({ experiences, heroImage }: Props) {
                   </div>
                   {i === activeIdx && (
                     <div className={styles.rowExpanded}>
-                      <img src={item.image} alt={item.title} className={styles.rowImg} />
+                      <Img src={item.image} alt={item.title} className={styles.rowImg} />
                       <p className={styles.rowText}>{item.text}</p>
                     </div>
                   )}

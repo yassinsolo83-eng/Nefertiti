@@ -19,6 +19,7 @@ import SiteFooter from '@/components/SiteFooter'
 import { Ornament } from '@/components/Motif'
 import { useKeyhole } from '@/hooks/useKeyhole'
 import s from '@/app/home.module.css'
+import Img from '@/components/Img'
 
 type Props = {
   featuredDestinations: Destination[]
@@ -105,7 +106,9 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
               <p className={ex.route}><Plane size={15} strokeWidth={1.6} aria-hidden="true" /> From Airport to Airport</p>
               <div className="hero-buttons">
                 <Link className="button button-gold" href="/contact">{t.explore}<ArrowUpRight size={16} /></Link>
-                <a className="button button-ghost" href={whatsappLink} target="_blank" rel="noopener noreferrer"><MessageCircle size={15} />{t.inquire}</a>
+                {whatsappLink && (
+<a className="button button-ghost" href={whatsappLink} target="_blank" rel="noopener noreferrer"><MessageCircle size={15} />{t.inquire}</a>
+)}
               </div>
             </div>
             <VisitorCounter visible={introDone} />
@@ -198,7 +201,7 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
                   aria-label={dest.title}
                 />
               ) : (
-                <img src={dest.image} alt={dest.title} />
+                <Img src={dest.image} alt={dest.title} />
               )}
               <div className={s.destCardBody}>
                 <p className={s.destCardFeeling}>{dest.feeling}</p>
@@ -333,7 +336,7 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
           {partners.map((p) => (
             <div className="team-card reveal" key={p.id}>
               <Link href={`/partners/${p.id}`} className="team-card-media">
-                <img src={fitUrl(p.image, 640)} alt={p.name} />
+                <Img src={fitUrl(p.image, 640)} alt={p.name} />
               </Link>
               <Link href={`/partners/${p.id}`} className="team-card-name">{p.name}</Link>
               <p className="team-card-role">{p.category}</p>
@@ -363,7 +366,7 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
                 <span className={s.testimonialMark} aria-hidden="true">&ldquo;</span>
                 <blockquote>{tm.quote}</blockquote>
                 <figcaption className={s.testimonialWho}>
-                  {tm.image && <img src={tm.image} alt="" loading="lazy" />}
+                  {tm.image && <Img src={tm.image} alt="" loading="lazy" />}
                   <span>
                     <strong>{tm.name}</strong>
                     {tm.role && <em>{tm.role}</em>}

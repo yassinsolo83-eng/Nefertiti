@@ -405,9 +405,7 @@ export const socialLinks = [
   ['TikTok', 'https://tiktok.com'],
 ]
 
-// WhatsApp for the "Book a Discovery Call" CTA.
-// Replace with the real number in international format, digits only (no +, no spaces).
-export const whatsappNumber = '20XXXXXXXXXX'
+// Default message for the WhatsApp buttons. The number itself comes from the Studio (Site Settings).
 export const whatsappMessage = 'Hi Nefertiti! I\'d love to book a discovery call about hosting a retreat in Egypt.'
 
 // Egypt-centred map (no fixed pin) — OpenStreetMap embed, licence-free

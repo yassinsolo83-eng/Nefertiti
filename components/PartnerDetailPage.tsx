@@ -8,6 +8,7 @@ import SiteNav from '@/components/SiteNav'
 import SiteFooter from '@/components/SiteFooter'
 import BackButton from '@/components/BackButton'
 import s from '@/app/partners/partners.module.css'
+import Img from '@/components/Img'
 
 type Props = { partner: Partner | null; whatsappLink: string }
 
@@ -58,7 +59,7 @@ export default function PartnerDetailPage({ partner, whatsappLink }: Props) {
           </div>
         </div>
         <div className="page-hero-image partner-hero-photo reveal is-in">
-          <img src={fitUrl(partner.image, 1000)} alt={partner.name} />
+          <Img src={fitUrl(partner.image, 1000)} alt={partner.name} />
         </div>
       </section>
 
@@ -83,9 +84,11 @@ export default function PartnerDetailPage({ partner, whatsappLink }: Props) {
           <Link href="/contact" className="button button-gold">
             Work with {partner.name} <ArrowUpRight size={16} />
           </Link>
-          <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="button button-ghost-dark">
+          {whatsappLink && (
+<a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="button button-ghost-dark">
             Ask about this partner
           </a>
+)}
         </div>
 
         <Link href="/partners" className={s.partnerBackLink}>← All partners</Link>
