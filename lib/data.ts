@@ -496,6 +496,7 @@ export type Partner = {
   image: PartnerImage
   bio: string               // longer description shown on the detail page
   services: string[]        // what they offer
+  showServices?: boolean    // false hides the "What they offer" list on the detail page
   location?: string
   website?: string          // external link (optional)
   instagram?: string        // handle without @ (optional)
