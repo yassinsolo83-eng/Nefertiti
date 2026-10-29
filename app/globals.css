@@ -56,7 +56,7 @@ h2, h3 { font-family: 'Cormorant Garamond', serif; }
 
 .nav-bar {
   display: flex; align-items: center; justify-content: space-between;
-  padding: 12px max(20px, 5vw);
+  padding: 10px max(20px, 2.5vw);
   pointer-events: auto;
 }
 
@@ -80,11 +80,7 @@ h2, h3 { font-family: 'Cormorant Garamond', serif; }
   display: flex; flex-direction: column; align-items: center; gap: 2px;
   text-decoration: none; transition: color .4s ease;
 }
-.nav-brand .brand-logo { height: 42px; }
-.nav-brand-tagline {
-  font-size: 8px; letter-spacing: .22em; text-transform: uppercase;
-  font-family: 'Montserrat', sans-serif; font-weight: 400; opacity: .7;
-}
+.nav-brand .brand-logo { height: 54px; }
 .nav-video .nav-brand { color: var(--gold); }
 .nav-solid .nav-brand { color: var(--plum); }
 .is-scrolled .nav-brand { color: var(--plum); }
