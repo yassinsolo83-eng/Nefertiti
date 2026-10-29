@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowUpRight } from 'lucide-react'
 import { buildMetadata } from '@/lib/seo'
-import { getPageImages, getRetreats, getSiteSettings } from '@/sanity/lib/queries'
+import { getPageImages, getPageTexts, getRetreats, getSiteSettings } from '@/sanity/lib/queries'
 import { splitRetreats } from '@/lib/retreat-utils'
 import RetreatCard from '@/components/RetreatCard'
 import SiteNav from '@/components/SiteNav'
@@ -26,7 +26,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function RetreatsPage() {
-  const [retreats, pageImages] = await Promise.all([getRetreats(), getPageImages()])
+  const [retreats, pageImages, texts] = await Promise.all([getRetreats(), getPageImages(), getPageTexts()])
   const { upcoming, past } = splitRetreats(retreats)
 
   return (
@@ -36,13 +36,10 @@ export default async function RetreatsPage() {
       <section className="page-hero">
         <div className="page-hero-text reveal is-in">
           <BackButton />
-          <p className="eyebrow">◆ NEFERTITI RETREATS</p>
+          <p className="eyebrow">{texts.retreatsEyebrow}</p>
 <Ornament name="cartouche-ankh" />
-          <h1 className="page-title">Retreats</h1>
-          <p className="page-lead">
-            Our own retreats across Egypt — small groups, thoughtful programmes and places that
-            stay with you long after you leave. Find your next journey below.
-          </p>
+          <h1 className="page-title">{texts.retreatsPageTitle}</h1>
+          <p className="page-lead">{texts.retreatsLead}</p>
         </div>
         <div className="page-hero-image reveal is-in">
           <Img priority src={pageImages.retreatsHero} alt="A group resting on yoga mats during an outdoor retreat session" />
@@ -51,7 +48,7 @@ export default async function RetreatsPage() {
 
       <section className={s.listSection}>
         <div className="section-heading">
-          <p className="section-label">UPCOMING RETREATS</p>
+          <p className="section-label">{texts.retreatsListLabel}</p>
         </div>
 
         {upcoming.length > 0 ? (
@@ -60,9 +57,9 @@ export default async function RetreatsPage() {
           </div>
         ) : (
           <div className={s.empty}>
-            <p>New dates are being planned. Tell us what you are looking for and we will let you know first.</p>
+            <p>{texts.retreatsEmptyText}</p>
             <Link href="/pre-call" className="button button-gold">
-              Get in Touch <ArrowUpRight size={16} />
+              {texts.retreatsEmptyButton} <ArrowUpRight size={16} />
             </Link>
           </div>
         )}

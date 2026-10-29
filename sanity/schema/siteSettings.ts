@@ -53,6 +53,44 @@ export const siteSettings = defineType({
       ],
     }),
     defineField({
+      name: 'menuItems',
+      title: 'Menu (side menu, footer and search)',
+      type: 'array',
+      group: 'general',
+      description: 'Rename, reorder, add or remove menu links. Leave the list empty to keep the original menu.',
+      of: [
+        {
+          type: 'object',
+          name: 'menuItem',
+          fields: [
+            { name: 'label', title: 'Text', type: 'string', validation: (r: any) => r.required() },
+            {
+              name: 'page',
+              title: 'Opens',
+              type: 'string',
+              validation: (r: any) => r.required(),
+              options: {
+                list: [
+                  { title: 'Home', value: 'home' },
+                  { title: 'About', value: 'about' },
+                  { title: 'Why Egypt (home section)', value: 'whyEgypt' },
+                  { title: 'Destinations', value: 'destinations' },
+                  { title: 'Retreats', value: 'retreats' },
+                  { title: 'Experiences', value: 'experiences' },
+                  { title: 'Services', value: 'services' },
+                  { title: 'Partners', value: 'partners' },
+                  { title: 'How It Works', value: 'howItWorks' },
+                  { title: 'Contact', value: 'contact' },
+                  { title: 'Pre-Call form', value: 'preCall' },
+                ],
+              },
+            },
+          ],
+          preview: { select: { title: 'label', subtitle: 'page' } },
+        },
+      ],
+    }),
+    defineField({
       name: 'appointmentServices',
       title: 'Appointment Services (dropdown options)',
       type: 'array',

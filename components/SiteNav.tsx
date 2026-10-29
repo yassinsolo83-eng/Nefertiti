@@ -5,27 +5,11 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import { Menu, X, Search } from 'lucide-react'
 import { setGoogleLang } from '@/hooks/useGoogleTranslate'
 import Link from 'next/link'
+import { useSiteSettings } from '@/components/SiteSettingsProvider'
+import { menuDefaults } from '@/lib/data'
 
 type NavItem = [label: string, href: string]
 
-const NAV_ITEMS: NavItem[] = [
-  ['About', '/about'],
-  ['Why Egypt', '/#vision'],
-  ['Destinations', '/destinations'],
-  ['Retreats', '/retreats'],
-  ['Experiences', '/experiences'],
-  ['Services', '/services'],
-  ['Partners', '/partners'],
-  ['How It Works', '/how-it-works'],
-  ['Contact', '/contact'],
-]
-
-/** All searchable pages — used for the client-side search overlay. */
-const SEARCH_PAGES = NAV_ITEMS.map(([label, href]) => ({
-  title: label,
-  href,
-  keywords: label.toLowerCase(),
-}))
 
 type Props = {
   solid?: boolean
@@ -44,6 +28,10 @@ export default function SiteNav({
   solid, overHero, hidden, scrolled, showVideo: showVideoProp,
   onAnchor, onBrand,
 }: Props) {
+  const { menuItems } = useSiteSettings()
+  const NAV_ITEMS: NavItem[] = menuItems && menuItems.length ? menuItems : menuDefaults
+  // All searchable pages — used for the client-side search overlay
+  const SEARCH_PAGES = NAV_ITEMS.map(([label, href]) => ({ title: label, href, keywords: label.toLowerCase() }))
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
   const [query, setQuery] = useState('')

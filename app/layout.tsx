@@ -125,7 +125,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
         <GoogleTranslate />
-        <SiteSettingsProvider value={{ contactEmail: settings.contactEmail, socialLinks: settings.socialLinks, whatsappLink: settings.whatsappLink, texts: pageTexts }}>
+        <SiteSettingsProvider value={{ contactEmail: settings.contactEmail, socialLinks: settings.socialLinks, whatsappLink: settings.whatsappLink, texts: pageTexts, menuItems: settings.menuItems }}>
           {children}
         </SiteSettingsProvider>
         <CookieNotice />

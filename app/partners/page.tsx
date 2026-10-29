@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { buildMetadata } from '@/lib/seo'
 import { ArrowUpRight } from 'lucide-react'
 import Link from 'next/link'
-import { getPartners, getSiteSettings } from '@/sanity/lib/queries'
+import { getPartners, getPageTexts, getSiteSettings } from '@/sanity/lib/queries'
 import { fitUrl } from '@/sanity/lib/image'
 import SiteNav from '@/components/SiteNav'
 import SiteFooter from '@/components/SiteFooter'
@@ -23,7 +23,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function PartnersPage() {
-  const partners = await getPartners()
+  const [partners, texts] = await Promise.all([getPartners(), getPageTexts()])
 
   return (
     <main className="inner-page">
@@ -31,10 +31,12 @@ export default async function PartnersPage() {
 
       <section className={s.partnersHero}>
         <div className="dest-index-back"><BackButton /></div>
-        <p className="eyebrow">◆ OUR TEAM</p>
+        <p className="eyebrow">{texts.partnersEyebrow}</p>
 <Ornament name="ankh" center />
         <h1 className={s.partnersHeroTitle}>
-          Meet the Practitioners Behind<br />Your Healing Journey
+          {texts.partnersTitle.split('\n').map((line, i, a) => (
+            <span key={i}>{line}{i < a.length - 1 && <br />}</span>
+          ))}
         </h1>
       </section>
 
@@ -59,7 +61,7 @@ export default async function PartnersPage() {
         </div>
 
         <Link href="/pre-call" className="button button-gold inner-cta">
-          Become a Partner <ArrowUpRight size={16} />
+          {texts.partnersButton} <ArrowUpRight size={16} />
         </Link>
       </section>
 

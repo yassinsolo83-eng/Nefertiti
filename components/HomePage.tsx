@@ -142,7 +142,7 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
 
       {/* VISION / WHY EGYPT */}
       <section id="vision" className={`section ${s.vision}`}>
-        <div className="section-label reveal" style={{ marginBottom: 0 }}>01 / WHY EGYPT</div>
+        <div className="section-label reveal" style={{ marginBottom: 0 }}>01 / {pt.labelWhy}</div>
         <Ornament name="ankh" />
         <h2 className={`${s.visionStatement} reveal`}>
           You already know how you want your guests to feel.<br />
@@ -150,7 +150,7 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
         </h2>
         <div className={s.visionGrid}>
           <div className={`${s.visionCopy} reveal`}>
-            <p className="eyebrow" style={{ marginBottom: 16 }}>THE NEFERTITI WAY</p>
+            <p className="eyebrow" style={{ marginBottom: 16 }}>{pt.labelWay}</p>
             <p>{t.visionText}</p>
             <Link href="/about" className="text-link">{t.philosophy} <ArrowUpRight size={16} /></Link>
             <div className={`${s.visionStats} reveal`}>
@@ -255,7 +255,7 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
       {homeSteps.length > 0 && (
         <section className={`section ${s.howHome}`}>
           <div className={`${s.howHomeHead} reveal`}>
-            <div className="section-label">03 / HOW IT WORKS</div>
+            <div className="section-label">03 / {pt.labelHowItWorks}</div>
             <Ornament name="cartouche" />
             <h2>{pt.howItWorksTitle}</h2>
           </div>
@@ -282,7 +282,7 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
       <section id="retreats" className={`section ${rs.homeRetreats}`}>
         <div className={`${rs.homeHead} reveal`}>
           <div className="section-heading">
-            <div className="section-label">04 / OUR RETREATS</div>
+            <div className="section-label">04 / {pt.labelRetreats}</div>
 <Ornament name="cartouche-ankh" />
             <div>
               <h2>{pt.retreatsTitle}</h2>
@@ -314,7 +314,7 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
       {/* EXPLORE MORE — pathways into the deeper pages */}
       <section id="explore" className={`section ${s.explore}`}>
         <div className={`${s.exploreHead} reveal`}>
-          <div className="section-label">05 / EXPLORE FURTHER</div>
+          <div className="section-label">05 / {pt.labelExplore}</div>
 <Ornament name="lotus" />
           <h2>{pt.exploreTitle}</h2>
         </div>
@@ -343,7 +343,7 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
       {/* PARTNERS PREVIEW */}
       <section id="partners" className={`section ${s.partnersPreview}`}>
         <div className="section-heading reveal">
-          <div className="section-label">06 / OUR TEAM</div>
+          <div className="section-label">06 / {pt.labelTeam}</div>
 <Ornament name="cartouche" />
           <div>
             <h2>{pt.teamTitle}</h2>
@@ -379,7 +379,7 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
 
           <section id="testimonials" className={`section ${s.testimonials}`}>
             <div className="section-heading reveal">
-              <div className="section-label">07 / IN THEIR WORDS</div>
+              <div className="section-label">07 / {pt.labelTestimonials}</div>
 <Ornament name="ankh" />
               <h2>{pt.testimonialsTitle}</h2>
             </div>

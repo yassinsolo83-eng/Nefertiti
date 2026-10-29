@@ -16,6 +16,8 @@ import {
   stepImages as staticStepImages,
   pageImageDefaults,
   pageTextDefaults,
+  menuDefaults,
+  menuPages,
   homeStats as staticHomeStats,
 } from '@/lib/data'
 import type { Destination, DestDetail, Retreat, PageImages, PageTexts, HomeStat, Testimonial } from '@/lib/data'
@@ -366,6 +368,7 @@ export async function getPageImages(): Promise<PageImages> {
 const SETTINGS_QUERY = `*[_type == "siteSettings"][0] {
   whatsappNumber, whatsappMessage, notifyWhatsappNumber,
   socialLinks[] { label, url },
+  menuItems[] { label, page },
   appointmentServices,
   combinations,
   contactEmail,
@@ -398,6 +401,13 @@ export async function getSiteSettings() {
     socialLinks: result?.socialLinks?.length
       ? result.socialLinks.map((l: any) => [l.label, l.url])
       : staticSocialLinks,
+    menuItems: ((result?.menuItems || [])
+      .filter((m: any) => m?.label && menuPages[m.page])
+      .map((m: any) => [m.label, menuPages[m.page]]) as [string, string][]).length
+      ? ((result?.menuItems || [])
+          .filter((m: any) => m?.label && menuPages[m.page])
+          .map((m: any) => [m.label, menuPages[m.page]]) as [string, string][])
+      : menuDefaults,
     appointmentServices: result?.appointmentServices?.length
       ? result.appointmentServices
       : staticAppointmentServices,

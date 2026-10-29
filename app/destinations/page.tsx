@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { buildMetadata } from '@/lib/seo'
 import { ArrowUpRight } from 'lucide-react'
-import { getFeaturedDestinations, getMoreDestinations, getSiteContent, getSiteSettings } from '@/sanity/lib/queries'
+import { getFeaturedDestinations, getMoreDestinations, getPageTexts, getSiteContent, getSiteSettings } from '@/sanity/lib/queries'
 import SiteNav from '@/components/SiteNav'
 import SiteFooter from '@/components/SiteFooter'
 import DestinationsOverview from '@/components/DestinationsOverview'
@@ -22,7 +22,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function DestinationsPage() {
-  const [featured, more, t] = await Promise.all([getFeaturedDestinations(), getMoreDestinations(), getSiteContent()])
+  const [featured, more, t, texts] = await Promise.all([getFeaturedDestinations(), getMoreDestinations(), getSiteContent(), getPageTexts()])
 
   return (
     <main className="inner-page">
@@ -30,18 +30,16 @@ export default async function DestinationsPage() {
 
       <section className="dest-index-hero">
         <div className="dest-index-back"><BackButton /></div>
-        <p className="eyebrow">◆ DESTINATIONS</p>
+        <p className="eyebrow">{texts.destPageEyebrow}</p>
         <Ornament name="sun" center />
-        <h1 className="dest-index-title">Where we take your retreat</h1>
-        <p className="dest-index-sub">
-          From the pyramids to the Red Sea, the oases to the White Desert: pick a place on the map and see what it makes possible.
-        </p>
+        <h1 className="dest-index-title">{texts.destPageTitle}</h1>
+        <p className="dest-index-sub">{texts.destPageSub}</p>
       </section>
 
       <section className="section inner-section">
         <DestinationsOverview featured={featured} more={more} moreLabel={t.destMoreLabel} />
         <Link href="/pre-call" className="button button-gold inner-cta">
-          Create a retreat in Egypt <ArrowUpRight size={16} />
+          {texts.destPageButton} <ArrowUpRight size={16} />
         </Link>
       </section>
 

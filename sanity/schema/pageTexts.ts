@@ -22,6 +22,9 @@ export const pageTexts = defineType({
     { name: 'services', title: 'Services page' },
     { name: 'howItWorks', title: 'How It Works page' },
     { name: 'about', title: 'About page' },
+    { name: 'partners', title: 'Partners page' },
+    { name: 'retreats', title: 'Retreats page' },
+    { name: 'destinations', title: 'Destinations page' },
     { name: 'footer', title: 'Footer' },
   ],
   fields: [
@@ -35,6 +38,33 @@ export const pageTexts = defineType({
     txt('exploreTitle', 'Explore Further — heading', 'home', "Original: There's more to discover."),
     txt('teamTitle', 'Our Team — heading', 'home', 'Original: Our Team'),
     txt('testimonialsTitle', 'Testimonials — heading', 'home', 'Original: What retreat leaders say'),
+
+    txt('labelWhy', 'Label — Why Egypt', 'home', 'Small title above the section (the number is added by the site). Original: WHY EGYPT'),
+    txt('labelWay', 'Label — The Nefertiti Way', 'home', 'Original: THE NEFERTITI WAY'),
+    txt('labelHowItWorks', 'Label — How It Works', 'home', 'Original: HOW IT WORKS'),
+    txt('labelRetreats', 'Label — Our Retreats', 'home', 'Original: OUR RETREATS'),
+    txt('labelExplore', 'Label — Explore Further', 'home', 'Original: EXPLORE FURTHER'),
+    txt('labelTeam', 'Label — Our Team', 'home', 'Original: OUR TEAM'),
+    txt('labelTestimonials', 'Label — Testimonials', 'home', 'Original: IN THEIR WORDS'),
+
+    // ── Partners ──
+    txt('partnersEyebrow', 'Small label', 'partners', 'Original: ◆ OUR TEAM'),
+    txt('partnersTitle', 'Heading', 'partners', 'Press Enter for a new line. Original: Meet the Practitioners Behind / Your Healing Journey', true),
+    txt('partnersButton', 'Button text', 'partners', 'Original: Become a Partner'),
+
+    // ── Retreats ──
+    txt('retreatsEyebrow', 'Small label', 'retreats', 'Original: ◆ NEFERTITI RETREATS'),
+    txt('retreatsPageTitle', 'Heading', 'retreats', 'Original: Retreats'),
+    txt('retreatsLead', 'Description', 'retreats', undefined, true),
+    txt('retreatsListLabel', 'Label above the list', 'retreats', 'Original: UPCOMING RETREATS'),
+    txt('retreatsEmptyText', 'Text when there are no upcoming retreats', 'retreats', undefined, true),
+    txt('retreatsEmptyButton', 'Button text when there are no upcoming retreats', 'retreats', 'Original: Get in Touch'),
+
+    // ── Destinations ──
+    txt('destPageEyebrow', 'Small label', 'destinations', 'Original: ◆ DESTINATIONS'),
+    txt('destPageTitle', 'Heading', 'destinations', 'Original: Where we take your retreat'),
+    txt('destPageSub', 'Description', 'destinations', undefined, true),
+    txt('destPageButton', 'Button text', 'destinations', 'Original: Create a retreat in Egypt'),
 
     // ── Experiences ──
     txt('experiencesTitle', 'Title (on the banner)', 'experiences', 'Original: Experiences'),

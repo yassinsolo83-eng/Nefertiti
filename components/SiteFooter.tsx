@@ -6,7 +6,7 @@ import { useSiteSettings } from '@/components/SiteSettingsProvider'
 import { BrandBand } from '@/components/Motif'
 import Link from 'next/link'
 
-const NAV = [
+const NAV_DEFAULT = [
   ['About', '/about'],
   ['Why Egypt', '/#vision'],
   ['Destinations', '/destinations'],
@@ -28,7 +28,8 @@ function isProfileLink(url: string) {
 }
 
 export default function SiteFooter() {
-  const { contactEmail, socialLinks, whatsappLink, texts } = useSiteSettings()
+  const { contactEmail, socialLinks, whatsappLink, texts, menuItems } = useSiteSettings()
+  const NAV = menuItems && menuItems.length ? menuItems : NAV_DEFAULT
   const socials = socialLinks.filter(([, url]) => isProfileLink(url))
 
   return (

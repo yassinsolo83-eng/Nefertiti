@@ -771,6 +771,53 @@ export const pageTextDefaults = {
   footerLine1: 'You lead the transformation. We create the experience.',
   footerLine2: 'Based between Egypt & Italy.',
   footerLocation: 'Cairo · Siwa · Everywhere',
+  labelWhy: 'WHY EGYPT',
+  labelWay: 'THE NEFERTITI WAY',
+  labelHowItWorks: 'HOW IT WORKS',
+  labelRetreats: 'OUR RETREATS',
+  labelExplore: 'EXPLORE FURTHER',
+  labelTeam: 'OUR TEAM',
+  labelTestimonials: 'IN THEIR WORDS',
+  partnersEyebrow: '◆ OUR TEAM',
+  partnersTitle: 'Meet the Practitioners Behind\nYour Healing Journey',
+  partnersButton: 'Become a Partner',
+  retreatsEyebrow: '◆ NEFERTITI RETREATS',
+  retreatsPageTitle: 'Retreats',
+  retreatsLead: 'Our own retreats across Egypt — small groups, thoughtful programmes and places that stay with you long after you leave. Find your next journey below.',
+  retreatsListLabel: 'UPCOMING RETREATS',
+  retreatsEmptyText: 'New dates are being planned. Tell us what you are looking for and we will let you know first.',
+  retreatsEmptyButton: 'Get in Touch',
+  destPageEyebrow: '◆ DESTINATIONS',
+  destPageTitle: 'Where we take your retreat',
+  destPageSub: 'From the pyramids to the Red Sea, the oases to the White Desert: pick a place on the map and see what it makes possible.',
+  destPageButton: 'Create a retreat in Egypt',
   footerSignoff: 'Made with presence',
 }
 export type PageTexts = typeof pageTextDefaults
+
+
+// ── Menu (editable in the Studio under Site Settings → Menu) ──
+export const menuPages: Record<string, string> = {
+  home: '/',
+  about: '/about',
+  whyEgypt: '/#vision',
+  destinations: '/destinations',
+  retreats: '/retreats',
+  experiences: '/experiences',
+  services: '/services',
+  partners: '/partners',
+  howItWorks: '/how-it-works',
+  contact: '/contact',
+  preCall: '/pre-call',
+}
+export const menuDefaults: [string, string][] = [
+  ['About', '/about'],
+  ['Why Egypt', '/#vision'],
+  ['Destinations', '/destinations'],
+  ['Retreats', '/retreats'],
+  ['Experiences', '/experiences'],
+  ['Services', '/services'],
+  ['Partners', '/partners'],
+  ['How It Works', '/how-it-works'],
+  ['Contact', '/contact'],
+]
