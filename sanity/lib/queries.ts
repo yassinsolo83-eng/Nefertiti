@@ -184,7 +184,7 @@ const PARTNER_QUERY = `*[_type == "partner"] | order(order asc) {
   "id": slug.current,
   name, category, tagline, bio,
   image,
-  services, location, website,
+  services, showServices, location, website,
   instagram, x, tiktok, order,
   "seo": seo { metaTitle, metaDescription, noIndex, "ogImage": ogImage.asset->url }
 }`
@@ -201,6 +201,7 @@ export async function getPartners() {
     image: p.image || staticPartners[i]?.image || '',
     bio: p.bio || '',
     services: p.services || [],
+    showServices: p.showServices !== false,
     location: p.location || '',
     website: p.website || '',
     instagram: p.instagram || '',
