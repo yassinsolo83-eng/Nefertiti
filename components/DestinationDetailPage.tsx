@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { ArrowUpRight, MessageCircle, MapPin, Calendar } from 'lucide-react'
+import { ArrowUpRight, MapPin, Calendar } from 'lucide-react'
 import Link from 'next/link'
 import type { Destination, DestDetail } from '@/lib/data'
 import SiteNav from '@/components/SiteNav'
@@ -140,14 +140,12 @@ export default function DestinationDetailPage({ dest, detail, whatsappLink }: Pr
           <h2>Create your retreat in {dest.title}</h2>
           <p>Tell us your vision and we&apos;ll show you what {dest.title} can become for your community.</p>
           <div className={s.dpParallaxActions}>
-            <Link href="/contact" className="button button-gold">
+            <Link href="/pre-call" className="button button-gold">
               Create Your Retreat <ArrowUpRight size={16} />
             </Link>
-            {whatsappLink && (
-<a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="button button-ghost-light">
-              <MessageCircle size={15} /> Book a Discovery Call
-            </a>
-)}
+            <Link href="/pre-call" className="button button-ghost-light">
+              Book a Discovery Call
+            </Link>
           </div>
         </div>
       </section>

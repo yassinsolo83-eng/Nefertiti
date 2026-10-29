@@ -61,7 +61,7 @@ export default async function RetreatsPage() {
         ) : (
           <div className={s.empty}>
             <p>New dates are being planned. Tell us what you are looking for and we will let you know first.</p>
-            <Link href="/contact" className="button button-gold">
+            <Link href="/pre-call" className="button button-gold">
               Get in Touch <ArrowUpRight size={16} />
             </Link>
           </div>

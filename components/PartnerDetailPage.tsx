@@ -81,14 +81,12 @@ export default function PartnerDetailPage({ partner, whatsappLink }: Props) {
         </div>
 
         <div className={s.partnerCtaRow}>
-          <Link href="/contact" className="button button-gold">
+          <Link href="/pre-call" className="button button-gold">
             Work with {partner.name} <ArrowUpRight size={16} />
           </Link>
-          {whatsappLink && (
-<a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="button button-ghost-dark">
+          <Link href="/pre-call" className="button button-ghost-dark">
             Ask about this partner
-          </a>
-)}
+          </Link>
         </div>
 
         <Link href="/partners" className={s.partnerBackLink}>← All partners</Link>

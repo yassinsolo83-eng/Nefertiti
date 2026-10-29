@@ -559,8 +559,8 @@ footer { position: relative; padding: 130px 8vw 24px; background: var(--primary)
 /* ══════════════════════════════════
    KEYHOLE INTRO — scroll-driven reveal
 ══════════════════════════════════ */
-.kh-track { height: 300vh; position: relative; background: #2E1840; } /* purple, so a mobile address-bar resize never flashes the cream page colour */
-.kh-stage { position: sticky; top: 0; height: 100vh; height: 100dvh; overflow: hidden; background: #2E1840; }
+.kh-track { height: 300vh; position: relative; background: #F5E6C8; } /* purple, so a mobile address-bar resize never flashes the cream page colour */
+.kh-stage { position: sticky; top: 0; height: 100vh; overflow: hidden; background: #F5E6C8; }
 .kh-stage .hero { position: absolute; inset: 0; min-height: 100%; }
 
 .kh-frost {

@@ -55,7 +55,7 @@ export default function DestinationModal({ destination, onClose, featuredIds = [
                 <Compass size={15} /> Explore {destination.title}
               </Link>
             )}
-            <Link href="/contact" className={`button button-gold ${s.cta}`} onClick={onClose}>
+            <Link href="/pre-call" className={`button button-gold ${s.cta}`} onClick={onClose}>
               Create a retreat here <ArrowUpRight size={14} />
             </Link>
           </div>

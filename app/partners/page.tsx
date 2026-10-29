@@ -56,7 +56,7 @@ export default async function PartnersPage() {
           ))}
         </div>
 
-        <Link href="/contact" className="button button-gold inner-cta">
+        <Link href="/pre-call" className="button button-gold inner-cta">
           Become a Partner <ArrowUpRight size={16} />
         </Link>
       </section>

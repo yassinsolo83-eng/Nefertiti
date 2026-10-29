@@ -39,7 +39,7 @@ export default async function DestinationsPage() {
 
       <section className="section inner-section">
         <DestinationsOverview featured={featured} more={more} moreLabel={t.destMoreLabel} />
-        <Link href="/contact" className="button button-gold inner-cta">
+        <Link href="/pre-call" className="button button-gold inner-cta">
           Create a retreat in Egypt <ArrowUpRight size={16} />
         </Link>
       </section>

@@ -51,7 +51,7 @@ export default function ServicesPage({ serviceTiers, heroImage }: Props) {
               Bespoke retreat production,<br />tailored to your vision.
             </h1>
             <p className={styles.lead}>{t.bespokeText}</p>
-            <Link href="/contact" className="button button-gold">
+            <Link href="/pre-call" className="button button-gold">
               Discuss Your Retreat <ArrowUpRight size={14} />
             </Link>
           </div>

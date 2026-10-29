@@ -2,7 +2,7 @@
 
 import LazyVideo from '@/components/LazyVideo'
 import { useState, useEffect } from 'react'
-import { ArrowUpRight, MessageCircle, Plane } from 'lucide-react'
+import { ArrowUpRight, Plane } from 'lucide-react'
 import Link from 'next/link'
 import {
   images,
@@ -105,10 +105,8 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
               <h1>{t.hero}</h1>
               <p className={ex.route}><Plane size={15} strokeWidth={1.6} aria-hidden="true" /> From Airport to Airport</p>
               <div className="hero-buttons">
-                <Link className="button button-gold" href="/contact">{t.explore}<ArrowUpRight size={16} /></Link>
-                {whatsappLink && (
-<a className="button button-ghost" href={whatsappLink} target="_blank" rel="noopener noreferrer"><MessageCircle size={15} />{t.inquire}</a>
-)}
+                <Link className="button button-gold" href="/pre-call">{t.explore}<ArrowUpRight size={16} /></Link>
+                <Link className="button button-ghost" href="/pre-call">{t.inquire}</Link>
               </div>
             </div>
             <VisitorCounter visible={introDone} />
@@ -242,7 +240,7 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
             ))}
           </div>
           <div className={s.destComboActions}>
-            <Link href="/contact" className="button button-dark">{t.destCTA1} <ArrowUpRight size={14} /></Link>
+            <Link href="/pre-call" className="button button-dark">{t.destCTA1} <ArrowUpRight size={14} /></Link>
           </div>
         </div>
       </section>
@@ -411,7 +409,7 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
           <p className={s.ctaTagline}>Return to your inner balance</p>
           <h2>{t.cta.split('\n').map((line) => <span key={line}>{line}<br /></span>)}</h2>
           <p>{t.ctaText}</p>
-          <Link className="button button-gold" href="/contact">{t.contact}<ArrowUpRight size={16} /></Link>
+          <Link className="button button-gold" href="/pre-call">{t.contact}<ArrowUpRight size={16} /></Link>
         </div>
       </section>
 

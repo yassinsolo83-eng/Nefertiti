@@ -51,7 +51,7 @@ export default async function AboutPage() {
               {t.founderName}<br />
               <span>{t.founderRole}</span>
             </p>
-            <Link href="/contact" className="button button-gold">
+            <Link href="/pre-call" className="button button-gold">
               Let&apos;s Talk About Your Idea <ArrowUpRight size={14} />
             </Link>
           </div>

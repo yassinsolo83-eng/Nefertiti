@@ -51,7 +51,7 @@ export default function ExperiencesPage({ experiences, heroImage }: Props) {
               Every experience is designed to deepen connection — with Egypt,
               with your practice, and with each other.
             </p>
-            <Link href="/contact" className="button button-gold">
+            <Link href="/pre-call" className="button button-gold">
               Design My Experience <ArrowUpRight size={14} />
             </Link>
           </div>

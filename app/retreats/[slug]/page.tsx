@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { ArrowUpRight, Calendar, Check, MapPin, MessageCircle, Moon } from 'lucide-react'
+import { ArrowUpRight, Calendar, Check, MapPin, Moon } from 'lucide-react'
 import { buildMetadata } from '@/lib/seo'
 import { SITE_NAME, SITE_URL } from '@/lib/site'
 import { getRetreatBySlug, getSiteSettings } from '@/sanity/lib/queries'
@@ -42,11 +42,7 @@ export default async function RetreatDetailPage({ params }: Params) {
   const nights = retreatNights(r.startDate, r.endDate)
   const paragraphs = r.description.split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean)
 
-  const whatsappText = `Hi! I'm interested in the retreat "${r.title}" (${dates}). Could you share more details?`
-  const whatsappLink = settings.whatsappNumber
-    ? `https://wa.me/${settings.whatsappNumber}?text=${encodeURIComponent(whatsappText)}`
-    : ''
-  const enquireLink = `/contact?retreat=${encodeURIComponent(r.title)}#enquiry`
+  const enquireLink = `/pre-call?retreat=${encodeURIComponent(r.title)}`
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -94,11 +90,6 @@ export default async function RetreatDetailPage({ params }: Params) {
               <Link href={enquireLink} className="button button-berry">
                 Enquire Now <ArrowUpRight size={16} />
               </Link>
-              {whatsappLink && (
-<a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="button button-ghost-dark">
-                <MessageCircle size={15} /> WhatsApp Us
-              </a>
-)}
             </div>
           )}
         </div>
@@ -199,11 +190,6 @@ export default async function RetreatDetailPage({ params }: Params) {
               <Link href={enquireLink} className="button button-berry">
                 Enquire Now <ArrowUpRight size={16} />
               </Link>
-              {whatsappLink && (
-<a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="button button-ghost-dark">
-                <MessageCircle size={15} /> WhatsApp Us
-              </a>
-)}
             </div>
           )}
         </aside>
