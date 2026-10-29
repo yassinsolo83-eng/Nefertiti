@@ -21,6 +21,7 @@ import { useKeyhole } from '@/hooks/useKeyhole'
 import type { PageTexts } from '@/lib/data'
 import s from '@/app/home.module.css'
 import Img from '@/components/Img'
+import CountUp from '@/components/CountUp'
 
 type Props = {
   featuredDestinations: Destination[]
@@ -156,7 +157,7 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
             <div className={`${s.visionStats} reveal`}>
               {stats.map((st, i) => (
                 <div className={s.visionStat} key={`${i}-${st.label}`}>
-                  <span className={s.visionStatNum}>{st.value}</span>
+                  <CountUp className={s.visionStatNum} value={st.value} />
                   <span className={s.visionStatLabel}>{st.label}</span>
                 </div>
               ))}
