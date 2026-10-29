@@ -99,9 +99,21 @@ export default async function RetreatDetailPage({ params }: Params) {
       </section>
 
       {r.highlights.length > 0 && (
-        <ul className={s.highlights} aria-label="Retreat highlights">
-          {r.highlights.map((h, i) => <li key={i}>{h}</li>)}
-        </ul>
+        <div className={s.highlights} aria-label="Retreat highlights">
+          <div className={s.highlightsTrack}>
+            {[0, 1].map((copy) => {
+              // repeat short lists so one copy always fills the screen width
+              const reps = Math.max(1, Math.ceil(8 / r.highlights.length))
+              return (
+                <ul key={copy} className={s.highlightsList} aria-hidden={copy === 1 ? true : undefined}>
+                  {Array.from({ length: reps }).flatMap((_, k) =>
+                    r.highlights.map((h, i) => <li key={`${k}-${i}`}>{h}</li>)
+                  )}
+                </ul>
+              )
+            })}
+          </div>
+        </div>
       )}
 
       {/* Body */}
