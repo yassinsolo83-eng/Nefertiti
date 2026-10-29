@@ -220,6 +220,12 @@ body:has(.nav-sidebar.open) #kh-pill-ring { stroke-opacity: .22; transition: str
 .goog-te-banner-frame, .skiptranslate { display: none !important; }
 body { top: 0 !important; }
 .goog-tooltip, .goog-tooltip:hover { display: none !important; }
+/* Google Translate's floating widget, loading spinner and top banner (current class names), and the page offset it adds */
+.VIpgJd-ZVi9od-aZ2wEe-wOHMyf, .VIpgJd-ZVi9od-aZ2wEe-OiiCO, .VIpgJd-ZVi9od-aZ2wEe,
+.VIpgJd-ZVi9od-ORHb-OEVmcd, .VIpgJd-ZVi9od-l4eHX-hSRGPd, .goog-te-spinner-pos, .goog-te-spinner-animation, #goog-gt-tt {
+  display: none !important; visibility: hidden !important; opacity: 0 !important; pointer-events: none !important;
+}
+html, body { top: 0 !important; margin-top: 0 !important; }
 .goog-text-highlight { background: none !important; box-shadow: none !important; }
 
 
