@@ -1,8 +1,8 @@
 'use client'
 
 import BrandLogo from '@/components/BrandLogo'
-import { useState, useEffect, useRef } from 'react'
-import { Menu, X } from 'lucide-react'
+import { useState, useEffect, useRef, useCallback } from 'react'
+import { Menu, X, Search } from 'lucide-react'
 import { setGoogleLang } from '@/hooks/useGoogleTranslate'
 import Link from 'next/link'
 
@@ -20,12 +20,19 @@ const NAV_ITEMS: NavItem[] = [
   ['Contact', '/contact'],
 ]
 
+/** All searchable pages — used for the client-side search overlay. */
+const SEARCH_PAGES = NAV_ITEMS.map(([label, href]) => ({
+  title: label,
+  href,
+  keywords: label.toLowerCase(),
+}))
+
 type Props = {
   solid?: boolean
   hidden?: boolean
   scrolled?: boolean
-  /** When true, the pill uses light logo + gold border (over dark intro).
-   *  When false, uses dark logo + ivory background (over light content). */
+  /** When true, uses light logo + gold text (over dark intro).
+   *  When false, uses dark logo + plum text (over light content). */
   showVideo?: boolean
   onAnchor?: (e: React.MouseEvent<HTMLAnchorElement>, href: string) => void
   onBrand?: (e: React.MouseEvent<HTMLAnchorElement>) => void
@@ -35,29 +42,40 @@ export default function SiteNav({
   solid, hidden, scrolled, showVideo,
   onAnchor, onBrand,
 }: Props) {
-  const [menuOpen, setMenuOpen] = useState(false)
-  const closeMenu = () => setMenuOpen(false)
+  const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [searchOpen, setSearchOpen] = useState(false)
+  const [query, setQuery] = useState('')
   const navRef = useRef<HTMLElement>(null)
+  const searchInputRef = useRef<HTMLInputElement>(null)
 
   const isScrolled = solid || scrolled
 
-  // Close the dropdown on outside click or Escape — a normal dropdown, not a trap.
+  const closeSidebar = useCallback(() => setSidebarOpen(false), [])
+  const closeSearch = useCallback(() => { setSearchOpen(false); setQuery('') }, [])
+
+  // Lock body scroll when sidebar is open
   useEffect(() => {
-    if (!menuOpen) return
-    const onPointerDown = (e: MouseEvent) => {
-      if (navRef.current && !navRef.current.contains(e.target as Node)) closeMenu()
+    document.body.style.overflow = sidebarOpen ? 'hidden' : ''
+    return () => { document.body.style.overflow = '' }
+  }, [sidebarOpen])
+
+  // Focus search input when overlay opens
+  useEffect(() => {
+    if (searchOpen) searchInputRef.current?.focus()
+  }, [searchOpen])
+
+  // Close on Escape
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') { closeSidebar(); closeSearch() }
     }
-    const onKeyDown = (e: KeyboardEvent) => { if (e.key === 'Escape') closeMenu() }
-    document.addEventListener('mousedown', onPointerDown)
     document.addEventListener('keydown', onKeyDown)
-    return () => {
-      document.removeEventListener('mousedown', onPointerDown)
-      document.removeEventListener('keydown', onKeyDown)
-    }
-  }, [menuOpen])
+    return () => document.removeEventListener('keydown', onKeyDown)
+  }, [closeSidebar, closeSearch])
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    closeMenu()
+    closeSidebar()
+    closeSearch()
     if (onAnchor && href.startsWith('/#')) onAnchor(e, href)
   }
 
@@ -65,40 +83,104 @@ export default function SiteNav({
     if (onBrand) onBrand(e)
   }
 
+  // Filter search results
+  const results = query.trim()
+    ? SEARCH_PAGES.filter(p => p.keywords.includes(query.toLowerCase().trim()))
+    : []
+
   return (
-    <header
-      ref={navRef}
-      className={`site-nav ${isScrolled ? 'is-scrolled' : ''} ${menuOpen ? 'menu-open' : ''} ${hidden ? 'nav-hidden' : ''} ${showVideo ? 'pill-video' : 'pill-solid'}`}
-    >
-      {/* The pill IS the navigation everywhere: logo (left) + menu toggle (right),
-          with a dropdown panel below. On the home intro it shows a clear-video
-          window; elsewhere it's a solid ivory bar. */}
-      <div className="nav-pill">
-        <Link href="/" className="nav-pill-brand" onClick={handleBrand} aria-label="Nefertiti — home">
-          <BrandLogo />
-        </Link>
+    <>
+      <header
+        ref={navRef}
+        className={`site-nav ${isScrolled ? 'is-scrolled' : ''} ${hidden ? 'nav-hidden' : ''} ${showVideo ? 'nav-video' : 'nav-solid'}`}
+      >
+        <div className="nav-bar">
+          {/* Left — Hamburger */}
+          <button
+            className="nav-icon nav-hamburger"
+            onClick={() => setSidebarOpen(!sidebarOpen)}
+            aria-label={sidebarOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={sidebarOpen}
+          >
+            {sidebarOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
 
-        <button
-          className="nav-pill-icon"
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-          aria-expanded={menuOpen}
-        >
-          {menuOpen ? <X size={17} /> : <Menu size={17} />}
-        </button>
-      </div>
+          {/* Center — Logo */}
+          <Link href="/" className="nav-brand" onClick={handleBrand} aria-label="Nefertiti — home">
+            <BrandLogo />
+            <span className="nav-brand-tagline">Retreats Producer</span>
+          </Link>
 
-      {/* Dropdown panel — sits outside the pill so overflow:hidden doesn't clip it */}
-      <nav className={`nav-menu ${menuOpen ? 'open' : ''}`} aria-label="Main navigation">
-        {NAV_ITEMS.map(([item, href]) => (
-          <Link key={item} href={href} onClick={(e) => handleClick(e, href)}>{item}</Link>
-        ))}
-        <div className="nav-menu-lang">
-          <button className="lang notranslate" onClick={() => { setGoogleLang('en'); closeMenu() }}>EN</button>
-          <span className="lang-sep">/</span>
-          <button className="lang notranslate" onClick={() => { setGoogleLang('it'); closeMenu() }}>IT</button>
+          {/* Right — Search */}
+          <button
+            className="nav-icon nav-search-btn"
+            onClick={() => setSearchOpen(true)}
+            aria-label="Search"
+          >
+            <Search size={18} />
+          </button>
         </div>
-      </nav>
-    </header>
+      </header>
+
+      {/* ── Sidebar ── */}
+      <div className={`nav-sidebar-overlay ${sidebarOpen ? 'open' : ''}`} onClick={closeSidebar} />
+      <aside className={`nav-sidebar ${sidebarOpen ? 'open' : ''}`} aria-label="Main navigation">
+        <div className="nav-sidebar-header">
+          <Link href="/" className="nav-sidebar-logo" onClick={(e) => { closeSidebar(); handleBrand(e) }}>
+            <BrandLogo />
+          </Link>
+          <button className="nav-sidebar-close" onClick={closeSidebar} aria-label="Close menu">
+            <X size={20} />
+          </button>
+        </div>
+
+        <nav className="nav-sidebar-links">
+          {NAV_ITEMS.map(([item, href]) => (
+            <Link key={item} href={href} onClick={(e) => handleClick(e, href)}>
+              {item}
+            </Link>
+          ))}
+        </nav>
+
+        <div className="nav-sidebar-footer">
+          <div className="nav-sidebar-lang">
+            <button className="lang notranslate" onClick={() => { setGoogleLang('en'); closeSidebar() }}>EN</button>
+            <span className="lang-sep">/</span>
+            <button className="lang notranslate" onClick={() => { setGoogleLang('it'); closeSidebar() }}>IT</button>
+          </div>
+        </div>
+      </aside>
+
+      {/* ── Search overlay ── */}
+      <div className={`nav-search-overlay ${searchOpen ? 'open' : ''}`}>
+        <div className="nav-search-container">
+          <div className="nav-search-bar">
+            <Search size={18} className="nav-search-icon" />
+            <input
+              ref={searchInputRef}
+              type="text"
+              className="nav-search-input"
+              placeholder="Search pages..."
+              value={query}
+              onChange={e => setQuery(e.target.value)}
+            />
+            <button className="nav-search-close" onClick={closeSearch} aria-label="Close search">
+              <X size={20} />
+            </button>
+          </div>
+          {query.trim() && (
+            <div className="nav-search-results">
+              {results.length > 0 ? results.map(r => (
+                <Link key={r.href} href={r.href} className="nav-search-result" onClick={(e) => handleClick(e, r.href)}>
+                  {r.title}
+                </Link>
+              )) : (
+                <p className="nav-search-empty">No results found</p>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
+    </>
   )
 }
