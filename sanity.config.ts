@@ -6,6 +6,7 @@ import { visionTool } from '@sanity/vision'
 import { schemaTypes } from '@/sanity/schema'
 import { structure } from '@/sanity/structure'
 import { importDefaultsTool } from '@/sanity/tools/importDefaults'
+import { projectId, dataset } from '@/sanity/env'
 
 // Types that must never be created by hand in the Studio:
 // - siteSettings / pageImages / preCallForm: there is exactly one document of each
@@ -17,8 +18,8 @@ export default defineConfig({
   name: 'nefertiti',
   title: 'Nefertiti Retreats',
 
-  projectId: '205jlscz',
-  dataset: 'production',
+  projectId,
+  dataset,
   basePath: '/studio',
 
   plugins: [structureTool({ structure }), visionTool()],

@@ -2,6 +2,7 @@
 
 import { ArrowLeft } from 'lucide-react'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 
 /**
  * Back link for inner pages — returns to the previous page in history
@@ -22,9 +23,9 @@ export default function BackButton() {
   }
 
   return (
-    <a href="/" className="back-btn" onClick={goBack} aria-label="Go back">
+    <Link href="/" className="back-btn" onClick={goBack} aria-label="Go back">
       <ArrowLeft size={16} />
       <span>Back</span>
-    </a>
+    </Link>
   )
 }

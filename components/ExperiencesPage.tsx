@@ -7,6 +7,7 @@ import SiteFooter from '@/components/SiteFooter'
 import BackButton from '@/components/BackButton'
 import styles from '@/app/experiences/experiences.module.css'
 import { Ornament } from '@/components/Motif'
+import Link from 'next/link'
 
 type Props = { experiences: { title: string; text: string; image: string }[]; heroImage: string }
 
@@ -49,9 +50,9 @@ export default function ExperiencesPage({ experiences, heroImage }: Props) {
               Every experience is designed to deepen connection — with Egypt,
               with your practice, and with each other.
             </p>
-            <a href="/contact" className="button button-gold">
+            <Link href="/contact" className="button button-gold">
               Design My Experience <ArrowUpRight size={14} />
-            </a>
+            </Link>
           </div>
 
           <div className={styles.listWrap}>

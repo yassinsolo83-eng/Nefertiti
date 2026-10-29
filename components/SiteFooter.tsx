@@ -4,6 +4,7 @@ import BrandLogo from '@/components/BrandLogo'
 import { ArrowUpRight, Mail, MapPin, MessageCircle } from 'lucide-react'
 import { useSiteSettings } from '@/components/SiteSettingsProvider'
 import { BrandBand } from '@/components/Motif'
+import Link from 'next/link'
 
 const NAV = [
   ['About', '/about'],
@@ -43,7 +44,7 @@ export default function SiteFooter() {
         <div>
           <p className="footer-label">Navigate</p>
           {NAV.map(([label, href]) => (
-            <a key={label} href={href}>{label}</a>
+            <Link key={label} href={href}>{label}</Link>
           ))}
         </div>
         <div>
@@ -63,8 +64,8 @@ export default function SiteFooter() {
       <div className="footer-bottom">
         <span>© {new Date().getFullYear()} Nefertiti Retreats</span>
         <span className="footer-legal">
-          <a href="/terms">Terms &amp; Conditions</a>
-          <a href="/privacy">Privacy Policy</a>
+          <Link href="/terms">Terms &amp; Conditions</Link>
+          <Link href="/privacy">Privacy Policy</Link>
         </span>
         <span className="notranslate">Translations powered by Google · Traduzioni offerte da Google</span>
         <span>Made with presence</span>

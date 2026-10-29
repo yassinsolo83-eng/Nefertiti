@@ -1,10 +1,11 @@
 import { createClient } from 'next-sanity'
+import { projectId, dataset, apiVersion } from '@/sanity/env'
 
 // Read-only use of the server client: just to look up where notifications go.
 const client = createClient({
-  projectId: '205jlscz',
-  dataset: 'production',
-  apiVersion: '2025-06-01',
+  projectId,
+  dataset,
+  apiVersion,
   useCdn: false,
   token: process.env.SANITY_WRITE_TOKEN,
 })

@@ -239,8 +239,8 @@ function ImportDefaults() {
       await fillPageImages()
 
       add('Done. Everything is now editable from Structure.')
-    } catch (e: any) {
-      add(`✗ Stopped: ${e?.message || 'unknown error'}. Press the button again to continue.`)
+    } catch (e) {
+      add(`✗ Stopped: ${e instanceof Error ? e.message : 'unknown error'}. Press the button again to continue.`)
     } finally {
       setRunning(false)
     }

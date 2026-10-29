@@ -8,6 +8,7 @@ import BackButton from '@/components/BackButton'
 import styles from '@/app/how-it-works/how-it-works.module.css'
 import type { Step } from '@/sanity/lib/queries'
 import { Ornament } from '@/components/Motif'
+import Link from 'next/link'
 
 type Props = { steps: Step[]; heroImage: string }
 
@@ -50,9 +51,9 @@ export default function HowItWorksPage({ steps, heroImage }: Props) {
               Eight steps from your first message to standing in Egypt
               with your community.
             </p>
-            <a href="/pre-call" className="button button-gold">
+            <Link href="/pre-call" className="button button-gold">
               Share your idea, then book a call <ArrowUpRight size={14} />
-            </a>
+            </Link>
           </div>
 
           <div className={styles.listWrap}>

@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import 'leaflet/dist/leaflet.css'
 import { destinationCoords, destinationTravel } from '@/lib/data'
 import type { Destination } from '@/lib/data'
+import Link from 'next/link'
 
 type Props = {
   destinations: Destination[]
@@ -474,11 +475,11 @@ export default function EgyptMap({ destinations, featuredIds, onOpen }: Props) {
               </div>
             ) : null}
             {featured ? (
-              <a className="egm-link" href={`/destinations/${active.id}`}>Explore ↗</a>
+              <Link className="egm-link" href={`/destinations/${active.id}`}>Explore ↗</Link>
             ) : onOpenRef.current ? (
               <button className="egm-link" type="button" onClick={() => onOpenRef.current?.(active.id)}>View details ↗</button>
             ) : (
-              <a className="egm-link" href={`/destinations?open=${encodeURIComponent(active.id)}`}>View details ↗</a>
+              <Link className="egm-link" href={`/destinations?open=${encodeURIComponent(active.id)}`}>View details ↗</Link>
             )}
           </div>
         </div>

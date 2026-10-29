@@ -1,7 +1,8 @@
 import { createImageUrlBuilder } from '@sanity/image-url'
+import { projectId, dataset } from '../env'
 
 // Same project/dataset as the write/read clients.
-const builder = createImageUrlBuilder({ projectId: '205jlscz', dataset: 'production' })
+const builder = createImageUrlBuilder({ projectId, dataset })
 
 // A partner photo can be either a raw Sanity image object (with hotspot/crop,
 // set from the Studio) or a plain string URL (the built-in fallback images).

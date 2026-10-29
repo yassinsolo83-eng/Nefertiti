@@ -4,6 +4,7 @@ import BrandLogo from '@/components/BrandLogo'
 import { useState, useEffect, useRef } from 'react'
 import { Menu, X } from 'lucide-react'
 import { setGoogleLang } from '@/hooks/useGoogleTranslate'
+import Link from 'next/link'
 
 type NavItem = [label: string, href: string]
 
@@ -73,9 +74,9 @@ export default function SiteNav({
           with a dropdown panel below. On the home intro it shows a clear-video
           window; elsewhere it's a solid ivory bar. */}
       <div className="nav-pill">
-        <a href="/#vision" className="nav-pill-brand" onClick={handleBrand} aria-label="Nefertiti — home">
+        <Link href="/#vision" className="nav-pill-brand" onClick={handleBrand} aria-label="Nefertiti — home">
           <BrandLogo />
-        </a>
+        </Link>
 
         <button
           className="nav-pill-icon"
@@ -90,7 +91,7 @@ export default function SiteNav({
       {/* Dropdown panel — sits outside the pill so overflow:hidden doesn't clip it */}
       <nav className={`nav-menu ${menuOpen ? 'open' : ''}`} aria-label="Main navigation">
         {NAV_ITEMS.map(([item, href]) => (
-          <a key={item} href={href} onClick={(e) => handleClick(e, href)}>{item}</a>
+          <Link key={item} href={href} onClick={(e) => handleClick(e, href)}>{item}</Link>
         ))}
         <div className="nav-menu-lang">
           <button className="lang notranslate" onClick={() => { setGoogleLang('en'); closeMenu() }}>EN</button>

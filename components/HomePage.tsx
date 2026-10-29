@@ -104,7 +104,7 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
               <h1>{t.hero}</h1>
               <p className={ex.route}><Plane size={15} strokeWidth={1.6} aria-hidden="true" /> From Airport to Airport</p>
               <div className="hero-buttons">
-                <a className="button button-gold" href="/contact">{t.explore}<ArrowUpRight size={16} /></a>
+                <Link className="button button-gold" href="/contact">{t.explore}<ArrowUpRight size={16} /></Link>
                 <a className="button button-ghost" href={whatsappLink} target="_blank" rel="noopener noreferrer"><MessageCircle size={15} />{t.inquire}</a>
               </div>
             </div>
@@ -149,7 +149,7 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
           <div className={`${s.visionCopy} reveal`}>
             <p className="eyebrow" style={{ marginBottom: 16 }}>THE NEFERTITI WAY</p>
             <p>{t.visionText}</p>
-            <a href="/about" className="text-link">{t.philosophy} <ArrowUpRight size={16} /></a>
+            <Link href="/about" className="text-link">{t.philosophy} <ArrowUpRight size={16} /></Link>
             <div className={`${s.visionStats} reveal`}>
               {stats.map((st, i) => (
                 <div className={s.visionStat} key={`${i}-${st.label}`}>
@@ -235,7 +235,7 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
             ))}
           </div>
           <div className={s.destComboActions}>
-            <a href="/contact" className="button button-dark">{t.destCTA1} <ArrowUpRight size={14} /></a>
+            <Link href="/contact" className="button button-dark">{t.destCTA1} <ArrowUpRight size={14} /></Link>
           </div>
         </div>
       </section>
@@ -302,19 +302,19 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
         </div>
         <div className={s.exploreGrid}>
           {[
-            ['01', 'Experiences', 'Curated moments woven around your retreat&apos;s theme.', '/experiences'],
+            ['01', 'Experiences', 'Curated moments woven around your retreat\'s theme.', '/experiences'],
             ['02', 'Services', 'From light-touch support to full retreat production.', '/services'],
             ['03', 'How It Works', 'A clear, guided path from first idea to arrival.', '/how-it-works'],
             ['04', 'About', 'The story and the people behind Nefertiti.', '/about'],
           ].map(([num, title, desc, href]) => (
-            <a key={href} href={href} className={`${s.exploreCard} reveal`}>
+            <Link key={href} href={href} className={`${s.exploreCard} reveal`}>
               <span className={s.exploreNum}>{num}</span>
               <div className={s.exploreCardBody}>
                 <h3>{title}</h3>
-                <p dangerouslySetInnerHTML={{ __html: desc }} />
+                <p>{desc}</p>
               </div>
               <ArrowUpRight className={s.exploreArrow} size={20} />
-            </a>
+            </Link>
           ))}
         </div>
       </section>
@@ -332,10 +332,10 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
         <div className="team-grid">
           {partners.map((p) => (
             <div className="team-card reveal" key={p.id}>
-              <a href={`/partners/${p.id}`} className="team-card-media">
+              <Link href={`/partners/${p.id}`} className="team-card-media">
                 <img src={fitUrl(p.image, 640)} alt={p.name} />
-              </a>
-              <a href={`/partners/${p.id}`} className="team-card-name">{p.name}</a>
+              </Link>
+              <Link href={`/partners/${p.id}`} className="team-card-name">{p.name}</Link>
               <p className="team-card-role">{p.category}</p>
               {(p.instagram || p.x || p.tiktok) && (
                 <div className="team-card-socials">
@@ -381,7 +381,7 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
           <p className={s.ctaTagline}>Return to your inner balance</p>
           <h2>{t.cta.split('\n').map((line) => <span key={line}>{line}<br /></span>)}</h2>
           <p>{t.ctaText}</p>
-          <a className="button button-gold" href="/contact">{t.contact}<ArrowUpRight size={16} /></a>
+          <Link className="button button-gold" href="/contact">{t.contact}<ArrowUpRight size={16} /></Link>
         </div>
       </section>
 

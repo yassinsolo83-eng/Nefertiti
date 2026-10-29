@@ -12,6 +12,7 @@ import {
 } from '@/lib/preCallForm'
 import s from '@/app/pre-call/pre-call.module.css'
 import { openWhatsapp } from '@/lib/openWhatsapp'
+import Link from 'next/link'
 
 const DRAFT_KEY = 'nefertiti-pre-call-draft'
 
@@ -172,7 +173,7 @@ export default function PreCallForm({ form }: Props) {
         {waUrl && (
           <a className="button button-gold" href={waUrl} target="_blank" rel="noopener noreferrer" style={{ marginRight: 12 }}>Send details on WhatsApp</a>
         )}
-        <a href="/" className="button button-gold">Back to home</a>
+        <Link href="/" className="button button-gold">Back to home</Link>
       </div>
     )
   }
@@ -242,7 +243,7 @@ export default function PreCallForm({ form }: Props) {
         {isLast && (
           <p className={s.privacy}>
             By sending this form you agree that we use your answers to prepare our call, as described in our{' '}
-            <a href="/privacy">Privacy Policy</a>.
+            <Link href="/privacy">Privacy Policy</Link>.
           </p>
         )}
 

@@ -9,6 +9,7 @@ import SiteFooter from '@/components/SiteFooter'
 import BackButton from '@/components/BackButton'
 import styles from '@/app/services/services.module.css'
 import { Ornament } from '@/components/Motif'
+import Link from 'next/link'
 
 type Props = { serviceTiers: ServiceTier[]; heroImage: string }
 
@@ -49,9 +50,9 @@ export default function ServicesPage({ serviceTiers, heroImage }: Props) {
               Bespoke retreat production,<br />tailored to your vision.
             </h1>
             <p className={styles.lead}>{t.bespokeText}</p>
-            <a href="/contact" className="button button-gold">
+            <Link href="/contact" className="button button-gold">
               Discuss Your Retreat <ArrowUpRight size={14} />
-            </a>
+            </Link>
           </div>
 
           <div className={styles.listWrap}>

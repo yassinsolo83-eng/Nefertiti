@@ -11,6 +11,7 @@ import { Ornament } from '@/components/Motif'
 import { openWhatsapp } from '@/lib/openWhatsapp'
 import EgyptMap from '@/components/EgyptMap'
 import type { Destination } from '@/lib/data'
+import Link from 'next/link'
 
 type Props = {
   faqs: [string, string][]
@@ -118,9 +119,9 @@ export default function ContactPage({ faqs, whatsappLink, socialLinks, appointme
               personal as possible. It takes about 10 minutes.
             </p>
             <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 12 }}>
-              <a className="button button-berry" href="/pre-call">
+              <Link className="button button-berry" href="/pre-call">
                 Fill in the pre-call form <ArrowUpRight size={16} />
-              </a>
+              </Link>
               <a className="button button-ghost-dark" href={whatsappLink} target="_blank" rel="noopener noreferrer">
                 <MessageCircle size={16} /> Chat on WhatsApp
               </a>
@@ -214,7 +215,7 @@ export default function ContactPage({ faqs, whatsappLink, socialLinks, appointme
               <p style={{ fontSize: 11, lineHeight: 1.6, opacity: 0.7, margin: 0 }}>
                 By sending this form you agree that we use your details to reply to your enquiry, as described in
                 our{' '}
-                <a href="/privacy" style={{ color: 'var(--primary)', textDecoration: 'underline' }}>Privacy Policy</a>.
+                <Link href="/privacy" style={{ color: 'var(--primary)', textDecoration: 'underline' }}>Privacy Policy</Link>.
               </p>
 
               <button
@@ -234,9 +235,9 @@ export default function ContactPage({ faqs, whatsappLink, socialLinks, appointme
       {/* Egypt map */}
       <section className={s.contactMap}>
         <EgyptMap destinations={destinations} featuredIds={featuredIds} />
-        <a className={s.contactMapLink} href="/destinations">
+        <Link className={s.contactMapLink} href="/destinations">
           See all destinations
-        </a>
+        </Link>
       </section>
 
       {/* FAQ */}
