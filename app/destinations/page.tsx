@@ -12,7 +12,8 @@ import Link from 'next/link'
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSiteSettings()
   return buildMetadata({
-    seo: settings.seo.default,
+    seo: settings.seo.destinations,
+    fallbackSeo: settings.seo.default,
     title: 'Destinations — Where We Take Your Retreat in Egypt',
     description:
       'Cairo, the Red Sea, Luxor, Siwa, the desert and more: explore every destination where Nefertiti produces wellness retreats in Egypt.',

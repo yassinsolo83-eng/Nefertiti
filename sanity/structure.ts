@@ -48,6 +48,11 @@ export const structure: StructureResolver = (S) =>
         .schemaType('pageImages')
         .child(S.document().schemaType('pageImages').documentId('pageImages').title('Page Images')),
 
+      S.listItem()
+        .title('Page Texts')
+        .schemaType('pageTexts')
+        .child(S.document().schemaType('pageTexts').documentId('pageTexts').title('Page Texts')),
+
       S.divider(),
 
       // One single settings document (WhatsApp, social links, SEO, retreat bar)

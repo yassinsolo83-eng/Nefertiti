@@ -142,6 +142,18 @@ export const siteSettings = defineType({
       group: 'seo',
     }),
     defineField({
+      name: 'destinationsSeo',
+      title: 'Destinations page SEO',
+      type: 'seo',
+      group: 'seo',
+    }),
+    defineField({
+      name: 'preCallSeo',
+      title: 'Pre-Call form page SEO',
+      type: 'seo',
+      group: 'seo',
+    }),
+    defineField({
       name: 'contactSeo',
       title: 'Contact page SEO',
       type: 'seo',

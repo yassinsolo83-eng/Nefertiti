@@ -9,10 +9,11 @@ import styles from '@/app/experiences/experiences.module.css'
 import { Ornament } from '@/components/Motif'
 import Link from 'next/link'
 import Img from '@/components/Img'
+import type { PageTexts } from '@/lib/data'
 
-type Props = { experiences: { title: string; text: string; image: string }[]; heroImage: string }
+type Props = { experiences: { title: string; text: string; image: string }[]; heroImage: string; texts: PageTexts }
 
-export default function ExperiencesPage({ experiences, heroImage }: Props) {
+export default function ExperiencesPage({ experiences, heroImage, texts }: Props) {
   const [activeIdx, setActiveIdx] = useState(0)
   const listRef = useRef<HTMLDivElement>(null)
   const [imgY, setImgY] = useState(0)
@@ -40,11 +41,11 @@ export default function ExperiencesPage({ experiences, heroImage }: Props) {
         </div>
         <div className="phero-content">
           <Ornament name="lotus" />
-          <h1>Experiences</h1>
-          <p className="phero-sub">Curated moments woven around your retreat.</p>
-          <p className="phero-lead">Every experience is designed to deepen connection — with Egypt, with your practice, and with each other.</p>
+          <h1>{texts.experiencesTitle}</h1>
+          <p className="phero-sub">{texts.experiencesSubtitle}</p>
+          <p className="phero-lead">{texts.experiencesLead}</p>
           <Link href="/pre-call" className="button button-gold">
-            Design My Experience <ArrowUpRight size={14} />
+            {texts.experiencesButton} <ArrowUpRight size={14} />
           </Link>
         </div>
       </section>

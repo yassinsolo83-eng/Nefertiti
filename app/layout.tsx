@@ -1,7 +1,7 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import { SITE_URL, SITE_NAME, SITE_EMAIL, DEFAULT_DESCRIPTION, DEFAULT_OG_IMAGE } from '@/lib/site'
-import { getSiteSettings, getRetreats } from '@/sanity/lib/queries'
+import { getSiteSettings, getRetreats, getPageTexts } from '@/sanity/lib/queries'
 import { splitRetreats } from '@/lib/retreat-utils'
 import RetreatBar from '@/components/RetreatBar'
 import GoogleTranslate from '@/components/GoogleTranslate'
@@ -83,7 +83,7 @@ function profileLinks(links: string[][]) {
 }
 
 export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  const [settings, retreats] = await Promise.all([getSiteSettings(), getRetreats()])
+  const [settings, retreats, pageTexts] = await Promise.all([getSiteSettings(), getRetreats(), getPageTexts()])
   const sameAs = profileLinks(settings.socialLinks)
 
   const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
@@ -125,7 +125,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
         <GoogleTranslate />
-        <SiteSettingsProvider value={{ contactEmail: settings.contactEmail, socialLinks: settings.socialLinks, whatsappLink: settings.whatsappLink }}>
+        <SiteSettingsProvider value={{ contactEmail: settings.contactEmail, socialLinks: settings.socialLinks, whatsappLink: settings.whatsappLink, texts: pageTexts }}>
           {children}
         </SiteSettingsProvider>
         <CookieNotice />

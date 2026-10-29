@@ -98,6 +98,12 @@ export default async function RetreatDetailPage({ params }: Params) {
         </div>
       </section>
 
+      {r.highlights.length > 0 && (
+        <ul className={s.highlights} aria-label="Retreat highlights">
+          {r.highlights.map((h, i) => <li key={i}>{h}</li>)}
+        </ul>
+      )}
+
       {/* Body */}
       <section className={s.detailBody}>
         <div className={s.detailMain}>

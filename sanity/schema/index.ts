@@ -10,6 +10,7 @@ import { seo } from './seo'
 import { enquiry } from './enquiry'
 import { retreat } from './retreat'
 import { pageImages } from './pageImages'
+import { pageTexts } from './pageTexts'
 import { preCallForm } from './preCallForm'
 import { testimonial } from './testimonial'
 import { preCallSubmission } from './preCallSubmission'
@@ -31,5 +32,6 @@ export const schemaTypes = [
   step,
   siteSettings,
   pageImages,
+  pageTexts,
   seo,
 ]

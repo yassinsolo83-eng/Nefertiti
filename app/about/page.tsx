@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { buildMetadata } from '@/lib/seo'
 import { ArrowUpRight } from 'lucide-react'
-import { getPageImages, getSiteContent, getSiteSettings } from '@/sanity/lib/queries'
+import { getPageImages, getPageTexts, getSiteContent, getSiteSettings } from '@/sanity/lib/queries'
 import SiteNav from '@/components/SiteNav'
 import SiteFooter from '@/components/SiteFooter'
 import BackButton from '@/components/BackButton'
@@ -22,7 +22,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function AboutPage() {
-  const [t, pageImages] = await Promise.all([getSiteContent(), getPageImages()])
+  const [t, pageImages, texts] = await Promise.all([getSiteContent(), getPageImages(), getPageTexts()])
 
   return (
     <main className="inner-page">
@@ -35,8 +35,8 @@ export default async function AboutPage() {
         </div>
         <div className="phero-content">
           <Ornament name="cartouche-ankh" />
-          <h1>About</h1>
-          <p className="phero-sub">The story and the people behind Nefertiti.</p>
+          <h1>{texts.aboutTitle}</h1>
+          <p className="phero-sub">{texts.aboutSubtitle}</p>
         </div>
       </section>
 

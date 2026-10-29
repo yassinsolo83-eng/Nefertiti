@@ -11,6 +11,7 @@ import Img from '@/components/Img'
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSiteSettings()
   return buildMetadata({
+    seo: settings.seo.preCall,
     fallbackSeo: settings.seo.default,
     title: 'Pre-Call Form — Share Your Retreat Vision',
     description:

@@ -11,10 +11,11 @@ import styles from '@/app/services/services.module.css'
 import { Ornament } from '@/components/Motif'
 import Link from 'next/link'
 import Img from '@/components/Img'
+import type { PageTexts } from '@/lib/data'
 
-type Props = { serviceTiers: ServiceTier[]; heroImage: string }
+type Props = { serviceTiers: ServiceTier[]; heroImage: string; texts: PageTexts }
 
-export default function ServicesPage({ serviceTiers, heroImage }: Props) {
+export default function ServicesPage({ serviceTiers, heroImage, texts }: Props) {
   const t = copy.en
   const [activeIdx, setActiveIdx] = useState(0)
   const listRef = useRef<HTMLDivElement>(null)
@@ -43,11 +44,11 @@ export default function ServicesPage({ serviceTiers, heroImage }: Props) {
         </div>
         <div className="phero-content">
           <Ornament name="sun" />
-          <h1>Services</h1>
-          <p className="phero-sub">Bespoke retreat production, tailored to your vision.</p>
-          <p className="phero-lead">{t.bespokeText}</p>
+          <h1>{texts.servicesTitle}</h1>
+          <p className="phero-sub">{texts.servicesSubtitle}</p>
+          <p className="phero-lead">{texts.servicesLead}</p>
           <Link href="/pre-call" className="button button-gold">
-            Discuss Your Retreat <ArrowUpRight size={14} />
+            {texts.servicesButton} <ArrowUpRight size={14} />
           </Link>
         </div>
       </section>

@@ -10,10 +10,11 @@ import type { Step } from '@/sanity/lib/queries'
 import { Ornament } from '@/components/Motif'
 import Link from 'next/link'
 import Img from '@/components/Img'
+import type { PageTexts } from '@/lib/data'
 
-type Props = { steps: Step[]; heroImage: string }
+type Props = { steps: Step[]; heroImage: string; texts: PageTexts }
 
-export default function HowItWorksPage({ steps, heroImage }: Props) {
+export default function HowItWorksPage({ steps, heroImage, texts }: Props) {
   const [activeIdx, setActiveIdx] = useState(0)
   const listRef = useRef<HTMLDivElement>(null)
   const [imgY, setImgY] = useState(0)
@@ -41,11 +42,11 @@ export default function HowItWorksPage({ steps, heroImage }: Props) {
         </div>
         <div className="phero-content">
           <Ornament name="cartouche" />
-          <h1>How It Works</h1>
-          <p className="phero-sub">A clear, guided path from idea to arrival.</p>
-          <p className="phero-lead">Eight steps from your first message to standing in Egypt with your community.</p>
+          <h1>{texts.howItWorksPageTitle}</h1>
+          <p className="phero-sub">{texts.howItWorksPageSubtitle}</p>
+          <p className="phero-lead">{texts.howItWorksPageLead}</p>
           <Link href="/pre-call" className="button button-gold">
-            Share your idea, then book a call <ArrowUpRight size={14} />
+            {texts.howItWorksPageButton} <ArrowUpRight size={14} />
           </Link>
         </div>
       </section>

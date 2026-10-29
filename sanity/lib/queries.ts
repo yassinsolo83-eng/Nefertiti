@@ -15,9 +15,10 @@ import {
   appointmentServices as staticAppointmentServices,
   stepImages as staticStepImages,
   pageImageDefaults,
+  pageTextDefaults,
   homeStats as staticHomeStats,
 } from '@/lib/data'
-import type { Destination, DestDetail, Retreat, PageImages, HomeStat, Testimonial } from '@/lib/data'
+import type { Destination, DestDetail, Retreat, PageImages, PageTexts, HomeStat, Testimonial } from '@/lib/data'
 import type { SeoFields, SeoPageKey } from '@/lib/seo'
 import { PRE_CALL_FORM_QUERY, normalizePreCallForm, type PreCallForm } from '@/lib/preCallForm'
 
@@ -376,7 +377,9 @@ const SETTINGS_QUERY = `*[_type == "siteSettings"][0] {
   "howItWorksSeo": howItWorksSeo { metaTitle, metaDescription, noIndex, "ogImage": ogImage.asset->url },
   "partnersSeo": partnersSeo { metaTitle, metaDescription, noIndex, "ogImage": ogImage.asset->url },
   "contactSeo": contactSeo { metaTitle, metaDescription, noIndex, "ogImage": ogImage.asset->url },
-  "retreatsSeo": retreatsSeo { metaTitle, metaDescription, noIndex, "ogImage": ogImage.asset->url }
+  "retreatsSeo": retreatsSeo { metaTitle, metaDescription, noIndex, "ogImage": ogImage.asset->url },
+  "destinationsSeo": destinationsSeo { metaTitle, metaDescription, noIndex, "ogImage": ogImage.asset->url },
+  "preCallSeo": preCallSeo { metaTitle, metaDescription, noIndex, "ogImage": ogImage.asset->url }
 }`
 
 export async function getSiteSettings() {
@@ -412,6 +415,8 @@ export async function getSiteSettings() {
       partners: result?.partnersSeo || null,
       contact: result?.contactSeo || null,
       retreats: result?.retreatsSeo || null,
+      destinations: result?.destinationsSeo || null,
+      preCall: result?.preCallSeo || null,
     } as Record<SeoPageKey, SeoFields | null>,
   }
 }
@@ -423,7 +428,7 @@ export async function getSiteSettings() {
 
 const RETREAT_QUERY = `*[_type == "retreat" && defined(slug.current)] | order(startDate asc) {
   "id": slug.current,
-  title, status, startDate, endDate, summary, description, included,
+  title, status, startDate, endDate, summary, description, included, highlights,
   "image": coverImage.asset->url,
   "gallery": gallery[].asset->url,
   "destination": destination->{ "id": slug.current, title },
@@ -446,6 +451,7 @@ function normalizeRetreat(r: any): Retreat {
     description: r.description || '',
     itinerary: (r.itinerary || []).filter((d: any) => d?.title || d?.description),
     included: (r.included || []).filter(Boolean),
+    highlights: (r.highlights || []).filter(Boolean),
     facilitators: (r.facilitators || []).filter((f: any) => f?.id),
     seo: r.seo || undefined,
   }
@@ -508,4 +514,23 @@ export async function getTestimonials(): Promise<Testimonial[]> {
     role: t.role || '',
     image: t.image || '',
   }))
+}
+
+// ══════════════════════════════════════
+//  PAGE TEXTS (taglines, banners, footer)
+// ══════════════════════════════════════
+
+const PAGE_TEXTS_QUERY = `*[_id == "pageTexts"][0] { ${Object.keys(pageTextDefaults).join(', ')} }`
+
+// Any text not set in the Studio keeps the original one
+export async function getPageTexts(): Promise<PageTexts> {
+  const result = await safeFetch<Partial<PageTexts> | null>(PAGE_TEXTS_QUERY, null)
+  const merged = { ...pageTextDefaults }
+  if (result) {
+    for (const key of Object.keys(merged) as (keyof PageTexts)[]) {
+      const v = typeof result[key] === 'string' ? (result[key] as string).trim() : ''
+      if (v) merged[key] = v
+    }
+  }
+  return merged
 }

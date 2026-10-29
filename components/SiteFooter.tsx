@@ -28,7 +28,7 @@ function isProfileLink(url: string) {
 }
 
 export default function SiteFooter() {
-  const { contactEmail, socialLinks, whatsappLink } = useSiteSettings()
+  const { contactEmail, socialLinks, whatsappLink, texts } = useSiteSettings()
   const socials = socialLinks.filter(([, url]) => isProfileLink(url))
 
   return (
@@ -36,9 +36,9 @@ export default function SiteFooter() {
       <BrandBand className="footer-band" />
       <div className="footer-brand">
         <BrandLogo className="brand-logo-footer" />
-        <p className="footer-tagline">Find your peace within.</p>
-        <p>You lead the transformation. We create the experience.</p>
-        <p>Based between Egypt &amp; Italy.</p>
+        <p className="footer-tagline">{texts?.footerTagline}</p>
+        <p>{texts?.footerLine1}</p>
+        <p>{texts?.footerLine2}</p>
       </div>
       <div className="footer-links">
         <div>
@@ -53,7 +53,7 @@ export default function SiteFooter() {
           {whatsappLink && (
             <a href={whatsappLink} target="_blank" rel="noopener noreferrer"><MessageCircle size={14} /> WhatsApp</a>
           )}
-          <p><MapPin size={14} /> Cairo · Siwa · Everywhere</p>
+          <p><MapPin size={14} /> {texts?.footerLocation}</p>
           {socials.map(([label, url]) => (
             <a key={url} href={url} target="_blank" rel="noopener noreferrer">
               <ArrowUpRight size={14} /> {label}
@@ -69,7 +69,7 @@ export default function SiteFooter() {
           <Link href="/privacy#cookies">Cookies</Link>
         </span>
         <span className="notranslate">Translations powered by Google · Traduzioni offerte da Google</span>
-        <span>Made with presence</span>
+        <span>{texts?.footerSignoff}</span>
       </div>
     </footer>
   )

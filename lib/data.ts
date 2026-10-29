@@ -736,6 +736,41 @@ export type Retreat = {
   description: string
   itinerary: RetreatDay[]
   included: string[]
+  highlights: string[]       // short bullet points shown under the banner
   facilitators: RetreatFacilitator[]
   seo?: SeoFields
 }
+
+
+// ── Fixed page texts (editable in the Studio under "Page Texts") ──
+export const pageTextDefaults = {
+  taglineWhy: 'Find Your Peace Within',
+  taglineDestinations: 'A Journey Back to Yourself',
+  taglineRetreats: 'Beyond Escape Lies Renewal',
+  taglineTestimonials: 'Peace & Spiritual',
+  howItWorksTitle: 'From first idea to arrival.',
+  retreatsTitle: 'JOIN A NEFERTITI RETREAT.',
+  exploreTitle: "There's more to discover.",
+  teamTitle: 'Our Team',
+  testimonialsTitle: 'What retreat leaders say',
+  experiencesTitle: 'Experiences',
+  experiencesSubtitle: 'Curated moments woven around your retreat.',
+  experiencesLead: 'Every experience is designed to deepen connection — with Egypt, with your practice, and with each other.',
+  experiencesButton: 'Design My Experience',
+  servicesTitle: 'Services',
+  servicesSubtitle: 'Bespoke retreat production, tailored to your vision.',
+  servicesLead: 'Choose the level of support that fits your experience.',
+  servicesButton: 'Discuss Your Retreat',
+  howItWorksPageTitle: 'How It Works',
+  howItWorksPageSubtitle: 'A clear, guided path from idea to arrival.',
+  howItWorksPageLead: 'Eight steps from your first message to standing in Egypt with your community.',
+  howItWorksPageButton: 'Share your idea, then book a call',
+  aboutTitle: 'About',
+  aboutSubtitle: 'The story and the people behind Nefertiti.',
+  footerTagline: 'Find your peace within.',
+  footerLine1: 'You lead the transformation. We create the experience.',
+  footerLine2: 'Based between Egypt & Italy.',
+  footerLocation: 'Cairo · Siwa · Everywhere',
+  footerSignoff: 'Made with presence',
+}
+export type PageTexts = typeof pageTextDefaults

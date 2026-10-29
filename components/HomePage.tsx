@@ -18,6 +18,7 @@ import SiteNav from '@/components/SiteNav'
 import SiteFooter from '@/components/SiteFooter'
 import { Ornament, BrandBand } from '@/components/Motif'
 import { useKeyhole } from '@/hooks/useKeyhole'
+import type { PageTexts } from '@/lib/data'
 import s from '@/app/home.module.css'
 import Img from '@/components/Img'
 
@@ -32,9 +33,10 @@ type Props = {
   stats: HomeStat[]
   testimonials: Testimonial[]
   steps: { title: string; description: string }[]
+  pageTexts: PageTexts
 }
 
-export default function HomePage({ featuredDestinations, moreDestinations, partners, t, combinations, whatsappLink, upcomingRetreats, stats, testimonials, steps }: Props) {
+export default function HomePage({ featuredDestinations, moreDestinations, partners, t, combinations, whatsappLink, upcomingRetreats, stats, testimonials, steps, pageTexts: pt }: Props) {
   // Three moments of the full process: first call, the concept, and the hand-over
   const homeSteps = steps.length >= 3 ? [steps[0], steps[2], steps[steps.length - 1]] : steps
   const [scrolled, setScrolled] = useState(false)
@@ -174,7 +176,7 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
 
       {/* ── Divider ── */}
       <BrandBand className="section-divider" />
-      <p className="brand-tagline reveal">Find Your Peace Within</p>
+      <p className="brand-tagline reveal">{pt.taglineWhy}</p>
 
       {/* DESTINATIONS */}
       <section id="destinations" className={`section ${s.destinations}`}>
@@ -247,7 +249,7 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
 
       {/* ── Divider ── */}
       <BrandBand className="section-divider" />
-      <p className="brand-tagline reveal">A Journey Back to Yourself</p>
+      <p className="brand-tagline reveal">{pt.taglineDestinations}</p>
 
       {/* HOW IT WORKS — three steps, the full flow lives on its own page */}
       {homeSteps.length > 0 && (
@@ -255,7 +257,7 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
           <div className={`${s.howHomeHead} reveal`}>
             <div className="section-label">03 / HOW IT WORKS</div>
             <Ornament name="cartouche" />
-            <h2>From first idea to arrival.</h2>
+            <h2>{pt.howItWorksTitle}</h2>
           </div>
           <ol className={s.howHomeList}>
             {homeSteps.map((st, i) => (
@@ -283,7 +285,7 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
             <div className="section-label">04 / OUR RETREATS</div>
 <Ornament name="cartouche-ankh" />
             <div>
-              <h2>JOIN A NEFERTITI RETREAT.</h2>
+              <h2>{pt.retreatsTitle}</h2>
               <p>Small groups, thoughtful programmes and unforgettable places — hosted by us, across Egypt.</p>
             </div>
           </div>
@@ -307,14 +309,14 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
 
       {/* ── Divider ── */}
       <BrandBand className="section-divider" />
-      <p className="brand-tagline reveal">Beyond Escape Lies Renewal</p>
+      <p className="brand-tagline reveal">{pt.taglineRetreats}</p>
 
       {/* EXPLORE MORE — pathways into the deeper pages */}
       <section id="explore" className={`section ${s.explore}`}>
         <div className={`${s.exploreHead} reveal`}>
           <div className="section-label">05 / EXPLORE FURTHER</div>
 <Ornament name="lotus" />
-          <h2>There&apos;s more to discover.</h2>
+          <h2>{pt.exploreTitle}</h2>
         </div>
         <div className={s.exploreGrid}>
           {[
@@ -344,7 +346,7 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
           <div className="section-label">06 / OUR TEAM</div>
 <Ornament name="cartouche" />
           <div>
-            <h2>Our Team</h2>
+            <h2>{pt.teamTitle}</h2>
             <p>The trusted collaborators we work with across Egypt to bring every retreat to life.</p>
           </div>
         </div>
@@ -373,13 +375,13 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
         <>
           {/* ── Divider ── */}
           <BrandBand className="section-divider" />
-          <p className="brand-tagline reveal">Peace &amp; Spiritual</p>
+          <p className="brand-tagline reveal">{pt.taglineTestimonials}</p>
 
           <section id="testimonials" className={`section ${s.testimonials}`}>
             <div className="section-heading reveal">
               <div className="section-label">07 / IN THEIR WORDS</div>
 <Ornament name="ankh" />
-              <h2>What retreat leaders say</h2>
+              <h2>{pt.testimonialsTitle}</h2>
             </div>
             <div className={`${s.testimonialGrid} ${testimonials.length > 3 ? s.testimonialScroll : ''}`}>
               {testimonials.map((tm) => (

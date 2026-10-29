@@ -98,6 +98,15 @@ export const retreat = defineType({
       validation: (r) => r.max(260).warning('Keep it short — this appears on the card'),
     }),
     defineField({
+      name: 'highlights',
+      title: 'Highlights',
+      type: 'array',
+      of: [{ type: 'string' }],
+      group: 'main',
+      description: 'Up to 6 short points shown in a bar under the banner, e.g. "Nile cruise", "Sunrise balloon ride". Leave empty to hide the bar.',
+      validation: (r) => r.max(6),
+    }),
+    defineField({
       name: 'description',
       title: 'Full Description',
       type: 'text',
