@@ -11,7 +11,7 @@ type NavItem = [label: string, href: string]
 const NAV_ITEMS: NavItem[] = [
   ['About', '/about'],
   ['Why Egypt', '/#vision'],
-  ['Destinations', '/#destinations'],
+  ['Destinations', '/destinations'],
   ['Retreats', '/retreats'],
   ['Experiences', '/experiences'],
   ['Services', '/services'],

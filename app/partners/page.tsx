@@ -6,6 +6,7 @@ import { getPartners, getSiteSettings } from '@/sanity/lib/queries'
 import { fitUrl } from '@/sanity/lib/image'
 import SiteNav from '@/components/SiteNav'
 import SiteFooter from '@/components/SiteFooter'
+import BackButton from '@/components/BackButton'
 import s from './partners.module.css'
 import { Ornament } from '@/components/Motif'
 import Img from '@/components/Img'
@@ -29,6 +30,7 @@ export default async function PartnersPage() {
       <SiteNav solid />
 
       <section className={s.partnersHero}>
+        <div className="dest-index-back"><BackButton /></div>
         <p className="eyebrow">◆ OUR TEAM</p>
 <Ornament name="ankh" center />
         <h1 className={s.partnersHeroTitle}>
