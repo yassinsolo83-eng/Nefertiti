@@ -26,22 +26,22 @@ export default async function AboutPage() {
 
   return (
     <main className="inner-page">
-      <SiteNav solid />
+      <SiteNav overHero />
 
-      <section className={styles.hero} style={{ backgroundImage: `url('${pageImages.aboutHero}')` }}>
-        <div className={`${styles.backWrap} hero-back`}>
+      <section className="phero" style={{ backgroundImage: `url('${pageImages.aboutHero}')`, backgroundPosition: 'center bottom' }}>
+        <div className="phero-shade" />
+        <div className="phero-back hero-back">
           <BackButton />
+        </div>
+        <div className="phero-content">
+          <Ornament name="cartouche-ankh" />
+          <h1>About</h1>
+          <p className="phero-sub">The story and the people behind Nefertiti.</p>
         </div>
       </section>
 
       <section className={styles.section}>
         <div className={styles.layout}>
-          <div className={styles.intro}>
-            <p className="eyebrow">◆ {t.founder}</p>
-<Ornament name="cartouche-ankh" />
-            <h1 className={styles.title}>The story and the people<br />behind Nefertiti.</h1>
-          </div>
-
           <div className={styles.content}>
             <div className={styles.founderImg}>
               <Img src={pageImages.founderPhoto} alt={`${t.founderName}, founder of Nefertiti Retreats`} />

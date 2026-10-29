@@ -31,31 +31,26 @@ export default function ExperiencesPage({ experiences, heroImage }: Props) {
 
   return (
     <main className="inner-page">
-      <SiteNav solid />
+      <SiteNav overHero />
 
-      <section className={styles.hero} style={{ backgroundImage: `url('${heroImage}')` }}>
-        <div className={`${styles.backWrap} hero-back`}>
+      <section className="phero" style={{ backgroundImage: `url('${heroImage}')`, backgroundPosition: 'center' }}>
+        <div className="phero-shade" />
+        <div className="phero-back hero-back">
           <BackButton />
+        </div>
+        <div className="phero-content">
+          <Ornament name="lotus" />
+          <h1>Experiences</h1>
+          <p className="phero-sub">Curated moments woven around your retreat.</p>
+          <p className="phero-lead">Every experience is designed to deepen connection — with Egypt, with your practice, and with each other.</p>
+          <Link href="/pre-call" className="button button-gold">
+            Design My Experience <ArrowUpRight size={14} />
+          </Link>
         </div>
       </section>
 
       <section className={styles.section}>
         <div className={styles.layout}>
-          <div className={styles.intro}>
-            <p className="eyebrow">◆ EXPERIENCES</p>
-<Ornament name="lotus" />
-            <h1 className={styles.title}>
-              Curated moments woven<br />around your retreat.
-            </h1>
-            <p className={styles.lead}>
-              Every experience is designed to deepen connection — with Egypt,
-              with your practice, and with each other.
-            </p>
-            <Link href="/pre-call" className="button button-gold">
-              Design My Experience <ArrowUpRight size={14} />
-            </Link>
-          </div>
-
           <div className={styles.listWrap}>
             <div
               className={styles.floatingImg}

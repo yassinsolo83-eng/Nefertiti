@@ -21,8 +21,8 @@
 
 /* Two-column layout */
 .layout {
-  display: grid; grid-template-columns: 1fr 1.2fr;
-  gap: 80px; align-items: start; max-width: 1300px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr;
+  gap: 0; align-items: start; max-width: 780px; margin: 0 auto;
 }
 
 /* Left — intro */

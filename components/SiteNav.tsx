@@ -29,6 +29,8 @@ const SEARCH_PAGES = NAV_ITEMS.map(([label, href]) => ({
 
 type Props = {
   solid?: boolean
+  /** Inner pages with an image hero: transparent at the top, cream once scrolled. */
+  overHero?: boolean
   hidden?: boolean
   scrolled?: boolean
   /** When true, uses light logo + gold text (over dark intro).
@@ -39,7 +41,7 @@ type Props = {
 }
 
 export default function SiteNav({
-  solid, hidden, scrolled, showVideo,
+  solid, overHero, hidden, scrolled, showVideo: showVideoProp,
   onAnchor, onBrand,
 }: Props) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
@@ -48,7 +50,17 @@ export default function SiteNav({
   const navRef = useRef<HTMLElement>(null)
   const searchInputRef = useRef<HTMLInputElement>(null)
 
-  const isScrolled = solid || scrolled
+  const [pastTop, setPastTop] = useState(false)
+  useEffect(() => {
+    if (!overHero) return
+    const onScroll = () => setPastTop(window.scrollY > 80)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [overHero])
+
+  const isScrolled = solid || scrolled || (overHero && pastTop)
+  const showVideo = showVideoProp || (overHero && !pastTop)
 
   const closeSidebar = useCallback(() => setSidebarOpen(false), [])
   const closeSearch = useCallback(() => { setSearchOpen(false); setQuery('') }, [])

@@ -833,3 +833,38 @@ body:has(.retreat-bar) .site-nav { top: var(--retreat-bar-h); }
   .retreat-bar-title, .retreat-bar-sep { display: none; }
   .retreat-bar-close { right: 6px; }
 }
+
+
+/* ══════════════════════════════════
+   INNER PAGE HERO — title on the image
+══════════════════════════════════ */
+.phero {
+  position: relative; width: 100%; height: 72vh; min-height: 480px;
+  display: flex; align-items: flex-end; overflow: hidden;
+  background-color: #1a0a0a; background-size: cover; background-position: center;
+  background-attachment: fixed;
+}
+.phero-shade {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(to bottom, rgba(20,8,8,.6) 0%, transparent 30%),
+    linear-gradient(to top, rgba(20,8,8,.85) 0%, rgba(20,8,8,.3) 45%, transparent 75%);
+}
+.phero-back { position: absolute; top: 128px; left: max(28px, 6vw); z-index: 2; }
+.phero-content { position: relative; z-index: 2; padding: 0 max(28px, 6vw) 64px; max-width: 900px; color: #fff; }
+.phero-content .ornament { color: var(--gold); margin: 0 0 18px; }
+.phero h1 {
+  font-family: 'Cormorant Garamond', serif; font-weight: 500;
+  font-size: clamp(44px, 7vw, 76px); line-height: 1.02; letter-spacing: -.02em;
+  color: #fff; margin-bottom: 10px;
+}
+.phero-sub {
+  font-family: 'Cormorant Garamond', serif; font-style: italic;
+  font-size: clamp(20px, 2.4vw, 26px); color: rgba(255,255,255,.85); margin-bottom: 14px;
+}
+.phero-lead { font-size: 14px; line-height: 1.8; max-width: 52ch; color: rgba(255,255,255,.78); margin-bottom: 26px; }
+@media (max-width: 900px) {
+  .phero { height: 64vh; min-height: 440px; background-attachment: scroll; }
+  .phero-back { top: 92px; }
+  .phero-content { padding-bottom: 44px; }
+}

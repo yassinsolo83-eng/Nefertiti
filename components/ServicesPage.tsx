@@ -34,28 +34,26 @@ export default function ServicesPage({ serviceTiers, heroImage }: Props) {
 
   return (
     <main className="inner-page">
-      <SiteNav solid />
+      <SiteNav overHero />
 
-      <section className={styles.hero} style={{ backgroundImage: `url('${heroImage}')` }}>
-        <div className={`${styles.backWrap} hero-back`}>
+      <section className="phero" style={{ backgroundImage: `url('${heroImage}')`, backgroundPosition: 'center' }}>
+        <div className="phero-shade" />
+        <div className="phero-back hero-back">
           <BackButton />
+        </div>
+        <div className="phero-content">
+          <Ornament name="sun" />
+          <h1>Services</h1>
+          <p className="phero-sub">Bespoke retreat production, tailored to your vision.</p>
+          <p className="phero-lead">{t.bespokeText}</p>
+          <Link href="/pre-call" className="button button-gold">
+            Discuss Your Retreat <ArrowUpRight size={14} />
+          </Link>
         </div>
       </section>
 
       <section className={styles.section}>
         <div className={styles.layout}>
-          <div className={styles.intro}>
-            <p className="eyebrow">◆ SERVICES</p>
-<Ornament name="sun" />
-            <h1 className={styles.title}>
-              Bespoke retreat production,<br />tailored to your vision.
-            </h1>
-            <p className={styles.lead}>{t.bespokeText}</p>
-            <Link href="/pre-call" className="button button-gold">
-              Discuss Your Retreat <ArrowUpRight size={14} />
-            </Link>
-          </div>
-
           <div className={styles.listWrap}>
             <div
               className={styles.floatingImg}

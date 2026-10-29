@@ -32,31 +32,26 @@ export default function HowItWorksPage({ steps, heroImage }: Props) {
 
   return (
     <main className="inner-page">
-      <SiteNav solid />
+      <SiteNav overHero />
 
-      <section className={styles.hero} style={{ backgroundImage: `url('${heroImage}')` }}>
-        <div className={`${styles.backWrap} hero-back`}>
+      <section className="phero" style={{ backgroundImage: `url('${heroImage}')`, backgroundPosition: 'center 65%' }}>
+        <div className="phero-shade" />
+        <div className="phero-back hero-back">
           <BackButton />
+        </div>
+        <div className="phero-content">
+          <Ornament name="cartouche" />
+          <h1>How It Works</h1>
+          <p className="phero-sub">A clear, guided path from idea to arrival.</p>
+          <p className="phero-lead">Eight steps from your first message to standing in Egypt with your community.</p>
+          <Link href="/pre-call" className="button button-gold">
+            Share your idea, then book a call <ArrowUpRight size={14} />
+          </Link>
         </div>
       </section>
 
       <section className={styles.section}>
         <div className={styles.layout}>
-          <div className={styles.intro}>
-            <p className="eyebrow">◆ HOW IT WORKS</p>
-<Ornament name="cartouche" />
-            <h1 className={styles.title}>
-              A clear, guided path<br />from idea to arrival.
-            </h1>
-            <p className={styles.lead}>
-              Eight steps from your first message to standing in Egypt
-              with your community.
-            </p>
-            <Link href="/pre-call" className="button button-gold">
-              Share your idea, then book a call <ArrowUpRight size={14} />
-            </Link>
-          </div>
-
           <div className={styles.listWrap}>
             <div
               className={styles.floatingImg}
