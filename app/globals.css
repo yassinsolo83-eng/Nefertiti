@@ -56,17 +56,19 @@ h2, h3 { font-family: 'Cormorant Garamond', serif; }
 
 .nav-bar {
   display: flex; align-items: center; justify-content: space-between;
-  padding: 10px max(20px, 2.5vw);
+  padding: 16px 32px;
+  max-width: 1400px; margin: 0 auto;
   pointer-events: auto;
 }
 
 /* Icon buttons (hamburger + search) */
 .nav-icon {
   display: inline-flex; align-items: center; justify-content: center;
-  width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0;
+  width: 48px; height: 48px; border-radius: 50%; flex-shrink: 0;
   border: 1px solid transparent; background: transparent;
   cursor: pointer; transition: border-color .3s, background .3s, color .3s;
 }
+.nav-icon svg { width: 22px; height: 22px; }
 .nav-video .nav-icon { color: var(--gold); border-color: rgba(241,210,136,.4); }
 .nav-video .nav-icon:hover { border-color: var(--gold); background: rgba(241,210,136,.08); }
 .nav-solid .nav-icon,
@@ -80,7 +82,13 @@ h2, h3 { font-family: 'Cormorant Garamond', serif; }
   display: flex; flex-direction: column; align-items: center; gap: 2px;
   text-decoration: none; transition: color .4s ease;
 }
-.nav-brand .brand-logo { height: 54px; }
+.nav-brand .brand-logo { height: 72px; }
+@media (max-width: 768px) {
+  .nav-bar { padding: 12px 16px; }
+  .nav-icon { width: 40px; height: 40px; }
+  .nav-icon svg { width: 18px; height: 18px; }
+  .nav-brand .brand-logo { height: 48px; }
+}
 .nav-video .nav-brand { color: var(--gold); }
 .nav-solid .nav-brand { color: var(--plum); }
 .is-scrolled .nav-brand { color: var(--plum); }
