@@ -403,6 +403,7 @@ export const socialLinks = [
   ['X (Twitter)', 'https://x.com'],
   ['Facebook', 'https://facebook.com'],
   ['TikTok', 'https://tiktok.com'],
+  ['LinkedIn', 'https://www.linkedin.com/company/nefertiti-retreats/'],
 ]
 
 // Default message for the WhatsApp buttons. The number itself comes from the Studio (Site Settings).
