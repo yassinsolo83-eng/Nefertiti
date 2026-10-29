@@ -50,7 +50,7 @@ export function useKeyhole({ setIntroDone, setScrolled }: Setters) {
       // Dissolve the veil gradually (from 45% to 85% of the open) so no purple
       // leftovers are visible when the hero is fully revealed.
       const darkOp = op > 0.45 ? smooth(clamp(1 - (op - 0.45) / 0.4, 0, 1)) : 1
-      if (darkRect) darkRect.setAttribute('fill-opacity', String(0.9 * darkOp))
+      if (darkRect) darkRect.setAttribute('fill-opacity', String(0.94 * darkOp))
 
       // frosted glass: heavy blur at the start, easing to none as we open
       if (frost) {
@@ -62,6 +62,10 @@ export function useKeyhole({ setIntroDone, setScrolled }: Setters) {
       const uiOp = clamp(1 - op / 0.45, 0, 1)
       ring.setAttribute('opacity', String(uiOp))
       if (hint) hint.style.opacity = String(uiOp)
+
+      // nav colours: plum while the light veil is on, gold once the video shows
+      const veil = op < 0.5 ? 'on' : 'off'
+      if (document.body.dataset.khVeil !== veil) document.body.dataset.khVeil = veil
 
       setIntroDone(op >= 1)
     }
@@ -87,6 +91,7 @@ export function useKeyhole({ setIntroDone, setScrolled }: Setters) {
 
     return () => {
       window.removeEventListener('scroll', onScroll)
+      delete document.body.dataset.khVeil
       window.removeEventListener('resize', updateKeyhole)
       observer.disconnect()
     }
