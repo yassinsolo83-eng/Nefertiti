@@ -108,7 +108,6 @@ export default function SiteNav({
           {/* Center — Logo */}
           <Link href="/" className="nav-brand" onClick={handleBrand} aria-label="Nefertiti — home">
             <BrandLogo />
-            <span className="nav-brand-tagline">Retreats Producer</span>
           </Link>
 
           {/* Right — Search */}
