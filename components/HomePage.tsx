@@ -219,7 +219,7 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
 
         {/* Where we work: map teaser, the full map lives on /destinations */}
         <div className={`${s.destMapTeaser} reveal`}>
-          <p className={s.destMoreLabel}>Where we work</p>
+          {/* label removed — map speaks for itself */}
           <EgyptMap
             destinations={[...featuredDestinations, ...moreDestinations]}
             featuredIds={featuredDestinations.map((d) => d.id)}
@@ -370,34 +370,36 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
         </div>
       </section>
 
-      {/* ── Divider ── */}
-      <BrandBand className="section-divider" />
-      <p className="brand-tagline reveal">Peace &amp; Spiritual</p>
-
       {/* TESTIMONIALS — shown only when real ones are published in the Studio */}
       {testimonials.length > 0 && (
-        <section id="testimonials" className={`section ${s.testimonials}`}>
-          <div className="section-heading reveal">
-            <div className="section-label">07 / IN THEIR WORDS</div>
+        <>
+          {/* ── Divider ── */}
+          <BrandBand className="section-divider" />
+          <p className="brand-tagline reveal">Peace &amp; Spiritual</p>
+
+          <section id="testimonials" className={`section ${s.testimonials}`}>
+            <div className="section-heading reveal">
+              <div className="section-label">07 / IN THEIR WORDS</div>
 <Ornament name="ankh" />
-            <h2>What retreat leaders say</h2>
-          </div>
-          <div className={`${s.testimonialGrid} ${testimonials.length > 3 ? s.testimonialScroll : ''}`}>
-            {testimonials.map((tm) => (
-              <figure className={`${s.testimonialCard} reveal`} key={tm.id}>
-                <span className={s.testimonialMark} aria-hidden="true">&ldquo;</span>
-                <blockquote>{tm.quote}</blockquote>
-                <figcaption className={s.testimonialWho}>
-                  {tm.image && <Img src={tm.image} alt="" loading="lazy" />}
-                  <span>
-                    <strong>{tm.name}</strong>
-                    {tm.role && <em>{tm.role}</em>}
-                  </span>
-                </figcaption>
-              </figure>
-            ))}
-          </div>
-        </section>
+              <h2>What retreat leaders say</h2>
+            </div>
+            <div className={`${s.testimonialGrid} ${testimonials.length > 3 ? s.testimonialScroll : ''}`}>
+              {testimonials.map((tm) => (
+                <figure className={`${s.testimonialCard} reveal`} key={tm.id}>
+                  <span className={s.testimonialMark} aria-hidden="true">&ldquo;</span>
+                  <blockquote>{tm.quote}</blockquote>
+                  <figcaption className={s.testimonialWho}>
+                    {tm.image && <Img src={tm.image} alt="" loading="lazy" />}
+                    <span>
+                      <strong>{tm.name}</strong>
+                      {tm.role && <em>{tm.role}</em>}
+                    </span>
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+          </section>
+        </>
       )}
 
       {/* ── Divider ── */}
