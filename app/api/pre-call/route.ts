@@ -11,12 +11,13 @@ import {
   type PreCallAnswers,
   type PreCallForm,
 } from '@/lib/preCallForm'
+import { projectId, dataset, apiVersion } from '@/sanity/env'
 
 // Server-only client with write access. The token never reaches the browser.
 const writeClient = createClient({
-  projectId: '205jlscz',
-  dataset: 'production',
-  apiVersion: '2025-06-01',
+  projectId,
+  dataset,
+  apiVersion,
   useCdn: false,
   perspective: 'published',
   token: process.env.SANITY_WRITE_TOKEN,
@@ -161,16 +162,16 @@ export async function POST(req: Request) {
       answers: rows.map((r) => ({ _key: randomUUID().slice(0, 12), _type: 'answer', ...r })),
       submittedAt: new Date().toISOString(),
     })
-  } catch (e: any) {
-    console.error('Pre-call form failed:', e?.message)
+  } catch (e) {
+    console.error('Pre-call form failed:', e instanceof Error ? e.message : String(e))
     return NextResponse.json({ error: 'Could not send the form' }, { status: 500 })
   }
 
   // The answers are already saved: an email problem must not show an error to the visitor
   try {
     await sendNotification(form, rows, name, email)
-  } catch (e: any) {
-    console.error('Pre-call email failed:', e?.message)
+  } catch (e) {
+    console.error('Pre-call email failed:', e instanceof Error ? e.message : String(e))
   }
 
   // Same rule for WhatsApp: already saved, so a failure is only logged
@@ -181,8 +182,8 @@ export async function POST(req: Request) {
     const body = rows.map((r) => `• ${r.question}\n${r.answer}`).join('\n\n')
     whatsappUrl = buildWhatsappUrl(`${header}\n${body}`, notifyPhone)
     await sendWhatsApp(`${header}\n${body}`, notifyPhone)
-  } catch (e: any) {
-    console.error('Pre-call WhatsApp failed:', e?.message)
+  } catch (e) {
+    console.error('Pre-call WhatsApp failed:', e instanceof Error ? e.message : String(e))
   }
 
   return NextResponse.json({ ok: true, whatsappUrl })

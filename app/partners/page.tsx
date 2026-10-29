@@ -55,9 +55,9 @@ export default async function PartnersPage() {
           ))}
         </div>
 
-        <a href="/contact" className="button button-gold inner-cta">
+        <Link href="/contact" className="button button-gold inner-cta">
           Become a Partner <ArrowUpRight size={16} />
-        </a>
+        </Link>
       </section>
 
       <SiteFooter />

@@ -7,6 +7,7 @@ import SiteFooter from '@/components/SiteFooter'
 import BackButton from '@/components/BackButton'
 import styles from './about.module.css'
 import { Ornament } from '@/components/Motif'
+import Link from 'next/link'
 
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSiteSettings()
@@ -49,9 +50,9 @@ export default async function AboutPage() {
               {t.founderName}<br />
               <span>{t.founderRole}</span>
             </p>
-            <a href="/contact" className="button button-gold">
+            <Link href="/contact" className="button button-gold">
               Let&apos;s Talk About Your Idea <ArrowUpRight size={14} />
-            </a>
+            </Link>
           </div>
         </div>
       </section>

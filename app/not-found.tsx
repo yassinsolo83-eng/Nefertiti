@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import SiteNav from '@/components/SiteNav'
 import SiteFooter from '@/components/SiteFooter'
+import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'Page not found',
@@ -39,8 +40,8 @@ export default function NotFound() {
           The page you are looking for may have moved or no longer exists. Let&apos;s guide you back.
         </p>
         <div style={{ display: 'flex', gap: 28, alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center', marginTop: 8 }}>
-          <a href="/" className="button button-gold">Back to home</a>
-          <a href="/contact" className="text-link">Contact us</a>
+          <Link href="/" className="button button-gold">Back to home</Link>
+          <Link href="/contact" className="text-link">Contact us</Link>
         </div>
       </section>
       <SiteFooter />

@@ -1,14 +1,15 @@
 import { NextResponse } from 'next/server'
 import { createClient } from 'next-sanity'
+import { projectId, dataset, apiVersion } from '@/sanity/env'
 
 // Never cache: every call must reach Sanity
 export const dynamic = 'force-dynamic'
 
 // Server-only client with write access. The token never reaches the browser.
 const client = createClient({
-  projectId: '205jlscz',
-  dataset: 'production',
-  apiVersion: '2025-06-01',
+  projectId,
+  dataset,
+  apiVersion,
   useCdn: false,
   perspective: 'published',
   token: process.env.SANITY_WRITE_TOKEN,
@@ -65,9 +66,9 @@ export async function POST(req: Request) {
       : await increment()
 
     return NextResponse.json({ enabled: true, count: settings.start + counted }, init)
-  } catch (e: any) {
+  } catch (e) {
     // The counter is decoration: if anything fails the page simply shows nothing
-    console.error('Visitor counter failed:', e?.message)
+    console.error('Visitor counter failed:', e instanceof Error ? e.message : String(e))
     return NextResponse.json({ enabled: false }, init)
   }
 }

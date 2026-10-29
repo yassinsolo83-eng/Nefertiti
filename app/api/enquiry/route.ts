@@ -2,12 +2,13 @@ import { NextResponse } from 'next/server'
 import { randomUUID } from 'crypto'
 import { createClient } from 'next-sanity'
 import { buildWhatsappUrl, getNotifyWhatsappNumber, sendWhatsApp } from '@/lib/notify'
+import { projectId, dataset, apiVersion } from '@/sanity/env'
 
 // Server-only client with write access. The token never reaches the browser.
 const writeClient = createClient({
-  projectId: '205jlscz',
-  dataset: 'production',
-  apiVersion: '2025-06-01',
+  projectId,
+  dataset,
+  apiVersion,
   useCdn: false,
   token: process.env.SANITY_WRITE_TOKEN,
 })
@@ -68,8 +69,8 @@ export async function POST(req: Request) {
       message,
       submittedAt: new Date().toISOString(),
     })
-  } catch (e: any) {
-    console.error('Enquiry failed:', e?.message)
+  } catch (e) {
+    console.error('Enquiry failed:', e instanceof Error ? e.message : String(e))
     return NextResponse.json({ error: 'Could not send message' }, { status: 500 })
   }
 
@@ -87,8 +88,8 @@ export async function POST(req: Request) {
       `\n${message}`
     whatsappUrl = buildWhatsappUrl(text, notifyPhone)
     await sendWhatsApp(text, notifyPhone)
-  } catch (e: any) {
-    console.error('Enquiry WhatsApp failed:', e?.message)
+  } catch (e) {
+    console.error('Enquiry WhatsApp failed:', e instanceof Error ? e.message : String(e))
   }
 
   return NextResponse.json({ ok: true, whatsappUrl })

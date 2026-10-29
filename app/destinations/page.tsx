@@ -7,6 +7,7 @@ import SiteFooter from '@/components/SiteFooter'
 import DestinationsOverview from '@/components/DestinationsOverview'
 import { Ornament } from '@/components/Motif'
 import BackButton from '@/components/BackButton'
+import Link from 'next/link'
 
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSiteSettings()
@@ -38,9 +39,9 @@ export default async function DestinationsPage() {
 
       <section className="section inner-section">
         <DestinationsOverview featured={featured} more={more} moreLabel={t.destMoreLabel} />
-        <a href="/contact" className="button button-gold inner-cta">
+        <Link href="/contact" className="button button-gold inner-cta">
           Create a retreat in Egypt <ArrowUpRight size={16} />
-        </a>
+        </Link>
       </section>
 
       <SiteFooter />

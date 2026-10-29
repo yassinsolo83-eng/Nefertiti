@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { buildMetadata } from '@/lib/seo'
 import { getSiteSettings } from '@/sanity/lib/queries'
 import LegalPage, { type LegalSection } from '@/components/LegalPage'
+import Link from 'next/link'
 
 const UPDATED = '1 October 2026'
 
@@ -81,7 +82,7 @@ export default async function TermsPage() {
             response time or that we will be able to accommodate every request.
           </p>
           <p>
-            How we handle the information you send us is explained in our <a href="/privacy">Privacy Policy</a>.
+            How we handle the information you send us is explained in our <Link href="/privacy">Privacy Policy</Link>.
           </p>
         </>
       ),
@@ -241,7 +242,7 @@ export default async function TermsPage() {
       body: (
         <p>
           Questions about these Terms? Email us at <a href={`mailto:${email}`}>{email}</a> or reach us through our{' '}
-          <a href="/contact">contact page</a>.
+          <Link href="/contact">contact page</Link>.
         </p>
       ),
     },
