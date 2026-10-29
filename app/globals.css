@@ -361,7 +361,7 @@ h3 { font-size: 26px; line-height: 1.15; font-weight: 500; }
 }
 /* Section divider band between major homepage sections */
 .section-divider {
-  height: 56px; background: var(--plum); opacity: .18;
+  height: 56px; background: var(--gold-deep); opacity: .4;
   margin: 0;
 }
 /* Brand tagline quotes between sections */
