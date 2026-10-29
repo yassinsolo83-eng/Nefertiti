@@ -91,6 +91,10 @@ h2, h3 { font-family: 'Cormorant Garamond', serif; }
 }
 .nav-video .nav-brand { color: var(--gold); }
 .nav-solid .nav-brand { color: var(--plum); }
+/* Light veil during the intro: plum logo + icons until the video is revealed */
+body[data-kh-veil="on"] .nav-video:not(.is-scrolled) .nav-brand { color: var(--plum); }
+body[data-kh-veil="on"] .nav-video:not(.is-scrolled) .nav-icon { color: var(--foreground); border-color: rgba(141,76,101,.3); }
+body[data-kh-veil="on"] .nav-video:not(.is-scrolled) .nav-icon:hover { border-color: var(--primary); background: rgba(141,76,101,.06); }
 .is-scrolled .nav-brand { color: var(--plum); }
 
 /* Logo lockup */
@@ -575,7 +579,7 @@ footer { position: relative; padding: 130px 8vw 24px; background: var(--primary)
 .kh-hint {
   position: absolute; bottom: 14%; left: 50%; transform: translateX(-50%);
   z-index: 16; font-size: 10px; letter-spacing: .18em; text-transform: uppercase; white-space: nowrap;
-  color: var(--gold); pointer-events: none; animation: kh-bob 1.6s ease-in-out infinite;
+  color: var(--foreground); pointer-events: none; animation: kh-bob 1.6s ease-in-out infinite;
 }
 .kh-hint span { margin-left: 6px; }
 @keyframes kh-bob {
