@@ -5,6 +5,7 @@ import { getSiteSettings, getRetreats } from '@/sanity/lib/queries'
 import { splitRetreats } from '@/lib/retreat-utils'
 import RetreatBar from '@/components/RetreatBar'
 import GoogleTranslate from '@/components/GoogleTranslate'
+import CookieNotice from '@/components/CookieNotice'
 import { SiteSettingsProvider } from '@/components/SiteSettingsProvider'
 import './globals.css'
 
@@ -127,6 +128,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
         <SiteSettingsProvider value={{ contactEmail: settings.contactEmail, socialLinks: settings.socialLinks, whatsappLink: settings.whatsappLink }}>
           {children}
         </SiteSettingsProvider>
+        <CookieNotice />
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>

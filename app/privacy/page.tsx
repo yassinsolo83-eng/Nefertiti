@@ -155,6 +155,11 @@ export default async function PrivacyPage() {
               again removes it.
             </li>
             <li>
+              <strong>Saved on your device</strong> — the pre-call form keeps a draft of your answers in your browser
+              (local storage) so you can come back to it, and it is cleared once you send the form. Closing the
+              announcement bar is remembered for the visit. This stays on your device and is not sent to us.
+            </li>
+            <li>
               <strong>Google services</strong> — the translation tool and our web fonts are loaded from Google, so
               Google receives your IP address and basic browser information when the page loads. See Google&apos;s
               privacy policy for how Google handles this data.

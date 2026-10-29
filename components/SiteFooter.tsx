@@ -66,6 +66,7 @@ export default function SiteFooter() {
         <span className="footer-legal">
           <Link href="/terms">Terms &amp; Conditions</Link>
           <Link href="/privacy">Privacy Policy</Link>
+          <Link href="/privacy#cookies">Cookies</Link>
         </span>
         <span className="notranslate">Translations powered by Google · Traduzioni offerte da Google</span>
         <span>Made with presence</span>
