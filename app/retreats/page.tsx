@@ -10,6 +10,7 @@ import SiteFooter from '@/components/SiteFooter'
 import BackButton from '@/components/BackButton'
 import s from './retreats.module.css'
 import { Ornament } from '@/components/Motif'
+import Img from '@/components/Img'
 
 export async function generateMetadata(): Promise<Metadata> {
   const [settings, pageImages] = await Promise.all([getSiteSettings(), getPageImages()])
@@ -44,7 +45,7 @@ export default async function RetreatsPage() {
           </p>
         </div>
         <div className="page-hero-image reveal is-in">
-          <img src={pageImages.retreatsHero} alt="A group resting on yoga mats during an outdoor retreat session" />
+          <Img priority src={pageImages.retreatsHero} alt="A group resting on yoga mats during an outdoor retreat session" />
         </div>
       </section>
 

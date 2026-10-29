@@ -11,6 +11,7 @@ import SiteFooter from '@/components/SiteFooter'
 import BackButton from '@/components/BackButton'
 import RetreatGallery from '@/components/RetreatGallery'
 import s from '../retreats.module.css'
+import Img from '@/components/Img'
 
 type Params = { params: Promise<{ slug: string }> }
 
@@ -42,7 +43,9 @@ export default async function RetreatDetailPage({ params }: Params) {
   const paragraphs = r.description.split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean)
 
   const whatsappText = `Hi! I'm interested in the retreat "${r.title}" (${dates}). Could you share more details?`
-  const whatsappLink = `https://wa.me/${settings.whatsappNumber}?text=${encodeURIComponent(whatsappText)}`
+  const whatsappLink = settings.whatsappNumber
+    ? `https://wa.me/${settings.whatsappNumber}?text=${encodeURIComponent(whatsappText)}`
+    : ''
   const enquireLink = `/contact?retreat=${encodeURIComponent(r.title)}#enquiry`
 
   const jsonLd = {
@@ -91,14 +94,16 @@ export default async function RetreatDetailPage({ params }: Params) {
               <Link href={enquireLink} className="button button-berry">
                 Enquire Now <ArrowUpRight size={16} />
               </Link>
-              <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="button button-ghost-dark">
+              {whatsappLink && (
+<a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="button button-ghost-dark">
                 <MessageCircle size={15} /> WhatsApp Us
               </a>
+)}
             </div>
           )}
         </div>
         <div className="page-hero-image reveal is-in">
-          <img src={r.image} alt={r.title} />
+          <Img priority src={r.image} alt={r.title} />
         </div>
       </section>
 
@@ -139,7 +144,7 @@ export default async function RetreatDetailPage({ params }: Params) {
               <div className={s.facilitators}>
                 {r.facilitators.map((f) => (
                   <Link key={f.id} href={`/partners/${f.id}`} className={s.facilitator}>
-                    {f.image && <img src={f.image} alt={f.name} loading="lazy" />}
+                    {f.image && <Img src={f.image} alt={f.name} loading="lazy" />}
                     <span>
                       <strong>{f.name}</strong>
                       {f.category && <small>{f.category}</small>}
@@ -194,9 +199,11 @@ export default async function RetreatDetailPage({ params }: Params) {
               <Link href={enquireLink} className="button button-berry">
                 Enquire Now <ArrowUpRight size={16} />
               </Link>
-              <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="button button-ghost-dark">
+              {whatsappLink && (
+<a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="button button-ghost-dark">
                 <MessageCircle size={15} /> WhatsApp Us
               </a>
+)}
             </div>
           )}
         </aside>

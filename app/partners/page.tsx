@@ -8,6 +8,7 @@ import SiteNav from '@/components/SiteNav'
 import SiteFooter from '@/components/SiteFooter'
 import s from './partners.module.css'
 import { Ornament } from '@/components/Motif'
+import Img from '@/components/Img'
 
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSiteSettings()
@@ -40,7 +41,7 @@ export default async function PartnersPage() {
           {partners.map((p) => (
             <div className="team-card reveal is-in" key={p.id}>
               <Link href={`/partners/${p.id}`} className="team-card-media">
-                <img src={fitUrl(p.image, 640)} alt={p.name} />
+                <Img src={fitUrl(p.image, 640)} alt={p.name} />
               </Link>
               <Link href={`/partners/${p.id}`} className="team-card-name">{p.name}</Link>
               <p className="team-card-role">{p.category}</p>

@@ -8,6 +8,7 @@ import BackButton from '@/components/BackButton'
 import styles from './about.module.css'
 import { Ornament } from '@/components/Motif'
 import Link from 'next/link'
+import Img from '@/components/Img'
 
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSiteSettings()
@@ -43,7 +44,7 @@ export default async function AboutPage() {
 
           <div className={styles.content}>
             <div className={styles.founderImg}>
-              <img src={pageImages.founderPhoto} alt={`${t.founderName}, founder of Nefertiti Retreats`} />
+              <Img src={pageImages.founderPhoto} alt={`${t.founderName}, founder of Nefertiti Retreats`} />
             </div>
             <h2 className={styles.founderText}>{t.founderText}</h2>
             <p className={styles.founderName}>

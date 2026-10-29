@@ -1,10 +1,10 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
-import Script from 'next/script'
 import { SITE_URL, SITE_NAME, SITE_EMAIL, DEFAULT_DESCRIPTION, DEFAULT_OG_IMAGE } from '@/lib/site'
 import { getSiteSettings, getRetreats } from '@/sanity/lib/queries'
 import { splitRetreats } from '@/lib/retreat-utils'
 import RetreatBar from '@/components/RetreatBar'
+import GoogleTranslate from '@/components/GoogleTranslate'
 import { SiteSettingsProvider } from '@/components/SiteSettingsProvider'
 import './globals.css'
 
@@ -123,23 +123,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
-        {/* Google Translate — English + Italian only */}
-        <div id="google_translate_element" aria-hidden="true" />
-        <Script id="google-translate-init" strategy="afterInteractive">
-          {`
-            function googleTranslateElementInit() {
-              new google.translate.TranslateElement({
-                pageLanguage: 'en',
-                includedLanguages: 'en,it',
-                autoDisplay: false,
-              }, 'google_translate_element');
-            }
-          `}
-        </Script>
-        <Script
-          src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
-          strategy="afterInteractive"
-        />
+        <GoogleTranslate />
         <SiteSettingsProvider value={{ contactEmail: settings.contactEmail, socialLinks: settings.socialLinks, whatsappLink: settings.whatsappLink }}>
           {children}
         </SiteSettingsProvider>

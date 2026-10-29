@@ -6,6 +6,7 @@ import SiteFooter from '@/components/SiteFooter'
 import BackButton from '@/components/BackButton'
 import PreCallForm from '@/components/PreCallForm'
 import s from './pre-call.module.css'
+import Img from '@/components/Img'
 
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSiteSettings()
@@ -34,7 +35,7 @@ export default async function PreCallPage() {
             <p key={i} className={s.introText}>{p}</p>
           ))}
           <figure className={s.introFigure}>
-            <img src="/brand/journal.webp" alt="" loading="lazy" />
+            <Img src="/brand/journal.webp" alt="" loading="lazy" />
             <figcaption>Tell us your story.</figcaption>
           </figure>
         </aside>
