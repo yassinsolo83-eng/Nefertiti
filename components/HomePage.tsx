@@ -16,7 +16,7 @@ import rs from '@/app/retreats/retreats.module.css'
 import EgyptMap from '@/components/EgyptMap'
 import SiteNav from '@/components/SiteNav'
 import SiteFooter from '@/components/SiteFooter'
-import { Ornament } from '@/components/Motif'
+import { Ornament, BrandBand } from '@/components/Motif'
 import { useKeyhole } from '@/hooks/useKeyhole'
 import s from '@/app/home.module.css'
 import Img from '@/components/Img'
@@ -174,6 +174,10 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
         </div>
       </section>
 
+      {/* ── Divider ── */}
+      <BrandBand className="section-divider" />
+      <p className="brand-tagline reveal">Find Your Peace Within</p>
+
       {/* DESTINATIONS */}
       <section id="destinations" className={`section ${s.destinations}`}>
         {/* Section heading */}
@@ -243,11 +247,15 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
         </div>
       </section>
 
+      {/* ── Divider ── */}
+      <BrandBand className="section-divider" />
+      <p className="brand-tagline reveal">A Journey Back to Yourself</p>
+
       {/* HOW IT WORKS — three steps, the full flow lives on its own page */}
       {homeSteps.length > 0 && (
         <section className={`section ${s.howHome}`}>
           <div className={`${s.howHomeHead} reveal`}>
-            <div className="section-label">HOW IT WORKS</div>
+            <div className="section-label">03 / HOW IT WORKS</div>
             <Ornament name="cartouche" />
             <h2>From first idea to arrival.</h2>
           </div>
@@ -267,11 +275,14 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
         </section>
       )}
 
+      {/* ── Divider ── */}
+      <BrandBand className="section-divider" />
+
       {/* UPCOMING RETREATS — pulled from Sanity, next 3 by date */}
       <section id="retreats" className={`section ${rs.homeRetreats}`}>
         <div className={`${rs.homeHead} reveal`}>
           <div className="section-heading">
-            <div className="section-label">03 / OUR RETREATS</div>
+            <div className="section-label">04 / OUR RETREATS</div>
 <Ornament name="cartouche-ankh" />
             <div>
               <h2>JOIN A NEFERTITI RETREAT.</h2>
@@ -296,10 +307,14 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
         </Link>
       </section>
 
+      {/* ── Divider ── */}
+      <BrandBand className="section-divider" />
+      <p className="brand-tagline reveal">Beyond Escape Lies Renewal</p>
+
       {/* EXPLORE MORE — pathways into the deeper pages */}
       <section id="explore" className={`section ${s.explore}`}>
         <div className={`${s.exploreHead} reveal`}>
-          <div className="section-label">EXPLORE FURTHER</div>
+          <div className="section-label">05 / EXPLORE FURTHER</div>
 <Ornament name="lotus" />
           <h2>There&apos;s more to discover.</h2>
         </div>
@@ -322,10 +337,13 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
         </div>
       </section>
 
+      {/* ── Divider ── */}
+      <BrandBand className="section-divider" />
+
       {/* PARTNERS PREVIEW */}
       <section id="partners" className={`section ${s.partnersPreview}`}>
         <div className="section-heading reveal">
-          <div className="section-label">05 / OUR TEAM</div>
+          <div className="section-label">06 / OUR TEAM</div>
 <Ornament name="cartouche" />
           <div>
             <h2>Our Team</h2>
@@ -352,11 +370,15 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
         </div>
       </section>
 
+      {/* ── Divider ── */}
+      <BrandBand className="section-divider" />
+      <p className="brand-tagline reveal">Peace &amp; Spiritual</p>
+
       {/* TESTIMONIALS — shown only when real ones are published in the Studio */}
       {testimonials.length > 0 && (
         <section id="testimonials" className={`section ${s.testimonials}`}>
           <div className="section-heading reveal">
-            <div className="section-label">IN THEIR WORDS</div>
+            <div className="section-label">07 / IN THEIR WORDS</div>
 <Ornament name="ankh" />
             <h2>What retreat leaders say</h2>
           </div>
@@ -377,6 +399,9 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
           </div>
         </section>
       )}
+
+      {/* ── Divider ── */}
+      <BrandBand className="section-divider" />
 
       {/* FINAL CTA */}
       <section className={s.ctaBand}>
