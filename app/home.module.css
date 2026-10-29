@@ -170,8 +170,9 @@
 /* More destinations — secondary grid */
 .destMoreSection { margin-top: 56px; }
 .destMoreLabel {
-  display: block; font-size: 10px; text-transform: uppercase;
-  letter-spacing: .18em; color: var(--gold); margin-bottom: 18px;
+  display: block; font-size: 13px; text-transform: uppercase;
+  letter-spacing: .16em; color: #8F6A1F; margin-bottom: 18px;
+  font-family: 'Montserrat', sans-serif; font-weight: 500;
 }
 .destMoreGrid {
   display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px;
