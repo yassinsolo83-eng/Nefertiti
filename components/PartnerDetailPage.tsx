@@ -70,14 +70,16 @@ export default function PartnerDetailPage({ partner, whatsappLink }: Props) {
             <p className={s.partnerBioText}>{partner.bio}</p>
           </div>
 
-          <div>
-            <p className="eyebrow">WHAT THEY OFFER</p>
-            <ul className={s.partnerServiceList}>
-              {partner.services.map((svc) => (
-                <li key={svc}><Check size={15} /> {svc}</li>
-              ))}
-            </ul>
-          </div>
+          {partner.showServices !== false && (
+            <div>
+              <p className="eyebrow">WHAT THEY OFFER</p>
+              <ul className={s.partnerServiceList}>
+                {partner.services.map((svc) => (
+                  <li key={svc}><Check size={15} /> {svc}</li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
 
         <div className={s.partnerCtaRow}>
