@@ -792,6 +792,7 @@ export const pageTextDefaults = {
   destPageSub: 'From the pyramids to the Red Sea, the oases to the White Desert: pick a place on the map and see what it makes possible.',
   destPageButton: 'Create a retreat in Egypt',
   footerSignoff: 'Made with presence',
+  navButton: 'Book a call',
 }
 export type PageTexts = typeof pageTextDefaults
 

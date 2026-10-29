@@ -26,6 +26,7 @@ export const pageTexts = defineType({
     { name: 'retreats', title: 'Retreats page' },
     { name: 'destinations', title: 'Destinations page' },
     { name: 'footer', title: 'Footer' },
+    { name: 'topBar', title: 'Top bar' },
   ],
   fields: [
     // ── Home ──
@@ -94,6 +95,9 @@ export const pageTexts = defineType({
     txt('footerLine2', 'Second line', 'footer', 'Original: Based between Egypt & Italy.'),
     txt('footerLocation', 'Location line', 'footer', 'Original: Cairo · Siwa · Everywhere'),
     txt('footerSignoff', 'Last line', 'footer', 'Original: Made with presence'),
+
+    // ── Top bar ──
+    txt('navButton', 'Gold button text (desktop)', 'topBar', 'The button on the right of the top bar. Original: Book a call'),
   ],
   preview: {
     prepare: () => ({ title: 'Page Texts' }),

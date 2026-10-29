@@ -6,7 +6,8 @@ import { Menu, X, Search } from 'lucide-react'
 import { setGoogleLang } from '@/hooks/useGoogleTranslate'
 import Link from 'next/link'
 import { useSiteSettings } from '@/components/SiteSettingsProvider'
-import { menuDefaults } from '@/lib/data'
+import { menuDefaults, pageTextDefaults } from '@/lib/data'
+import SocialIcons from '@/components/SocialIcons'
 
 type NavItem = [label: string, href: string]
 
@@ -28,10 +29,13 @@ export default function SiteNav({
   solid, overHero, hidden, scrolled, showVideo: showVideoProp,
   onAnchor, onBrand,
 }: Props) {
-  const { menuItems } = useSiteSettings()
+  const { menuItems, socialLinks, texts } = useSiteSettings()
   const NAV_ITEMS: NavItem[] = menuItems && menuItems.length ? menuItems : menuDefaults
   // All searchable pages — used for the client-side search overlay
   const SEARCH_PAGES = NAV_ITEMS.map(([label, href]) => ({ title: label, href, keywords: label.toLowerCase() }))
+  // Main links shown in the bar on wide screens; everything else stays in the side menu
+  const MAIN_LINKS = ['/destinations', '/retreats', '/experiences', '/services']
+  const mainLinks = NAV_ITEMS.filter(([, href]) => MAIN_LINKS.includes(href))
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
   const [query, setQuery] = useState('')
@@ -110,14 +114,26 @@ export default function SiteNav({
             <BrandLogo />
           </Link>
 
-          {/* Right — Search */}
-          <button
-            className="nav-icon nav-search-btn"
-            onClick={() => setSearchOpen(true)}
-            aria-label="Search"
-          >
-            <Search size={18} />
-          </button>
+          {/* Main links — wide screens only */}
+          <nav className="nav-links" aria-label="Main">
+            {mainLinks.map(([label, href]) => (
+              <Link key={href} href={href} onClick={(e) => handleClick(e, href)}>{label}</Link>
+            ))}
+          </nav>
+
+          {/* Right — Search + call button */}
+          <div className="nav-right">
+            <button
+              className="nav-icon nav-search-btn"
+              onClick={() => setSearchOpen(true)}
+              aria-label="Search"
+            >
+              <Search size={18} />
+            </button>
+            <Link href="/pre-call" className="nav-cta" onClick={() => { closeSidebar(); closeSearch() }}>
+              {texts?.navButton || pageTextDefaults.navButton}
+            </Link>
+          </div>
         </div>
       </header>
 
@@ -142,6 +158,7 @@ export default function SiteNav({
         </nav>
 
         <div className="nav-sidebar-footer">
+          <SocialIcons links={socialLinks} />
           <div className="nav-sidebar-lang">
             <button className="lang notranslate" onClick={() => { setGoogleLang('en'); closeSidebar() }}>EN</button>
             <span className="lang-sep">/</span>
