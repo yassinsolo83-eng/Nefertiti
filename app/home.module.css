@@ -180,7 +180,11 @@
 .carTrack {
   position: absolute; inset: 0; z-index: 2;
   perspective: 1600px;
+  touch-action: pan-y; user-select: none; -webkit-user-select: none;
+  cursor: grab;
 }
+.carTrack:active { cursor: grabbing; }
+.carCard img { -webkit-user-drag: none; user-drag: none; }
 .carCard {
   position: absolute; left: 50%; top: 50%;
   width: var(--cw); aspect-ratio: 16 / 9;
@@ -221,6 +225,28 @@
 .carPlay:hover { background: rgba(20,6,14,.55); transform: translate(-50%, -50%) scale(1.06); }
 .carCard[data-playing="true"] .carPlay { opacity: 0; }
 .carCard[data-playing="true"]:hover .carPlay { opacity: 1; }
+
+/* "Swipe / Drag" hint on the video; it disappears after the first swipe */
+.carHint {
+  --vh: calc(var(--cw) * .5625);
+  position: absolute; left: 50%; top: calc(50% - var(--vh) / 2 + 16px); z-index: 6;
+  transform: translateX(-50%); pointer-events: none;
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 8px 16px; border-radius: 40px;
+  background: rgba(20,6,14,.55); color: #fff;
+  font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+  font-family: 'Montserrat', sans-serif;
+}
+.carHint svg { animation: carSway 1.6s ease-in-out infinite; }
+@keyframes carSway {
+  0%, 100% { transform: translateX(-7px) rotate(-12deg); }
+  50% { transform: translateX(7px) rotate(12deg); }
+}
+.carHintTouch { display: none; }
+@media (hover: none) {
+  .carHintTouch { display: inline; }
+  .carHintMouse { display: none; }
+}
 
 /* Text on the video */
 .carCardBody {
@@ -268,6 +294,7 @@
 @media (max-width: 768px) {
   .carousel { --cw: 94vw; --wh: var(--cw); padding: 24px 0 24px; }
   .carCard { aspect-ratio: 4 / 3; }
+  .carHint { --vh: calc(var(--cw) * .75); }
   .carPlay { width: 60px; height: 60px; }
   .carCard[data-pos="1"],
   .carCard[data-pos="-1"] {
@@ -277,6 +304,7 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .carWheel { animation: none; }
+  .carHint svg { animation: none; }
 }
 
 /* Map teaser (inside the Destinations section) */
