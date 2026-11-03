@@ -146,7 +146,7 @@
 
 /* Destinations carousel — 3D videos with a gold sun wheel turning behind them */
 .carousel {
-  --cw: clamp(300px, 52vw, 920px);
+  --cw: clamp(300px, 56vw, 1000px);
   --wh: calc(var(--cw) * .78);
   position: relative; overflow: hidden;
   margin: 0 calc(-1 * max(28px, 6vw)) 20px; padding: 28px 0 22px;
@@ -154,6 +154,16 @@
 .carBg {
   position: absolute; inset: 0;
   background: var(--cream);
+}
+.carHead {
+  position: relative; z-index: 5; text-align: center; padding: 0 24px 6px;
+}
+.carHead h3 {
+  color: var(--primary); font-size: clamp(26px, 3.2vw, 44px);
+  letter-spacing: -.01em; margin-bottom: 8px;
+}
+.carHead p {
+  color: var(--muted-fg); font-size: 13px; letter-spacing: .08em; text-transform: uppercase; margin: 0;
 }
 .carStage {
   position: relative; height: calc(var(--wh) + 24px);
@@ -209,38 +219,46 @@
   transition: opacity .3s, background .25s, transform .25s;
 }
 .carPlay:hover { background: rgba(20,6,14,.55); transform: translate(-50%, -50%) scale(1.06); }
-.carCard[data-playing="true"] .carPlay,
-.carCard[data-playing="true"] .carCardBody { opacity: 0; }
-.carCard[data-playing="true"]:hover .carPlay,
-.carCard[data-playing="true"]:hover .carCardBody { opacity: 1; }
-.carCard[data-playing="true"] .carCardBody { pointer-events: none; }
-.carCard[data-playing="true"]:hover .carCardBody { pointer-events: auto; }
+.carCard[data-playing="true"] .carPlay { opacity: 0; }
+.carCard[data-playing="true"]:hover .carPlay { opacity: 1; }
 
-.carCardBody {
-  position: absolute; left: 0; right: 0; bottom: 0; z-index: 2;
-  padding: 44px 20px 16px;
-  background: linear-gradient(transparent, rgba(20,6,14,.9));
+/* Name of the destination under the video */
+.carInfo {
+  position: relative; z-index: 5; text-align: center; padding: 8px 24px 0;
 }
-.carCardBody h3 { color: #fff; font-size: clamp(18px, 2vw, 26px); line-height: 1.1; margin-bottom: 4px; }
-.carCardBody .destCardFeeling { margin-bottom: 6px; }
-.carCardBody .destCardExplore { margin-top: 10px; padding: 6px 16px; }
-
-.carArrow {
-  position: absolute; top: 50%; z-index: 5; transform: translateY(-50%);
-  width: 44px; height: 44px; border-radius: 50%;
-  display: inline-flex; align-items: center; justify-content: center;
-  border: 1px solid rgba(241,210,136,.5); background: rgba(20,6,14,.45);
-  color: var(--gold); cursor: pointer;
-  transition: background .25s, border-color .25s;
+.carInfoFeeling {
+  font-size: 10px; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--gold-deep); margin: 0 0 8px;
 }
-.carArrow:hover { background: rgba(20,6,14,.75); border-color: var(--gold); }
-.carPrev { left: 24px; }
-.carNext { right: 24px; }
+.carInfo h3 {
+  color: var(--primary); font-size: clamp(26px, 3vw, 40px); line-height: 1.1; margin-bottom: 6px;
+}
+.carInfoTagline {
+  font-family: 'Cormorant Garamond', serif; font-style: italic;
+  font-size: 17px; color: var(--muted-fg); margin: 0 0 16px;
+}
+.carExplore {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+  font-family: 'Montserrat', sans-serif; color: var(--primary);
+  padding: 10px 22px; border: 1px solid var(--primary); border-radius: 40px;
+  transition: background .25s, color .25s;
+}
+.carExplore:hover { background: var(--primary); color: var(--cream); }
 
-.carDots {
+/* Arrows and dots in one row under the info */
+.carControls {
   position: relative; z-index: 5;
-  display: flex; justify-content: center; gap: 10px; margin-top: 8px;
+  display: flex; align-items: center; justify-content: center; gap: 18px; margin-top: 22px;
 }
+.carArrow {
+  width: 40px; height: 40px; border-radius: 50%; padding: 0;
+  display: inline-flex; align-items: center; justify-content: center;
+  border: 1px solid var(--primary); background: transparent; color: var(--primary);
+  cursor: pointer; transition: background .25s, color .25s;
+}
+.carArrow:hover { background: var(--primary); color: var(--cream); }
+.carDots { display: flex; justify-content: center; gap: 10px; }
 .carDot,
 .carDotOn {
   width: 8px; height: 8px; padding: 0; border: 0; border-radius: 50%; cursor: pointer;
@@ -248,17 +266,26 @@
 }
 .carDotOn { background: var(--primary); transform: scale(1.3); }
 
+.carAllWrap { position: relative; z-index: 5; display: flex; justify-content: center; margin-top: 26px; }
+.carAll {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 12px; letter-spacing: .1em; text-transform: uppercase;
+  font-family: 'Montserrat', sans-serif; color: var(--primary);
+  padding: 12px 28px; border: 1px solid var(--primary); border-radius: 4px; background: #fff;
+  transition: background .25s, color .25s;
+}
+.carAll:hover { background: var(--primary); color: var(--cream); }
+
 @media (max-width: 768px) {
-  .carousel { --cw: 88vw; --wh: calc(var(--cw) * 1.05); padding: 20px 0 16px; }
+  .carousel { --cw: 94vw; --wh: var(--cw); padding: 28px 0 28px; }
+  .carCard { aspect-ratio: 4 / 3; }
   .carPlay { width: 60px; height: 60px; }
   .carCard[data-pos="1"],
   .carCard[data-pos="-1"] {
     transform: translate(-50%, -50%) scale(.8);
     opacity: 0; pointer-events: none;
   }
-  .carArrow { width: 36px; height: 36px; top: 36%; }
-  .carPrev { left: calc(6vw + 6px); }
-  .carNext { right: calc(6vw + 6px); }
+  .carInfoTagline { font-size: 16px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .carWheel { animation: none; }
