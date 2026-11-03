@@ -213,6 +213,14 @@ body:has(.nav-sidebar.open) #kh-pill-ring { stroke-opacity: .22; transition: str
   transition: background .2s, color .2s;
 }
 .nav-search-result:hover { background: rgba(241,210,136,.1); color: var(--gold); }
+.nav-search-results { max-height: 60vh; overflow-y: auto; }
+.nav-search-result-type {
+  margin-left: 10px; font-size: 9px; letter-spacing: .14em; color: var(--gold); opacity: .8;
+}
+.nav-search-result-text {
+  display: block; margin-top: 5px; font-size: 12px; letter-spacing: 0; text-transform: none;
+  color: rgba(255,255,255,.55); line-height: 1.5; font-weight: 300;
+}
 .nav-search-empty { padding: 20px; color: rgba(255,255,255,.4); text-align: center; font-size: 13px; }
 
 /* Google Translate — hide default UI */

@@ -10,6 +10,7 @@ import { menuDefaults, pageTextDefaults } from '@/lib/data'
 import SocialIcons from '@/components/SocialIcons'
 
 type NavItem = [label: string, href: string]
+type SearchHit = { type: string; title: string; href: string; snippet: string }
 
 
 type Props = {
@@ -39,6 +40,7 @@ export default function SiteNav({
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
   const [query, setQuery] = useState('')
+  const [found, setFound] = useState<SearchHit[] | null>(null)
   const navRef = useRef<HTMLElement>(null)
   const searchInputRef = useRef<HTMLInputElement>(null)
 
@@ -87,10 +89,31 @@ export default function SiteNav({
     if (onBrand) onBrand(e)
   }
 
-  // Filter search results
-  const results = query.trim()
-    ? SEARCH_PAGES.filter(p => p.keywords.includes(query.toLowerCase().trim()))
-    : []
+  // Site-wide search: ask the server, which looks through every text on the site
+  useEffect(() => {
+    const q = query.trim()
+    if (!q) { setFound(null); return }
+    const ctrl = new AbortController()
+    const timer = setTimeout(async () => {
+      try {
+        const res = await fetch(`/api/search?q=${encodeURIComponent(q)}`, { signal: ctrl.signal })
+        const data = await res.json()
+        setFound(Array.isArray(data.results) ? data.results : [])
+      } catch (err) {
+        // If the request fails, fall back to matching the menu pages
+        if ((err as Error).name !== 'AbortError') {
+          setFound(
+            SEARCH_PAGES.filter(p => p.keywords.includes(q.toLowerCase()))
+              .map(p => ({ type: 'Page', title: p.title, href: p.href, snippet: '' })),
+          )
+        }
+      }
+    }, 200)
+    return () => { clearTimeout(timer); ctrl.abort() }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [query])
+
+  const results = query.trim() ? found : null
 
   return (
     <>
@@ -184,11 +207,13 @@ export default function SiteNav({
               <X size={20} />
             </button>
           </div>
-          {query.trim() && (
+          {query.trim() && results && (
             <div className="nav-search-results">
               {results.length > 0 ? results.map(r => (
-                <Link key={r.href} href={r.href} className="nav-search-result" onClick={(e) => handleClick(e, r.href)}>
-                  {r.title}
+                <Link key={`${r.href}-${r.title}-${r.snippet}`} href={r.href} className="nav-search-result" onClick={(e) => handleClick(e, r.href)}>
+                  <span className="nav-search-result-title">{r.title}</span>
+                  <span className="nav-search-result-type">{r.type}</span>
+                  {r.snippet && <span className="nav-search-result-text">{r.snippet}</span>}
                 </Link>
               )) : (
                 <p className="nav-search-empty">No results found</p>

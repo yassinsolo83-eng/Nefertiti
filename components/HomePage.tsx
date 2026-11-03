@@ -14,6 +14,7 @@ import VisitorCounter from '@/components/VisitorCounter'
 import ex from '@/components/HeroExtras.module.css'
 import rs from '@/app/retreats/retreats.module.css'
 import EgyptMap from '@/components/EgyptMap'
+import DestinationsCarousel from '@/components/DestinationsCarousel'
 import SiteNav from '@/components/SiteNav'
 import SiteFooter from '@/components/SiteFooter'
 import { Ornament, BrandBand } from '@/components/Motif'
@@ -191,31 +192,9 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
           </div>
         </div>
 
-        {/* Featured destinations — click goes to full page */}
-        <div className={s.destGrid}>
-          {featuredDestinations.map((dest, i) => (
-            <Link
-              key={dest.id}
-              href={`/destinations/${dest.id}`}
-              className={`${s.destCard} reveal delay-${Math.min(i + 1, 4)}`}
-            >
-              {dest.video ? (
-                <LazyVideo
-                  src={dest.video}
-                  poster={dest.image}
-                  aria-label={dest.title}
-                />
-              ) : (
-                <Img src={dest.image} alt={dest.title} />
-              )}
-              <div className={s.destCardBody}>
-                <p className={s.destCardFeeling}>{dest.feeling}</p>
-                <h3>{dest.title}</h3>
-                <p className={s.destCardTagline}>{dest.tagline}</p>
-                <span className={s.destCardExplore}>Explore <ArrowUpRight size={13} /></span>
-              </div>
-            </Link>
-          ))}
+        {/* Featured destinations — videos in a 3D carousel with a turning sun wheel */}
+        <div className="reveal">
+          <DestinationsCarousel destinations={featuredDestinations} />
         </div>
 
         {/* Where we work: map teaser, the full map lives on /destinations */}
