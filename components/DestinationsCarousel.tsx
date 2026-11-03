@@ -8,7 +8,7 @@ import type { Destination } from '@/lib/data'
 import s from '@/app/home.module.css'
 
 // Destination videos in a 3D carousel: the middle video is flat, its neighbours are tilted.
-// A gold sun wheel turns behind the videos, so it only shows around them.
+// A sun wheel turns behind the videos, so it only shows around them.
 // Videos only play when the visitor presses play.
 export default function DestinationsCarousel({ destinations }: { destinations: Destination[] }) {
   const n = destinations.length
@@ -26,6 +26,7 @@ export default function DestinationsCarousel({ destinations }: { destinations: D
   if (n === 0) return null
 
   const go = (to: number) => setActive(((to % n) + n) % n)
+  const current = destinations[active]
 
   // -1, 0, 1 for the three visible cards; anything else is hidden
   const posOf = (i: number) => {
@@ -49,6 +50,12 @@ export default function DestinationsCarousel({ destinations }: { destinations: D
   return (
     <div className={s.carousel}>
       <div className={s.carBg} aria-hidden="true" />
+
+      <div className={s.carHead}>
+        <h3>Explore Our Destinations</h3>
+        <p>Press play to see each place in motion</p>
+      </div>
+
       <div className={s.carStage}>
         <span className={s.carWheel} aria-hidden="true" />
 
@@ -65,6 +72,7 @@ export default function DestinationsCarousel({ destinations }: { destinations: D
           {destinations.map((dest, i) => {
             const pos = posOf(i)
             const isMid = pos === '0'
+            const isSide = !isMid && pos !== 'hidden'
             const media = dest.video ? (
               <video
                 ref={(el) => { videos.current[i] = el }}
@@ -86,9 +94,9 @@ export default function DestinationsCarousel({ destinations }: { destinations: D
                 className={s.carCard}
                 data-pos={pos}
                 data-playing={isMid && playing ? 'true' : 'false'}
-                onClick={!isMid && pos !== 'hidden' ? () => go(i) : undefined}
-                role={!isMid && pos !== 'hidden' ? 'button' : undefined}
-                aria-label={!isMid && pos !== 'hidden' ? dest.title : undefined}
+                onClick={isSide ? () => go(i) : undefined}
+                role={isSide ? 'button' : undefined}
+                aria-label={isSide ? dest.title : undefined}
               >
                 {media}
 
@@ -102,39 +110,46 @@ export default function DestinationsCarousel({ destinations }: { destinations: D
                     {playing ? <Pause size={26} /> : <Play size={26} />}
                   </button>
                 )}
-
-                {isMid && (
-                  <div className={s.carCardBody}>
-                    <p className={s.destCardFeeling}>{dest.feeling}</p>
-                    <h3>{dest.title}</h3>
-                    <Link href={`/destinations/${dest.id}`} className={s.destCardExplore}>
-                      Explore <ArrowUpRight size={13} />
-                    </Link>
-                  </div>
-                )}
               </div>
             )
           })}
         </div>
+      </div>
 
-        <button type="button" className={`${s.carArrow} ${s.carPrev}`} onClick={() => go(active - 1)} aria-label="Previous destination">
-          <ChevronLeft size={22} />
+      {/* Name of the destination shown under the video */}
+      <div className={s.carInfo}>
+        <p className={s.carInfoFeeling}>{current.feeling}</p>
+        <h3>{current.title}</h3>
+        {current.tagline && <p className={s.carInfoTagline}>{current.tagline}</p>}
+        <Link href={`/destinations/${current.id}`} className={s.carExplore}>
+          Explore {current.title} <ArrowUpRight size={14} />
+        </Link>
+      </div>
+
+      <div className={s.carControls}>
+        <button type="button" className={s.carArrow} onClick={() => go(active - 1)} aria-label="Previous destination">
+          <ChevronLeft size={20} />
         </button>
-        <button type="button" className={`${s.carArrow} ${s.carNext}`} onClick={() => go(active + 1)} aria-label="Next destination">
-          <ChevronRight size={22} />
+        <div className={s.carDots}>
+          {destinations.map((dest, i) => (
+            <button
+              key={dest.id}
+              type="button"
+              className={i === active ? s.carDotOn : s.carDot}
+              onClick={() => go(i)}
+              aria-label={`Show ${dest.title}`}
+            />
+          ))}
+        </div>
+        <button type="button" className={s.carArrow} onClick={() => go(active + 1)} aria-label="Next destination">
+          <ChevronRight size={20} />
         </button>
       </div>
 
-      <div className={s.carDots}>
-        {destinations.map((dest, i) => (
-          <button
-            key={dest.id}
-            type="button"
-            className={i === active ? s.carDotOn : s.carDot}
-            onClick={() => go(i)}
-            aria-label={`Show ${dest.title}`}
-          />
-        ))}
+      <div className={s.carAllWrap}>
+        <Link href="/destinations" className={s.carAll}>
+          See all destinations <ArrowUpRight size={14} />
+        </Link>
       </div>
     </div>
   )
