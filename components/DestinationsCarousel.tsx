@@ -1,19 +1,27 @@
 'use client'
 
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
-import { ArrowUpRight, ChevronLeft, ChevronRight } from 'lucide-react'
-import LazyVideo from '@/components/LazyVideo'
+import { ArrowUpRight, ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react'
 import Img from '@/components/Img'
 import type { Destination } from '@/lib/data'
 import s from '@/app/home.module.css'
 
 // Destination videos in a 3D carousel: the middle video is flat, its neighbours are tilted.
 // A gold sun wheel turns behind the videos, so it only shows around them.
+// Videos only play when the visitor presses play.
 export default function DestinationsCarousel({ destinations }: { destinations: Destination[] }) {
   const n = destinations.length
   const [active, setActive] = useState(0)
+  const [playing, setPlaying] = useState(false)
   const touchX = useRef<number | null>(null)
+  const videos = useRef<(HTMLVideoElement | null)[]>([])
+
+  // Moving to another destination stops every video
+  useEffect(() => {
+    videos.current.forEach((v) => v?.pause())
+    setPlaying(false)
+  }, [active])
 
   if (n === 0) return null
 
@@ -25,6 +33,17 @@ export default function DestinationsCarousel({ destinations }: { destinations: D
     if (d > n / 2) d -= n
     if (d < -n / 2) d += n
     return d === 0 || d === 1 || d === -1 ? String(d) : 'hidden'
+  }
+
+  const togglePlay = () => {
+    const v = videos.current[active]
+    if (!v) return
+    if (v.paused) {
+      v.play().then(() => setPlaying(true)).catch(() => setPlaying(false))
+    } else {
+      v.pause()
+      setPlaying(false)
+    }
   }
 
   return (
@@ -45,34 +64,55 @@ export default function DestinationsCarousel({ destinations }: { destinations: D
         >
           {destinations.map((dest, i) => {
             const pos = posOf(i)
+            const isMid = pos === '0'
             const media = dest.video ? (
-              <LazyVideo src={dest.video} poster={dest.image} aria-label={dest.title} />
+              <video
+                ref={(el) => { videos.current[i] = el }}
+                src={dest.video}
+                poster={dest.image}
+                preload="none"
+                loop
+                playsInline
+                aria-label={dest.title}
+                onClick={isMid ? togglePlay : undefined}
+              />
             ) : (
               <Img src={dest.image} alt={dest.title} />
             )
 
-            // The middle card opens the destination page; a side card turns the carousel to it
-            return pos === '0' ? (
-              <Link key={dest.id} href={`/destinations/${dest.id}`} className={s.carCard} data-pos={pos}>
-                {media}
-                <div className={s.carCardBody}>
-                  <p className={s.destCardFeeling}>{dest.feeling}</p>
-                  <h3>{dest.title}</h3>
-                  <span className={s.destCardExplore}>Explore <ArrowUpRight size={13} /></span>
-                </div>
-              </Link>
-            ) : (
-              <button
+            return (
+              <div
                 key={dest.id}
-                type="button"
                 className={s.carCard}
                 data-pos={pos}
-                onClick={() => go(i)}
-                aria-label={dest.title}
-                tabIndex={pos === 'hidden' ? -1 : 0}
+                data-playing={isMid && playing ? 'true' : 'false'}
+                onClick={!isMid && pos !== 'hidden' ? () => go(i) : undefined}
+                role={!isMid && pos !== 'hidden' ? 'button' : undefined}
+                aria-label={!isMid && pos !== 'hidden' ? dest.title : undefined}
               >
                 {media}
-              </button>
+
+                {isMid && dest.video && (
+                  <button
+                    type="button"
+                    className={s.carPlay}
+                    onClick={togglePlay}
+                    aria-label={playing ? `Pause ${dest.title}` : `Play ${dest.title}`}
+                  >
+                    {playing ? <Pause size={26} /> : <Play size={26} />}
+                  </button>
+                )}
+
+                {isMid && (
+                  <div className={s.carCardBody}>
+                    <p className={s.destCardFeeling}>{dest.feeling}</p>
+                    <h3>{dest.title}</h3>
+                    <Link href={`/destinations/${dest.id}`} className={s.destCardExplore}>
+                      Explore <ArrowUpRight size={13} />
+                    </Link>
+                  </div>
+                )}
+              </div>
             )
           })}
         </div>
