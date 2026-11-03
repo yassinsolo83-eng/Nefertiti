@@ -69,6 +69,7 @@
 /* ── DESTINATIONS ── */
 .destinations {
   background: var(--primary); color: var(--primary-foreground);
+  overflow-x: clip;
 }
 .destinations :global(.section-label) { color: var(--gold); }
 .destinations :global(.section-heading) p { color: rgba(243,240,232,.68); }
@@ -283,6 +284,11 @@
   transition: background .25s, color .25s;
 }
 .carAll:hover { background: var(--primary); color: var(--cream); }
+
+/* The section padding is smaller on phones, so the full-width band uses the same smaller value */
+@media (max-width: 860px) {
+  .carousel { margin-left: calc(-1 * max(20px, 5vw)); margin-right: calc(-1 * max(20px, 5vw)); }
+}
 
 @media (max-width: 768px) {
   .carousel { --cw: 94vw; --wh: var(--cw); padding: 24px 0 24px; }
