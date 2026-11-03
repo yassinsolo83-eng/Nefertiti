@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
-import { ArrowUpRight, ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react'
+import { ArrowUpRight, ChevronLeft, ChevronRight, Hand, Pause, Play } from 'lucide-react'
 import Img from '@/components/Img'
 import type { Destination } from '@/lib/data'
 import s from '@/app/home.module.css'
@@ -14,7 +14,9 @@ export default function DestinationsCarousel({ destinations }: { destinations: D
   const n = destinations.length
   const [active, setActive] = useState(0)
   const [playing, setPlaying] = useState(false)
-  const touchX = useRef<number | null>(null)
+  const [hint, setHint] = useState(true)
+  const startX = useRef<number | null>(null)
+  const dragged = useRef(false)
   const videos = useRef<(HTMLVideoElement | null)[]>([])
 
   // Moving to another destination stops every video
@@ -60,12 +62,21 @@ export default function DestinationsCarousel({ destinations }: { destinations: D
 
         <div
           className={s.carTrack}
-          onTouchStart={(e) => { touchX.current = e.touches[0].clientX }}
-          onTouchEnd={(e) => {
-            if (touchX.current === null) return
-            const dx = e.changedTouches[0].clientX - touchX.current
-            touchX.current = null
-            if (Math.abs(dx) > 40) go(active + (dx < 0 ? 1 : -1))
+          onPointerDown={(e) => { startX.current = e.clientX; dragged.current = false }}
+          onPointerUp={(e) => {
+            if (startX.current === null) return
+            const dx = e.clientX - startX.current
+            startX.current = null
+            if (Math.abs(dx) > 40) {
+              dragged.current = true
+              setHint(false)
+              go(active + (dx < 0 ? 1 : -1))
+            }
+          }}
+          onPointerCancel={() => { startX.current = null }}
+          // A drag must not also count as a click on the play button or a side card
+          onClickCapture={(e) => {
+            if (dragged.current) { e.preventDefault(); e.stopPropagation(); dragged.current = false }
           }}
         >
           {destinations.map((dest, i) => {
@@ -123,6 +134,14 @@ export default function DestinationsCarousel({ destinations }: { destinations: D
             )
           })}
         </div>
+
+        {hint && !playing && (
+          <div className={s.carHint} aria-hidden="true">
+            <Hand size={18} />
+            <span className={s.carHintTouch}>Swipe</span>
+            <span className={s.carHintMouse}>Drag</span>
+          </div>
+        )}
       </div>
 
       <div className={s.carControls}>
