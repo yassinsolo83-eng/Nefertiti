@@ -26,7 +26,6 @@ export default function DestinationsCarousel({ destinations }: { destinations: D
   if (n === 0) return null
 
   const go = (to: number) => setActive(((to % n) + n) % n)
-  const current = destinations[active]
 
   // -1, 0, 1 for the three visible cards; anything else is hidden
   const posOf = (i: number) => {
@@ -110,20 +109,20 @@ export default function DestinationsCarousel({ destinations }: { destinations: D
                     {playing ? <Pause size={26} /> : <Play size={26} />}
                   </button>
                 )}
+
+                {isMid && (
+                  <div className={s.carCardBody}>
+                    <p className={s.destCardFeeling}>{dest.feeling}</p>
+                    <h3>{dest.title}</h3>
+                    <Link href={`/destinations/${dest.id}`} className={s.destCardExplore}>
+                      Explore <ArrowUpRight size={13} />
+                    </Link>
+                  </div>
+                )}
               </div>
             )
           })}
         </div>
-      </div>
-
-      {/* Name of the destination shown under the video */}
-      <div className={s.carInfo}>
-        <p className={s.carInfoFeeling}>{current.feeling}</p>
-        <h3>{current.title}</h3>
-        {current.tagline && <p className={s.carInfoTagline}>{current.tagline}</p>}
-        <Link href={`/destinations/${current.id}`} className={s.carExplore}>
-          Explore {current.title} <ArrowUpRight size={14} />
-        </Link>
       </div>
 
       <div className={s.carControls}>
