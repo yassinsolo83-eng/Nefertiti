@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
-import { ArrowUpRight, ChevronLeft, ChevronRight, Hand, Pause, Play } from 'lucide-react'
+import { ArrowUpRight, Hand, Pause, Play } from 'lucide-react'
 import Img from '@/components/Img'
 import type { Destination } from '@/lib/data'
 import s from '@/app/home.module.css'
@@ -145,9 +145,6 @@ export default function DestinationsCarousel({ destinations }: { destinations: D
       </div>
 
       <div className={s.carControls}>
-        <button type="button" className={s.carArrow} onClick={() => go(active - 1)} aria-label="Previous destination">
-          <ChevronLeft size={20} />
-        </button>
         <div className={s.carDots}>
           {destinations.map((dest, i) => (
             <button
@@ -159,9 +156,7 @@ export default function DestinationsCarousel({ destinations }: { destinations: D
             />
           ))}
         </div>
-        <button type="button" className={s.carArrow} onClick={() => go(active + 1)} aria-label="Next destination">
-          <ChevronRight size={20} />
-        </button>
+        <p className={s.carCount}>{active + 1} / {n}</p>
       </div>
 
       <div className={s.carAllWrap}>
