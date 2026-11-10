@@ -369,7 +369,7 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
               </div>
             </div>
             <div className={cs.grid}>
-              {collaborations.slice(0, 6).map((c) => <CollaborationCard key={c.id} item={c} />)}
+              {collaborations.slice(0, 6).map((c) => <CollaborationCard key={c.id} item={c} href="/collaborations" />)}
             </div>
             <div className={cs.homeAction}>
               <Link href="/collaborations" className="text-link">See all collaborations <ArrowUpRight size={16} /></Link>

@@ -41,7 +41,7 @@ export default async function CollaborationsPage() {
       <section className="section inner-section">
         {items.length > 0 ? (
           <div className={s.grid}>
-            {items.map((c) => <CollaborationCard key={c.id} item={c} />)}
+            {items.map((c) => <CollaborationCard key={c.id} item={c} instant />)}
           </div>
         ) : (
           <p className={s.empty}>Our collaborations will appear here soon.</p>

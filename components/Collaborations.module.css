@@ -26,6 +26,7 @@
   padding: 32px 28px 28px;
   transition: box-shadow .3s ease, transform .3s ease;
 }
+.card { position: relative; }
 .card:hover { box-shadow: 0 14px 40px rgba(107,58,78,.12); transform: translateY(-3px); }
 .logoBox {
   width: 100%; height: 120px; display: flex; align-items: center; justify-content: center;
@@ -43,6 +44,12 @@
   font-family: 'Montserrat', sans-serif; color: var(--primary);
 }
 .visit:hover { text-decoration: underline; }
+
+/* Home page: the whole card opens the Collaborations page; the website link stays clickable on top */
+.cardLink { cursor: pointer; }
+.cover { color: inherit; }
+.cover::after { content: ''; position: absolute; inset: 0; border-radius: inherit; }
+.cardLink .visit { position: relative; z-index: 2; }
 .text + .visit { margin-top: 0; }
 
 /* ── Home section ── */
