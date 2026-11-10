@@ -32,7 +32,8 @@ export function useKeyhole({ setIntroDone, setScrolled }: Setters) {
       const track = document.getElementById('kh-track')
       if (!track || !hole || !ring) return
       const rect = track.getBoundingClientRect()
-      const range = track.offsetHeight - window.innerHeight
+      const stage = track.querySelector('.kh-stage') as HTMLElement | null
+      const range = track.offsetHeight - (stage ? stage.offsetHeight : window.innerHeight)
       const p = clamp(-rect.top / range, 0, 1)
 
       // keyhole finishes opening at 75% of the track; the last 25% holds the

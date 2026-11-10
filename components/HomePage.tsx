@@ -41,6 +41,10 @@ type Props = {
   pageTexts: PageTexts
 }
 
+// The pinned intro stage is 100vh tall; on phones that is taller than window.innerHeight (the address bar),
+// so scroll targets must use the stage height or the page overshoots and the hero ends up under the nav.
+const stageHeight = (track: HTMLElement) => (track.querySelector('.kh-stage') as HTMLElement | null)?.offsetHeight ?? window.innerHeight
+
 export default function HomePage({ featuredDestinations, moreDestinations, partners, collaborations, t, combinations, whatsappLink, upcomingRetreats, stats, testimonials, steps, pageTexts: pt }: Props) {
   // Three moments of the full process: first call, the concept, and the hand-over
   const homeSteps = steps.length >= 3 ? [steps[0], steps[2], steps[steps.length - 1]] : steps
@@ -56,7 +60,7 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
     if (params.get('home') !== '1') return
     const jump = () => {
       const track = document.getElementById('kh-track')
-      const target = track ? track.offsetHeight - window.innerHeight : 0
+      const target = track ? track.offsetHeight - stageHeight(track) : 0
       window.scrollTo({ top: Math.max(target, 0), behavior: 'auto' })
       // clean the URL so a refresh doesn't keep skipping the intro
       window.history.replaceState(null, '', '/')
@@ -77,14 +81,14 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
   const openIntro = () => {
     const track = document.getElementById('kh-track')
     if (!track) return
-    window.scrollTo({ top: track.offsetTop + (track.offsetHeight - window.innerHeight) * 0.8, behavior: 'auto' })
+    window.scrollTo({ top: track.offsetTop + (track.offsetHeight - stageHeight(track)) * 0.8, behavior: 'auto' })
   }
 
   // Scroll to the revealed hero (end of the intro track) — not back into the intro.
   const scrollToHero = (e?: React.MouseEvent) => {
     if (e) e.preventDefault()
     const track = document.getElementById('kh-track')
-    const target = track ? track.offsetHeight - window.innerHeight : 0
+    const target = track ? track.offsetHeight - stageHeight(track) : 0
     window.scrollTo({ top: Math.max(target, 0), behavior: 'smooth' })
   }
 
