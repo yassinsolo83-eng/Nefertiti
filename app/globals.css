@@ -989,7 +989,7 @@ body[data-kh-veil="on"] .nav-video:not(.is-scrolled) .nav-links a { color: var(-
 .cf-back { position: fixed; inset: 0; z-index: 96; background: rgba(20,10,28,.28); }
 .cf-panel {
   position: fixed; z-index: 97; bottom: 160px; left: 24px;
-  width: min(360px, calc(100vw - 48px)); max-height: calc(100vh - 190px);
+  width: min(360px, calc(100vw - 48px)); max-height: calc(100vh - 284px);
   display: flex; flex-direction: column; overflow: hidden;
   background: var(--background); color: var(--foreground);
   border: 1px solid rgba(141,76,101,.25); border-radius: 16px;
@@ -1021,7 +1021,7 @@ body[data-kh-veil="on"] .nav-video:not(.is-scrolled) .nav-links a { color: var(-
 .cf-foot { padding-top: 12px; border-top: 1px solid var(--border); }
 @media (max-width: 600px) {
   .cf-dock { bottom: 84px; }
-  .cf-panel { left: 12px; right: 12px; width: auto; bottom: 146px; max-height: calc(100vh - 176px); }
+  .cf-panel { left: 12px; right: 12px; width: auto; bottom: 146px; max-height: calc(100vh - 250px); }
 }
 
 html[data-c-tone="soft"] {
@@ -1036,10 +1036,10 @@ html[data-c-tone="soft"] :where(.cookie-notice, .cf-panel, .cf-arrow), html[data
 
 /* While the cookie notice is showing, sit above it */
 body:has(.cookie-notice) .cf-dock { bottom: 152px; }
-body:has(.cookie-notice) .cf-panel { bottom: 216px; max-height: calc(100vh - 250px); }
+body:has(.cookie-notice) .cf-panel { bottom: 216px; max-height: calc(100vh - 340px); }
 @media (max-width: 600px) {
   body:has(.cookie-notice) .cf-dock { bottom: 140px; }
-  body:has(.cookie-notice) .cf-panel { bottom: 202px; max-height: calc(100vh - 230px); }
+  body:has(.cookie-notice) .cf-panel { bottom: 202px; max-height: calc(100vh - 306px); }
 }
 
 /* Applied preferences (set on <html> by ComfortPanel / the inline script in layout) */
