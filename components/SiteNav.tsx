@@ -27,7 +27,7 @@ type Props = {
 }
 
 export default function SiteNav({
-  hidden,
+  hidden, showVideo: showVideoProp,
   onAnchor, onBrand,
 }: Props) {
   const { menuItems, socialLinks, texts } = useSiteSettings()
@@ -44,9 +44,9 @@ export default function SiteNav({
   const navRef = useRef<HTMLElement>(null)
   const searchInputRef = useRef<HTMLInputElement>(null)
 
-  // The bar is always solid cream and fixed on every page, with the plum logo
-  const isScrolled = true
-  const showVideo = false
+  // Transparent only over the home intro; solid cream everywhere else. The logo is always plum.
+  const showVideo = !!showVideoProp
+  const isScrolled = !showVideo
   const navHidden = !!hidden
 
   const closeSidebar = useCallback(() => setSidebarOpen(false), [])
