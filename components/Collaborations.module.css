@@ -52,10 +52,34 @@
 .cardLink .visit { position: relative; z-index: 2; }
 .text + .visit { margin-top: 0; }
 
+/* ── Detail page: a place for the image and a place for the text ── */
+.detail { padding: 130px max(28px, 6vw) 80px; max-width: 1200px; margin: 0 auto; }
+.detailGrid {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(32px, 5vw, 72px); align-items: center; margin-top: 28px;
+}
+.detailImage {
+  background: #fff; border: 1px solid var(--border); border-radius: 18px;
+  min-height: 460px; padding: 40px; display: flex; align-items: center; justify-content: center;
+}
+.detailImage img { max-width: 100%; max-height: 520px; width: auto; height: auto; object-fit: contain; }
+.detailInitial { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 120px; color: var(--primary); }
+.detailCountry { font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: var(--gold-deep); margin-bottom: 14px; }
+.detailName {
+  font-family: 'Cormorant Garamond', serif; font-size: clamp(34px, 4.4vw, 56px);
+  font-weight: 400; line-height: 1.12; color: var(--primary); margin-bottom: 24px;
+}
+.detailBody { font-size: 17px; line-height: 1.95; color: var(--foreground); white-space: pre-line; }
+.detailActions { display: flex; flex-wrap: wrap; align-items: center; gap: 22px; margin-top: 34px; }
+.detailAll { font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--primary); }
+.detailAll:hover { text-decoration: underline; }
+
 /* ── Home section ── */
 .homeAction { display: flex; justify-content: center; margin-top: 40px; }
 
 @media (max-width: 960px) {
+  .detailGrid { grid-template-columns: 1fr; }
+  .detailImage { min-height: 300px; padding: 28px; }
   .grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
 }
 @media (max-width: 600px) {
