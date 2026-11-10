@@ -224,8 +224,8 @@
   transition: opacity .3s, background .25s, transform .25s;
 }
 .carPlay:hover { background: rgba(20,6,14,.55); transform: translate(-50%, -50%) scale(1.06); }
-.carCard[data-playing="true"] .carPlay { opacity: 0; }
-.carCard[data-playing="true"]:hover .carPlay { opacity: 1; }
+/* While a video plays, nothing is drawn over it: a tap on the video pauses it */
+.carCard[data-playing="true"] .carPlay { opacity: 0; pointer-events: none; }
 
 /* "Swipe / Drag" hint on the video; it disappears after the first swipe */
 .carHint {
@@ -260,7 +260,6 @@
 .carCardBody .destCardFeeling { margin-bottom: 6px; }
 .carCardBody .destCardExplore { margin-top: 10px; padding: 6px 16px; }
 .carCard[data-playing="true"] .carCardBody { opacity: 0; pointer-events: none; }
-.carCard[data-playing="true"]:hover .carCardBody { opacity: 1; pointer-events: auto; }
 
 /* Arrows and dots under the video */
 .carControls {
