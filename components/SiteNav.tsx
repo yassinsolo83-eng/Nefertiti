@@ -62,8 +62,8 @@ export default function SiteNav({
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  // Pages with a solid bar keep it cream; the others stay transparent. The logo is always plum.
-  const isScrolled = !!solid
+  // Transparent at the very top; cream whenever the bar is showing after a scroll. The logo is always plum.
+  const isScrolled = !!solid || pastTop
   const showVideo = (!!showVideoProp || !!overHero) && !pastTop
   const navHidden = !!hidden || (hiddenByScroll && !sidebarOpen && !searchOpen)
 
