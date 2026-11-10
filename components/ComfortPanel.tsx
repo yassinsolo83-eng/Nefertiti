@@ -86,10 +86,6 @@ export default function ComfortPanel() {
     const p = load()
     setPrefs(p)
     apply(p)
-    try {
-      const d = JSON.parse(localStorage.getItem(KEY + '-dock') || '{}')
-      if (d.tucked) setTucked(true)
-    } catch {}
     setCanSpeak(typeof window !== 'undefined' && 'speechSynthesis' in window)
   }, [])
 
@@ -129,7 +125,6 @@ export default function ComfortPanel() {
   const dock = (nextTucked: boolean) => {
     setTucked(nextTucked)
     if (nextTucked) setOpen(false)
-    try { localStorage.setItem(KEY + '-dock', JSON.stringify({ tucked: nextTucked })) } catch {}
   }
 
   const toggle = () => {
