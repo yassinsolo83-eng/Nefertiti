@@ -53,8 +53,9 @@ export default function SiteNav({
     return () => window.removeEventListener('scroll', onScroll)
   }, [overHero])
 
-  const isScrolled = solid || scrolled || (overHero && pastTop)
-  const showVideo = showVideoProp || (overHero && !pastTop)
+  // The bar is always solid cream with the plum logo, on every page (also over videos and heroes)
+  const isScrolled = true
+  const showVideo = false
 
   const closeSidebar = useCallback(() => setSidebarOpen(false), [])
   const closeSearch = useCallback(() => { setSearchOpen(false); setQuery('') }, [])
