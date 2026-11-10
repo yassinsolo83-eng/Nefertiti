@@ -781,7 +781,10 @@ footer { position: relative; padding: 130px 8vw 24px; background: var(--primary)
 
 @media (max-width: 480px) {
   .hero h1 { font-size: clamp(24px, 6.8vw, 32px); line-height: 1.14; }
-  .footer-links { grid-template-columns: 1fr; }
+  .footer-links { grid-template-columns: 1fr 1fr; gap: 20px; }
+  .footer-links > div { min-width: 0; }
+  .footer-links a, .footer-links p:not(.footer-label) { overflow-wrap: anywhere; align-items: flex-start; }
+  .footer-links svg { flex-shrink: 0; margin-top: 2px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
