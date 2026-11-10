@@ -5,6 +5,7 @@ import {
   getFeaturedDestinations,
   getMoreDestinations,
   getPartners,
+  getCollaborations,
   getSiteContent,
   getSiteSettings,
   getRetreats,
@@ -28,10 +29,11 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Page() {
-  const [featuredDestinations, moreDestinations, partners, t, settings, retreats, testimonials, steps, pageTexts] = await Promise.all([
+  const [featuredDestinations, moreDestinations, partners, collaborations, t, settings, retreats, testimonials, steps, pageTexts] = await Promise.all([
     getFeaturedDestinations(),
     getMoreDestinations(),
     getPartners(),
+    getCollaborations(),
     getSiteContent(),
     getSiteSettings(),
     getRetreats(),
@@ -48,6 +50,7 @@ export default async function Page() {
       featuredDestinations={featuredDestinations}
       moreDestinations={moreDestinations}
       partners={partners}
+      collaborations={collaborations}
       t={t}
       combinations={settings.combinations}
       whatsappLink={settings.whatsappLink}

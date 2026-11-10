@@ -5,6 +5,7 @@ import {
   getDestinationBySlug,
   getExperiences,
   getPartners,
+  getCollaborations,
   getFaqs,
   getServiceTiers,
   getSteps,
@@ -30,6 +31,7 @@ const PAGE_LABELS: Record<string, string> = {
   '/experiences': 'Experiences',
   '/services': 'Services',
   '/partners': 'Partners',
+  '/collaborations': 'Collaborations',
   '/how-it-works': 'How It Works',
   '/contact': 'Contact',
   '/pre-call': 'Book a call',
@@ -42,6 +44,7 @@ function pageForTextKey(key: string): string | null {
   if (key.startsWith('services')) return '/services'
   if (key.startsWith('about')) return '/about'
   if (key.startsWith('partners')) return '/partners'
+  if (key.startsWith('collaborations')) return '/collaborations'
   if (key.startsWith('retreats') || key === 'labelRetreats' || key === 'taglineRetreats') return '/retreats'
   if (key.startsWith('destPage') || key === 'taglineDestinations') return '/destinations'
   return '/'
@@ -64,12 +67,13 @@ async function buildIndex(): Promise<Entry[]> {
     if (title || text) entries.push({ type, title: title || text.slice(0, 60), href, text })
   }
 
-  const [featured, more, experiences, partners, faqs, tiers, steps, retreats, pageTexts, siteContent, settings] =
+  const [featured, more, experiences, partners, collaborations, faqs, tiers, steps, retreats, pageTexts, siteContent, settings] =
     await Promise.all([
       getFeaturedDestinations(),
       getMoreDestinations(),
       getExperiences(),
       getPartners(),
+      getCollaborations(),
       getFaqs(),
       getServiceTiers(),
       getSteps(),
@@ -120,6 +124,9 @@ async function buildIndex(): Promise<Entry[]> {
   for (const p of partners) {
     add('Partner', p.name, `/partners/${p.id}`, p.category, p.tagline, p.bio, p.services, p.location)
   }
+
+  // Collaborations (companies and brands)
+  for (const c of collaborations) add('Collaboration', c.name, '/collaborations', c.country, c.description)
 
   // FAQs (shown on the contact page)
   for (const [q, a] of faqs) add('FAQ', q, '/contact', a)

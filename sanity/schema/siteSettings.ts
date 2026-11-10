@@ -79,6 +79,7 @@ export const siteSettings = defineType({
                   { title: 'Experiences', value: 'experiences' },
                   { title: 'Services', value: 'services' },
                   { title: 'Partners', value: 'partners' },
+                  { title: 'Collaborations', value: 'collaborations' },
                   { title: 'How It Works', value: 'howItWorks' },
                   { title: 'Contact', value: 'contact' },
                   { title: 'Pre-Call form', value: 'preCall' },

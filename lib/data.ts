@@ -488,6 +488,15 @@ export type DestDetail = {
 // or a plain URL string for the built-in fallback images.
 export type PartnerImage = string | { asset?: unknown; hotspot?: unknown; crop?: unknown; _type?: string }
 
+export type Collaboration = {
+  id: string
+  name: string
+  logo: PartnerImage | null   // Sanity image object from the Studio
+  country: string
+  description: string
+  website: string
+}
+
 export type Partner = {
   id: string
   name: string
@@ -782,6 +791,11 @@ export const pageTextDefaults = {
   partnersEyebrow: '◆ OUR TEAM',
   partnersTitle: 'Meet the Practitioners Behind\nYour Healing Journey',
   partnersButton: 'Become a Partner',
+  collaborationsEyebrow: '◆ COLLABORATIONS',
+  collaborationsTitle: 'The Companies and Brands\nWe Create With',
+  collaborationsLead: 'Nefertiti works with companies and brands around the world to create retreats in Egypt.',
+  labelCollaborations: 'COLLABORATIONS',
+  collaborationsHomeTitle: 'Our Collaborations',
   retreatsEyebrow: '◆ NEFERTITI RETREATS',
   retreatsPageTitle: 'Retreats',
   retreatsLead: 'Our own retreats across Egypt — small groups, thoughtful programmes and places that stay with you long after you leave. Find your next journey below.',
@@ -808,6 +822,7 @@ export const menuPages: Record<string, string> = {
   experiences: '/experiences',
   services: '/services',
   partners: '/partners',
+  collaborations: '/collaborations',
   howItWorks: '/how-it-works',
   contact: '/contact',
   preCall: '/pre-call',
@@ -820,6 +835,7 @@ export const menuDefaults: [string, string][] = [
   ['Experiences', '/experiences'],
   ['Services', '/services'],
   ['Partners', '/partners'],
+  ['Collaborations', '/collaborations'],
   ['How It Works', '/how-it-works'],
   ['Contact', '/contact'],
 ]

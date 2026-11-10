@@ -7,7 +7,7 @@ import Link from 'next/link'
 import {
   images,
 } from '@/lib/data'
-import type { Destination, HomeStat, Partner, Retreat, Testimonial } from '@/lib/data'
+import type { Collaboration, Destination, HomeStat, Partner, Retreat, Testimonial } from '@/lib/data'
 import { fitUrl } from '@/sanity/lib/image'
 import RetreatCard from '@/components/RetreatCard'
 import VisitorCounter from '@/components/VisitorCounter'
@@ -15,6 +15,8 @@ import ex from '@/components/HeroExtras.module.css'
 import rs from '@/app/retreats/retreats.module.css'
 import EgyptMap from '@/components/EgyptMap'
 import DestinationsCarousel from '@/components/DestinationsCarousel'
+import CollaborationCard from '@/components/CollaborationCard'
+import cs from '@/components/Collaborations.module.css'
 import SiteNav from '@/components/SiteNav'
 import SiteFooter from '@/components/SiteFooter'
 import { Ornament, BrandBand } from '@/components/Motif'
@@ -28,6 +30,7 @@ type Props = {
   featuredDestinations: Destination[]
   moreDestinations: Destination[]
   partners: Partner[]
+  collaborations: Collaboration[]
   t: (typeof import('@/lib/data').copy)['en']
   combinations: string[]
   whatsappLink: string
@@ -38,7 +41,7 @@ type Props = {
   pageTexts: PageTexts
 }
 
-export default function HomePage({ featuredDestinations, moreDestinations, partners, t, combinations, whatsappLink, upcomingRetreats, stats, testimonials, steps, pageTexts: pt }: Props) {
+export default function HomePage({ featuredDestinations, moreDestinations, partners, collaborations, t, combinations, whatsappLink, upcomingRetreats, stats, testimonials, steps, pageTexts: pt }: Props) {
   // Three moments of the full process: first call, the concept, and the hand-over
   const homeSteps = steps.length >= 3 ? [steps[0], steps[2], steps[steps.length - 1]] : steps
   const [scrolled, setScrolled] = useState(false)
@@ -350,6 +353,31 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
         </div>
       </section>
 
+      {/* COLLABORATIONS — shown only when some are published in the Studio; the first six */}
+      {collaborations.length > 0 && (
+        <>
+          {/* ── Divider ── */}
+          <BrandBand className="section-divider" />
+
+          <section id="collaborations" className="section">
+            <div className="section-heading reveal">
+              <div className="section-label">07 / {pt.labelCollaborations}</div>
+              <Ornament name="cartouche" />
+              <div>
+                <h2>{pt.collaborationsHomeTitle}</h2>
+                <p>{pt.collaborationsLead}</p>
+              </div>
+            </div>
+            <div className={cs.grid}>
+              {collaborations.slice(0, 6).map((c) => <CollaborationCard key={c.id} item={c} />)}
+            </div>
+            <div className={cs.homeAction}>
+              <Link href="/collaborations" className="text-link">See all collaborations <ArrowUpRight size={16} /></Link>
+            </div>
+          </section>
+        </>
+      )}
+
       {/* TESTIMONIALS — shown only when real ones are published in the Studio */}
       {testimonials.length > 0 && (
         <>
@@ -359,7 +387,7 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
 
           <section id="testimonials" className={`section ${s.testimonials}`}>
             <div className="section-heading reveal">
-              <div className="section-label">07 / {pt.labelTestimonials}</div>
+              <div className="section-label">08 / {pt.labelTestimonials}</div>
 <Ornament name="ankh" />
               <h2>{pt.testimonialsTitle}</h2>
             </div>

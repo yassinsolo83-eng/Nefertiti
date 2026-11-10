@@ -20,7 +20,7 @@ import {
   menuPages,
   homeStats as staticHomeStats,
 } from '@/lib/data'
-import type { Destination, DestDetail, Retreat, PageImages, PageTexts, HomeStat, Testimonial } from '@/lib/data'
+import type { Destination, DestDetail, Retreat, PageImages, PageTexts, HomeStat, Testimonial, Collaboration } from '@/lib/data'
 import type { SeoFields, SeoPageKey } from '@/lib/seo'
 import { PRE_CALL_FORM_QUERY, normalizePreCallForm, type PreCallForm } from '@/lib/preCallForm'
 
@@ -188,6 +188,30 @@ const PARTNER_QUERY = `*[_type == "partner"] | order(order asc) {
   instagram, x, tiktok, order,
   "seo": seo { metaTitle, metaDescription, noIndex, "ogImage": ogImage.asset->url }
 }`
+
+// ══════════════════════════════════════
+//  COLLABORATIONS (companies and brands)
+// ══════════════════════════════════════
+
+const COLLAB_QUERY = `*[_type == "collaboration"] | order(order asc) {
+  "id": _id,
+  name, logo, country, description, website, order
+}`
+
+// Collaborations come only from Sanity — there is no built-in fallback list
+export async function getCollaborations(): Promise<Collaboration[]> {
+  const result = await safeFetch<any[]>(COLLAB_QUERY, [])
+  return result
+    .filter((c) => c?.name)
+    .map((c) => ({
+      id: String(c.id),
+      name: c.name,
+      logo: c.logo?.asset ? c.logo : null,
+      country: c.country || '',
+      description: c.description || '',
+      website: c.website || '',
+    }))
+}
 
 export async function getPartners() {
   const result = await safeFetch<any[]>(PARTNER_QUERY, [])

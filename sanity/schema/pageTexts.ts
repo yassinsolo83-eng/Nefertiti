@@ -23,6 +23,7 @@ export const pageTexts = defineType({
     { name: 'howItWorks', title: 'How It Works page' },
     { name: 'about', title: 'About page' },
     { name: 'partners', title: 'Partners page' },
+    { name: 'collaborations', title: 'Collaborations' },
     { name: 'retreats', title: 'Retreats page' },
     { name: 'destinations', title: 'Destinations page' },
     { name: 'footer', title: 'Footer' },
@@ -52,6 +53,13 @@ export const pageTexts = defineType({
     txt('partnersEyebrow', 'Small label', 'partners', 'Original: ◆ OUR TEAM'),
     txt('partnersTitle', 'Heading', 'partners', 'Press Enter for a new line. Original: Meet the Practitioners Behind / Your Healing Journey', true),
     txt('partnersButton', 'Button text', 'partners', 'Original: Become a Partner'),
+
+    // ── Collaborations ──
+    txt('collaborationsEyebrow', 'Small label (page)', 'collaborations', 'Original: ◆ COLLABORATIONS'),
+    txt('collaborationsTitle', 'Heading (page)', 'collaborations', 'Press Enter for a new line. Original: The Companies and Brands / We Create With', true),
+    txt('collaborationsLead', 'Intro text (page and home)', 'collaborations', 'Original: Nefertiti works with companies and brands around the world to create retreats in Egypt.', true),
+    txt('labelCollaborations', 'Home section label', 'collaborations', 'Original: COLLABORATIONS'),
+    txt('collaborationsHomeTitle', 'Home section heading', 'collaborations', 'Original: Our Collaborations'),
 
     // ── Retreats ──
     txt('retreatsEyebrow', 'Small label', 'retreats', 'Original: ◆ NEFERTITI RETREATS'),
