@@ -73,21 +73,11 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
     if (el) el.scrollIntoView({ behavior: 'smooth' })
   }
 
-  // Opens the intro by itself: a smooth scroll to the point where the Ankh has fully opened
+  // Opens the intro at once: jumps to the point where the Ankh has fully opened
   const openIntro = () => {
     const track = document.getElementById('kh-track')
     if (!track) return
-    const from = window.scrollY
-    const to = track.offsetTop + (track.offsetHeight - window.innerHeight) * 0.8
-    const start = performance.now()
-    const dur = 1800
-    const ease = (t: number) => (t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2)
-    const step = (now: number) => {
-      const t = Math.min(1, (now - start) / dur)
-      window.scrollTo(0, from + (to - from) * ease(t))
-      if (t < 1) requestAnimationFrame(step)
-    }
-    requestAnimationFrame(step)
+    window.scrollTo({ top: track.offsetTop + (track.offsetHeight - window.innerHeight) * 0.8, behavior: 'auto' })
   }
 
   // Scroll to the revealed hero (end of the intro track) — not back into the intro.
