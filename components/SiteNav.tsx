@@ -27,7 +27,7 @@ type Props = {
 }
 
 export default function SiteNav({
-  solid, overHero, hidden, showVideo: showVideoProp,
+  hidden,
   onAnchor, onBrand,
 }: Props) {
   const { menuItems, socialLinks, texts } = useSiteSettings()
@@ -44,28 +44,10 @@ export default function SiteNav({
   const navRef = useRef<HTMLElement>(null)
   const searchInputRef = useRef<HTMLInputElement>(null)
 
-  // Scroll behaviour: the bar hides while scrolling down and comes back (transparent) while scrolling up
-  const [pastTop, setPastTop] = useState(false)
-  const [hiddenByScroll, setHiddenByScroll] = useState(false)
-  useEffect(() => {
-    let last = window.scrollY
-    const onScroll = () => {
-      const y = window.scrollY
-      setPastTop(y > 80)
-      if (y <= 80) setHiddenByScroll(false)
-      else if (y > last + 4) setHiddenByScroll(true)
-      else if (y < last - 4) setHiddenByScroll(false)
-      last = y
-    }
-    onScroll()
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
-
-  // Transparent at the very top; cream whenever the bar is showing after a scroll. The logo is always plum.
-  const isScrolled = !!solid || pastTop
-  const showVideo = (!!showVideoProp || !!overHero) && !pastTop
-  const navHidden = !!hidden || (hiddenByScroll && !sidebarOpen && !searchOpen)
+  // The bar is always solid cream and fixed on every page, with the plum logo
+  const isScrolled = true
+  const showVideo = false
+  const navHidden = !!hidden
 
   const closeSidebar = useCallback(() => setSidebarOpen(false), [])
   const closeSearch = useCallback(() => { setSearchOpen(false); setQuery('') }, [])
