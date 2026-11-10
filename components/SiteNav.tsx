@@ -27,7 +27,7 @@ type Props = {
 }
 
 export default function SiteNav({
-  solid, overHero, hidden, scrolled, showVideo: showVideoProp,
+  solid, overHero, hidden, showVideo: showVideoProp,
   onAnchor, onBrand,
 }: Props) {
   const { menuItems, socialLinks, texts } = useSiteSettings()
@@ -44,18 +44,28 @@ export default function SiteNav({
   const navRef = useRef<HTMLElement>(null)
   const searchInputRef = useRef<HTMLInputElement>(null)
 
+  // Scroll behaviour: the bar hides while scrolling down and comes back (transparent) while scrolling up
   const [pastTop, setPastTop] = useState(false)
+  const [hiddenByScroll, setHiddenByScroll] = useState(false)
   useEffect(() => {
-    if (!overHero) return
-    const onScroll = () => setPastTop(window.scrollY > 80)
+    let last = window.scrollY
+    const onScroll = () => {
+      const y = window.scrollY
+      setPastTop(y > 80)
+      if (y <= 80) setHiddenByScroll(false)
+      else if (y > last + 4) setHiddenByScroll(true)
+      else if (y < last - 4) setHiddenByScroll(false)
+      last = y
+    }
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
-  }, [overHero])
+  }, [])
 
-  // The bar is always solid cream with the plum logo, on every page (also over videos and heroes)
-  const isScrolled = true
-  const showVideo = false
+  // Pages with a solid bar keep it cream; the others stay transparent. The logo is always plum.
+  const isScrolled = !!solid
+  const showVideo = (!!showVideoProp || !!overHero) && !pastTop
+  const navHidden = !!hidden || (hiddenByScroll && !sidebarOpen && !searchOpen)
 
   const closeSidebar = useCallback(() => setSidebarOpen(false), [])
   const closeSearch = useCallback(() => { setSearchOpen(false); setQuery('') }, [])
@@ -120,7 +130,7 @@ export default function SiteNav({
     <>
       <header
         ref={navRef}
-        className={`site-nav ${isScrolled ? 'is-scrolled' : ''} ${hidden ? 'nav-hidden' : ''} ${showVideo ? 'nav-video' : 'nav-solid'}`}
+        className={`site-nav ${isScrolled ? 'is-scrolled' : ''} ${navHidden ? 'nav-hidden' : ''} ${showVideo ? 'nav-video' : 'nav-solid'}`}
       >
         <div className="nav-bar">
           {/* Left — Hamburger */}
