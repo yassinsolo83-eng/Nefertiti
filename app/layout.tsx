@@ -122,7 +122,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
       <head>
         <script
           dangerouslySetInnerHTML={{
-            __html: `try{var p=JSON.parse(localStorage.getItem('nef-comfort')||'{}'),d=document.documentElement;['text','contrast','colour','motion','links'].forEach(function(k){if(p[k])d.dataset['c'+k.charAt(0).toUpperCase()+k.slice(1)]=p[k]})}catch(e){}`,
+            __html: `try{var p=JSON.parse(localStorage.getItem('nef-comfort')||'{}'),d=document.documentElement;['text','contrast','motion','links'].forEach(function(k){if(p[k])d.dataset['c'+k.charAt(0).toUpperCase()+k.slice(1)]=p[k]})}catch(e){}`,
           }}
         />
       </head>

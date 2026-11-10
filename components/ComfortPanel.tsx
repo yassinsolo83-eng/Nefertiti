@@ -9,18 +9,16 @@ const KEY = 'nef-comfort'
 type Prefs = {
   text: 'standard' | 'large' | 'largest'
   contrast: 'standard' | 'high'
-  colour: 'standard' | 'deut' | 'prot' | 'trit' | 'grey'
   motion: 'standard' | 'still'
   links: 'standard' | 'underlined'
 }
 
-const DEFAULTS: Prefs = { text: 'standard', contrast: 'standard', colour: 'standard', motion: 'standard', links: 'standard' }
+const DEFAULTS: Prefs = { text: 'standard', contrast: 'standard', motion: 'standard', links: 'standard' }
 
 function apply(p: Prefs) {
   const d = document.documentElement
   d.dataset.cText = p.text
   d.dataset.cContrast = p.contrast
-  d.dataset.cColour = p.colour
   d.dataset.cMotion = p.motion
   d.dataset.cLinks = p.links
 }
@@ -31,6 +29,14 @@ function load(): Prefs {
     if (raw) return { ...DEFAULTS, ...JSON.parse(raw) }
   } catch {}
   return DEFAULTS
+}
+
+function Chevron({ dir }: { dir: 'left' | 'right' }) {
+  return (
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d={dir === 'left' ? 'M8 1.5 3.5 6 8 10.5' : 'M4 1.5 8.5 6 4 10.5'} />
+    </svg>
+  )
 }
 
 function Group<K extends keyof Prefs>({
@@ -66,6 +72,8 @@ function Group<K extends keyof Prefs>({
 
 export default function ComfortPanel() {
   const [open, setOpen] = useState(false)
+  const [side, setSide] = useState<'left' | 'right'>('left')
+  const [tucked, setTucked] = useState(false)
   const [prefs, setPrefs] = useState<Prefs>(DEFAULTS)
   const [reading, setReading] = useState(false)
   const [canSpeak, setCanSpeak] = useState(false)
@@ -77,6 +85,11 @@ export default function ComfortPanel() {
     const p = load()
     setPrefs(p)
     apply(p)
+    try {
+      const d = JSON.parse(localStorage.getItem(KEY + '-dock') || '{}')
+      if (d.side === 'right') setSide('right')
+      if (d.tucked) setTucked(true)
+    } catch {}
     setCanSpeak(typeof window !== 'undefined' && 'speechSynthesis' in window)
   }, [])
 
@@ -113,6 +126,13 @@ export default function ComfortPanel() {
     try { localStorage.removeItem(KEY) } catch {}
   }
 
+  const dock = (nextSide: 'left' | 'right', nextTucked: boolean) => {
+    setSide(nextSide)
+    setTucked(nextTucked)
+    if (nextTucked) setOpen(false)
+    try { localStorage.setItem(KEY + '-dock', JSON.stringify({ side: nextSide, tucked: nextTucked })) } catch {}
+  }
+
   const toggle = () => {
     if (!open) setHasSelection(!!window.getSelection()?.toString().trim())
     setOpen((o) => !o)
@@ -147,18 +167,38 @@ export default function ComfortPanel() {
 
   return (
     <div className="nef-comfort">
-      <button
-        ref={btnRef}
-        type="button"
-        className="cf-launch"
-        aria-expanded={open}
-        aria-controls="cf-panel"
-        onClick={toggle}
-      >
-        <span className="cf-launch-icon" aria-hidden="true"><Motif name="sun" height={20} /></span>
-        <span className="cf-launch-text">Comfort</span>
-        {changed && <span className="cf-dot" aria-label="Custom settings on" />}
-      </button>
+      <div className={`cf-dock cf-${side}${tucked ? ' is-tucked' : ''}`}>
+        <button
+          type="button"
+          className="cf-arrow cf-arrow-out"
+          aria-label={tucked ? 'Bring the comfort button back' : `Tuck the comfort button into the ${side} edge`}
+          onClick={() => dock(side, !tucked)}
+        >
+          <Chevron dir={tucked ? (side === 'left' ? 'right' : 'left') : side} />
+        </button>
+        <button
+          ref={btnRef}
+          type="button"
+          className="cf-ball"
+          aria-expanded={open}
+          aria-controls="cf-panel"
+          aria-label="Comfort settings"
+          tabIndex={tucked ? -1 : 0}
+          onClick={toggle}
+        >
+          <span className="cf-ball-icon" aria-hidden="true"><Motif name="sun" height={24} /></span>
+          {changed && <span className="cf-dot" aria-label="Custom settings on" />}
+        </button>
+        <button
+          type="button"
+          className="cf-arrow cf-arrow-in"
+          aria-label={`Move the comfort button to the ${side === 'left' ? 'right' : 'left'} side`}
+          tabIndex={tucked ? -1 : 0}
+          onClick={() => dock(side === 'left' ? 'right' : 'left', false)}
+        >
+          <Chevron dir={side === 'left' ? 'right' : 'left'} />
+        </button>
+      </div>
 
       {open && (
         <>
@@ -167,7 +207,7 @@ export default function ComfortPanel() {
             id="cf-panel"
             ref={panelRef}
             tabIndex={-1}
-            className="cf-panel"
+            className={`cf-panel cf-panel-${side}`}
             role="dialog"
             aria-label="Comfort settings"
           >
@@ -200,15 +240,6 @@ export default function ComfortPanel() {
               <Group label="Links" name="links" value={prefs.links} onPick={pick}
                 options={[['standard', 'As designed'], ['underlined', 'Underline all']]} />
 
-              <Group label="Colour aid" name="colour" value={prefs.colour} onPick={pick}
-                options={[
-                  ['standard', 'As designed'],
-                  ['deut', 'Green-weak'],
-                  ['prot', 'Red-weak'],
-                  ['trit', 'Blue-weak'],
-                  ['grey', 'Greyscale'],
-                ]} />
-
               <Group label="Motion" name="motion" value={prefs.motion} onPick={pick}
                 note="If your device is set to reduce motion, the site already follows it."
                 options={[['standard', 'As designed'], ['still', 'Calm']]} />
@@ -224,14 +255,6 @@ export default function ComfortPanel() {
         </>
       )}
 
-      {/* SVG matrices used by the colour aid filters */}
-      <svg width="0" height="0" aria-hidden="true" style={{ position: 'absolute' }}>
-        <defs>
-          <filter id="cf-deut"><feColorMatrix type="matrix" values="0.625 0.375 0 0 0  0.7 0.3 0 0 0  0 0.3 0.7 0 0  0 0 0 1 0" /></filter>
-          <filter id="cf-prot"><feColorMatrix type="matrix" values="0.567 0.433 0 0 0  0.558 0.442 0 0 0  0 0.242 0.758 0 0  0 0 0 1 0" /></filter>
-          <filter id="cf-trit"><feColorMatrix type="matrix" values="0.95 0.05 0 0 0  0 0.433 0.567 0 0  0 0.475 0.525 0 0  0 0 0 1 0" /></filter>
-        </defs>
-      </svg>
     </div>
   )
 }
