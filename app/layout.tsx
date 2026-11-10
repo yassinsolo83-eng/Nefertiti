@@ -6,6 +6,7 @@ import { splitRetreats } from '@/lib/retreat-utils'
 import RetreatBar from '@/components/RetreatBar'
 import GoogleTranslate from '@/components/GoogleTranslate'
 import CookieNotice from '@/components/CookieNotice'
+import ComfortPanel from '@/components/ComfortPanel'
 import { SiteSettingsProvider } from '@/components/SiteSettingsProvider'
 import './globals.css'
 
@@ -117,7 +118,14 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
   }
 
   return (
-    <html lang="en" className="bg-background">
+    <html lang="en" className="bg-background" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{var p=JSON.parse(localStorage.getItem('nef-comfort')||'{}'),d=document.documentElement;['text','contrast','colour','motion','links'].forEach(function(k){if(p[k])d.dataset['c'+k.charAt(0).toUpperCase()+k.slice(1)]=p[k]})}catch(e){}`,
+          }}
+        />
+      </head>
       <body className="antialiased">
         <RetreatBar retreat={barRetreat} />
         <script
@@ -129,6 +137,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
           {children}
         </SiteSettingsProvider>
         <CookieNotice />
+        <ComfortPanel />
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>
