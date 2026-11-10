@@ -973,16 +973,17 @@ body[data-kh-veil="on"] .nav-video:not(.is-scrolled) .nav-links a { color: var(-
   background: var(--primary); color: var(--gold); border: 1px solid rgba(241,210,136,.5);
   box-shadow: 0 8px 24px rgba(46,24,64,.3); transition: box-shadow .3s, transform .3s;
 }
-.cf-ball:hover { box-shadow: 0 10px 30px rgba(46,24,64,.4); transform: scale(1.06); }
+@media (hover: hover) { .cf-ball:hover { box-shadow: 0 10px 30px rgba(46,24,64,.4); transform: scale(1.06); } }
 .cf-ball-icon { display: grid; place-items: center; animation: cf-spin 14s linear infinite; }
-.cf-ball:hover .cf-ball-icon { animation-duration: 4s; }
+@media (hover: hover) { .cf-ball:hover .cf-ball-icon { animation-duration: 4s; } }
 @keyframes cf-spin { to { transform: rotate(360deg); } }
 .cf-arrow {
   width: 26px; height: 40px; display: grid; place-items: center; padding: 0; border-radius: 0 20px 20px 0;
   background: var(--background); color: var(--primary); border: 1px solid rgba(141,76,101,.3);
   box-shadow: 0 4px 12px rgba(46,24,64,.15); transition: background .25s, color .25s;
 }
-.cf-arrow:hover { background: var(--primary); color: var(--gold); }
+.cf-arrow:active { background: var(--primary); color: var(--gold); }
+@media (hover: hover) { .cf-arrow:hover { background: var(--primary); color: var(--gold); } }
 .cf-ball:focus-visible, .cf-arrow:focus-visible, .cf-opt:focus-visible, .cf-read:focus-visible, .cf-reset:focus-visible, .cf-close:focus-visible { outline: 2px solid var(--gold-deep); outline-offset: 2px; }
 .cf-dot { position: absolute; top: 2px; right: 2px; width: 10px; height: 10px; border-radius: 50%; background: var(--gold); border: 2px solid var(--primary); }
 .cf-back { position: fixed; inset: 0; z-index: 96; background: rgba(20,10,28,.28); }
