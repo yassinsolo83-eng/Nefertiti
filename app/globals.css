@@ -872,6 +872,21 @@ body:has(.retreat-bar) .site-nav { top: var(--retreat-bar-h); }
 .phero-back { position: relative; z-index: 2; padding: 128px max(28px, 6vw) 0; }
 .phero-content { position: relative; z-index: 2; padding: 0 max(28px, 6vw) 64px; max-width: 900px; color: #fff; }
 .phero-content .ornament { color: var(--gold); margin: 0 0 18px; }
+
+/* The sun motif turns slowly everywhere it appears */
+.ornament[data-motif="sun"] .motif { animation: sunTurn 30s linear infinite; }
+@keyframes sunTurn { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .ornament[data-motif="sun"] .motif { animation: none; } }
+
+/* Phone: the sun sits right next to the page title instead of covering the image behind it */
+@media (max-width: 768px) {
+  .phero-content:has(.ornament[data-motif="sun"]) { display: grid; grid-template-columns: auto 1fr; align-items: center; column-gap: 14px; }
+  .phero-content:has(.ornament[data-motif="sun"]) > * { grid-column: 1 / -1; }
+  .phero-content:has(.ornament[data-motif="sun"]) > h1 { grid-column: 1; grid-row: 1; }
+  .phero-content:has(.ornament[data-motif="sun"]) > .ornament { grid-column: 2; grid-row: 1; margin: 0 0 8px; }
+  .phero-content .ornament[data-motif="sun"]::before,
+  .phero-content .ornament[data-motif="sun"]::after { display: none; }
+}
 .phero h1 {
   font-family: 'Cormorant Garamond', serif; font-weight: 500;
   font-size: clamp(44px, 7vw, 76px); line-height: 1.02; letter-spacing: -.02em;
