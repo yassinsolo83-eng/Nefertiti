@@ -11,9 +11,10 @@ type Prefs = {
   contrast: 'standard' | 'high'
   motion: 'standard' | 'still'
   links: 'standard' | 'underlined'
+  tone: 'standard' | 'soft' | 'dim'
 }
 
-const DEFAULTS: Prefs = { text: 'standard', contrast: 'standard', motion: 'standard', links: 'standard' }
+const DEFAULTS: Prefs = { text: 'standard', contrast: 'standard', motion: 'standard', links: 'standard', tone: 'standard' }
 
 function apply(p: Prefs) {
   const d = document.documentElement
@@ -21,6 +22,7 @@ function apply(p: Prefs) {
   d.dataset.cContrast = p.contrast
   d.dataset.cMotion = p.motion
   d.dataset.cLinks = p.links
+  d.dataset.cTone = p.tone
 }
 
 function load(): Prefs {
@@ -72,7 +74,6 @@ function Group<K extends keyof Prefs>({
 
 export default function ComfortPanel() {
   const [open, setOpen] = useState(false)
-  const [side, setSide] = useState<'left' | 'right'>('left')
   const [tucked, setTucked] = useState(false)
   const [prefs, setPrefs] = useState<Prefs>(DEFAULTS)
   const [reading, setReading] = useState(false)
@@ -87,7 +88,6 @@ export default function ComfortPanel() {
     apply(p)
     try {
       const d = JSON.parse(localStorage.getItem(KEY + '-dock') || '{}')
-      if (d.side === 'right') setSide('right')
       if (d.tucked) setTucked(true)
     } catch {}
     setCanSpeak(typeof window !== 'undefined' && 'speechSynthesis' in window)
@@ -126,11 +126,10 @@ export default function ComfortPanel() {
     try { localStorage.removeItem(KEY) } catch {}
   }
 
-  const dock = (nextSide: 'left' | 'right', nextTucked: boolean) => {
-    setSide(nextSide)
+  const dock = (nextTucked: boolean) => {
     setTucked(nextTucked)
     if (nextTucked) setOpen(false)
-    try { localStorage.setItem(KEY + '-dock', JSON.stringify({ side: nextSide, tucked: nextTucked })) } catch {}
+    try { localStorage.setItem(KEY + '-dock', JSON.stringify({ tucked: nextTucked })) } catch {}
   }
 
   const toggle = () => {
@@ -167,15 +166,7 @@ export default function ComfortPanel() {
 
   return (
     <div className="nef-comfort">
-      <div className={`cf-dock cf-${side}${tucked ? ' is-tucked' : ''}`}>
-        <button
-          type="button"
-          className="cf-arrow cf-arrow-out"
-          aria-label={tucked ? 'Bring the comfort button back' : `Tuck the comfort button into the ${side} edge`}
-          onClick={() => dock(side, !tucked)}
-        >
-          <Chevron dir={tucked ? (side === 'left' ? 'right' : 'left') : side} />
-        </button>
+      <div className={`cf-dock${tucked ? ' is-tucked' : ''}`}>
         <button
           ref={btnRef}
           type="button"
@@ -191,12 +182,11 @@ export default function ComfortPanel() {
         </button>
         <button
           type="button"
-          className="cf-arrow cf-arrow-in"
-          aria-label={`Move the comfort button to the ${side === 'left' ? 'right' : 'left'} side`}
-          tabIndex={tucked ? -1 : 0}
-          onClick={() => dock(side === 'left' ? 'right' : 'left', false)}
+          className="cf-arrow"
+          aria-label={tucked ? 'Bring the comfort button out' : 'Tuck the comfort button into the edge'}
+          onClick={() => dock(!tucked)}
         >
-          <Chevron dir={side === 'left' ? 'right' : 'left'} />
+          <Chevron dir={tucked ? 'right' : 'left'} />
         </button>
       </div>
 
@@ -207,7 +197,7 @@ export default function ComfortPanel() {
             id="cf-panel"
             ref={panelRef}
             tabIndex={-1}
-            className={`cf-panel cf-panel-${side}`}
+            className={`cf-panel`}
             role="dialog"
             aria-label="Comfort settings"
           >
@@ -239,6 +229,10 @@ export default function ComfortPanel() {
 
               <Group label="Links" name="links" value={prefs.links} onPick={pick}
                 options={[['standard', 'As designed'], ['underlined', 'Underline all']]} />
+
+              <Group label="Tone" name="tone" value={prefs.tone} onPick={pick}
+                note="Warmer, softer shades of the site's own colours to ease glare."
+                options={[['standard', 'As designed'], ['soft', 'Soft'], ['dim', 'Dim']]} />
 
               <Group label="Motion" name="motion" value={prefs.motion} onPick={pick}
                 note="If your device is set to reduce motion, the site already follows it."

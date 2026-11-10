@@ -966,11 +966,8 @@ body[data-kh-veil="on"] .nav-video:not(.is-scrolled) .nav-links a { color: var(-
 /* ══════════════════════════════════
    COMFORT PANEL — reading & viewing aids
 ══════════════════════════════════ */
-.cf-dock { position: fixed; z-index: 95; bottom: 96px; display: flex; align-items: center; gap: 4px; transition: transform .45s cubic-bezier(.4,.1,.2,1); }
-.cf-dock.cf-left { left: 8px; }
-.cf-dock.cf-right { right: 8px; flex-direction: row-reverse; }
-.cf-dock.cf-left.is-tucked { transform: translateX(-54px); }
-.cf-dock.cf-right.is-tucked { transform: translateX(54px); }
+.cf-dock { position: fixed; z-index: 95; bottom: 96px; left: 8px; display: flex; align-items: center; gap: 4px; transition: transform .45s cubic-bezier(.4,.1,.2,1); }
+.cf-dock.is-tucked { transform: translateX(-56px); }
 .cf-ball {
   position: relative; width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; padding: 0;
   background: var(--primary); color: var(--gold); border: 1px solid rgba(241,210,136,.5);
@@ -981,22 +978,16 @@ body[data-kh-veil="on"] .nav-video:not(.is-scrolled) .nav-links a { color: var(-
 .cf-ball:hover .cf-ball-icon { animation-duration: 4s; }
 @keyframes cf-spin { to { transform: rotate(360deg); } }
 .cf-arrow {
-  width: 26px; height: 40px; display: grid; place-items: center; padding: 0;
+  width: 26px; height: 40px; display: grid; place-items: center; padding: 0; border-radius: 0 20px 20px 0;
   background: var(--background); color: var(--primary); border: 1px solid rgba(141,76,101,.3);
-  box-shadow: 0 4px 12px rgba(46,24,64,.15); transition: background .25s, color .25s, opacity .3s;
+  box-shadow: 0 4px 12px rgba(46,24,64,.15); transition: background .25s, color .25s;
 }
 .cf-arrow:hover { background: var(--primary); color: var(--gold); }
-.cf-left .cf-arrow-out { order: 3; border-radius: 0 20px 20px 0; }
-.cf-left .cf-ball { order: 1; }
-.cf-left .cf-arrow-in { order: 2; border-radius: 20px; width: 26px; height: 26px; }
-.cf-right .cf-arrow-out { border-radius: 20px 0 0 20px; }
-.cf-right .cf-arrow-in { border-radius: 20px; width: 26px; height: 26px; }
-.cf-dock.is-tucked .cf-arrow-in { opacity: 0; pointer-events: none; }
 .cf-ball:focus-visible, .cf-arrow:focus-visible, .cf-opt:focus-visible, .cf-read:focus-visible, .cf-reset:focus-visible, .cf-close:focus-visible { outline: 2px solid var(--gold-deep); outline-offset: 2px; }
 .cf-dot { position: absolute; top: 2px; right: 2px; width: 10px; height: 10px; border-radius: 50%; background: var(--gold); border: 2px solid var(--primary); }
 .cf-back { position: fixed; inset: 0; z-index: 96; background: rgba(20,10,28,.28); }
 .cf-panel {
-  position: fixed; z-index: 97; bottom: 160px;
+  position: fixed; z-index: 97; bottom: 160px; left: 24px;
   width: min(360px, calc(100vw - 48px)); max-height: calc(100vh - 190px);
   display: flex; flex-direction: column; overflow: hidden;
   background: var(--background); color: var(--foreground);
@@ -1005,8 +996,6 @@ body[data-kh-veil="on"] .nav-video:not(.is-scrolled) .nav-links a { color: var(-
   animation: cf-in .3s ease both;
 }
 @keyframes cf-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
-.cf-panel-left { left: 24px; }
-.cf-panel-right { right: 24px; }
 .cf-band { height: 14px; flex-shrink: 0; background: var(--gold-deep); opacity: .75;
   -webkit-mask: url(/brand/band.svg) repeat-x left center / auto 100%; mask: url(/brand/band.svg) repeat-x left center / auto 100%; }
 .cf-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; padding: 16px 20px 6px; }
@@ -1031,8 +1020,18 @@ body[data-kh-veil="on"] .nav-video:not(.is-scrolled) .nav-links a { color: var(-
 .cf-foot { padding-top: 12px; border-top: 1px solid var(--border); }
 @media (max-width: 600px) {
   .cf-dock { bottom: 84px; }
-  .cf-panel { left: 12px !important; right: 12px !important; width: auto; bottom: 146px; max-height: calc(100vh - 176px); }
+  .cf-panel { left: 12px; right: 12px; width: auto; bottom: 146px; max-height: calc(100vh - 176px); }
 }
+
+html[data-c-tone="soft"] {
+  --background: #EBE3D1; --border: #CDBFA6; --foreground: #5C3043; --muted-fg: #6B4B57; --muted: #E0D6C0;
+}
+html[data-c-tone="soft"] .site-nav.is-scrolled { background: rgba(235,227,209,.97); }
+html[data-c-tone="dim"] {
+  --background: #DDD2BC; --border: #BFAE90; --foreground: #4E2638; --muted-fg: #5E4250; --muted: #D2C5AB;
+}
+html[data-c-tone="dim"] .site-nav.is-scrolled { background: rgba(221,210,188,.97); }
+html[data-c-tone="soft"] :where(.cookie-notice, .cf-panel, .cf-arrow), html[data-c-tone="dim"] :where(.cookie-notice, .cf-panel, .cf-arrow) { background: var(--background); }
 
 /* While the cookie notice is showing, sit above it */
 body:has(.cookie-notice) .cf-dock { bottom: 152px; }
