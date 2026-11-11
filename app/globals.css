@@ -119,9 +119,9 @@ body[data-kh-veil="off"] .site-nav.nav-video:not(.is-scrolled)::before { opacity
 /* ── Sidebar ── */
 .nav-sidebar-overlay {
   position: fixed; inset: 0; z-index: 60;
-  background: rgba(20,8,8,.5); backdrop-filter: blur(4px);
+  background: rgba(20,8,8,.5);
   opacity: 0; pointer-events: none;
-  transition: opacity .35s ease;
+  transition: opacity .6s ease;
 }
 .nav-sidebar-overlay.open { opacity: 1; pointer-events: auto; }
 
@@ -132,7 +132,8 @@ body[data-kh-veil="off"] .site-nav.nav-video:not(.is-scrolled)::before { opacity
   box-shadow: 8px 0 40px rgba(20,8,8,.15);
   display: flex; flex-direction: column;
   transform: translateX(-100%);
-  transition: transform .4s cubic-bezier(.4,0,.2,1);
+  transition: transform .65s cubic-bezier(.22,.61,.36,1);
+  will-change: transform;
 }
 .nav-sidebar.open { transform: translateX(0); }
 /* Soften the golden Ankh outline when sidebar is open over the intro */
@@ -169,7 +170,8 @@ body:has(.nav-sidebar.open) #kh-pill-ring { stroke-opacity: .22; transition: str
 }
 
 .nav-sidebar-footer {
-  padding: 20px 28px; border-top: 1px solid var(--border);
+  /* extra room at the bottom keeps the social icons and EN / IT clear of the floating settings ball */
+  padding: 20px 28px 108px; border-top: 1px solid var(--border);
 }
 .nav-sidebar-lang {
   display: flex; align-items: center; gap: 2px;
