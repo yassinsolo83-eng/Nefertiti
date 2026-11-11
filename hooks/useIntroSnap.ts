@@ -58,7 +58,14 @@ export function useIntroSnap() {
       if (!g) return
       const p = (window.scrollY - g.top) / g.range
       if (p <= 0.005 || p >= OPEN_AT) return // closed already, or open
-      glideTo(p >= COMMIT ? g.top + g.range * OPEN_TARGET : g.top)
+      const openPos = g.top + g.range * OPEN_TARGET
+      const movedBack = anchorP !== null && p < anchorP - 0.01
+      if (movedBack) {
+        // scrolling up from the open hero closes the intro; only a tiny nudge returns to open
+        glideTo(p <= OPEN_AT - 0.05 ? g.top : openPos)
+      } else {
+        glideTo(p >= COMMIT ? openPos : g.top)
+      }
     }
 
     const progress = () => {
