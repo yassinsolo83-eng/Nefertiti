@@ -5,6 +5,7 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import { Menu, X, Search } from 'lucide-react'
 import { setGoogleLang } from '@/hooks/useGoogleTranslate'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { useSiteSettings } from '@/components/SiteSettingsProvider'
 import { menuDefaults, pageTextDefaults } from '@/lib/data'
 import SocialIcons from '@/components/SocialIcons'
@@ -44,10 +45,58 @@ export default function SiteNav({
   const navRef = useRef<HTMLElement>(null)
   const searchInputRef = useRef<HTMLInputElement>(null)
 
-  // Transparent only over the home intro; solid cream everywhere else. The logo is always plum.
-  const showVideo = !!showVideoProp
-  const isScrolled = !showVideo
+  // The bar is always transparent. Logo, icons and links switch between white (over video,
+  // photos and dark areas) and plum (over light areas) depending on what is behind them.
   const navHidden = !!hidden
+  const pathname = usePathname()
+  const [tone, setTone] = useState<'light' | 'dark'>('dark')
+  void showVideoProp
+
+  useEffect(() => {
+    const IGNORE = '.site-nav, .nav-sidebar, .nav-sidebar-overlay, .nav-search-overlay'
+    const luminance = (c: string) => {
+      const m = c.match(/rgba?\(([^)]+)\)/)
+      if (!m) return null
+      const [r, g, b, a = '1'] = m[1].split(/[ ,/]+/).filter(Boolean).map(Number)
+      if (!(Number(a) > 0.5)) return null
+      return (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255
+    }
+    // true when the first thing found behind the point is dark (video, photo, dark colour)
+    const darkAt = (x: number, y: number) => {
+      for (const el of document.elementsFromPoint(x, y)) {
+        if (el.closest(IGNORE)) continue
+        const tag = el.tagName
+        if (tag === 'VIDEO' || tag === 'IMG' || tag === 'CANVAS') return true
+        const cs = getComputedStyle(el)
+        const lum = luminance(cs.backgroundColor)
+        if (lum !== null) return lum < 0.5
+        if (cs.backgroundImage.includes('url(')) return true
+      }
+      return false
+    }
+    const measure = () => {
+      // Home intro: the cream Ankh veil sits over the video until it opens
+      if (document.body.dataset.khVeil === 'on') { setTone('dark'); return }
+      const bar = navRef.current
+      const h = bar ? bar.getBoundingClientRect().height : 72
+      const y = Math.max(8, Math.min(h / 2, 60)) + (bar ? bar.getBoundingClientRect().top : 0)
+      const w = window.innerWidth
+      const votes = [0.12, 0.5, 0.88].map((f) => darkAt(w * f, y))
+      setTone(votes.filter(Boolean).length >= 2 ? 'light' : 'dark')
+    }
+    let raf = 0
+    const onMove = () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(measure) }
+    measure()
+    window.addEventListener('scroll', onMove, { passive: true })
+    window.addEventListener('resize', onMove)
+    const timer = window.setInterval(measure, 500)
+    return () => {
+      cancelAnimationFrame(raf)
+      window.removeEventListener('scroll', onMove)
+      window.removeEventListener('resize', onMove)
+      window.clearInterval(timer)
+    }
+  }, [pathname])
 
   const closeSidebar = useCallback(() => setSidebarOpen(false), [])
   const closeSearch = useCallback(() => { setSearchOpen(false); setQuery('') }, [])
@@ -112,7 +161,7 @@ export default function SiteNav({
     <>
       <header
         ref={navRef}
-        className={`site-nav ${isScrolled ? 'is-scrolled' : ''} ${navHidden ? 'nav-hidden' : ''} ${showVideo ? 'nav-video' : 'nav-solid'}`}
+        className={`site-nav nav-clear tone-${tone} ${navHidden ? 'nav-hidden' : ''}`}
       >
         <div className="nav-bar">
           {/* Left — Hamburger */}

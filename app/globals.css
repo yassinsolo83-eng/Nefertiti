@@ -1070,3 +1070,22 @@ html[data-c-links="underlined"] a:not(.nef-comfort a) { text-decoration: underli
 html[data-c-motion="still"] *, html[data-c-motion="still"] *::before, html[data-c-motion="still"] *::after {
   animation: none !important; transition: none !important; scroll-behavior: auto !important;
 }
+
+/* ══════════════════════════════════
+   NAV — always transparent. White over dark areas, plum over light areas.
+══════════════════════════════════ */
+.site-nav.nav-clear { background: transparent; box-shadow: none; }
+.nav-clear::before {
+  content: ''; position: absolute; left: 0; right: 0; top: 0; bottom: -36px; z-index: -1; pointer-events: none;
+  background: linear-gradient(to bottom, rgba(20,8,8,.4), transparent); opacity: 0; transition: opacity .4s ease;
+}
+.nav-clear.tone-light::before { opacity: 1; }
+.nav-clear .nav-brand, .nav-clear .nav-icon, .nav-clear .nav-links a { transition: color .4s ease, border-color .4s ease, background .3s ease; }
+.nav-clear.tone-light .nav-brand,
+.nav-clear.tone-light .nav-links a { color: #fff; }
+.nav-clear.tone-light .nav-icon { color: #fff; border-color: rgba(255,255,255,.5); }
+.nav-clear.tone-light .nav-icon:hover { border-color: #fff; background: rgba(255,255,255,.12); }
+.nav-clear.tone-dark .nav-brand,
+.nav-clear.tone-dark .nav-links a { color: var(--plum); }
+.nav-clear.tone-dark .nav-icon { color: var(--foreground); border-color: rgba(141,76,101,.3); }
+.nav-clear.tone-dark .nav-icon:hover { border-color: var(--primary); background: rgba(141,76,101,.06); }
