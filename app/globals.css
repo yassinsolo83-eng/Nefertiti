@@ -110,14 +110,10 @@ body[data-kh-veil="off"] .site-nav.nav-video:not(.is-scrolled)::before { opacity
 
 /* Logo lockup */
 .brand-logo { display: inline-flex; align-items: center; gap: 8px; height: 100%; }
-.brand-logo-emblem, .brand-logo-word {
-  display: block; flex: none; height: 100%; background: currentColor;
-  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
-  -webkit-mask-position: center; mask-position: center;
-  -webkit-mask-size: contain; mask-size: contain;
+.brand-logo-mark {
+  display: block; flex: none; height: 100%; aspect-ratio: 2271 / 669; background: currentColor;
+  -webkit-mask: url(/brand/logo-bold.svg) center / 100% 100% no-repeat; mask: url(/brand/logo-bold.svg) center / 100% 100% no-repeat;
 }
-.brand-logo-emblem { aspect-ratio: 895 / 1143; -webkit-mask-image: url(/brand/logo-emblem-light.svg); mask-image: url(/brand/logo-emblem-light.svg); }
-.brand-logo-word { height: 56%; aspect-ratio: 1482 / 331; -webkit-mask-size: 100% 100%; mask-size: 100% 100%; -webkit-mask-image: url(/brand/logo-wordmark-light.svg); mask-image: url(/brand/logo-wordmark-light.svg); }
 .brand-logo-footer { height: 78px; margin-bottom: 18px; color: var(--gold); }
 
 /* ── Sidebar ── */
