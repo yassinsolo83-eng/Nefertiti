@@ -22,6 +22,7 @@ import SiteNav from '@/components/SiteNav'
 import SiteFooter from '@/components/SiteFooter'
 import { Ornament, BrandBand } from '@/components/Motif'
 import { useKeyhole } from '@/hooks/useKeyhole'
+import { useIntroSnap } from '@/hooks/useIntroSnap'
 import type { PageTexts } from '@/lib/data'
 import s from '@/app/home.module.css'
 import Img from '@/components/Img'
@@ -53,6 +54,8 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
   const [introDone, setIntroDone] = useState(false)
   // scroll-driven Ankh intro + nav state + reveal animations
   useKeyhole({ setIntroDone, setScrolled })
+  // never rest half-open: finish opening (or close) when scrolling stops
+  useIntroSnap()
 
   // When arriving from an inner page's Back button (/?home=1), skip the intro
   // and land directly on the revealed hero instead of replaying the Ankh.

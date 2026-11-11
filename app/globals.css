@@ -982,7 +982,7 @@ body[data-kh-veil="on"] .nav-video:not(.is-scrolled) .nav-links a { color: var(-
 /* ══════════════════════════════════
    COMFORT PANEL — reading & viewing aids
 ══════════════════════════════════ */
-.cf-dock { position: fixed; z-index: 95; bottom: 56px; left: 8px; display: flex; align-items: center; gap: 4px; transition: transform .45s cubic-bezier(.4,.1,.2,1); }
+.cf-dock { position: fixed; z-index: 95; bottom: 28px; left: 8px; display: flex; align-items: center; gap: 4px; transition: transform .45s cubic-bezier(.4,.1,.2,1); }
 .cf-dock.is-tucked { transform: translateX(-56px); }
 .cf-ball {
   position: relative; width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; padding: 0;
