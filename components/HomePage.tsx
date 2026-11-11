@@ -1,6 +1,7 @@
 'use client'
 
 import LazyVideo from '@/components/LazyVideo'
+import HeroVideo from '@/components/HeroVideo'
 import { useState, useEffect } from 'react'
 import { ArrowUpRight, Plane } from 'lucide-react'
 import Link from 'next/link'
@@ -106,25 +107,11 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
       <div id="kh-track" className="kh-track">
         <div className="kh-stage">
           <section id="top" className="hero">
-            <video
-              className="hero-image"
-              src="/hero-video.mp4"
-              poster="/hero-poster.webp"
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="auto"
-              aria-label="Woman meditating by the sea at sunset"
-            />
+            <HeroVideo label="Calm pool and wooden deck in a quiet retreat setting" />
             <div className="hero-shade" />
             <div className={`hero-content ${introDone ? 'kh-text-in' : 'kh-text-out'}`}>
-              <h1>{t.hero}</h1>
+              <h1 className={ex.sr}>{t.hero}</h1>
               <p className={ex.route}><Plane size={15} strokeWidth={1.6} aria-hidden="true" /> From Airport to Airport</p>
-              <div className="hero-buttons">
-                <Link className="button button-gold" href="/pre-call">{t.explore}<ArrowUpRight size={16} /></Link>
-                <Link className="button button-ghost" href="/pre-call">{t.inquire}</Link>
-              </div>
             </div>
             <VisitorCounter visible={introDone} />
           </section>
