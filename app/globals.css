@@ -97,6 +97,16 @@ body[data-kh-veil="on"] .nav-video:not(.is-scrolled) .nav-brand { color: var(--p
 body[data-kh-veil="on"] .nav-video:not(.is-scrolled) .nav-icon { color: var(--foreground); border-color: rgba(141,76,101,.3); }
 body[data-kh-veil="on"] .nav-video:not(.is-scrolled) .nav-icon:hover { border-color: var(--primary); background: rgba(141,76,101,.06); }
 .is-scrolled .nav-brand { color: var(--plum); }
+/* Over the revealed hero video: white logo + icons + links on a soft dark fade, so everything stays readable */
+body[data-kh-veil="off"] .nav-video:not(.is-scrolled) .nav-brand { color: #fff; }
+body[data-kh-veil="off"] .nav-video:not(.is-scrolled) .nav-icon { color: #fff; border-color: rgba(255,255,255,.5); }
+body[data-kh-veil="off"] .nav-video:not(.is-scrolled) .nav-icon:hover { border-color: #fff; background: rgba(255,255,255,.12); }
+body[data-kh-veil="off"] .nav-video:not(.is-scrolled) .nav-links a { color: #fff; }
+.site-nav.nav-video:not(.is-scrolled)::before {
+  content: ''; position: absolute; left: 0; right: 0; top: 0; bottom: -36px; z-index: -1; pointer-events: none;
+  background: linear-gradient(to bottom, rgba(20,8,8,.5), transparent); opacity: 0; transition: opacity .4s ease;
+}
+body[data-kh-veil="off"] .site-nav.nav-video:not(.is-scrolled)::before { opacity: 1; }
 
 /* Logo lockup */
 .brand-logo { display: inline-flex; align-items: center; gap: 8px; height: 100%; }

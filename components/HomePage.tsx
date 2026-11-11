@@ -98,7 +98,7 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
     <main>
       {/* NAV — transparent (video window) during intro, solid ivory after scroll */}
       <SiteNav
-        showVideo={!introDone}
+        showVideo={!scrolled}
         onAnchor={navTo}
         onBrand={scrollToHero}
       />
@@ -112,6 +112,7 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
             <div className={`hero-content ${introDone ? 'kh-text-in' : 'kh-text-out'}`}>
               <h1 className={ex.sr}>{t.hero}</h1>
               <p className={ex.route}><Plane size={15} strokeWidth={1.6} aria-hidden="true" /> From Airport to Airport</p>
+              <Link className={ex.cta} href="/pre-call">{t.explore}</Link>
             </div>
             <VisitorCounter visible={introDone} />
           </section>
