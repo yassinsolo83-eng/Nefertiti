@@ -1036,7 +1036,7 @@ body[data-kh-veil="on"] .nav-video:not(.is-scrolled) .nav-links a { color: var(-
 .cf-note a { text-decoration: underline; text-underline-offset: 3px; color: var(--primary); }
 .cf-foot { padding-top: 12px; border-top: 1px solid var(--border); }
 @media (max-width: 600px) {
-  .cf-dock { bottom: 84px; }
+  .cf-dock { bottom: 28px; }
   .cf-panel { left: 12px; right: 12px; width: auto; bottom: 146px; max-height: calc(100vh - 250px); }
 }
 
