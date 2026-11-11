@@ -28,13 +28,26 @@ export function useKeyhole({ setIntroDone, setScrolled }: Setters) {
     const clamp = (v: number, a: number, b: number) => Math.min(b, Math.max(a, v))
     const smooth = (x: number) => x * x * (3 - 2 * x)
 
-    const updateKeyhole = () => {
+    // Where the scroll position says we are (0..1 through the intro track)
+    const scrollProgress = () => {
       const track = document.getElementById('kh-track')
-      if (!track || !hole || !ring) return
+      if (!track) return null
       const rect = track.getBoundingClientRect()
       const stage = track.querySelector('.kh-stage') as HTMLElement | null
       const range = track.offsetHeight - (stage ? stage.offsetHeight : window.innerHeight)
-      const p = clamp(-rect.top / range, 0, 1)
+      return range > 0 ? clamp(-rect.top / range, 0, 1) : 0
+    }
+
+    // What is drawn: it eases toward the scroll position, so opening and closing
+    // are always slow and soft, however fast the finger moves.
+    let shown = 0
+    let target = 0
+    let raf = 0
+    let last = 0
+    const TAU = 0.42 // seconds: larger = softer
+
+    const draw = (p: number) => {
+      if (!hole || !ring) return
 
       // keyhole finishes opening at 75% of the track; the last 25% holds the
       // hero fully revealed (a beat of pause) before the site scrolls on.
@@ -55,7 +68,7 @@ export function useKeyhole({ setIntroDone, setScrolled }: Setters) {
 
       // frosted glass: heavy blur at the start, easing to none as we open
       if (frost) {
-        const blur = (1 - op) * 28 // 28px → 0px
+        const blur = Math.round((1 - op) * 18 / 2) * 2 // 18px → 0px, in 2px steps (cheaper to render)
         frost.style.setProperty('--kh-blur', `${blur.toFixed(1)}px`)
         frost.style.setProperty('--kh-frost-op', String(darkOp))
       }
@@ -71,6 +84,23 @@ export function useKeyhole({ setIntroDone, setScrolled }: Setters) {
       setIntroDone(op >= 1)
     }
 
+    const tick = (now: number) => {
+      const dt = Math.min(0.05, (now - last) / 1000 || 0.016)
+      last = now
+      shown += (target - shown) * (1 - Math.exp(-dt / TAU))
+      if (Math.abs(target - shown) < 0.0006) shown = target
+      draw(shown)
+      raf = shown === target ? 0 : requestAnimationFrame(tick)
+    }
+    const updateKeyhole = (instant = false) => {
+      const p = scrollProgress()
+      if (p === null) return
+      if (!instant && p === target && shown === target) return // nothing to redraw
+      target = p
+      if (instant) { shown = p; draw(p); return }
+      if (!raf) { last = performance.now(); raf = requestAnimationFrame(tick) }
+    }
+
     const onScroll = () => {
       // nav stays transparent while the hero/intro track is on screen;
       // it only turns solid once we've scrolled past the hero
@@ -81,8 +111,9 @@ export function useKeyhole({ setIntroDone, setScrolled }: Setters) {
     }
 
     window.addEventListener('scroll', onScroll, { passive: true })
-    window.addEventListener('resize', updateKeyhole)
-    updateKeyhole()
+    const onResize = () => updateKeyhole(true)
+    window.addEventListener('resize', onResize)
+    updateKeyhole(true)
 
     const observer = new IntersectionObserver(
       (entries) => entries.forEach((entry) => entry.isIntersecting && entry.target.classList.add('is-visible')),
@@ -93,7 +124,8 @@ export function useKeyhole({ setIntroDone, setScrolled }: Setters) {
     return () => {
       window.removeEventListener('scroll', onScroll)
       delete document.body.dataset.khVeil
-      window.removeEventListener('resize', updateKeyhole)
+      cancelAnimationFrame(raf)
+      window.removeEventListener('resize', onResize)
       observer.disconnect()
     }
   }, [setIntroDone, setScrolled])

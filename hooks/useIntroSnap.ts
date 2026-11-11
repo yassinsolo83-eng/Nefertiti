@@ -6,9 +6,9 @@ const OPEN_AT = 0.75 // the Ankh is fully open at 75% of the intro track (see us
 const OPEN_TARGET = 0.8 // where we land: just inside the hold, hero fully revealed
 const COMMIT = 0.1 // past this much of the way, the intro finishes opening on its own
 const SETTLE_MS = 120 // scrolling counts as stopped after this long without a scroll event
-const GLIDE_MS = 380
+const GLIDE_MS = 800
 
-const ease = (t: number) => 1 - Math.pow(1 - t, 3)
+const ease = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2)
 
 /**
  * The intro follows the finger while scrolling. When scrolling stops part-way,

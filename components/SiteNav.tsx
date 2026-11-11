@@ -77,6 +77,9 @@ export default function SiteNav({
     const measure = () => {
       // Home intro: the cream Ankh veil sits over the video until it opens
       if (document.body.dataset.khVeil === 'on') { setTone('dark'); return }
+      // Still over the home intro / hero video: no need to look at the pixels behind
+      const track = document.getElementById('kh-track')
+      if (track && window.scrollY < track.offsetTop + track.offsetHeight - 80) { setTone('light'); return }
       const bar = navRef.current
       const h = bar ? bar.getBoundingClientRect().height : 72
       const y = Math.max(8, Math.min(h / 2, 60)) + (bar ? bar.getBoundingClientRect().top : 0)
@@ -85,13 +88,14 @@ export default function SiteNav({
       setTone(votes.filter(Boolean).length >= 2 ? 'light' : 'dark')
     }
     let raf = 0
-    const onMove = () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(measure) }
+    // measured once scrolling calms down, not on every frame
+    const onMove = () => { window.clearTimeout(raf); raf = window.setTimeout(measure, 120) }
     measure()
     window.addEventListener('scroll', onMove, { passive: true })
     window.addEventListener('resize', onMove)
-    const timer = window.setInterval(measure, 500)
+    const timer = window.setInterval(() => { if (!document.hidden) measure() }, 1000)
     return () => {
-      cancelAnimationFrame(raf)
+      window.clearTimeout(raf)
       window.removeEventListener('scroll', onMove)
       window.removeEventListener('resize', onMove)
       window.clearInterval(timer)

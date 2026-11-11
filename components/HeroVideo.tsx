@@ -18,6 +18,8 @@ export default function HeroVideo({ label }: { label: string }) {
   const refs = useRef<(HTMLVideoElement | null)[]>([])
   const switching = useRef(false)
   const reduced = useRef(false)
+  const wrap = useRef<HTMLDivElement>(null)
+  const onScreen = useRef(true)
 
   // Pick the file set after mount (avoids a server/client mismatch)
   useEffect(() => {
@@ -38,8 +40,24 @@ export default function HeroVideo({ label }: { label: string }) {
     if (first && !reduced.current) first.play().catch(() => {})
   }, [mode])
 
+  // Stop decoding video while the hero is off screen
+  useEffect(() => {
+    const el = wrap.current
+    if (!el) return
+    const io = new IntersectionObserver(([e]) => {
+      onScreen.current = e.isIntersecting
+      refs.current.forEach((v, i) => {
+        if (!v) return
+        if (!e.isIntersecting) v.pause()
+        else if (i === active && !reduced.current) v.play().catch(() => {})
+      })
+    }, { threshold: 0.05 })
+    io.observe(el)
+    return () => io.disconnect()
+  }, [mode, active])
+
   const goNext = (from: number) => {
-    if (switching.current || reduced.current) return
+    if (switching.current || reduced.current || !onScreen.current) return
     switching.current = true
     const to = from === 0 ? 1 : 0
     const next = refs.current[to]
@@ -66,7 +84,7 @@ export default function HeroVideo({ label }: { label: string }) {
   const files = SOURCES[mode]
 
   return (
-    <div className="hero-videos" role="img" aria-label={label}>
+    <div ref={wrap} className="hero-videos" role="img" aria-label={label}>
       {files.map((src, i) => (
         <video
           key={`${mode}-${src}`}
