@@ -15,7 +15,7 @@ import VisitorCounter from '@/components/VisitorCounter'
 import ex from '@/components/HeroExtras.module.css'
 import rs from '@/app/retreats/retreats.module.css'
 import EgyptMap from '@/components/EgyptMap'
-import DestinationsCarousel from '@/components/DestinationsCarousel'
+import DestinationsReel from '@/components/DestinationsReel'
 import CollaborationCard from '@/components/CollaborationCard'
 import cs from '@/components/Collaborations.module.css'
 import SiteNav from '@/components/SiteNav'
@@ -196,10 +196,8 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
           </div>
         </div>
 
-        {/* Featured destinations — videos in a 3D carousel with a turning sun wheel */}
-        <div className="reveal">
-          <DestinationsCarousel destinations={featuredDestinations} />
-        </div>
+        {/* Featured destinations — full-screen videos playing one after another */}
+        <DestinationsReel destinations={featuredDestinations} />
 
         {/* Where we work: map teaser, the full map lives on /destinations */}
         <div className={`${s.destMapTeaser} reveal`}>
