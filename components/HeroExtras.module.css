@@ -71,6 +71,7 @@
 .cta:hover { background: rgba(255,255,255,.2); border-color: #fff; }
 
 @media (max-width: 860px) {
+  .cta { margin-left: 64px; padding: 13px 22px; letter-spacing: .18em; }
   .counter { right: auto; left: 8vw; bottom: auto; top: 112px; gap: 9px; padding: 7px 16px 7px 12px; }
   .num { font-size: 20px; }
   .label { margin-top: 5px; font-size: 8px; letter-spacing: .2em; }

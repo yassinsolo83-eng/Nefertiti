@@ -590,7 +590,7 @@ footer { position: relative; padding: 130px 8vw 24px; background: var(--primary)
 /* ══════════════════════════════════
    KEYHOLE INTRO — scroll-driven reveal
 ══════════════════════════════════ */
-.kh-track { height: 300vh; position: relative; background: #F5E6C8; } /* purple, so a mobile address-bar resize never flashes the cream page colour */
+.kh-track { height: 170vh; position: relative; background: #F5E6C8; } /* purple, so a mobile address-bar resize never flashes the cream page colour */
 .kh-stage { position: sticky; top: 0; height: 100vh; overflow: hidden; background: #F5E6C8; }
 .kh-stage .hero { position: absolute; inset: 0; min-height: 100%; }
 
@@ -751,7 +751,7 @@ footer { position: relative; padding: 130px 8vw 24px; background: var(--primary)
   .nav-menu { width: min(280px, 86vw); }
 
   /* Keyhole */
-  .kh-track { height: 280vh; }
+  .kh-track { height: 160vh; }
   .kh-hint { bottom: 15%; font-size: 11px; }
 
   /* Hero */
@@ -982,7 +982,7 @@ body[data-kh-veil="on"] .nav-video:not(.is-scrolled) .nav-links a { color: var(-
 /* ══════════════════════════════════
    COMFORT PANEL — reading & viewing aids
 ══════════════════════════════════ */
-.cf-dock { position: fixed; z-index: 95; bottom: 96px; left: 8px; display: flex; align-items: center; gap: 4px; transition: transform .45s cubic-bezier(.4,.1,.2,1); }
+.cf-dock { position: fixed; z-index: 95; bottom: 56px; left: 8px; display: flex; align-items: center; gap: 4px; transition: transform .45s cubic-bezier(.4,.1,.2,1); }
 .cf-dock.is-tucked { transform: translateX(-56px); }
 .cf-ball {
   position: relative; width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; padding: 0;
