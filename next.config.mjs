@@ -33,6 +33,9 @@ const nextConfig = {
   async redirects() {
     // /en/... is the same page as /...: keep one address for search engines
     return [
+      // One address for the Red Sea page (the Google-indexed one)
+      { source: '/destinations/the-red-sea', destination: '/destinations/red-sea', permanent: true },
+      { source: '/it/destinations/the-red-sea', destination: '/it/destinations/red-sea', permanent: true },
       { source: '/en', destination: '/', permanent: true },
       { source: '/en/:path*', destination: '/:path*', permanent: true },
     ]
