@@ -50,6 +50,7 @@ export default function SiteNav({
   const navHidden = !!hidden
   const pathname = usePathname()
   const [tone, setTone] = useState<'light' | 'dark'>('dark')
+  const [onFooter, setOnFooter] = useState(false)
   void showVideoProp
 
   useEffect(() => {
@@ -65,6 +66,7 @@ export default function SiteNav({
     const darkAt = (x: number, y: number) => {
       for (const el of document.elementsFromPoint(x, y)) {
         if (el.closest(IGNORE)) continue
+        if (el.closest('footer')) return true
         const tag = el.tagName
         if (tag === 'VIDEO' || tag === 'IMG' || tag === 'CANVAS') return true
         const cs = getComputedStyle(el)
@@ -76,14 +78,16 @@ export default function SiteNav({
     }
     const measure = () => {
       // Home intro: the cream Ankh veil sits over the video until it opens
-      if (document.body.dataset.khVeil === 'on') { setTone('dark'); return }
+      if (document.body.dataset.khVeil === 'on') { setTone('dark'); setOnFooter(false); return }
       // Still over the home intro / hero video: no need to look at the pixels behind
       const track = document.getElementById('kh-track')
-      if (track && window.scrollY < track.offsetTop + track.offsetHeight - 80) { setTone('light'); return }
+      if (track && window.scrollY < track.offsetTop + track.offsetHeight - 80) { setTone('light'); setOnFooter(false); return }
       const bar = navRef.current
       const h = bar ? bar.getBoundingClientRect().height : 72
       const y = Math.max(8, Math.min(h / 2, 60)) + (bar ? bar.getBoundingClientRect().top : 0)
       const w = window.innerWidth
+      const ft = document.querySelector('footer')
+      setOnFooter(!!ft && ft.getBoundingClientRect().top < y)
       const votes = [0.12, 0.5, 0.88].map((f) => darkAt(w * f, y))
       setTone(votes.filter(Boolean).length >= 2 ? 'light' : 'dark')
     }
@@ -165,7 +169,7 @@ export default function SiteNav({
     <>
       <header
         ref={navRef}
-        className={`site-nav nav-clear tone-${tone} ${navHidden ? 'nav-hidden' : ''}`}
+        className={`site-nav nav-clear tone-${tone} ${onFooter ? 'on-footer' : ''} ${navHidden ? 'nav-hidden' : ''}`}
       >
         <div className="nav-bar">
           {/* Left — Hamburger */}

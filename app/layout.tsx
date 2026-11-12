@@ -7,6 +7,7 @@ import RetreatBar from '@/components/RetreatBar'
 import GoogleTranslate from '@/components/GoogleTranslate'
 import CookieNotice from '@/components/CookieNotice'
 import ComfortPanel from '@/components/ComfortPanel'
+import ScrollMemory from '@/components/ScrollMemory'
 import { SiteSettingsProvider } from '@/components/SiteSettingsProvider'
 import './globals.css'
 
@@ -138,6 +139,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
         </SiteSettingsProvider>
         <CookieNotice />
         <ComfortPanel />
+        <ScrollMemory />
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>
