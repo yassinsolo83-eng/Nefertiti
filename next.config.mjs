@@ -9,11 +9,15 @@ const nextConfig = {
   // English lives at the root (/about) and Italian under /it (/it/about).
   // Every page file sits in app/[lang], so English paths are rewritten to /en/... behind the scenes.
   async rewrites() {
-    const notPages = 'it|en|api|studio|_next|_vercel'
+    // English pages: one plain rule pair per top-level page (no regular expressions)
+    const pages = ['about', 'collaborations', 'contact', 'destinations', 'experiences', 'how-it-works', 'partners', 'pre-call', 'privacy', 'retreats', 'services', 'terms']
     return {
       beforeFiles: [
         { source: '/', destination: '/en' },
-        { source: `/:path((?!(?:${notPages})(?:/|$))[^.]+)`, destination: '/en/:path' },
+        ...pages.flatMap((p) => [
+          { source: `/${p}`, destination: `/en/${p}` },
+          { source: `/${p}/:rest*`, destination: `/en/${p}/:rest*` },
+        ]),
       ],
       // Sanity Studio is a single page at app/studio/page.tsx.
       // Every deeper Studio URL (e.g. /studio/structure/retreat) is served by that same page.
@@ -22,6 +26,7 @@ const nextConfig = {
       fallback: [
         { source: '/it/:path*', destination: '/it/missing' },
         { source: '/en/:path*', destination: '/en/missing' },
+        { source: '/:path*', destination: '/en/missing' },
       ],
     }
   },
