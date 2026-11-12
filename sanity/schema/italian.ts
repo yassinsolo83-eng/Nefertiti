@@ -37,7 +37,10 @@ function twin(f: AnyField): AnyField {
   if (f.of) t.of = f.of
   if (f.group) t.group = f.group
   if (f.hidden) t.hidden = f.hidden
-  t.description = 'Italian version. Leave empty to show the English text on the Italian pages.'
+  t.description =
+    f.name === 'metaTitle' || f.name === 'metaDescription'
+      ? 'Italian version. Leave empty to use the automatic Italian text (the English text is never shown on Italian pages).'
+      : 'Italian version. Leave empty to show the English text on the Italian pages.'
   return t
 }
 
