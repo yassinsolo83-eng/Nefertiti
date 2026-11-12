@@ -984,7 +984,7 @@ body[data-kh-veil="on"] .nav-video:not(.is-scrolled) .nav-links a { color: var(-
 /* ══════════════════════════════════
    COMFORT PANEL — reading & viewing aids
 ══════════════════════════════════ */
-.cf-dock { position: fixed; z-index: 95; bottom: 28px; left: 8px; display: flex; align-items: center; gap: 0; transition: transform .45s cubic-bezier(.4,.1,.2,1); }
+.cf-dock { position: fixed; z-index: 95; bottom: 29px; left: 8px; display: flex; align-items: center; gap: 0; transition: transform .45s cubic-bezier(.4,.1,.2,1); }
 .cf-dock.is-tucked { transform: translateX(-56px); }
 .cf-ball {
   position: relative; width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; padding: 0;
@@ -1095,3 +1095,9 @@ html[data-c-motion="still"] *, html[data-c-motion="still"] *::before, html[data-
 .nav-clear.on-footer .nav-brand,
 .nav-clear.on-footer .nav-links a { color: #f4f0e8; }
 .nav-clear.on-footer .nav-icon { color: #f4f0e8; border-color: rgba(244,240,232,.5); }
+
+/* Settings ball and back-to-top button share one horizontal line (same centre height) */
+@media (max-width: 860px) { .cf-dock { bottom: 18px; } }
+body:has(.cookie-notice) .to-top { bottom: 151px; }
+@media (max-width: 860px) { body:has(.cookie-notice) .to-top { bottom: 154px; } }
+@media (max-width: 600px) { body:has(.cookie-notice) .to-top { bottom: 142px; } }
