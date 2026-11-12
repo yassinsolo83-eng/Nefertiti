@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { ChevronLeft, ChevronRight, X } from 'lucide-react'
 import s from './RetreatGallery.module.css'
 import Img from '@/components/Img'
+import { useUi } from '@/components/LocaleProvider'
 
 // Sanity serves resized images through URL parameters. The query layer already
 // appends some, so start from the bare URL to avoid a doubled "?".
@@ -15,6 +16,8 @@ const sized = (url: string, width: number, quality: number) =>
 type Props = { images: string[]; title: string }
 
 export default function RetreatGallery({ images, title }: Props) {
+  const ui = useUi()
+  const t = ui.retreats
   const [open, setOpen] = useState<number | null>(null)
   const touchX = useRef<number | null>(null)
 
@@ -52,11 +55,11 @@ export default function RetreatGallery({ images, title }: Props) {
             type="button"
             className={s.item}
             onClick={() => setOpen(i)}
-            aria-label={`Open photo ${i + 1} of ${total}`}
+            aria-label={t.photoOf(i + 1, total)}
           >
             <Img
               src={sized(url, 900, 75)}
-              alt={`${title}, photo ${i + 1}`}
+              alt={t.photoAlt(title, i + 1)}
               loading="lazy"
               decoding="async"
             />
@@ -69,7 +72,7 @@ export default function RetreatGallery({ images, title }: Props) {
           className={s.viewer}
           role="dialog"
           aria-modal="true"
-          aria-label={`${title} photos`}
+          aria-label={t.photosOf(title)}
           onClick={() => setOpen(null)}
           onTouchStart={(e) => { touchX.current = e.touches[0].clientX }}
           onTouchEnd={(e) => {
@@ -79,7 +82,7 @@ export default function RetreatGallery({ images, title }: Props) {
             if (Math.abs(dx) > 50) go(dx < 0 ? 1 : -1)
           }}
         >
-          <button type="button" className={s.close} onClick={() => setOpen(null)} aria-label="Close">
+          <button type="button" className={s.close} onClick={() => setOpen(null)} aria-label={ui.common.close}>
             <X size={22} />
           </button>
           {total > 1 && (
@@ -87,7 +90,7 @@ export default function RetreatGallery({ images, title }: Props) {
               type="button"
               className={`${s.nav} ${s.prev}`}
               onClick={(e) => { e.stopPropagation(); go(-1) }}
-              aria-label="Previous photo"
+              aria-label={t.prevPhoto}
             >
               <ChevronLeft size={26} />
             </button>
@@ -95,7 +98,7 @@ export default function RetreatGallery({ images, title }: Props) {
           <Img
             className={s.full}
             src={sized(images[open], 1800, 80)}
-            alt={`${title}, photo ${open + 1}`}
+            alt={t.photoAlt(title, open + 1)}
             onClick={(e) => e.stopPropagation()}
           />
           {total > 1 && (
@@ -103,7 +106,7 @@ export default function RetreatGallery({ images, title }: Props) {
               type="button"
               className={`${s.nav} ${s.next}`}
               onClick={(e) => { e.stopPropagation(); go(1) }}
-              aria-label="Next photo"
+              aria-label={t.nextPhoto}
             >
               <ChevronRight size={26} />
             </button>

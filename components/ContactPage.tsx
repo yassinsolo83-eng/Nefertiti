@@ -6,13 +6,14 @@ import type { PageImages } from '@/lib/data'
 import SiteNav from '@/components/SiteNav'
 import SiteFooter from '@/components/SiteFooter'
 import BackButton from '@/components/BackButton'
-import s from '@/app/contact/contact.module.css'
+import s from '@/app/[lang]/contact/contact.module.css'
 import { Ornament } from '@/components/Motif'
 import { openWhatsapp } from '@/lib/openWhatsapp'
 import EgyptMap from '@/components/EgyptMap'
 import type { Destination } from '@/lib/data'
-import Link from 'next/link'
+import Link from '@/components/LocLink'
 import Img from '@/components/Img'
+import { useLocale, useUi } from '@/components/LocaleProvider'
 
 type Props = {
   faqs: [string, string][]
@@ -25,6 +26,8 @@ type Props = {
 }
 
 export default function ContactPage({ faqs, whatsappLink, socialLinks, appointmentServices, pageImages, destinations, featuredIds }: Props) {
+  const locale = useLocale()
+  const t = useUi().contact
   const [form, setForm] = useState({
     name: '', email: '', phone: '', practice: '', message: '',
   })
@@ -41,7 +44,8 @@ export default function ContactPage({ faqs, whatsappLink, socialLinks, appointme
     const name = new URLSearchParams(window.location.search).get('retreat')?.trim().slice(0, 200)
     if (!name) return
     setRetreat(name)
-    setForm((p) => (p.message ? p : { ...p, message: `I'm interested in the retreat "${name}". ` }))
+    setForm((p) => (p.message ? p : { ...p, message: t.interested(name) }))
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   const [openFaq, setOpenFaq] = useState<number | null>(0)
 
@@ -54,16 +58,16 @@ export default function ContactPage({ faqs, whatsappLink, socialLinks, appointme
 
     // Quick checks in the browser; the server validates again
     const next: Record<string, string> = {}
-    if (!form.name.trim()) next.name = 'Please enter your name.'
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(form.email.trim())) next.email = 'Please enter a valid email address.'
-    if (form.message.trim().length < 10) next.message = 'Please tell us a little more (at least 10 characters).'
+    if (!form.name.trim()) next.name = t.errName
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(form.email.trim())) next.email = t.errEmail
+    if (form.message.trim().length < 10) next.message = t.errMessage
     setErrors(next)
     setFormError('')
     if (Object.keys(next).length) return
 
     setSending(true)
     try {
-      const res = await fetch('/api/enquiry', {
+      const res = await fetch(`/api/enquiry?lang=${locale}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...form, company, retreat }),
@@ -75,10 +79,10 @@ export default function ContactPage({ faqs, whatsappLink, socialLinks, appointme
       } else if (data.errors) {
         setErrors(data.errors)
       } else {
-        setFormError('Something went wrong. Please try again, or message us on WhatsApp.')
+        setFormError(t.errGeneric)
       }
     } catch {
-      setFormError('Could not connect. Please check your internet and try again.')
+      setFormError(t.errConnect)
     } finally {
       setSending(false)
     }
@@ -94,16 +98,15 @@ export default function ContactPage({ faqs, whatsappLink, socialLinks, appointme
       <section className="page-hero">
         <div className="page-hero-text reveal is-in">
           <BackButton />
-          <p className="eyebrow">GET IN TOUCH</p>
+          <p className="eyebrow">{t.eyebrow}</p>
 <Ornament name="sun" />
-          <h1 className="page-title">Contact</h1>
+          <h1 className="page-title">{t.title}</h1>
           <p className="page-lead">
-            Planning a retreat for your community? Start with our pre-call form. Just have a
-            quick question? Send us a message — we&apos;ll get back to you within 48 hours.
+            {t.lead}
           </p>
         </div>
         <div className="page-hero-image reveal is-in">
-          <Img priority src={pageImages.contactHero} alt="A quiet moment of care" />
+          <Img priority src={pageImages.contactHero} alt={t.heroAlt} />
         </div>
       </section>
 
@@ -112,34 +115,32 @@ export default function ContactPage({ faqs, whatsappLink, socialLinks, appointme
         {/* Left — pre-call form (main path) + details */}
         <div className={`${s.contactLeft} reveal is-in`}>
           <div className={s.discoveryCard}>
-            <p className="eyebrow" style={{ marginBottom: 12 }}>PLANNING A RETREAT?</p>
-            <h2 className={s.discoveryTitle}>Start with our pre-call form</h2>
+            <p className="eyebrow" style={{ marginBottom: 12 }}>{t.planning}</p>
+            <h2 className={s.discoveryTitle}>{t.discoveryTitle}</h2>
             <p className={s.discoveryText}>
-              Tell us about your community, your vision and the experience you would like to create.
-              We&apos;ll review your answers before our discovery call, so it is as useful and
-              personal as possible. It takes about 10 minutes.
+              {t.discoveryText}
             </p>
             <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 12 }}>
               <Link className="button button-berry" href="/pre-call">
-                Fill in the pre-call form <ArrowUpRight size={16} />
+                {t.fillForm} <ArrowUpRight size={16} />
               </Link>
               {whatsappLink && (
 <a className="button button-ghost-dark" href={whatsappLink} target="_blank" rel="noopener noreferrer">
-                <MessageCircle size={16} /> Chat on WhatsApp
+                <MessageCircle size={16} /> {t.chatWa}
               </a>
 )}
             </div>
             <p style={{ fontSize: 11, opacity: 0.6, marginTop: 14 }}>
-              Prefer to talk first? Message us on WhatsApp and we&apos;ll find a time.
+              {t.talkFirst}
             </p>
           </div>
 
           <div className={s.contactDetailImage}>
-            <Img src={pageImages.contactSide} alt="Golden light on the water" />
+            <Img src={pageImages.contactSide} alt={t.sideAlt} />
           </div>
 
           <div className={s.contactSocial}>
-            <p className={s.contactSocialTitle}>Social Media</p>
+            <p className={s.contactSocialTitle}>{t.social}</p>
             {socialLinks.map(([label, url]) => (
               <a key={label} href={url} target="_blank" rel="noopener noreferrer">{label} <ArrowUpRight size={12} /></a>
             ))}
@@ -147,57 +148,57 @@ export default function ContactPage({ faqs, whatsappLink, socialLinks, appointme
         </div>
         {/* Right — quick question form */}
         <div id="enquiry" className={`${s.contactRight} reveal is-in`} style={{ scrollMarginTop: 120 }}>
-          <p className="eyebrow" style={{ marginBottom: 14 }}>QUICK QUESTION</p>
-          <h2 className={s.contactBlockTitle} style={{ marginBottom: 12 }}>Send us a message</h2>
+          <p className="eyebrow" style={{ marginBottom: 14 }}>{t.quick}</p>
+          <h2 className={s.contactBlockTitle} style={{ marginBottom: 12 }}>{t.sendTitle}</h2>
           <p style={{ fontSize: 14, lineHeight: 1.7, opacity: 0.75, marginBottom: 30 }}>
-            For any question about our retreats, destinations or services.
+            {t.sendLead}
           </p>
 
           {sent ? (
             <div className={s.formSuccess}>
               <Img className={s.successStamp} src="/brand/stamp.webp" alt="" />
-              <h3>Your request is on its way.</h3>
-              <p>Thank you for reaching out — we&apos;ll get back to you within 48 hours.</p>
+              <h3>{t.sentTitle}</h3>
+              <p>{t.sentText}</p>
               {waUrl && (
-                <a className="button button-gold" href={waUrl} target="_blank" rel="noopener noreferrer">Send details on WhatsApp</a>
+                <a className="button button-gold" href={waUrl} target="_blank" rel="noopener noreferrer">{t.sendWa}</a>
               )}
             </div>
           ) : (
             <div className={s.contactSimpleForm}>
               {retreat && (
                 <p style={{ fontSize: 12, color: 'var(--primary)', marginBottom: 18 }}>
-                  Enquiring about: <strong>{retreat}</strong>
+                  {t.enquiring} <strong>{retreat}</strong>
                 </p>
               )}
               <div className="form-field full">
-                <label>Your Name</label>
-                <input name="name" value={form.name} onChange={handle} placeholder="Your Name" />
+                <label>{t.yourName}</label>
+                <input name="name" value={form.name} onChange={handle} placeholder={t.yourName} />
                 {errors.name && <p style={errorStyle}>{errors.name}</p>}
               </div>
 
               <div className="form-row two">
                 <div className="form-field">
-                  <label>Email Address</label>
-                  <input name="email" type="email" value={form.email} onChange={handle} placeholder="Email Address" />
+                  <label>{t.email}</label>
+                  <input name="email" type="email" value={form.email} onChange={handle} placeholder={t.email} />
                   {errors.email && <p style={errorStyle}>{errors.email}</p>}
                 </div>
                 <div className="form-field">
-                  <label>Phone / WhatsApp</label>
-                  <input name="phone" value={form.phone} onChange={handle} placeholder="Phone Number" />
+                  <label>{t.phone}</label>
+                  <input name="phone" value={form.phone} onChange={handle} placeholder={t.phonePh} />
                 </div>
               </div>
 
               <div className="form-field full">
-                <label>Type of Retreat</label>
+                <label>{t.retreatType}</label>
                 <select name="practice" value={form.practice} onChange={handle}>
-                  <option value="">Select a service</option>
+                  <option value="">{t.selectService}</option>
                   {appointmentServices.map((svc) => <option key={svc}>{svc}</option>)}
                 </select>
               </div>
 
               <div className="form-field full">
-                <label>Message</label>
-                <textarea name="message" value={form.message} onChange={handle} placeholder="Tell us what you teach, who you serve, and what you'd love them to experience." rows={5} />
+                <label>{t.message}</label>
+                <textarea name="message" value={form.message} onChange={handle} placeholder={t.messagePh} rows={5} />
                 {errors.message && <p style={errorStyle}>{errors.message}</p>}
               </div>
 
@@ -216,9 +217,8 @@ export default function ContactPage({ faqs, whatsappLink, socialLinks, appointme
               {formError && <p style={errorStyle}>{formError}</p>}
 
               <p style={{ fontSize: 11, lineHeight: 1.6, opacity: 0.7, margin: 0 }}>
-                By sending this form you agree that we use your details to reply to your enquiry, as described in
-                our{' '}
-                <Link href="/privacy" style={{ color: 'var(--primary)', textDecoration: 'underline' }}>Privacy Policy</Link>.
+                {t.consentBefore}{' '}
+                <Link href="/privacy" style={{ color: 'var(--primary)', textDecoration: 'underline' }}>{t.privacy}</Link>.
               </p>
 
               <button
@@ -227,7 +227,7 @@ export default function ContactPage({ faqs, whatsappLink, socialLinks, appointme
                 disabled={sending}
                 style={sending ? { opacity: 0.6, cursor: 'wait' } : undefined}
               >
-                {sending ? 'Sending…' : 'Send Message'}
+                {sending ? t.sending : t.send}
               </button>
             </div>
           )}
@@ -239,7 +239,7 @@ export default function ContactPage({ faqs, whatsappLink, socialLinks, appointme
       <section className={s.contactMap}>
         <EgyptMap destinations={destinations} featuredIds={featuredIds} />
         <Link className={s.contactMapLink} href="/destinations">
-          See all destinations
+          {t.seeAll}
         </Link>
       </section>
 
@@ -248,17 +248,17 @@ export default function ContactPage({ faqs, whatsappLink, socialLinks, appointme
         <div className={s.faqGrid}>
           <div className="reveal is-in">
             <div className={s.faqAsideImage}>
-              <Img src={pageImages.contactFaq} alt="A quiet ritual moment" />
+              <Img src={pageImages.contactFaq} alt={t.faqAlt} />
             </div>
-            <p className={s.faqAsideText}>Still have a question? Send us a message above and our team will get back to you.</p>
+            <p className={s.faqAsideText}>{t.faqAside}</p>
             {whatsappLink && (
-<a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="button button-berry">Ask on WhatsApp <ArrowUpRight size={16} /></a>
+<a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="button button-berry">{t.askWa} <ArrowUpRight size={16} /></a>
 )}
           </div>
 
           <div className="reveal is-in">
-            <div className="section-label">FREQUENTLY ASKED</div>
-            <h2 className={s.faqTitle}>Frequently Asked Questions</h2>
+            <div className="section-label">{t.faqLabel}</div>
+            <h2 className={s.faqTitle}>{t.faqTitle}</h2>
             <div className={s.faqList}>
               {faqs.map(([q, a], i) => (
                 <div className={`${s.faqItem} ${openFaq === i ? s.faqItemOpen : ''}`} key={q}>

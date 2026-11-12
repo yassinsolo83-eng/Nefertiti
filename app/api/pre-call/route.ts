@@ -12,6 +12,8 @@ import {
   type PreCallForm,
 } from '@/lib/preCallForm'
 import { projectId, dataset, apiVersion } from '@/sanity/env'
+import { isLocale, type Locale } from '@/lib/i18n'
+import { getUi } from '@/lib/ui'
 
 // Server-only client with write access. The token never reaches the browser.
 const writeClient = createClient({
@@ -45,7 +47,7 @@ function buildRows(form: PreCallForm, answers: PreCallAnswers): Row[] {
       const v = answers[q._key]
       const other = answers[otherKey(q._key)]
       const list = (Array.isArray(v) ? v : v ? [v] : [])
-        .filter((item) => item === OTHER_LABEL || !q.options?.length || q.options.includes(item))
+        .filter((item) => item.trim() !== '')
         .map((item) => (item === OTHER_LABEL && typeof other === 'string' && other ? `Other: ${other}` : item))
       const answer = list.join(q.type === 'multiple' ? ', ' : '').trim()
       if (answer) rows.push({ step: step.title, question: q.label, answer })
@@ -122,6 +124,10 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: true })
   }
 
+  const requested = new URL(req.url).searchParams.get('lang')
+  const locale: Locale = isLocale(requested) ? requested : 'en'
+  const messages = getUi(locale).preCall.errors
+
   // Check the answers against the form as published right now
   let form: PreCallForm
   try {
@@ -134,7 +140,7 @@ export async function POST(req: Request) {
   const errors: Record<string, string> = {}
   for (const step of form.steps) {
     for (const q of step.questions) {
-      const err = validateQuestion(q, answers)
+      const err = validateQuestion(q, answers, messages)
       if (err) errors[q._key] = err
     }
   }
@@ -178,7 +184,7 @@ export async function POST(req: Request) {
   let whatsappUrl: string | undefined
   try {
     const notifyPhone = await getNotifyWhatsappNumber()
-    const header = `🌸 New pre-call form — Nefertiti\n` + (name ? `From: ${name}\n` : '') + (email ? `Email: ${email}\n` : '')
+    const header = `🌸 New pre-call form — Nefertiti\n` + (locale === 'it' ? `Language: Italian\n` : '') + (name ? `From: ${name}\n` : '') + (email ? `Email: ${email}\n` : '')
     const body = rows.map((r) => `• ${r.question}\n${r.answer}`).join('\n\n')
     whatsappUrl = buildWhatsappUrl(`${header}\n${body}`, notifyPhone)
     await sendWhatsApp(`${header}\n${body}`, notifyPhone)

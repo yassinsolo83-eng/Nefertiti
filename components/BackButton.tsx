@@ -2,7 +2,8 @@
 
 import { ArrowLeft } from 'lucide-react'
 import { useRouter } from 'next/navigation'
-import Link from 'next/link'
+import Link from '@/components/LocLink'
+import { useLocalePath, useUi } from '@/components/LocaleProvider'
 
 /**
  * Back link for inner pages — returns to the previous page in history
@@ -11,6 +12,8 @@ import Link from 'next/link'
  */
 export default function BackButton() {
   const router = useRouter()
+  const toPath = useLocalePath()
+  const t = useUi().common
 
   const goBack = (e: React.MouseEvent) => {
     e.preventDefault()
@@ -18,14 +21,14 @@ export default function BackButton() {
     if (typeof window !== 'undefined' && window.history.length > 1) {
       router.back()
     } else {
-      router.push('/')
+      router.push(toPath('/'))
     }
   }
 
   return (
-    <Link href="/" className="back-btn" onClick={goBack} aria-label="Go back">
+    <Link href="/" className="back-btn" onClick={goBack} aria-label={t.goBack}>
       <ArrowLeft size={16} />
-      <span>Back</span>
+      <span>{t.back}</span>
     </Link>
   )
 }

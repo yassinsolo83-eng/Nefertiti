@@ -1,18 +1,20 @@
 'use client'
 
 import { ArrowUpRight, MapPin, Globe, Check } from 'lucide-react'
-import Link from 'next/link'
+import Link from '@/components/LocLink'
 import type { Partner } from '@/lib/data'
 import { fitUrl } from '@/sanity/lib/image'
 import SiteNav from '@/components/SiteNav'
 import SiteFooter from '@/components/SiteFooter'
 import BackButton from '@/components/BackButton'
-import s from '@/app/partners/partners.module.css'
+import s from '@/app/[lang]/partners/partners.module.css'
 import Img from '@/components/Img'
+import { useUi } from '@/components/LocaleProvider'
 
 type Props = { partner: Partner | null }
 
 export default function PartnerDetailPage({ partner }: Props) {
+  const t = useUi().detail
 
   if (!partner) {
     return (
@@ -21,9 +23,9 @@ export default function PartnerDetailPage({ partner }: Props) {
         <section className="page-hero page-hero-single">
           <div className="page-hero-text">
             <BackButton />
-            <h1 className="page-title">Partner not found</h1>
+            <h1 className="page-title">{t.partnerNotFound}</h1>
             <Link href="/partners" className="button button-gold inner-cta">
-              All Partners <ArrowUpRight size={16} />
+              {t.allPartners} <ArrowUpRight size={16} />
             </Link>
           </div>
         </section>
@@ -48,7 +50,7 @@ export default function PartnerDetailPage({ partner }: Props) {
             )}
             {partner.website && (
               <a className={s.partnerMetaItem} href={partner.website} target="_blank" rel="noopener noreferrer">
-                <Globe size={14} /> Website
+                <Globe size={14} /> {t.website}
               </a>
             )}
             {partner.instagram && (
@@ -66,13 +68,13 @@ export default function PartnerDetailPage({ partner }: Props) {
       <section className="section inner-section">
         <div className={s.partnerDetailGrid}>
           <div>
-            <p className="eyebrow">ABOUT</p>
+            <p className="eyebrow">{t.about}</p>
             <p className={s.partnerBioText}>{partner.bio}</p>
           </div>
 
           {partner.showServices !== false && (
             <div>
-              <p className="eyebrow">WHAT THEY OFFER</p>
+              <p className="eyebrow">{t.offer}</p>
               <ul className={s.partnerServiceList}>
                 {partner.services.map((svc) => (
                   <li key={svc}><Check size={15} /> {svc}</li>
@@ -84,14 +86,14 @@ export default function PartnerDetailPage({ partner }: Props) {
 
         <div className={s.partnerCtaRow}>
           <Link href="/pre-call" className="button button-gold">
-            Work with {partner.name} <ArrowUpRight size={16} />
+            {t.workWith(partner.name)} <ArrowUpRight size={16} />
           </Link>
           <Link href="/pre-call" className="button button-ghost-dark">
-            Ask about this partner
+            {t.askAbout}
           </Link>
         </div>
 
-        <Link href="/partners" className={s.partnerBackLink}>← All partners</Link>
+        <Link href="/partners" className={s.partnerBackLink}>{t.allPartnersLink}</Link>
       </section>
 
       <SiteFooter />

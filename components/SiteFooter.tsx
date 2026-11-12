@@ -4,7 +4,8 @@ import BrandLogo from '@/components/BrandLogo'
 import { ArrowUpRight, Mail, MapPin, MessageCircle } from 'lucide-react'
 import { useSiteSettings } from '@/components/SiteSettingsProvider'
 import { BrandBand } from '@/components/Motif'
-import Link from 'next/link'
+import Link from '@/components/LocLink'
+import { useUi } from '@/components/LocaleProvider'
 
 const NAV_DEFAULT = [
   ['About', '/about'],
@@ -28,6 +29,7 @@ function isProfileLink(url: string) {
 }
 
 export default function SiteFooter() {
+  const t = useUi().footer
   const { contactEmail, socialLinks, whatsappLink, texts, menuItems } = useSiteSettings()
   const NAV = menuItems && menuItems.length ? menuItems : NAV_DEFAULT
   const socials = socialLinks.filter(([, url]) => isProfileLink(url))
@@ -43,13 +45,13 @@ export default function SiteFooter() {
       </div>
       <div className="footer-links">
         <div>
-          <p className="footer-label">Navigate</p>
+          <p className="footer-label">{t.navigate}</p>
           {NAV.map(([label, href]) => (
             <Link key={label} href={href}>{label}</Link>
           ))}
         </div>
         <div>
-          <p className="footer-label">Contact</p>
+          <p className="footer-label">{t.contact}</p>
           <a href={`mailto:${contactEmail}`}><Mail size={14} /> {contactEmail}</a>
           {whatsappLink && (
             <a href={whatsappLink} target="_blank" rel="noopener noreferrer"><MessageCircle size={14} /> WhatsApp</a>
@@ -63,13 +65,12 @@ export default function SiteFooter() {
         </div>
       </div>
       <div className="footer-bottom">
-        <span>© {new Date().getFullYear()} Nefertiti Retreats</span>
+        <span>© {new Date().getFullYear()} {t.rights}</span>
         <span className="footer-legal">
-          <Link href="/terms">Terms &amp; Conditions</Link>
-          <Link href="/privacy">Privacy Policy</Link>
-          <Link href="/privacy#cookies">Cookies</Link>
+          <Link href="/terms">{t.terms}</Link>
+          <Link href="/privacy">{t.privacy}</Link>
+          <Link href="/privacy#cookies">{t.cookies}</Link>
         </span>
-        <span className="notranslate">Translations powered by Google · Traduzioni offerte da Google</span>
         <span>{texts?.footerSignoff}</span>
       </div>
     </footer>

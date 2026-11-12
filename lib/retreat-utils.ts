@@ -1,6 +1,6 @@
-import type { Retreat, RetreatStatus } from '@/lib/data'
-
-const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+import type { Retreat } from '@/lib/data'
+import type { Locale } from '@/lib/i18n'
+import { getUi } from '@/lib/ui'
 
 function parse(date: string) {
   const [y, m, d] = date.split('-').map(Number)
@@ -16,9 +16,10 @@ export function isPastRetreat(r: Retreat) {
   return Boolean(r.endDate) && r.endDate < todayInEgypt()
 }
 
-// "12 – 19 March 2027", "28 March – 4 April 2027", "30 Dec 2026 – 5 Jan 2027"
-export function formatRetreatDates(start: string, end: string) {
+// "12 – 19 March 2027", "28 March – 4 April 2027", "30 Dec 2026 – 5 Jan 2027" (Italian: "12 – 19 marzo 2027")
+export function formatRetreatDates(start: string, end: string, locale: Locale = 'en') {
   if (!start) return ''
+  const MONTHS = getUi(locale).months
   const a = parse(start)
   if (!end || end === start) return `${a.d} ${MONTHS[a.m - 1]} ${a.y}`
   const b = parse(end)
@@ -36,13 +37,6 @@ export function retreatNights(start: string, end: string) {
 function toUtc(date: string): [number, number, number] {
   const { y, m, d } = parse(date)
   return [y, m - 1, d]
-}
-
-export const STATUS_LABELS: Record<RetreatStatus, string> = {
-  open: 'Open for booking',
-  few: 'Few spots left',
-  soldout: 'Sold out',
-  soon: 'Coming soon',
 }
 
 export function splitRetreats(retreats: Retreat[]) {

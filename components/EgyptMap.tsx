@@ -4,8 +4,10 @@ import { useEffect, useRef, useState } from 'react'
 import 'leaflet/dist/leaflet.css'
 import { destinationCoords, destinationTravel } from '@/lib/data'
 import type { Destination } from '@/lib/data'
-import Link from 'next/link'
+import Link from '@/components/LocLink'
 import Img from '@/components/Img'
+import { useLocale, useUi } from '@/components/LocaleProvider'
+import { destinationTravelIt } from '@/lib/data.it'
 
 type Props = {
   destinations: Destination[]
@@ -69,6 +71,10 @@ const ZOOM_RANGE = 3
 // is never clipped), and draws a line back to Cairo.
 // Leaflet and the atlas are loaded only when the map scrolls into view, so they never slow the page down.
 export default function EgyptMap({ destinations, featuredIds, onOpen }: Props) {
+  const locale = useLocale()
+  const uiAll = useUi()
+  const ui = uiAll.map
+  const uiCommon = uiAll.common
   const box = useRef<HTMLDivElement>(null)
   const panelRef = useRef<HTMLDivElement>(null)
   const mapRef = useRef<import('leaflet').Map | null>(null)
@@ -140,8 +146,8 @@ export default function EgyptMap({ destinations, featuredIds, onOpen }: Props) {
           const a = L.DomUtil.create('a', '', bar)
           a.href = '#'
           a.role = 'button'
-          a.title = 'Show all of Egypt'
-          a.setAttribute('aria-label', 'Show all of Egypt')
+          a.title = ui.showAll
+          a.setAttribute('aria-label', ui.showAll)
           a.innerHTML =
             '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>'
           L.DomEvent.disableClickPropagation(bar)
@@ -445,18 +451,18 @@ export default function EgyptMap({ destinations, featuredIds, onOpen }: Props) {
     })
   }, [active])
 
-  const travel = active ? active.fromCairo || destinationTravel[active.id] : null
+  const travel = active ? active.fromCairo || (locale === 'it' ? destinationTravelIt : destinationTravel)[active.id] : null
   const featured = active ? featuredIds.includes(active.id) : false
 
   return (
     <div className="egm-stage">
-      <div ref={box} className="egm" role="region" aria-label="Map of our destinations in Egypt" />
+      <div ref={box} className="egm" role="region" aria-label={ui.aria} />
 
-      {touchHint && !active && <div className="egm-touch">Pinch to zoom · two fingers to move the map</div>}
+      {touchHint && !active && <div className="egm-touch">{ui.touch}</div>}
 
       {active && (
         <div ref={panelRef} className="egm-panel" role="dialog" aria-label={active.title}>
-          <button className="egm-panel-x" type="button" onClick={() => setActive(null)} aria-label="Close">×</button>
+          <button className="egm-panel-x" type="button" onClick={() => setActive(null)} aria-label={uiCommon.close}>×</button>
           {active.image && <Img src={active.image} alt={active.title} loading="lazy" />}
           <div className="egm-body">
             {active.feeling && <p className="egm-feeling">{active.feeling}</p>}
@@ -464,7 +470,7 @@ export default function EgyptMap({ destinations, featuredIds, onOpen }: Props) {
             {active.tagline && <p className="egm-tagline">{active.tagline}</p>}
             {travel && (
               <p className="egm-travel">
-                <span>From Cairo</span>
+                <span>{ui.fromCairo}</span>
                 {travel}
               </p>
             )}
@@ -476,11 +482,11 @@ export default function EgyptMap({ destinations, featuredIds, onOpen }: Props) {
               </div>
             ) : null}
             {featured ? (
-              <Link className="egm-link" href={`/destinations/${active.id}`}>Explore ↗</Link>
+              <Link className="egm-link" href={`/destinations/${active.id}`}>{ui.explore}</Link>
             ) : onOpenRef.current ? (
-              <button className="egm-link" type="button" onClick={() => onOpenRef.current?.(active.id)}>View details ↗</button>
+              <button className="egm-link" type="button" onClick={() => onOpenRef.current?.(active.id)}>{ui.viewDetails}</button>
             ) : (
-              <Link className="egm-link" href={`/destinations?open=${encodeURIComponent(active.id)}`}>View details ↗</Link>
+              <Link className="egm-link" href={`/destinations?open=${encodeURIComponent(active.id)}`}>{ui.viewDetails}</Link>
             )}
           </div>
         </div>

@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
+import { lang } from 'next/root-params'
 import { SITE_NAME, DEFAULT_OG_IMAGE, SITE_URL } from '@/lib/site'
+import { isLocale, localePath, type Locale } from '@/lib/i18n'
 
 export type SeoFields = {
   metaTitle?: string | null
@@ -43,7 +45,19 @@ function shareImageUrl(url: string) {
   return url.startsWith('http') ? url : `${SITE_URL}${url}`
 }
 
-export function buildMetadata(o: BuildOptions): Metadata {
+// Both language versions of a page point at each other so search engines serve the right one
+export function languageAlternates(path: string) {
+  return {
+    en: `${SITE_URL}${path}`,
+    it: `${SITE_URL}${localePath('it', path)}`,
+    'x-default': `${SITE_URL}${path}`,
+  }
+}
+
+export async function buildMetadata(o: BuildOptions): Promise<Metadata> {
+  const current = await lang()
+  const locale: Locale = isLocale(current) ? current : 'en'
+  const localized = localePath(locale, o.path)
   const customTitle = o.seo?.metaTitle?.trim()
   const description = (o.seo?.metaDescription?.trim() || o.description).slice(0, 170)
 
@@ -62,12 +76,13 @@ export function buildMetadata(o: BuildOptions): Metadata {
   return {
     title,
     description,
-    alternates: { canonical: o.path },
+    alternates: { canonical: localized, languages: languageAlternates(o.path) },
     robots: o.seo?.noIndex ? { index: false, follow: true } : undefined,
     openGraph: {
       title: shareTitle,
       description,
-      url: o.path,
+      url: localized,
+      locale: locale === 'it' ? 'it_IT' : 'en_US',
       type: o.type || 'website',
       siteName: SITE_NAME,
       images,

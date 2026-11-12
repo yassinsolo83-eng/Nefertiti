@@ -74,7 +74,7 @@ export const copy = {
     visionTitle: 'TU HAI LA VISIONE.\nNOI ABBIAMO L\'EGITTO.',
     visionText: 'Sai già come vuoi che si sentano i tuoi ospiti. Conosci la tua pratica. Conosci la tua community. Conosci la trasformazione che vuoi creare. Ciò di cui hai bisogno è un team fidato sul posto che comprenda ritiri, eventi, ospitalità e Egitto. Ed è qui che entriamo in gioco.',
     philosophy: 'SCOPRI LA NOSTRA STORIA',
-    statsHeadline: 'I ritiri sono profondamente personali.\nPer questo trattiamo ogni uno\ncome se fosse il nostro.',
+    statsHeadline: 'I ritiri sono profondamente personali.\nPer questo trattiamo ogni ritiro\ncome se fosse il nostro.',
     destinations: 'IL TUO RITIRO. IL TUO EGITTO.',
     destinationLabel: 'DOVE CREIAMO',
     destinationText: 'Scegli una destinazione o lasciaci creare un percorso multi-destinazione intorno al tuo concetto di ritiro.',

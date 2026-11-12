@@ -3,8 +3,10 @@
 import BrandLogo from '@/components/BrandLogo'
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { Menu, X, Search } from 'lucide-react'
-import { setGoogleLang } from '@/hooks/useGoogleTranslate'
-import Link from 'next/link'
+import Link from '@/components/LocLink'
+import NextLink from 'next/link'
+import { localePath, stripLocale } from '@/lib/i18n'
+import { useLocale, useUi } from '@/components/LocaleProvider'
 import { usePathname } from 'next/navigation'
 import { useSiteSettings } from '@/components/SiteSettingsProvider'
 import { menuDefaults, pageTextDefaults } from '@/lib/data'
@@ -49,6 +51,9 @@ export default function SiteNav({
   // photos and dark areas) and plum (over light areas) depending on what is behind them.
   const navHidden = !!hidden
   const pathname = usePathname()
+  const locale = useLocale()
+  const ui = useUi()
+  const t = ui.nav
   const [tone, setTone] = useState<'light' | 'dark'>('dark')
   const [onFooter, setOnFooter] = useState(false)
   void showVideoProp
@@ -146,7 +151,7 @@ export default function SiteNav({
     const ctrl = new AbortController()
     const timer = setTimeout(async () => {
       try {
-        const res = await fetch(`/api/search?q=${encodeURIComponent(q)}`, { signal: ctrl.signal })
+        const res = await fetch(`/api/search?lang=${locale}&q=${encodeURIComponent(q)}`, { signal: ctrl.signal })
         const data = await res.json()
         setFound(Array.isArray(data.results) ? data.results : [])
       } catch (err) {
@@ -154,7 +159,7 @@ export default function SiteNav({
         if ((err as Error).name !== 'AbortError') {
           setFound(
             SEARCH_PAGES.filter(p => p.keywords.includes(q.toLowerCase()))
-              .map(p => ({ type: 'Page', title: p.title, href: p.href, snippet: '' })),
+              .map(p => ({ type: t.pageType, title: p.title, href: p.href, snippet: '' })),
           )
         }
       }
@@ -176,19 +181,19 @@ export default function SiteNav({
           <button
             className="nav-icon nav-hamburger"
             onClick={() => setSidebarOpen(!sidebarOpen)}
-            aria-label={sidebarOpen ? 'Close menu' : 'Open menu'}
+            aria-label={sidebarOpen ? t.closeMenu : t.openMenu}
             aria-expanded={sidebarOpen}
           >
             {sidebarOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
 
           {/* Center — Logo */}
-          <Link href="/" className="nav-brand" onClick={handleBrand} aria-label="Nefertiti — home">
+          <Link href="/" className="nav-brand" onClick={handleBrand} aria-label={t.home}>
             <BrandLogo />
           </Link>
 
           {/* Main links — wide screens only */}
-          <nav className="nav-links" aria-label="Main">
+          <nav className="nav-links" aria-label={t.main}>
             {mainLinks.map(([label, href]) => (
               <Link key={href} href={href} onClick={(e) => handleClick(e, href)}>{label}</Link>
             ))}
@@ -199,7 +204,7 @@ export default function SiteNav({
             <button
               className="nav-icon nav-search-btn"
               onClick={() => setSearchOpen(true)}
-              aria-label="Search"
+              aria-label={t.search}
             >
               <Search size={18} />
             </button>
@@ -212,12 +217,12 @@ export default function SiteNav({
 
       {/* ── Sidebar ── */}
       <div className={`nav-sidebar-overlay ${sidebarOpen ? 'open' : ''}`} onClick={closeSidebar} />
-      <aside className={`nav-sidebar ${sidebarOpen ? 'open' : ''}`} aria-label="Main navigation">
+      <aside className={`nav-sidebar ${sidebarOpen ? 'open' : ''}`} aria-label={t.mainNavigation}>
         <div className="nav-sidebar-header">
           <Link href="/" className="nav-sidebar-logo" onClick={(e) => { closeSidebar(); handleBrand(e) }}>
             <BrandLogo />
           </Link>
-          <button className="nav-sidebar-close" onClick={closeSidebar} aria-label="Close menu">
+          <button className="nav-sidebar-close" onClick={closeSidebar} aria-label={t.closeMenu}>
             <X size={20} />
           </button>
         </div>
@@ -233,9 +238,9 @@ export default function SiteNav({
         <div className="nav-sidebar-footer">
           <SocialIcons links={socialLinks} />
           <div className="nav-sidebar-lang">
-            <button className="lang notranslate" onClick={() => { setGoogleLang('en'); closeSidebar() }}>EN</button>
+            <NextLink className="lang" href={stripLocale(pathname || '/')} hrefLang="en" lang="en" aria-label={t.languageEn} aria-current={locale === 'en' ? 'true' : undefined} onClick={closeSidebar}>EN</NextLink>
             <span className="lang-sep">/</span>
-            <button className="lang notranslate" onClick={() => { setGoogleLang('it'); closeSidebar() }}>IT</button>
+            <NextLink className="lang" href={localePath('it', stripLocale(pathname || '/'))} hrefLang="it" lang="it" aria-label={t.languageIt} aria-current={locale === 'it' ? 'true' : undefined} onClick={closeSidebar}>IT</NextLink>
           </div>
         </div>
       </aside>
@@ -249,11 +254,11 @@ export default function SiteNav({
               ref={searchInputRef}
               type="text"
               className="nav-search-input"
-              placeholder="Search pages..."
+              placeholder={t.searchPlaceholder}
               value={query}
               onChange={e => setQuery(e.target.value)}
             />
-            <button className="nav-search-close" onClick={closeSearch} aria-label="Close search">
+            <button className="nav-search-close" onClick={closeSearch} aria-label={t.closeSearch}>
               <X size={20} />
             </button>
           </div>
@@ -266,7 +271,7 @@ export default function SiteNav({
                   {r.snippet && <span className="nav-search-result-text">{r.snippet}</span>}
                 </Link>
               )) : (
-                <p className="nav-search-empty">No results found</p>
+                <p className="nav-search-empty">{t.noResults}</p>
               )}
             </div>
           )}

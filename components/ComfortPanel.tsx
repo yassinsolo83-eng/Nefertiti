@@ -1,7 +1,8 @@
 'use client'
 
 import { useCallback, useEffect, useRef, useState } from 'react'
-import Link from 'next/link'
+import Link from '@/components/LocLink'
+import { useUi } from '@/components/LocaleProvider'
 import Motif from '@/components/Motif'
 
 const KEY = 'nef-comfort'
@@ -73,6 +74,7 @@ function Group<K extends keyof Prefs>({
 }
 
 export default function ComfortPanel() {
+  const t = useUi().comfort
   const [open, setOpen] = useState(false)
   const [tucked, setTucked] = useState(false)
   const [prefs, setPrefs] = useState<Prefs>(DEFAULTS)
@@ -150,7 +152,7 @@ export default function ComfortPanel() {
     setReading(true)
     chunks.forEach((c, i) => {
       const u = new SpeechSynthesisUtterance(c)
-      u.lang = 'en-GB'
+      u.lang = t.speechLang
       u.rate = 0.95
       if (i === chunks.length - 1) { u.onend = () => setReading(false); u.onerror = () => setReading(false) }
       window.speechSynthesis.speak(u)
@@ -168,17 +170,17 @@ export default function ComfortPanel() {
           className="cf-ball"
           aria-expanded={open}
           aria-controls="cf-panel"
-          aria-label="Comfort settings"
+          aria-label={t.button}
           tabIndex={tucked ? -1 : 0}
           onClick={toggle}
         >
           <span className="cf-ball-icon" aria-hidden="true"><Motif name="sun" height={24} /></span>
-          {changed && <span className="cf-dot" aria-label="Custom settings on" />}
+          {changed && <span className="cf-dot" aria-label={t.customOn} />}
         </button>
         <button
           type="button"
           className="cf-arrow"
-          aria-label={tucked ? 'Bring the comfort button out' : 'Tuck the comfort button into the edge'}
+          aria-label={tucked ? t.tuckOut : t.tuckIn}
           onClick={() => dock(!tucked)}
         >
           <Chevron dir={tucked ? 'right' : 'left'} />
@@ -194,49 +196,49 @@ export default function ComfortPanel() {
             tabIndex={-1}
             className={`cf-panel`}
             role="dialog"
-            aria-label="Comfort settings"
+            aria-label={t.button}
           >
             <div className="cf-band" aria-hidden="true" />
             <div className="cf-head">
               <div>
-                <p className="cf-eyebrow">Comfort</p>
-                <h2 className="cf-title">Make this page easier on the eyes</h2>
+                <p className="cf-eyebrow">{t.eyebrow}</p>
+                <h2 className="cf-title">{t.title}</h2>
               </div>
-              <button type="button" className="cf-close" onClick={close} aria-label="Close comfort settings">×</button>
+              <button type="button" className="cf-close" onClick={close} aria-label={t.closeAria}>×</button>
             </div>
 
             <div className="cf-body">
               {canSpeak && (
                 <div className="cf-group">
-                  <h3 className="cf-label">Listen</h3>
+                  <h3 className="cf-label">{t.listen}</h3>
                   <button type="button" className="cf-read" onClick={read}>
-                    {reading ? 'Stop reading' : hasSelection ? 'Read the selected text' : 'Read this page aloud'}
+                    {reading ? t.stop : hasSelection ? t.readSel : t.readPage}
                   </button>
-                  <p className="cf-note">Highlight a passage before opening this panel to hear only that part.</p>
+                  <p className="cf-note">{t.listenNote}</p>
                 </div>
               )}
 
-              <Group label="Text size" name="text" value={prefs.text} onPick={pick}
-                options={[['standard', 'Standard'], ['large', 'Larger'], ['largest', 'Largest']]} />
+              <Group label={t.textSize} name="text" value={prefs.text} onPick={pick}
+                options={[['standard', t.standard], ['large', t.larger], ['largest', t.largest]]} />
 
-              <Group label="Contrast" name="contrast" value={prefs.contrast} onPick={pick}
-                options={[['standard', 'As designed'], ['high', 'Stronger']]} />
+              <Group label={t.contrast} name="contrast" value={prefs.contrast} onPick={pick}
+                options={[['standard', t.asDesigned], ['high', t.stronger]]} />
 
-              <Group label="Links" name="links" value={prefs.links} onPick={pick}
-                options={[['standard', 'As designed'], ['underlined', 'Underline all']]} />
+              <Group label={t.links} name="links" value={prefs.links} onPick={pick}
+                options={[['standard', t.asDesigned], ['underlined', t.underline]]} />
 
-              <Group label="Tone" name="tone" value={prefs.tone} onPick={pick}
-                note="Warmer, softer shades of the site's own colours to ease glare."
-                options={[['standard', 'As designed'], ['soft', 'Soft'], ['dim', 'Dim']]} />
+              <Group label={t.tone} name="tone" value={prefs.tone} onPick={pick}
+                note={t.toneNote}
+                options={[['standard', t.asDesigned], ['soft', t.soft], ['dim', t.dim]]} />
 
-              <Group label="Motion" name="motion" value={prefs.motion} onPick={pick}
-                note="If your device is set to reduce motion, the site already follows it."
-                options={[['standard', 'As designed'], ['still', 'Calm']]} />
+              <Group label={t.motion} name="motion" value={prefs.motion} onPick={pick}
+                note={t.motionNote}
+                options={[['standard', t.asDesigned], ['still', t.calm]]} />
 
               <div className="cf-foot">
-                <button type="button" className="cf-reset" onClick={reset} disabled={!changed}>Reset all</button>
+                <button type="button" className="cf-reset" onClick={reset} disabled={!changed}>{t.reset}</button>
                 <p className="cf-note">
-                  Choices stay on this device only. <Link href="/privacy#cookies" onClick={close}>Cookie notice</Link>
+                  {t.stays} <Link href="/privacy#cookies" onClick={close}>{t.cookieNotice}</Link>
                 </p>
               </div>
             </div>

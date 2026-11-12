@@ -4,7 +4,8 @@ import LazyVideo from '@/components/LazyVideo'
 import HeroVideo from '@/components/HeroVideo'
 import { useState, useEffect } from 'react'
 import { ArrowUpRight, Plane } from 'lucide-react'
-import Link from 'next/link'
+import Link from '@/components/LocLink'
+import { useUi, useLocalePath } from '@/components/LocaleProvider'
 import {
   images,
 } from '@/lib/data'
@@ -13,7 +14,7 @@ import { fitUrl } from '@/sanity/lib/image'
 import RetreatCard from '@/components/RetreatCard'
 import VisitorCounter from '@/components/VisitorCounter'
 import ex from '@/components/HeroExtras.module.css'
-import rs from '@/app/retreats/retreats.module.css'
+import rs from '@/app/[lang]/retreats/retreats.module.css'
 import EgyptMap from '@/components/EgyptMap'
 import DestinationsReel from '@/components/DestinationsReel'
 import CollaborationCard from '@/components/CollaborationCard'
@@ -50,6 +51,9 @@ const stageHeight = (track: HTMLElement) => (track.querySelector('.kh-stage') as
 export default function HomePage({ featuredDestinations, moreDestinations, partners, collaborations, t, combinations, upcomingRetreats, stats, testimonials, steps, pageTexts: pt }: Props) {
   // Three moments of the full process: first call, the concept, and the hand-over
   const { hiddenPaths } = useSiteSettings()
+  const ui = useUi()
+  const h = ui.home
+  const toPath = useLocalePath()
   const homeSteps = steps.length >= 3 ? [steps[0], steps[2], steps[steps.length - 1]] : steps
   const [scrolled, setScrolled] = useState(false)
   const [introDone, setIntroDone] = useState(false)
@@ -68,10 +72,11 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
       const target = track ? track.offsetHeight - stageHeight(track) : 0
       window.scrollTo({ top: Math.max(target, 0), behavior: 'auto' })
       // clean the URL so a refresh doesn't keep skipping the intro
-      window.history.replaceState(null, '', '/')
+      window.history.replaceState(null, '', toPath('/'))
     }
     // run after layout is ready
     requestAnimationFrame(() => requestAnimationFrame(jump))
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   // Smooth-scroll for in-page anchors coming from SiteNav (hrefs like "/#vision")
@@ -111,11 +116,11 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
       <div id="kh-track" className="kh-track">
         <div className="kh-stage">
           <section id="top" className="hero">
-            <HeroVideo label="Calm pool and wooden deck in a quiet retreat setting" />
+            <HeroVideo label={h.heroLabel} />
             <div className="hero-shade" />
             <div className={`hero-content ${introDone ? 'kh-text-in' : 'kh-text-out'}`}>
               <h1 className={ex.sr}>{t.hero}</h1>
-              <p className={ex.route}><Plane size={15} strokeWidth={1.6} aria-hidden="true" /> From Airport to Airport</p>
+              <p className={ex.route}><Plane size={15} strokeWidth={1.6} aria-hidden="true" /> {h.airport}</p>
               <Link className={ex.cta} href="/pre-call">{t.explore}</Link>
             </div>
             <VisitorCounter visible={introDone} />
@@ -142,7 +147,7 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
                 d="M62.84 8.90 C67.13 15.29 66.21 23.26 63.01 29.90 C60.81 34.29 57.98 38.14 54.63 41.73 C53.88 42.56 53.88 42.56 53.76 42.89 C61.04 43.08 68.91 41.20 75.96 39.48 C77.22 39.19 77.22 39.19 77.45 39.41 C77.46 40.23 77.47 41.06 77.47 41.87 C77.47 42.12 77.47 42.37 77.47 42.62 C77.47 43.15 77.47 43.68 77.47 44.21 C77.47 45.01 77.47 45.82 77.47 46.63 C77.47 47.14 77.47 47.65 77.47 48.16 C77.47 48.40 77.47 48.65 77.47 48.90 C77.47 50.61 77.47 50.61 77.25 50.82 C76.29 50.71 75.35 50.49 74.40 50.27 C67.56 48.74 60.41 47.67 53.37 47.73 C53.44 49.08 53.55 50.41 53.67 51.76 C53.69 51.98 53.71 52.19 53.73 52.43 C53.80 53.12 53.86 53.83 53.92 54.53 C53.94 54.77 53.97 55.02 53.99 55.26 C54.29 58.58 54.61 61.90 54.95 65.22 C55.03 65.99 55.10 66.76 55.18 67.54 C55.90 75.00 56.70 82.46 57.71 89.89 C57.98 91.82 57.98 91.82 57.92 92.78 C57.48 93.00 56.80 92.89 56.32 92.89 C56.18 92.89 56.18 92.89 55.41 92.89 C55.09 92.89 54.76 92.90 54.42 92.90 C54.25 92.90 54.25 92.90 53.41 92.90 C52.71 92.90 52.00 92.90 51.29 92.90 C50.20 92.90 49.12 92.91 48.03 92.91 C47.34 92.91 46.66 92.91 45.98 92.92 C45.65 92.92 45.32 92.92 44.98 92.92 C44.68 92.92 44.38 92.92 44.07 92.92 C43.80 92.92 43.54 92.92 43.26 92.92 C42.64 92.87 42.64 92.87 42.26 92.49 C42.26 91.65 42.32 90.88 42.44 90.05 C42.48 89.76 42.52 89.47 42.56 89.17 C42.59 88.87 42.63 88.57 42.67 88.26 C42.71 87.97 42.75 87.67 42.80 87.37 C42.90 86.53 43.02 85.69 43.13 84.85 C43.31 83.47 43.47 82.09 43.61 80.69 C43.74 79.47 43.87 78.24 44.01 77.00 C44.40 73.39 44.77 69.79 45.07 66.17 C45.22 64.32 45.40 62.47 45.57 60.61 C45.70 59.38 45.79 58.14 45.88 56.89 C45.94 56.04 46.01 55.18 46.08 54.33 C46.09 54.18 46.09 54.18 46.15 53.38 C46.21 52.73 46.26 52.09 46.32 51.44 C46.35 51.13 46.37 50.81 46.39 50.49 C46.41 50.21 46.44 49.93 46.46 49.64 C46.50 49.00 46.51 48.37 46.51 47.73 C38.91 47.59 31.16 48.92 23.79 50.70 C22.74 50.93 22.74 50.93 22.53 50.72 C22.53 49.90 22.53 49.07 22.53 48.25 C22.53 48.00 22.53 47.75 22.53 47.49 C22.53 46.95 22.53 46.42 22.53 45.89 C22.53 45.08 22.53 44.26 22.53 43.44 C22.53 42.92 22.53 42.41 22.53 41.90 C22.53 41.65 22.53 41.40 22.53 41.15 C22.53 39.42 22.53 39.42 22.63 39.32 C23.62 39.41 24.51 39.62 25.46 39.85 C32.06 41.39 39.23 42.97 46.03 42.89 C45.72 42.27 45.37 41.93 44.87 41.44 C38.13 33.74 31.81 23.22 35.32 12.64 C37.52 7.25 41.78 3.63 47.57 2.68 C53.68 2.00 59.09 3.99 62.84 8.90Z M41.48 12.54 C37.74 19.12 40.52 26.61 44.02 32.69 C47.58 38.71 47.58 38.71 49.80 40.48 C55.62 36.99 60.22 25.71 60.46 19.23 C60.32 15.06 58.64 11.40 55.00 9.22 C50.11 6.89 44.65 8.10 41.48 12.54Z" />
               <rect id="kh-pill-ring" fill="none" stroke="#B8923D" strokeWidth="1.6" x="0" y="0" width="0" height="0" rx="0" />
             </svg>
-            <button type="button" id="kh-hint" className="kh-hint" onClick={openIntro}>Scroll to open <span>↓</span></button>
+            <button type="button" id="kh-hint" className="kh-hint" onClick={openIntro}>{h.scrollOpen} <span>↓</span></button>
           </div>
         </div>
       </div>
@@ -152,8 +157,8 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
         <div className="section-label reveal" style={{ marginBottom: 0 }}>01 / {pt.labelWhy}</div>
         <Ornament name="ankh" />
         <h2 className={`${s.visionStatement} reveal`}>
-          You already know how you want your guests to feel.<br />
-          <em>We know how to make it happen in Egypt.</em>
+          {h.visionLine1}<br />
+          <em>{h.visionLine2}</em>
         </h2>
         <div className={s.visionGrid}>
           <div className={`${s.visionCopy} reveal`}>
@@ -174,7 +179,7 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
               <LazyVideo
                 src="/why-egypt-video.mp4"
                 poster={images.vision}
-                aria-label="Egypt desert at golden hour"
+                aria-label={h.visionVideo}
               />
             </div>
           </div>
@@ -208,7 +213,7 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
             featuredIds={featuredDestinations.map((d) => d.id)}
           />
           <div className={s.destMapAction}>
-            <Link href="/destinations" className="button button-gold">See all destinations <ArrowUpRight size={14} /></Link>
+            <Link href="/destinations" className="button button-gold">{h.seeAllDestinations} <ArrowUpRight size={14} /></Link>
           </div>
         </div>
 
@@ -252,8 +257,8 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
             ))}
           </ol>
           <div className={s.howHomeAction}>
-            <Link href="/how-it-works" className="text-link">See the full process <ArrowUpRight size={16} /></Link>
-            <Link href="/pre-call" className="button button-dark">Share your idea, then book a call <ArrowUpRight size={14} /></Link>
+            <Link href="/how-it-works" className="text-link">{h.fullProcess} <ArrowUpRight size={16} /></Link>
+            <Link href="/pre-call" className="button button-dark">{h.shareIdea} <ArrowUpRight size={14} /></Link>
           </div>
         </section>
       )}
@@ -270,11 +275,11 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
 <Ornament name="cartouche-ankh" />
             <div>
               <h2>{pt.retreatsTitle}</h2>
-              <p>Small groups, thoughtful programmes and unforgettable places — hosted by us, across Egypt.</p>
+              <p>{h.retreatsLead}</p>
             </div>
           </div>
           <Link href="/retreats" className={`button button-ghost-dark ${rs.homeAllDesktop}`}>
-            See All Retreats <ArrowUpRight size={14} />
+            {h.seeAllRetreats} <ArrowUpRight size={14} />
           </Link>
         </div>
 
@@ -283,11 +288,11 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
             {upcomingRetreats.map((r) => <RetreatCard key={r.id} r={r} />)}
           </div>
         ) : (
-          <p className={rs.homeEmpty}>New dates are being planned — get in touch and we will let you know first.</p>
+          <p className={rs.homeEmpty}>{h.retreatsEmpty}</p>
         )}
 
         <Link href="/retreats" className={`button button-ghost-dark ${rs.homeAllMobile}`}>
-          See All Retreats <ArrowUpRight size={14} />
+          {h.seeAllRetreats} <ArrowUpRight size={14} />
         </Link>
       </section>
       )}
@@ -304,12 +309,7 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
           <h2>{pt.exploreTitle}</h2>
         </div>
         <div className={s.exploreGrid}>
-          {[
-            ['01', 'Experiences', 'Curated moments woven around your retreat\'s theme.', '/experiences'],
-            ['02', 'Services', 'From light-touch support to full retreat production.', '/services'],
-            ['03', 'How It Works', 'A clear, guided path from first idea to arrival.', '/how-it-works'],
-            ['04', 'About', 'The story and the people behind Nefertiti.', '/about'],
-          ].map(([num, title, desc, href]) => (
+          {h.explore.map(([num, title, desc, href]) => (
             <Link key={href} href={href} className={`${s.exploreCard} reveal`}>
               <span className={s.exploreNum}>{num}</span>
               <div className={s.exploreCardBody}>
@@ -333,7 +333,7 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
 <Ornament name="cartouche" />
           <div>
             <h2>{pt.teamTitle}</h2>
-            <p>The trusted collaborators we work with across Egypt to bring every retreat to life.</p>
+            <p>{h.teamLead}</p>
           </div>
         </div>
         <div className="team-grid">
@@ -346,9 +346,9 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
               <p className="team-card-role">{p.category}</p>
               {(p.instagram || p.x || p.tiktok) && (
                 <div className="team-card-socials">
-                  {p.instagram && <a href={`https://instagram.com/${p.instagram}`} target="_blank" rel="noopener noreferrer" aria-label={`${p.name} on Instagram`}>IN</a>}
-                  {p.x && <a href={`https://x.com/${p.x}`} target="_blank" rel="noopener noreferrer" aria-label={`${p.name} on X`}>X</a>}
-                  {p.tiktok && <a href={`https://tiktok.com/@${p.tiktok}`} target="_blank" rel="noopener noreferrer" aria-label={`${p.name} on TikTok`}>TT</a>}
+                  {p.instagram && <a href={`https://instagram.com/${p.instagram}`} target="_blank" rel="noopener noreferrer" aria-label={h.onInstagram(p.name)}>IN</a>}
+                  {p.x && <a href={`https://x.com/${p.x}`} target="_blank" rel="noopener noreferrer" aria-label={h.onX(p.name)}>X</a>}
+                  {p.tiktok && <a href={`https://tiktok.com/@${p.tiktok}`} target="_blank" rel="noopener noreferrer" aria-label={h.onTiktok(p.name)}>TT</a>}
                 </div>
               )}
             </div>
@@ -376,7 +376,7 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
               {collaborations.slice(0, 6).map((c) => <CollaborationCard key={c.id} item={c} href={`/collaborations/${c.id}`} />)}
             </div>
             <div className={cs.homeAction}>
-              <Link href="/collaborations" className="text-link">See all collaborations <ArrowUpRight size={16} /></Link>
+              <Link href="/collaborations" className="text-link">{h.seeAllCollabs} <ArrowUpRight size={16} /></Link>
             </div>
           </section>
         </>
@@ -420,7 +420,7 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
       {/* FINAL CTA */}
       <section className={s.ctaBand}>
         <div className={`${s.ctaBandInner} reveal`}>
-          <p className={s.ctaTagline}>Return to your inner balance</p>
+          <p className={s.ctaTagline}>{h.ctaTagline}</p>
           <h2>{t.cta.split('\n').map((line) => <span key={line}>{line}<br /></span>)}</h2>
           <p>{t.ctaText}</p>
           <Link className="button button-gold" href="/pre-call">{t.contact}<ArrowUpRight size={16} /></Link>
@@ -434,7 +434,7 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
       <button
         className={`to-top ${scrolled ? 'is-shown' : ''}`}
         onClick={() => scrollToHero()}
-        aria-label="Back to top"
+        aria-label={h.backToTop}
       >
         <svg viewBox="0 0 40 40" fill="none" aria-hidden="true">
           {/* lotus petals */}

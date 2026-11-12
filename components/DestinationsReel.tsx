@@ -1,8 +1,9 @@
 'use client'
 
 import { useCallback, useEffect, useRef, useState } from 'react'
-import Link from 'next/link'
+import Link from '@/components/LocLink'
 import { useRouter } from 'next/navigation'
+import { useLocalePath, useUi } from '@/components/LocaleProvider'
 import { ArrowUpRight } from 'lucide-react'
 import type { Destination } from '@/lib/data'
 import s from '@/components/DestinationsReel.module.css'
@@ -17,6 +18,7 @@ const PORTRAIT_QUERY = '(max-width: 860px), (orientation: portrait)'
 const variant = (src: string, mode: 'mobile' | 'desktop') => src.replace(/\.mp4$/i, mode === 'mobile' ? '-m.mp4' : '-d.mp4')
 
 export default function DestinationsReel({ destinations }: { destinations: Destination[] }) {
+  const t = useUi().reel
   const items = destinations.filter((d) => d.video)
   const n = items.length
   const [mode, setMode] = useState<'mobile' | 'desktop' | null>(null)
@@ -28,6 +30,7 @@ export default function DestinationsReel({ destinations }: { destinations: Desti
   const timer = useRef<number | undefined>(undefined)
   const reduced = useRef(false)
   const router = useRouter()
+  const toPath = useLocalePath()
   const press = useRef<{ x: number; y: number } | null>(null)
   const swiped = useRef(false)
 
@@ -84,10 +87,10 @@ export default function DestinationsReel({ destinations }: { destinations: Desti
   const onTap = (e: React.MouseEvent) => {
     if (swiped.current) { swiped.current = false; return }
     if ((e.target as HTMLElement).closest('a, button')) return
-    router.push(`/destinations/${items[active].id}`)
+    router.push(toPath(`/destinations/${items[active].id}`))
   }
 
-  if (n === 0 || !mode) return <section ref={sectionRef} className={s.reel} aria-label="Destinations" />
+  if (n === 0 || !mode) return <section ref={sectionRef} className={s.reel} aria-label={t.ariaShort} />
 
   const cur = items[active]
   const srcFor = (d: Destination, i: number) => {
@@ -100,7 +103,7 @@ export default function DestinationsReel({ destinations }: { destinations: Desti
     <section
       ref={sectionRef}
       className={s.reel}
-      aria-label="Our destinations"
+      aria-label={t.aria}
       onPointerDown={onPointerDown}
       onPointerUp={onPointerUp}
       onPointerCancel={() => { press.current = null }}
@@ -125,7 +128,7 @@ export default function DestinationsReel({ destinations }: { destinations: Desti
       </div>
       <div className={s.shade} aria-hidden="true" />
 
-      <p className={s.eyebrow}>Explore our destinations</p>
+      <p className={s.eyebrow}>{t.eyebrow}</p>
 
       <div className={s.body}>
         <div className={s.caption} key={cur.id}>
@@ -136,7 +139,7 @@ export default function DestinationsReel({ destinations }: { destinations: Desti
           {cur.feeling && <p className={s.feeling}>{cur.feeling}</p>}
         </div>
 
-        <div className={s.dashes} role="tablist" aria-label="Destinations">
+        <div className={s.dashes} role="tablist" aria-label={t.ariaShort}>
           {items.map((d, i) => (
             <button
               key={d.id}
@@ -153,7 +156,7 @@ export default function DestinationsReel({ destinations }: { destinations: Desti
         </div>
 
         <Link href="/destinations" className={s.all}>
-          See all destinations <ArrowUpRight size={14} />
+          {t.seeAll} <ArrowUpRight size={14} />
         </Link>
       </div>
     </section>

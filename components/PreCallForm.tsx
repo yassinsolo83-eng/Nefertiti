@@ -10,10 +10,11 @@ import {
   type PreCallForm as PreCallFormData,
   type PreCallQuestion,
 } from '@/lib/preCallForm'
-import s from '@/app/pre-call/pre-call.module.css'
+import s from '@/app/[lang]/pre-call/pre-call.module.css'
 import { openWhatsapp } from '@/lib/openWhatsapp'
-import Link from 'next/link'
+import Link from '@/components/LocLink'
 import Img from '@/components/Img'
+import { useLocale, useUi } from '@/components/LocaleProvider'
 
 const DRAFT_KEY = 'nefertiti-pre-call-draft'
 
@@ -40,6 +41,8 @@ function clearDraft() {
 }
 
 export default function PreCallForm({ form }: Props) {
+  const locale = useLocale()
+  const t = useUi().preCall
   const steps = form.steps
   const [stepIdx, setStepIdx] = useState(0)
   const [answers, setAnswers] = useState<PreCallAnswers>({})
@@ -94,7 +97,7 @@ export default function PreCallForm({ form }: Props) {
   function checkStep() {
     const found: Record<string, string> = {}
     for (const q of step.questions) {
-      const err = validateQuestion(q, answers)
+      const err = validateQuestion(q, answers, t.errors)
       if (err) found[q._key] = err
     }
     setErrors(found)
@@ -132,7 +135,7 @@ export default function PreCallForm({ form }: Props) {
     setSending(true)
     setFormError('')
     try {
-      const res = await fetch('/api/pre-call', {
+      const res = await fetch(`/api/pre-call?lang=${locale}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ answers, company }),
@@ -151,12 +154,12 @@ export default function PreCallForm({ form }: Props) {
         const idx = steps.findIndex((st) => st.questions.some((q) => keys.includes(q._key)))
         if (idx >= 0) setStepIdx(idx)
         setErrors(data.errors)
-        setFormError('Some answers need a second look.')
+        setFormError(t.needLook)
       } else {
-        setFormError('Something went wrong. Please try again, or message us on WhatsApp.')
+        setFormError(t.errGeneric)
       }
     } catch {
-      setFormError('Could not send your answers. Please check your connection and try again.')
+      setFormError(t.errConnect)
     } finally {
       setSending(false)
     }
@@ -172,9 +175,9 @@ export default function PreCallForm({ form }: Props) {
         ))}
         {form.successSignature && <p className={s.signature}>{form.successSignature}</p>}
         {waUrl && (
-          <a className="button button-gold" href={waUrl} target="_blank" rel="noopener noreferrer" style={{ marginRight: 12 }}>Send details on WhatsApp</a>
+          <a className="button button-gold" href={waUrl} target="_blank" rel="noopener noreferrer" style={{ marginRight: 12 }}>{t.sendWa}</a>
         )}
-        <Link href="/" className="button button-gold">Back to home</Link>
+        <Link href="/" className="button button-gold">{t.backHome}</Link>
       </div>
     )
   }
@@ -186,7 +189,7 @@ export default function PreCallForm({ form }: Props) {
       {/* Progress */}
       <div className={s.progress}>
         <div className={s.progressMeta}>
-          <span>Step {stepIdx + 1} of {steps.length}</span>
+          <span>{t.stepOf(stepIdx + 1, steps.length)}</span>
           <span>{Math.round(progress)}%</span>
         </div>
         <div className={s.progressTrack}>
@@ -243,8 +246,8 @@ export default function PreCallForm({ form }: Props) {
 
         {isLast && (
           <p className={s.privacy}>
-            By sending this form you agree that we use your answers to prepare our call, as described in our{' '}
-            <Link href="/privacy">Privacy Policy</Link>.
+            {t.consent}{' '}
+            <Link href="/privacy">{t.privacy}</Link>.
           </p>
         )}
 
@@ -253,18 +256,18 @@ export default function PreCallForm({ form }: Props) {
         <div className={s.nav}>
           {stepIdx > 0 ? (
             <button type="button" className={s.backBtn} onClick={back}>
-              <ArrowLeft size={15} /> Back
+              <ArrowLeft size={15} /> {t.back}
             </button>
           ) : (
-            <span className={s.requiredNote}><span className={s.star}>*</span> Required</span>
+            <span className={s.requiredNote}><span className={s.star}>*</span> {t.required}</span>
           )}
           {isLast ? (
             <button type="button" className={s.nextBtn} onClick={submit} disabled={sending}>
-              {sending ? 'Sending…' : form.submitLabel} {!sending && <ArrowRight size={15} />}
+              {sending ? t.sending : form.submitLabel} {!sending && <ArrowRight size={15} />}
             </button>
           ) : (
             <button type="button" className={s.nextBtn} onClick={next}>
-              Continue <ArrowRight size={15} />
+              {t.continue} <ArrowRight size={15} />
             </button>
           )}
         </div>
@@ -283,11 +286,12 @@ type QuestionProps = {
 }
 
 function Question({ q, answers, error, onText, onOther, onToggle }: QuestionProps) {
+  const t = useUi().preCall
   const value = answers[q._key]
   const id = `q-${q._key}`
   const label = (
     <span className={s.qLabel}>
-      {q.label} {q.required && <span className={s.star} aria-label="required">*</span>}
+      {q.label} {q.required && <span className={s.star} aria-label={t.requiredAria}>*</span>}
     </span>
   )
   const help = q.help ? <span className={s.qHelp}>{q.help}</span> : null
@@ -301,7 +305,7 @@ function Question({ q, answers, error, onText, onOther, onToggle }: QuestionProp
       <fieldset id={id} className={`${s.question} ${error ? s.hasError : ''}`}>
         <legend>{label}</legend>
         {help}
-        {q.type === 'multiple' && <span className={s.qHint}>Choose all that apply</span>}
+        {q.type === 'multiple' && <span className={s.qHint}>{t.chooseAll}</span>}
         <div className={s.choices} role={q.type === 'single' ? 'radiogroup' : 'group'}>
           {options.map((o) => (
             <button
@@ -315,7 +319,7 @@ function Question({ q, answers, error, onText, onOther, onToggle }: QuestionProp
               <span className={q.type === 'single' ? s.radio : s.checkbox}>
                 {picked(o) && (q.type === 'single' ? <span className={s.radioDot} /> : <Check size={11} />)}
               </span>
-              {o}
+              {o === OTHER_LABEL ? t.other : o}
             </button>
           ))}
         </div>
@@ -324,8 +328,8 @@ function Question({ q, answers, error, onText, onOther, onToggle }: QuestionProp
             className={s.input}
             value={(answers[otherKey(q._key)] as string) || ''}
             onChange={(e) => onOther(e.target.value)}
-            placeholder="Please specify"
-            aria-label={`${q.label} — other`}
+            placeholder={t.specify}
+            aria-label={t.otherAria(q.label)}
             autoFocus
           />
         )}
@@ -346,7 +350,7 @@ function Question({ q, answers, error, onText, onOther, onToggle }: QuestionProp
           rows={4}
           value={text}
           onChange={(e) => onText(e.target.value)}
-          placeholder={q.placeholder || 'Your answer'}
+          placeholder={q.placeholder || t.answerPh}
         />
       ) : (
         <input
@@ -357,7 +361,7 @@ function Question({ q, answers, error, onText, onOther, onToggle }: QuestionProp
           autoComplete={q.type === 'name' ? 'name' : q.type === 'email' ? 'email' : undefined}
           value={text}
           onChange={(e) => onText(e.target.value)}
-          placeholder={q.placeholder || 'Your answer'}
+          placeholder={q.placeholder || t.answerPh}
         />
       )}
       {err}

@@ -2,13 +2,14 @@
 
 import LazyVideo from '@/components/LazyVideo'
 import { useEffect, useMemo, useState } from 'react'
-import Link from 'next/link'
+import Link from '@/components/LocLink'
 import { ArrowUpRight } from 'lucide-react'
 import type { Destination } from '@/lib/data'
 import EgyptMap from '@/components/EgyptMap'
 import DestinationModal from '@/components/DestinationModal'
 import s from '@/app/home.module.css'
 import Img from '@/components/Img'
+import { useUi } from '@/components/LocaleProvider'
 
 type Props = {
   featured: Destination[]
@@ -18,6 +19,7 @@ type Props = {
 
 // /destinations: the interactive map first, then every destination as a card.
 export default function DestinationsOverview({ featured, more, moreLabel }: Props) {
+  const t = useUi().destinations
   const [activeId, setActiveId] = useState<string | null>(null)
   const all = useMemo(() => [...featured, ...more], [featured, more])
   const featuredIds = useMemo(() => featured.map((d) => d.id), [featured])
@@ -33,7 +35,7 @@ export default function DestinationsOverview({ featured, more, moreLabel }: Prop
     <>
       <div className="egm-wrap">
         <EgyptMap destinations={all} featuredIds={featuredIds} onOpen={setActiveId} />
-        <p className="egm-hint">Tap a pin to see what each destination is about. Larger gold pins have their own page.</p>
+        <p className="egm-hint">{t.hint}</p>
       </div>
 
       <div className={s.destGrid}>
@@ -48,7 +50,7 @@ export default function DestinationsOverview({ featured, more, moreLabel }: Prop
               <p className={s.destCardFeeling}>{dest.feeling}</p>
               <h3>{dest.title}</h3>
               <p className={s.destCardTagline}>{dest.tagline}</p>
-              <span className={s.destCardExplore}>Explore <ArrowUpRight size={13} /></span>
+              <span className={s.destCardExplore}>{t.explore} <ArrowUpRight size={13} /></span>
             </div>
           </Link>
         ))}
@@ -72,7 +74,7 @@ export default function DestinationsOverview({ featured, more, moreLabel }: Prop
                 <Img src={dest.image} alt={dest.title} />
                 <div className={s.destMoreBody}>
                   <h3>{dest.title}</h3>
-                  <span className={s.destMoreLink}>View details <ArrowUpRight size={13} /></span>
+                  <span className={s.destMoreLink}>{t.viewDetails} <ArrowUpRight size={13} /></span>
                 </div>
               </article>
             ))}

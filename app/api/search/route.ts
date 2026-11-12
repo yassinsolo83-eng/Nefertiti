@@ -13,7 +13,10 @@ import {
   getPageTexts,
   getSiteContent,
   getSiteSettings,
+  localeOverride,
 } from '@/sanity/lib/queries'
+import { isLocale, localePath, type Locale } from '@/lib/i18n'
+import { getUi } from '@/lib/ui'
 import { menuDefaults } from '@/lib/data'
 
 // Site-wide search: builds one index of every text on the site (pages, destinations,
@@ -22,20 +25,6 @@ import { menuDefaults } from '@/lib/data'
 
 type Entry = { type: string; title: string; href: string; text: string }
 export type SearchResult = { type: string; title: string; href: string; snippet: string }
-
-const PAGE_LABELS: Record<string, string> = {
-  '/': 'Home',
-  '/about': 'About',
-  '/destinations': 'Destinations',
-  '/retreats': 'Retreats',
-  '/experiences': 'Experiences',
-  '/services': 'Services',
-  '/partners': 'Partners',
-  '/collaborations': 'Collaborations',
-  '/how-it-works': 'How It Works',
-  '/contact': 'Contact',
-  '/pre-call': 'Book a call',
-}
 
 function pageForTextKey(key: string): string | null {
   if (key.startsWith('footer') || key === 'navButton') return null
@@ -60,7 +49,9 @@ function homeHrefForCopyKey(key: string): string {
 const str = (v: unknown) => (typeof v === 'string' ? v : '')
 const list = (v: unknown) => (Array.isArray(v) ? v.map((x) => (typeof x === 'string' ? x : '')).filter(Boolean) : [])
 
-async function buildIndex(): Promise<Entry[]> {
+async function buildIndex(locale: Locale): Promise<Entry[]> {
+  const ui = getUi(locale).search
+  const PAGE_LABELS = ui.pages
   const entries: Entry[] = []
   const add = (type: string, title: string, href: string, ...parts: unknown[]) => {
     const text = parts.flatMap((p) => (Array.isArray(p) ? list(p) : [str(p)])).filter(Boolean).join(' · ')
@@ -85,8 +76,8 @@ async function buildIndex(): Promise<Entry[]> {
 
   // Pages (menu)
   const menu: [string, string][] = settings?.menuItems?.length ? settings.menuItems : menuDefaults
-  for (const [label, href] of menu) add('Page', label, href)
-  add('Page', 'Book a call', '/pre-call', 'Pre-call form discovery call')
+  for (const [label, href] of menu) add(ui.types.page, label, href)
+  add(ui.types.page, 'Book a call', '/pre-call', 'Pre-call form discovery call')
 
   // Destinations (with their detail page text)
   const allDests = [...featured, ...more]
@@ -94,7 +85,7 @@ async function buildIndex(): Promise<Entry[]> {
   allDests.forEach((d, i) => {
     const detail = details[i]?.detail
     add(
-      'Destination',
+      ui.types.destination,
       d.title,
       `/destinations/${d.id}`,
       d.tagline, d.feeling, d.desc, d.experiences, d.idealFor,
@@ -106,7 +97,7 @@ async function buildIndex(): Promise<Entry[]> {
   // Retreats
   for (const r of retreats) {
     add(
-      'Retreat',
+      ui.types.retreat,
       r.title,
       `/retreats/${r.id}`,
       r.summary, r.description, r.highlights, r.included, r.destination?.title,
@@ -116,41 +107,42 @@ async function buildIndex(): Promise<Entry[]> {
   }
 
   // Experiences, services, steps
-  for (const e of experiences) add('Experience', e.title, '/experiences', e.text)
-  for (const t of tiers) add('Service', t.title, '/services', t.desc, t.items)
-  for (const s of steps) add('How it works', s.title, '/how-it-works', s.description)
+  for (const e of experiences) add(ui.types.experience, e.title, '/experiences', e.text)
+  for (const t of tiers) add(ui.types.service, t.title, '/services', t.desc, t.items)
+  for (const s of steps) add(ui.types.how, s.title, '/how-it-works', s.description)
 
   // Partners
   for (const p of partners) {
-    add('Partner', p.name, `/partners/${p.id}`, p.category, p.tagline, p.bio, p.services, p.location)
+    add(ui.types.partner, p.name, `/partners/${p.id}`, p.category, p.tagline, p.bio, p.services, p.location)
   }
 
   // Collaborations (companies and brands)
-  for (const c of collaborations) add('Collaboration', c.name, '/collaborations', c.country, c.description)
+  for (const c of collaborations) add(ui.types.collaboration, c.name, '/collaborations', c.country, c.description)
 
   // FAQs (shown on the contact page)
-  for (const [q, a] of faqs) add('FAQ', q, '/contact', a)
+  for (const [q, a] of faqs) add(ui.types.faq, q, '/contact', a)
 
   // Fixed page texts and home page texts
   for (const [key, value] of Object.entries(pageTexts)) {
     const href = pageForTextKey(key)
-    if (href && typeof value === 'string') add(PAGE_LABELS[href] || 'Page', PAGE_LABELS[href] || 'Page', href, value)
+    if (href && typeof value === 'string') add(ui.types.page, PAGE_LABELS[href] || ui.types.page, href, value)
   }
   for (const [key, value] of Object.entries(siteContent)) {
     if (typeof value !== 'string') continue
     const href = homeHrefForCopyKey(key)
-    add('Page', PAGE_LABELS[href.split('#')[0] || '/'] || 'Home', href, value)
+    add(ui.types.page, PAGE_LABELS[href.split('#')[0] || '/'] || 'Home', href, value)
   }
 
   return entries
 }
 
 // The index is rebuilt at most once a minute (same freshness as the rest of the site)
-let cache: { at: number; entries: Entry[] } | null = null
-async function getIndex() {
-  if (cache && Date.now() - cache.at < 60_000) return cache.entries
-  const entries = await buildIndex()
-  cache = { at: Date.now(), entries }
+const cache: Partial<Record<Locale, { at: number; entries: Entry[] }>> = {}
+async function getIndex(locale: Locale) {
+  const hit = cache[locale]
+  if (hit && Date.now() - hit.at < 60_000) return hit.entries
+  const entries = await localeOverride.run(locale, () => buildIndex(locale))
+  cache[locale] = { at: Date.now(), entries }
   return entries
 }
 
@@ -172,11 +164,14 @@ function snippetFor(text: string, tokens: string[]) {
 }
 
 export async function GET(req: Request) {
-  const q = new URL(req.url).searchParams.get('q')?.slice(0, 80) || ''
+  const params = new URL(req.url).searchParams
+  const q = params.get('q')?.slice(0, 80) || ''
+  const requested = params.get('lang')
+  const locale: Locale = isLocale(requested) ? requested : 'en'
   const tokens = norm(q).split(/\s+/).filter(Boolean)
   if (tokens.length === 0) return NextResponse.json({ results: [] })
 
-  const entries = await getIndex()
+  const entries = await getIndex(locale)
   const scored: { score: number; entry: Entry }[] = []
 
   for (const entry of entries) {
@@ -207,7 +202,7 @@ export async function GET(req: Request) {
     results.push({
       type: entry.type,
       title: entry.title,
-      href: entry.href,
+      href: localePath(locale, entry.href),
       snippet: snippetFor(entry.text, tokens),
     })
     if (results.length >= 8) break

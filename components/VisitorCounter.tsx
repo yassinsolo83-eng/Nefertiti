@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import s from './HeroExtras.module.css'
+import { useUi } from '@/components/LocaleProvider'
 
 // One request per full page load. Sharing the promise also stops React's dev-mode
 // double mount from counting the same visit twice.
@@ -20,6 +21,7 @@ function registerVisit() {
 const fmt = (n: number) => n.toLocaleString('en-US')
 
 export default function VisitorCounter({ visible }: { visible: boolean }) {
+  const ui = useUi()
   const [total, setTotal] = useState<number | null>(null)
   const [shown, setShown] = useState(0)
 
@@ -64,9 +66,9 @@ export default function VisitorCounter({ visible }: { visible: boolean }) {
           <span className={s.ghost}>{fmt(total)}</span>
           <span>{fmt(shown)}</span>
         </span>
-        <span className={s.label}>Visitors</span>
+        <span className={s.label}>{ui.visitors}</span>
       </span>
-      <span className={s.sr}>{fmt(total)} visitors</span>
+      <span className={s.sr}>{ui.visitorsCount(fmt(total))}</span>
     </div>
   )
 }

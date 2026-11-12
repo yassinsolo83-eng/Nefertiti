@@ -16,6 +16,7 @@ import { preCallForm } from './preCallForm'
 import { testimonial } from './testimonial'
 import { preCallSubmission } from './preCallSubmission'
 import { visitorCounter } from './visitorCounter'
+import { withItalian } from './italian'
 
 export const schemaTypes = [
   visitorCounter,
@@ -36,4 +37,4 @@ export const schemaTypes = [
   pageImages,
   pageTexts,
   seo,
-]
+].map(withItalian)

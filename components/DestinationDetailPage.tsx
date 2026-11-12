@@ -2,17 +2,19 @@
 
 import { useState, useEffect } from 'react'
 import { ArrowUpRight, MapPin, Calendar } from 'lucide-react'
-import Link from 'next/link'
+import Link from '@/components/LocLink'
 import type { Destination, DestDetail } from '@/lib/data'
 import SiteNav from '@/components/SiteNav'
 import SiteFooter from '@/components/SiteFooter'
 import BackButton from '@/components/BackButton'
-import s from '@/app/destinations/[slug]/destination-detail.module.css'
+import s from '@/app/[lang]/destinations/[slug]/destination-detail.module.css'
 import Img from '@/components/Img'
+import { useUi } from '@/components/LocaleProvider'
 
 type Props = { dest: Destination | null; detail: DestDetail | null }
 
 export default function DestinationDetailPage({ dest, detail }: Props) {
+  const t = useUi().detail
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
@@ -37,8 +39,8 @@ export default function DestinationDetailPage({ dest, detail }: Props) {
   if (!dest || !detail) {
     return (
       <main style={{ padding: '20vh 5vw', textAlign: 'center' }}>
-        <h1 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 36 }}>Destination not found</h1>
-        <Link href="/#destinations" style={{ color: 'var(--primary)', marginTop: 20, display: 'inline-block' }}>← Back to destinations</Link>
+        <h1 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 36 }}>{t.destNotFound}</h1>
+        <Link href="/#destinations" style={{ color: 'var(--primary)', marginTop: 20, display: 'inline-block' }}>{t.backToDest}</Link>
       </main>
     )
   }
@@ -70,7 +72,7 @@ export default function DestinationDetailPage({ dest, detail }: Props) {
           <h1>{dest.title}</h1>
           <p className={s.dpHeroTagline}>{dest.tagline}</p>
           <div className={s.dpHeroMeta}>
-            <span><Calendar size={14} /> Best time: {detail.bestTime}</span>
+            <span><Calendar size={14} /> {t.bestTime} {detail.bestTime}</span>
           </div>
         </div>
       </section>
@@ -83,8 +85,8 @@ export default function DestinationDetailPage({ dest, detail }: Props) {
       {/* ── EXPERIENCE ACCORDION STRIP ── */}
       <section className={s.dpStripSection}>
         <div className={`${s.dpSectionHead} ${s.dpReveal}`}>
-          <p className={s.dpLabel}>SIGNATURE EXPERIENCES</p>
-          <h2>Moments that define {dest.title}</h2>
+          <p className={s.dpLabel}>{t.signature}</p>
+          <h2>{t.moments(dest.title)}</h2>
         </div>
         <div className={`${s.dpStrip} ${s.dpReveal}`}>
           {detail.highlights.map((h, i) => (
@@ -105,8 +107,8 @@ export default function DestinationDetailPage({ dest, detail }: Props) {
       {moreExperiences.length > 0 && (
         <section className={s.dpGridSection}>
           <div className={`${s.dpSectionHead} ${s.dpReveal}`}>
-            <p className={s.dpLabel}>WHAT ELSE AWAITS</p>
-            <h2>More to explore</h2>
+            <p className={s.dpLabel}>{t.whatElse}</p>
+            <h2>{t.more}</h2>
           </div>
           <div className={`${s.dpActivityGrid} ${s.dpReveal}`}>
             {moreExperiences.map((exp) => (
@@ -123,7 +125,7 @@ export default function DestinationDetailPage({ dest, detail }: Props) {
 
       {/* ── IDEAL FOR ── */}
       <section className={`${s.dpIdeal} ${s.dpReveal}`}>
-        <p className={s.dpLabel}>IDEAL FOR</p>
+        <p className={s.dpLabel}>{t.idealFor}</p>
         <div className={s.dpIdealTags}>
           {dest.idealFor.map(tag => (
             <span key={tag} className={s.dpIdealTag}>{tag}</span>
@@ -137,14 +139,14 @@ export default function DestinationDetailPage({ dest, detail }: Props) {
         style={{ backgroundImage: `url(${detail.parallaxImage})` }}
       >
         <div className={`${s.dpParallaxPanel} ${s.dpReveal}`}>
-          <h2>Create your retreat in {dest.title}</h2>
-          <p>Tell us your vision and we&apos;ll show you what {dest.title} can become for your community.</p>
+          <h2>{t.createIn(dest.title)}</h2>
+          <p>{t.createLead(dest.title)}</p>
           <div className={s.dpParallaxActions}>
             <Link href="/pre-call" className="button button-gold">
-              Create Your Retreat <ArrowUpRight size={16} />
+              {t.createButton} <ArrowUpRight size={16} />
             </Link>
             <Link href="/pre-call" className="button button-ghost-light">
-              Book a Discovery Call
+              {t.bookCall}
             </Link>
           </div>
         </div>

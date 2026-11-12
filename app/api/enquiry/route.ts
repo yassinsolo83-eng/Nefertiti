@@ -3,6 +3,8 @@ import { randomUUID } from 'crypto'
 import { createClient } from 'next-sanity'
 import { buildWhatsappUrl, getNotifyWhatsappNumber, sendWhatsApp } from '@/lib/notify'
 import { projectId, dataset, apiVersion } from '@/sanity/env'
+import { isLocale, type Locale } from '@/lib/i18n'
+import { getUi } from '@/lib/ui'
 
 // Server-only client with write access. The token never reaches the browser.
 const writeClient = createClient({
@@ -38,6 +40,10 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: true })
   }
 
+  const requested = new URL(req.url).searchParams.get('lang')
+  const locale: Locale = isLocale(requested) ? requested : 'en'
+  const t = getUi(locale).contact
+
   const name = clean(body.name, 120)
   const email = clean(body.email, 200)
   const phone = clean(body.phone, 40)
@@ -46,9 +52,9 @@ export async function POST(req: Request) {
   const retreat = clean(body.retreat, 200)
 
   const errors: Record<string, string> = {}
-  if (!name) errors.name = 'Please enter your name.'
-  if (!EMAIL_RE.test(email)) errors.email = 'Please enter a valid email address.'
-  if (message.length < 10) errors.message = 'Please tell us a little more (at least 10 characters).'
+  if (!name) errors.name = t.errName
+  if (!EMAIL_RE.test(email)) errors.email = t.errEmail
+  if (message.length < 10) errors.message = t.errMessage
   if (Object.keys(errors).length) {
     return NextResponse.json({ errors }, { status: 422 })
   }
@@ -85,6 +91,7 @@ export async function POST(req: Request) {
       (phone ? `Phone: ${phone}\n` : '') +
       (practice ? `Practice: ${practice}\n` : '') +
       (retreat ? `Retreat: ${retreat}\n` : '') +
+      (locale === 'it' ? `Language: Italian\n` : '') +
       `\n${message}`
     whatsappUrl = buildWhatsappUrl(text, notifyPhone)
     await sendWhatsApp(text, notifyPhone)

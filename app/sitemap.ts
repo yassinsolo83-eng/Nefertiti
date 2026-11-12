@@ -1,11 +1,13 @@
 import type { MetadataRoute } from 'next'
 import { SITE_URL } from '@/lib/site'
+import { localePath } from '@/lib/i18n'
 import {
   getFeaturedDestinations,
   getMoreDestinations,
   getDestinationBySlug,
   getPartners,
   getRetreats,
+  getCollaborations,
 } from '@/sanity/lib/queries'
 
 export const revalidate = 3600
@@ -29,12 +31,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE_URL}/privacy`, lastModified: now, changeFrequency: 'yearly', priority: 0.3 },
   ]
 
-  const [featured, more, partners, retreats] = await Promise.all([
+  const [featured, more, partners, retreats, collaborations] = await Promise.all([
     getFeaturedDestinations(),
     getMoreDestinations(),
     getPartners(),
     getRetreats(),
+    getCollaborations(),
   ])
+
+  // A section with nothing published is hidden from the site, so it stays out of the sitemap too
+  const hidden = [
+    ...(partners.length === 0 ? ['/partners'] : []),
+    ...(retreats.length === 0 ? ['/retreats'] : []),
+    ...(collaborations.length === 0 ? ['/collaborations'] : []),
+  ]
+  const visibleStatic = staticRoutes.filter((r) => !hidden.includes(r.url.slice(SITE_URL.length)))
 
   // Only list destinations that actually resolve to a page (avoid 404s in the sitemap)
   const slugs = Array.from(new Set([...featured, ...more].map((d) => d.id)))
@@ -55,6 +66,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     }))
 
+  const collaborationRoutes: MetadataRoute.Sitemap = collaborations.map((c) => ({
+    url: `${SITE_URL}/collaborations/${c.id}`,
+    lastModified: now,
+    changeFrequency: 'monthly',
+    priority: 0.4,
+  }))
+
   const partnerRoutes: MetadataRoute.Sitemap = partners
     .filter((p) => !p.seo?.noIndex)
     .map((p) => ({
@@ -74,5 +92,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     }))
 
-  return [...staticRoutes, ...retreatRoutes, ...destinationRoutes, ...partnerRoutes]
+  // Every page exists in English and Italian; each entry points at its twin
+  const both = (entries: MetadataRoute.Sitemap): MetadataRoute.Sitemap =>
+    entries.flatMap((e) => {
+      const path = e.url.slice(SITE_URL.length) || '/'
+      const languages = { en: `${SITE_URL}${path === '/' ? '/' : path}`, it: `${SITE_URL}${localePath('it', path)}` }
+      return [
+        { ...e, url: languages.en, alternates: { languages } },
+        { ...e, url: languages.it, alternates: { languages } },
+      ]
+    })
+
+  return both([...visibleStatic, ...retreatRoutes, ...destinationRoutes, ...partnerRoutes, ...collaborationRoutes])
 }
