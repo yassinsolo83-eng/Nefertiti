@@ -1051,7 +1051,7 @@ html[data-c-tone="dim"] {
   --background: #DDD2BC; --border: #BFAE90; --foreground: #4E2638; --muted-fg: #5E4250; --muted: #D2C5AB;
 }
 html[data-c-tone="dim"] .site-nav.is-scrolled { background: rgba(221,210,188,.97); }
-html[data-c-tone="soft"] :where(.cookie-notice, .cf-panel, .cf-arrow), html[data-c-tone="dim"] :where(.cookie-notice, .cf-panel) { background: var(--background); }
+html[data-c-tone="soft"] :where(.cookie-notice, .cf-panel), html[data-c-tone="dim"] :where(.cookie-notice, .cf-panel) { background: var(--background); }
 
 /* While the cookie notice is showing, sit above it */
 body:has(.cookie-notice) .cf-dock { bottom: 152px; }
