@@ -2,7 +2,6 @@
 
 import { useState, useRef } from 'react'
 import { ArrowUpRight, Check } from 'lucide-react'
-import { copy } from '@/lib/data'
 import type { ServiceTier } from '@/sanity/lib/queries'
 import SiteNav from '@/components/SiteNav'
 import SiteFooter from '@/components/SiteFooter'
@@ -16,7 +15,6 @@ import type { PageTexts } from '@/lib/data'
 type Props = { serviceTiers: ServiceTier[]; heroImage: string; texts: PageTexts }
 
 export default function ServicesPage({ serviceTiers, heroImage, texts }: Props) {
-  const t = copy.en
   const [activeIdx, setActiveIdx] = useState(0)
   const listRef = useRef<HTMLDivElement>(null)
   const [imgY, setImgY] = useState(0)

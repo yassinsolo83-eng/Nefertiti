@@ -53,7 +53,6 @@ export default async function Page() {
       collaborations={collaborations}
       t={t}
       combinations={settings.combinations}
-      whatsappLink={settings.whatsappLink}
       upcomingRetreats={upcomingRetreats}
       stats={stats}
       testimonials={testimonials}

@@ -34,7 +34,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 
 export default async function RetreatDetailPage({ params }: Params) {
   const { slug } = await params
-  const [r, settings] = await Promise.all([getRetreatBySlug(slug), getSiteSettings()])
+  const r = await getRetreatBySlug(slug)
   if (!r) return notFound()
 
   const past = isPastRetreat(r)

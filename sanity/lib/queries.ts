@@ -3,7 +3,6 @@ import {
   featuredDestinations as staticFeatured,
   moreDestinations as staticMore,
   experiences as staticExperiences,
-  partners as staticPartners,
   faqs as staticFaqs,
   serviceTiers as staticTiers,
   copy as staticCopy,
@@ -215,14 +214,14 @@ export async function getCollaborations(): Promise<Collaboration[]> {
 
 export async function getPartners() {
   const result = await safeFetch<any[]>(PARTNER_QUERY, [])
-  if (result.length === 0) return staticPartners
 
+  // Partners come only from Sanity — there is no built-in sample list
   return result.map((p, i) => ({
     id: p.id || `partner-${i + 1}`,
     name: p.name,
     category: p.category || '',
     tagline: p.tagline || '',
-    image: p.image || staticPartners[i]?.image || '',
+    image: p.image || '',
     bio: p.bio || '',
     services: p.services || [],
     showServices: p.showServices !== false,

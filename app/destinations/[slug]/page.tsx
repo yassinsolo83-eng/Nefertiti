@@ -31,10 +31,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 
 export default async function Page({ params }: Params) {
   const { slug } = await params
-  const [result, settings] = await Promise.all([
-    getDestinationBySlug(slug),
-    getSiteSettings(),
-  ])
+  const result = await getDestinationBySlug(slug)
 
   // Real 404 status instead of a "not found" page with 200 (soft 404)
   if (!result) return notFound()
@@ -52,7 +49,7 @@ export default async function Page({ params }: Params) {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <DestinationDetailPage dest={result.dest} detail={result.detail} whatsappLink={settings.whatsappLink} />
+      <DestinationDetailPage dest={result.dest} detail={result.detail} />
     </>
   )
 }

@@ -19,6 +19,7 @@ import DestinationsReel from '@/components/DestinationsReel'
 import CollaborationCard from '@/components/CollaborationCard'
 import cs from '@/components/Collaborations.module.css'
 import SiteNav from '@/components/SiteNav'
+import { useSiteSettings } from '@/components/SiteSettingsProvider'
 import SiteFooter from '@/components/SiteFooter'
 import { Ornament, BrandBand } from '@/components/Motif'
 import { useKeyhole } from '@/hooks/useKeyhole'
@@ -35,7 +36,6 @@ type Props = {
   collaborations: Collaboration[]
   t: (typeof import('@/lib/data').copy)['en']
   combinations: string[]
-  whatsappLink: string
   upcomingRetreats: Retreat[]
   stats: HomeStat[]
   testimonials: Testimonial[]
@@ -47,8 +47,9 @@ type Props = {
 // so scroll targets must use the stage height or the page overshoots and the hero ends up under the nav.
 const stageHeight = (track: HTMLElement) => (track.querySelector('.kh-stage') as HTMLElement | null)?.offsetHeight ?? window.innerHeight
 
-export default function HomePage({ featuredDestinations, moreDestinations, partners, collaborations, t, combinations, whatsappLink, upcomingRetreats, stats, testimonials, steps, pageTexts: pt }: Props) {
+export default function HomePage({ featuredDestinations, moreDestinations, partners, collaborations, t, combinations, upcomingRetreats, stats, testimonials, steps, pageTexts: pt }: Props) {
   // Three moments of the full process: first call, the concept, and the hand-over
+  const { hiddenPaths } = useSiteSettings()
   const homeSteps = steps.length >= 3 ? [steps[0], steps[2], steps[steps.length - 1]] : steps
   const [scrolled, setScrolled] = useState(false)
   const [introDone, setIntroDone] = useState(false)
@@ -261,6 +262,7 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
       <BrandBand className="section-divider" />
 
       {/* UPCOMING RETREATS — pulled from Sanity, next 3 by date */}
+      {!hiddenPaths?.includes('/retreats') && (
       <section id="retreats" className={`section ${rs.homeRetreats}`}>
         <div className={`${rs.homeHead} reveal`}>
           <div className="section-heading">
@@ -288,6 +290,7 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
           See All Retreats <ArrowUpRight size={14} />
         </Link>
       </section>
+      )}
 
       {/* ── Divider ── */}
       <BrandBand className="section-divider" />
@@ -323,6 +326,7 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
       <BrandBand className="section-divider" />
 
       {/* PARTNERS PREVIEW */}
+      {!hiddenPaths?.includes('/partners') && (
       <section id="partners" className={`section ${s.partnersPreview}`}>
         <div className="section-heading reveal">
           <div className="section-label">06 / {pt.labelTeam}</div>
@@ -351,6 +355,7 @@ export default function HomePage({ featuredDestinations, moreDestinations, partn
           ))}
         </div>
       </section>
+      )}
 
       {/* COLLABORATIONS — shown only when some are published in the Studio; the first six */}
       {collaborations.length > 0 && (

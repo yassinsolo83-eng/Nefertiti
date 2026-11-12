@@ -27,12 +27,9 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 
 export default async function Page({ params }: Params) {
   const { id } = await params
-  const [partners, settings] = await Promise.all([
-    getPartners(),
-    getSiteSettings(),
-  ])
+  const partners = await getPartners()
   const partner = partners.find((p) => p.id === id)
   if (!partner) return notFound()
 
-  return <PartnerDetailPage partner={partner} whatsappLink={settings.whatsappLink} />
+  return <PartnerDetailPage partner={partner} />
 }

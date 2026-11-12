@@ -1101,3 +1101,10 @@ html[data-c-motion="still"] *, html[data-c-motion="still"] *::before, html[data-
 body:has(.cookie-notice) .to-top { bottom: 151px; }
 @media (max-width: 860px) { body:has(.cookie-notice) .to-top { bottom: 154px; } }
 @media (max-width: 600px) { body:has(.cookie-notice) .to-top { bottom: 142px; } }
+
+/* Comfortable touch targets for small links (the look stays the same) */
+.footer-links a, .footer-links p:not(.footer-label) { padding-block: 4px; }
+.footer-links div { gap: 1px; }
+.footer-legal a { padding-block: 8px; }
+.footer-legal { gap: 10px 18px; flex-wrap: wrap; }
+

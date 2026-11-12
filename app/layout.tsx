@@ -1,7 +1,8 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import { SITE_URL, SITE_NAME, SITE_EMAIL, DEFAULT_DESCRIPTION, DEFAULT_OG_IMAGE } from '@/lib/site'
-import { getSiteSettings, getRetreats, getPageTexts } from '@/sanity/lib/queries'
+import { getSiteSettings, getRetreats, getPageTexts, getPartners, getCollaborations } from '@/sanity/lib/queries'
+import { menuDefaults } from '@/lib/data'
 import { splitRetreats } from '@/lib/retreat-utils'
 import RetreatBar from '@/components/RetreatBar'
 import GoogleTranslate from '@/components/GoogleTranslate'
@@ -85,7 +86,14 @@ function profileLinks(links: string[][]) {
 }
 
 export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  const [settings, retreats, pageTexts] = await Promise.all([getSiteSettings(), getRetreats(), getPageTexts()])
+  const [settings, retreats, pageTexts, partners, collaborations] = await Promise.all([getSiteSettings(), getRetreats(), getPageTexts(), getPartners(), getCollaborations()])
+  // A section with nothing published in the Studio disappears from the menu and the home page
+  const hiddenPaths = [
+    ...(partners.length === 0 ? ['/partners'] : []),
+    ...(retreats.length === 0 ? ['/retreats'] : []),
+    ...(collaborations.length === 0 ? ['/collaborations'] : []),
+  ]
+  const menuItems = (settings.menuItems && settings.menuItems.length ? settings.menuItems : menuDefaults).filter(([, href]) => !hiddenPaths.includes(href))
   const sameAs = profileLinks(settings.socialLinks)
 
   const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
@@ -134,7 +142,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
         <GoogleTranslate />
-        <SiteSettingsProvider value={{ contactEmail: settings.contactEmail, socialLinks: settings.socialLinks, whatsappLink: settings.whatsappLink, texts: pageTexts, menuItems: settings.menuItems }}>
+        <SiteSettingsProvider value={{ contactEmail: settings.contactEmail, socialLinks: settings.socialLinks, whatsappLink: settings.whatsappLink, texts: pageTexts, menuItems, hiddenPaths }}>
           {children}
         </SiteSettingsProvider>
         <CookieNotice />

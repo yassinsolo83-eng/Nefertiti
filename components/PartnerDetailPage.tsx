@@ -10,9 +10,9 @@ import BackButton from '@/components/BackButton'
 import s from '@/app/partners/partners.module.css'
 import Img from '@/components/Img'
 
-type Props = { partner: Partner | null; whatsappLink: string }
+type Props = { partner: Partner | null }
 
-export default function PartnerDetailPage({ partner, whatsappLink }: Props) {
+export default function PartnerDetailPage({ partner }: Props) {
 
   if (!partner) {
     return (

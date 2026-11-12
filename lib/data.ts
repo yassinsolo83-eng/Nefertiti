@@ -514,65 +514,6 @@ export type Partner = {
   seo?: SeoFields
 }
 
-export const partners: Partner[] = [
-  {
-    id: 'partner-1',
-    name: 'Name',
-    category: 'Boutique Accommodation',
-    tagline: 'Placeholder tagline — a short line about this partner.',
-    image: images.luxuryResort,
-    bio: 'This is placeholder text. A full description of the partner will go here — who they are, what makes them special, and why Nefertiti works with them. Azza will replace this with real content.',
-    services: ['Service one', 'Service two', 'Service three'],
-    location: 'Egypt',
-    website: '',
-    instagram: '',
-    x: '',
-    tiktok: '',
-  },
-  {
-    id: 'partner-2',
-    name: 'Name',
-    category: 'Wellness & Yoga',
-    tagline: 'Placeholder tagline — a short line about this partner.',
-    image: images.hero,
-    bio: 'This is placeholder text. A full description of the partner will go here — who they are, what makes them special, and why Nefertiti works with them. Azza will replace this with real content.',
-    services: ['Service one', 'Service two', 'Service three'],
-    location: 'Egypt',
-    website: '',
-    instagram: '',
-    x: '',
-    tiktok: '',
-  },
-  {
-    id: 'partner-3',
-    name: 'Name',
-    category: 'Photography & Film',
-    tagline: 'Placeholder tagline — a short line about this partner.',
-    image: images.vision,
-    bio: 'This is placeholder text. A full description of the partner will go here — who they are, what makes them special, and why Nefertiti works with them. Azza will replace this with real content.',
-    services: ['Service one', 'Service two', 'Service three'],
-    location: 'Egypt',
-    website: '',
-    instagram: '',
-    x: '',
-    tiktok: '',
-  },
-  {
-    id: 'partner-4',
-    name: 'Name',
-    category: 'Transport & Logistics',
-    tagline: 'Placeholder tagline — a short line about this partner.',
-    image: images.felucca,
-    bio: 'This is placeholder text. A full description of the partner will go here — who they are, what makes them special, and why Nefertiti works with them. Azza will replace this with real content.',
-    services: ['Service one', 'Service two', 'Service three'],
-    location: 'Egypt',
-    website: '',
-    instagram: '',
-    x: '',
-    tiktok: '',
-  },
-]
-
 export const destinationDetails: Record<string, DestDetail> = {
   cairo: {
     overview:

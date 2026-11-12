@@ -10,9 +10,9 @@ import BackButton from '@/components/BackButton'
 import s from '@/app/destinations/[slug]/destination-detail.module.css'
 import Img from '@/components/Img'
 
-type Props = { dest: Destination | null; detail: DestDetail | null; whatsappLink: string }
+type Props = { dest: Destination | null; detail: DestDetail | null }
 
-export default function DestinationDetailPage({ dest, detail, whatsappLink }: Props) {
+export default function DestinationDetailPage({ dest, detail }: Props) {
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {

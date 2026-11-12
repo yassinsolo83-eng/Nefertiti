@@ -12,6 +12,8 @@ type SiteSettingsValue = {
   whatsappLink?: string
   texts?: PageTexts
   menuItems?: [string, string][]
+  /** Pages with nothing published yet (e.g. '/partners'): hidden from the menu and the home page */
+  hiddenPaths?: string[]
 }
 
 const SiteSettingsContext = createContext<SiteSettingsValue>({
@@ -19,6 +21,7 @@ const SiteSettingsContext = createContext<SiteSettingsValue>({
   socialLinks: [],
   texts: pageTextDefaults,
   menuItems: menuDefaults,
+  hiddenPaths: [],
 })
 
 export function SiteSettingsProvider({ value, children }: { value: SiteSettingsValue; children: React.ReactNode }) {
