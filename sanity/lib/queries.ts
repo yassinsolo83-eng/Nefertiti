@@ -543,7 +543,13 @@ const RETREAT_QUERY = `*[_type == "retreat" && defined(slug.current)] | order(st
   "seo": seo { metaTitle, metaDescription, metaTitle_it, metaDescription_it, noIndex, "ogImage": ogImage.asset->url }
 }`
 
-function normalizeRetreat(r: any): Retreat {
+function normalizeRetreat(r: any, locale: Locale): Retreat {
+  if (r.destination?.id) {
+    // The destination name uses the built-in Italian name when the Studio still has the built-in English one
+    const dId = r.destination.id
+    const staticDest = ([...staticFeatured, ...staticMore] as Destination[]).find((d) => d.id === dId)
+    r = { ...r, destination: { ...r.destination, title: tr(locale, r.destination.title, staticDest?.title, itData.destinationsIt[dId]?.title) } }
+  }
   return {
     id: r.id,
     title: r.title || '',
@@ -565,8 +571,8 @@ function normalizeRetreat(r: any): Retreat {
 
 // Retreats come only from Sanity — there is no built-in fallback list
 export async function getRetreats(): Promise<Retreat[]> {
-  const result = await safeFetch<any[]>(RETREAT_QUERY, [])
-  return result.map(normalizeRetreat)
+  const [locale, result] = [await currentLocale(), await safeFetch<any[]>(RETREAT_QUERY, [])]
+  return result.map((r) => normalizeRetreat(r, locale))
 }
 
 export async function getRetreatBySlug(slug: string): Promise<Retreat | null> {
