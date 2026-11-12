@@ -984,7 +984,7 @@ body[data-kh-veil="on"] .nav-video:not(.is-scrolled) .nav-links a { color: var(-
 /* ══════════════════════════════════
    COMFORT PANEL — reading & viewing aids
 ══════════════════════════════════ */
-.cf-dock { position: fixed; z-index: 95; bottom: 28px; left: 8px; display: flex; align-items: center; gap: 4px; transition: transform .45s cubic-bezier(.4,.1,.2,1); }
+.cf-dock { position: fixed; z-index: 95; bottom: 28px; left: 8px; display: flex; align-items: center; gap: 0; transition: transform .45s cubic-bezier(.4,.1,.2,1); }
 .cf-dock.is-tucked { transform: translateX(-56px); }
 .cf-ball {
   position: relative; width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; padding: 0;
@@ -996,12 +996,13 @@ body[data-kh-veil="on"] .nav-video:not(.is-scrolled) .nav-links a { color: var(-
 @media (hover: hover) { .cf-ball:hover .cf-ball-icon { animation-duration: 4s; } }
 @keyframes cf-spin { to { transform: rotate(360deg); } }
 .cf-arrow {
-  width: 26px; height: 40px; display: grid; place-items: center; padding: 0; border-radius: 0 20px 20px 0;
-  background: var(--background); color: var(--primary); border: 1px solid rgba(141,76,101,.3);
-  box-shadow: 0 4px 12px rgba(46,24,64,.15); transition: background .25s, color .25s;
+  position: relative; z-index: 0; width: 34px; height: 36px; margin-left: -18px; padding: 0 0 0 16px; display: grid; place-items: center;
+  border-radius: 0 18px 18px 0; background: var(--primary); color: var(--gold); border: 1px solid rgba(241,210,136,.5); border-left: 0;
+  box-shadow: 0 8px 24px rgba(46,24,64,.3); transition: background .25s, color .25s;
 }
-.cf-arrow:active { background: var(--primary); color: var(--gold); }
-@media (hover: hover) { .cf-arrow:hover { background: var(--primary); color: var(--gold); } }
+.cf-ball { z-index: 1; }
+.cf-arrow:active { background: var(--plum-deep, var(--primary)); }
+@media (hover: hover) { .cf-arrow:hover { background: var(--plum-deep, var(--primary)); } }
 .cf-ball:focus-visible, .cf-arrow:focus-visible, .cf-opt:focus-visible, .cf-read:focus-visible, .cf-reset:focus-visible, .cf-close:focus-visible { outline: 2px solid var(--gold-deep); outline-offset: 2px; }
 .cf-dot { position: absolute; top: 2px; right: 2px; width: 10px; height: 10px; border-radius: 50%; background: var(--gold); border: 2px solid var(--primary); }
 .cf-back { position: fixed; inset: 0; z-index: 96; background: rgba(20,10,28,.28); }
@@ -1050,7 +1051,7 @@ html[data-c-tone="dim"] {
   --background: #DDD2BC; --border: #BFAE90; --foreground: #4E2638; --muted-fg: #5E4250; --muted: #D2C5AB;
 }
 html[data-c-tone="dim"] .site-nav.is-scrolled { background: rgba(221,210,188,.97); }
-html[data-c-tone="soft"] :where(.cookie-notice, .cf-panel, .cf-arrow), html[data-c-tone="dim"] :where(.cookie-notice, .cf-panel, .cf-arrow) { background: var(--background); }
+html[data-c-tone="soft"] :where(.cookie-notice, .cf-panel, .cf-arrow), html[data-c-tone="dim"] :where(.cookie-notice, .cf-panel) { background: var(--background); }
 
 /* While the cookie notice is showing, sit above it */
 body:has(.cookie-notice) .cf-dock { bottom: 152px; }
