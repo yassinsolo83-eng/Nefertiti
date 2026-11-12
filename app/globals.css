@@ -996,7 +996,7 @@ body[data-kh-veil="on"] .nav-video:not(.is-scrolled) .nav-links a { color: var(-
 @media (hover: hover) { .cf-ball:hover .cf-ball-icon { animation-duration: 4s; } }
 @keyframes cf-spin { to { transform: rotate(360deg); } }
 .cf-arrow {
-  position: relative; z-index: 0; width: 34px; height: 36px; margin-left: -18px; padding: 0 0 0 16px; display: grid; place-items: center;
+  position: relative; z-index: 0; width: 46px; height: 36px; margin-left: -18px; padding: 0 0 0 16px; display: grid; place-items: center;
   border-radius: 0 18px 18px 0; background: var(--background); color: var(--primary); border: 1px solid rgba(141,76,101,.3); border-left: 0;
   box-shadow: 0 4px 12px rgba(46,24,64,.15); transition: background .25s, color .25s;
 }
