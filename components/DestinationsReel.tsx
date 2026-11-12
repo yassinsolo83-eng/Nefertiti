@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { ArrowUpRight } from 'lucide-react'
 import type { Destination } from '@/lib/data'
 import s from '@/components/DestinationsReel.module.css'
@@ -26,6 +27,9 @@ export default function DestinationsReel({ destinations }: { destinations: Desti
   const refs = useRef<(HTMLVideoElement | null)[]>([])
   const timer = useRef<number | undefined>(undefined)
   const reduced = useRef(false)
+  const router = useRouter()
+  const press = useRef<{ x: number; y: number } | null>(null)
+  const swiped = useRef(false)
 
   useEffect(() => {
     reduced.current = window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -64,6 +68,25 @@ export default function DestinationsReel({ destinations }: { destinations: Desti
     return () => window.clearTimeout(timer.current)
   }, [active, visible, mode, n, go])
 
+  // Swipe left/right to change destination; a tap on the video opens that destination
+  const onPointerDown = (e: React.PointerEvent) => { press.current = { x: e.clientX, y: e.clientY }; swiped.current = false }
+  const onPointerUp = (e: React.PointerEvent) => {
+    const p = press.current
+    press.current = null
+    if (!p) return
+    const dx = e.clientX - p.x
+    const dy = e.clientY - p.y
+    if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.2) {
+      swiped.current = true
+      go(dx < 0 ? active + 1 : active - 1)
+    }
+  }
+  const onTap = (e: React.MouseEvent) => {
+    if (swiped.current) { swiped.current = false; return }
+    if ((e.target as HTMLElement).closest('a, button')) return
+    router.push(`/destinations/${items[active].id}`)
+  }
+
   if (n === 0 || !mode) return <section ref={sectionRef} className={s.reel} aria-label="Destinations" />
 
   const cur = items[active]
@@ -74,7 +97,15 @@ export default function DestinationsReel({ destinations }: { destinations: Desti
   }
 
   return (
-    <section ref={sectionRef} className={s.reel} aria-label="Our destinations">
+    <section
+      ref={sectionRef}
+      className={s.reel}
+      aria-label="Our destinations"
+      onPointerDown={onPointerDown}
+      onPointerUp={onPointerUp}
+      onPointerCancel={() => { press.current = null }}
+      onClick={onTap}
+    >
       <div className={s.videos}>
         {items.map((d, i) => (
           <video
