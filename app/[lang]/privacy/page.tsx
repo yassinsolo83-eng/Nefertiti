@@ -13,6 +13,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title: m.title,
     description: m.description,
     path: '/privacy',
+    seo: { noIndex: true }, // legal pages stay out of Google results
   })
 }
 
