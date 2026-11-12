@@ -1,3 +1,5 @@
+'use client'
+
 import Link from '@/components/LocLink'
 import { ArrowUpRight, MapPin, Calendar } from 'lucide-react'
 import type { Retreat } from '@/lib/data'

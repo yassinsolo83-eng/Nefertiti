@@ -1,3 +1,5 @@
+'use client'
+
 import Link from '@/components/LocLink'
 import { ArrowUpRight } from 'lucide-react'
 import Img from '@/components/Img'
