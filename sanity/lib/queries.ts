@@ -91,7 +91,7 @@ function staticDestinations(list: Destination[], locale: Locale): Destination[] 
 }
 
 function mergeDestImage(sanityDest: any, staticList: Destination[], locale: Locale): Destination {
-  const staticMatch = staticList.find(d => d.id === sanityDest.id)
+  const staticMatch = staticList.find(d => d.id === sanityDest.id) || ([...staticFeatured, ...staticMore] as Destination[]).find(d => d.id === sanityDest.id)
   const italian = itData.destinationsIt[sanityDest.id]
   return {
     id: sanityDest.id,
