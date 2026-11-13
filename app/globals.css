@@ -247,7 +247,7 @@ a.lang { display: inline-flex; align-items: center; min-height: 40px; text-decor
   background: url('/hero-poster.webp') center / cover no-repeat;
 }
 @media (max-width: 860px), (orientation: portrait) {
-  .hero::before { background-image: url('/hero-poster-mobile.webp'); }
+  .hero::before { background-image: url('/hero-poster-mobile-2.webp'); }
 }
 .hero-image {
   position: absolute; inset: 0;
