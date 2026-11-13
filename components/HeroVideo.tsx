@@ -2,14 +2,13 @@
 
 import { useEffect, useRef, useState } from 'react'
 
-// Two clips play one after the other with a soft cross-fade, then loop.
+// Two clips play one after the other with a straight cut (never on screen together), then loop.
 // Phones and tablets in portrait get portrait files; wider screens get landscape files.
 const SOURCES = {
   mobile: ['/hero-m-beach-2.mp4', '/hero-m-2.mp4'],
   desktop: ['/hero-d-1.mp4', '/hero-d-yoga.mp4'],
 } as const
 
-const FADE_MS = 1200
 const PORTRAIT_QUERY = '(max-width: 860px), (orientation: portrait)'
 
 export default function HeroVideo({ label }: { label: string }) {
@@ -49,35 +48,32 @@ export default function HeroVideo({ label }: { label: string }) {
       refs.current.forEach((v, i) => {
         if (!v) return
         if (!e.isIntersecting) v.pause()
-        else if (i === active && !reduced.current) v.play().catch(() => {})
+        else if (i === active && !reduced.current) {
+          // a clip that finished while the hero was off screen hands over to the other one
+          if (v.ended) goNext(i)
+          else v.play().catch(() => {})
+        }
       })
     }, { threshold: 0.05 })
     io.observe(el)
     return () => io.disconnect()
   }, [mode, active])
 
+  // The next clip starts playing first; only then does it replace the finished one, so the two are never visible together
   const goNext = (from: number) => {
     if (switching.current || reduced.current || !onScreen.current) return
     switching.current = true
     const to = from === 0 ? 1 : 0
     const next = refs.current[to]
     const prev = refs.current[from]
-    if (next) {
-      next.currentTime = 0
-      next.play().catch(() => {})
-    }
-    setActive(to)
-    window.setTimeout(() => {
+    const swap = () => {
+      setActive(to)
       if (prev) { prev.pause(); prev.currentTime = 0 }
       switching.current = false
-    }, FADE_MS + 100)
-  }
-
-  // Begin the fade shortly before the clip ends
-  const onTime = (i: number) => {
-    const v = refs.current[i]
-    if (!v || i !== active || !v.duration) return
-    if (v.duration - v.currentTime < FADE_MS / 1000) goNext(i)
+    }
+    if (!next) { swap(); return }
+    next.currentTime = 0
+    next.play().then(swap).catch(swap)
   }
 
   if (!mode) return null
@@ -95,7 +91,6 @@ export default function HeroVideo({ label }: { label: string }) {
           playsInline
           preload="auto"
           aria-hidden="true"
-          onTimeUpdate={() => onTime(i)}
           onEnded={() => goNext(i)}
         />
       ))}
