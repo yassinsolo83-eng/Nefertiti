@@ -5,8 +5,8 @@ import { useEffect, useRef, useState } from 'react'
 // Two clips play one after the other with a soft cross-fade, then loop.
 // Phones and tablets in portrait get portrait files; wider screens get landscape files.
 const SOURCES = {
-  mobile: ['/hero-m-1.mp4', '/hero-m-2.mp4'],
-  desktop: ['/hero-d-1.mp4', '/hero-d-2.mp4'],
+  mobile: ['/hero-m-beach.mp4', '/hero-m-2.mp4'],
+  desktop: ['/hero-d-1.mp4', '/hero-d-yoga.mp4'],
 } as const
 
 const FADE_MS = 1200
