@@ -1,0 +1,42 @@
+/* ── Site dropdown (brand colours) ── */
+.wrap { position: relative; width: 100%; }
+
+.trigger {
+  width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  background: transparent; border: 0; border-bottom: 1px solid var(--border);
+  padding: 8px 0; cursor: pointer; text-align: left;
+  font-family: 'Montserrat', sans-serif; font-size: 14px; color: var(--foreground);
+  transition: border-color .25s;
+}
+.trigger:focus-visible, .open .trigger { outline: none; border-color: var(--primary); }
+.placeholder { color: rgba(60,40,50,.4); }
+.value { color: var(--foreground); }
+.chevron { flex: none; color: var(--primary); transition: transform .3s cubic-bezier(.22,.61,.36,1); }
+.open .chevron { transform: rotate(180deg); }
+
+.list {
+  position: absolute; top: calc(100% + 8px); left: 0; right: 0; z-index: 30;
+  margin: 0; padding: 6px; list-style: none;
+  max-height: 290px; overflow-y: auto; overscroll-behavior: contain;
+  background: var(--background); border: 1px solid var(--border); border-radius: 12px;
+  box-shadow: 0 18px 44px rgba(60,20,40,.18);
+  animation: dropIn .22s cubic-bezier(.22,.61,.36,1);
+}
+@keyframes dropIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+
+.option {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 12px 14px; border-radius: 8px; cursor: pointer;
+  font-family: 'Montserrat', sans-serif; font-size: 14px; line-height: 1.4; color: var(--foreground);
+  transition: background .15s, color .15s;
+}
+.option + .option { margin-top: 2px; }
+.active { background: rgba(141,76,101,.08); }
+.selected { color: var(--primary); font-weight: 500; background: rgba(241,210,136,.28); }
+.selected.active { background: rgba(241,210,136,.4); }
+.check { flex: none; color: var(--gold-deep); }
+
+@media (prefers-reduced-motion: reduce) {
+  .list { animation: none; }
+  .chevron { transition: none; }
+}

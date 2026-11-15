@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import SelectMenu from '@/components/SelectMenu'
 import { MessageCircle, ArrowUpRight } from 'lucide-react'
 import type { PageImages } from '@/lib/data'
 import SiteNav from '@/components/SiteNav'
@@ -49,7 +50,7 @@ export default function ContactPage({ faqs, whatsappLink, socialLinks, appointme
   }, [])
   const [openFaq, setOpenFaq] = useState<number | null>(0)
 
-  const handle = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
+  const handle = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     setForm((p) => ({ ...p, [e.target.name]: e.target.value }))
 
   const submit = async (e: React.MouseEvent) => {
@@ -190,10 +191,13 @@ export default function ContactPage({ faqs, whatsappLink, socialLinks, appointme
 
               <div className="form-field full">
                 <label>{t.retreatType}</label>
-                <select name="practice" value={form.practice} onChange={handle}>
-                  <option value="">{t.selectService}</option>
-                  {appointmentServices.map((svc) => <option key={svc}>{svc}</option>)}
-                </select>
+                <SelectMenu
+                  value={form.practice}
+                  options={appointmentServices}
+                  placeholder={t.selectService}
+                  ariaLabel={t.retreatType}
+                  onChange={(v) => setForm((p) => ({ ...p, practice: v }))}
+                />
               </div>
 
               <div className="form-field full">
