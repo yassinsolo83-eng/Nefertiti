@@ -43,7 +43,7 @@ const en = {
       tzNote: (tz: string) => `Times are shown in your time zone (${tz}).`, booked: 'Booked', loading: 'Loading times…',
       pickDay: 'Choose a day to see the available times.', noTimes: 'There are no available times at the moment. Please message us on WhatsApp.',
       pickTime: 'Please choose a time.', slotTaken: 'Sorry, this time was just booked. Please choose another one.',
-      prevMonth: 'Previous month', nextMonth: 'Next month', dateLocale: 'en-GB',
+      prevMonth: 'Previous month', nextMonth: 'Next month', dateLocale: 'en-GB', yourTime: 'Your selected time:',
     },
   },
   contact: {
@@ -190,7 +190,7 @@ const it: typeof en = {
       tzNote: (tz: string) => `Gli orari sono mostrati nel tuo fuso orario (${tz}).`, booked: 'Prenotato', loading: 'Caricamento orari…',
       pickDay: 'Scegli un giorno per vedere gli orari disponibili.', noTimes: 'Al momento non ci sono orari disponibili. Scrivici su WhatsApp.',
       pickTime: 'Scegli un orario.', slotTaken: 'Ci dispiace, questo orario è appena stato prenotato. Scegline un altro.',
-      prevMonth: 'Mese precedente', nextMonth: 'Mese successivo', dateLocale: 'it-IT',
+      prevMonth: 'Mese precedente', nextMonth: 'Mese successivo', dateLocale: 'it-IT', yourTime: 'L’orario che hai scelto:',
     },
   },
   contact: {

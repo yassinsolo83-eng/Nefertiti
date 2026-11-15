@@ -179,6 +179,7 @@ textarea.input { resize: vertical; min-height: 96px; line-height: 1.7; }
   max-width: 20ch; margin: 0 auto 22px;
 }
 .successText { max-width: 52ch; margin: 0 auto 12px; font-size: 14px; line-height: 1.8; opacity: .82; }
+.successTime { max-width: 52ch; margin: 18px auto 12px; font-size: 14px; line-height: 1.8; color: var(--primary); }
 .signature {
   margin: 22px 0 34px; font-family: 'Cormorant Garamond', serif;
   font-style: italic; font-size: 20px; color: var(--primary);

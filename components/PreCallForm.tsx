@@ -16,7 +16,7 @@ import Link from '@/components/LocLink'
 import Img from '@/components/Img'
 import { useLocale, useUi } from '@/components/LocaleProvider'
 import BookingCalendar from '@/components/BookingCalendar'
-import { BOOKING_STEP_KEY } from '@/lib/booking'
+import { BOOKING_STEP_KEY, formatFull } from '@/lib/booking'
 
 const DRAFT_KEY = 'nefertiti-pre-call-draft'
 
@@ -216,6 +216,14 @@ export default function PreCallForm({ form }: Props) {
         {form.successText.split(/\n{2,}/).map((p, i) => (
           <p key={i} className={s.successText}>{p}</p>
         ))}
+        {slot && (
+          <p className={s.successTime}>
+            {t.booking.yourTime}{' '}
+            <strong>
+              {formatFull(slot, Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC', t.booking.dateLocale)}
+            </strong>
+          </p>
+        )}
         {form.successSignature && <p className={s.signature}>{form.successSignature}</p>}
         {waUrl && (
           <a className="button button-gold" href={waUrl} target="_blank" rel="noopener noreferrer" style={{ marginRight: 12 }}>{t.sendWa}</a>
