@@ -1,4 +1,5 @@
 import type { Locale } from '@/lib/i18n'
+import { defaultBooking, italianBookingTexts, normalizeBooking, type BookingSettings } from '@/lib/booking'
 
 // ── Pre-Call Form ──
 // Built-in version of the form. The website uses it until a "Pre-Call Form"
@@ -41,6 +42,7 @@ export type PreCallForm = {
   successSignature: string
   notificationEmail?: string
   steps: PreCallStep[]
+  booking: BookingSettings
 }
 
 const q = (
@@ -64,6 +66,7 @@ export const defaultPreCallForm: PreCallForm = {
     'At Nefertiti, we believe the best retreats begin with understanding the people behind them.\n\n' +
     'You bring your community. We handle Egypt.',
   successSignature: '— Nefertiti Luxury Retreat Producer',
+  booking: defaultBooking,
   steps: [
     {
       _key: 'step-about',
@@ -365,6 +368,7 @@ export function defaultFormFor(locale: Locale): PreCallForm {
   return {
     ...defaultPreCallForm,
     ...itFormTexts,
+    booking: { ...defaultPreCallForm.booking, ...italianBookingTexts },
     steps: defaultPreCallForm.steps.map((st) => ({
       ...st,
       ...(itSteps[st._key] || {}),
@@ -380,6 +384,8 @@ export const OTHER_LABEL = 'Other'
 export const PRE_CALL_FORM_QUERY = `*[_id == "preCallForm"][0]{
   eyebrow, title, intro, submitLabel, successTitle, successText, successSignature, notificationEmail,
   eyebrow_it, title_it, intro_it, submitLabel_it, successTitle_it, successText_it, successSignature_it,
+  bookingTitle, bookingTitle_it, bookingDescription, bookingDescription_it,
+  bookingDays, bookingStartHour, bookingEndHour, bookingDaysAhead, bookingBlockedDates,
   steps[]{ _key, title, description, title_it, description_it,
     questions[]{ _key, label, type, help, placeholder, options, allowOther, required, label_it, help_it, placeholder_it, options_it } }
 }`
@@ -446,6 +452,13 @@ export function normalizePreCallForm(raw: any, locale: Locale = 'en'): PreCallFo
     successSignature: typeof raw.successSignature === 'string' ? raw.successSignature : d.successSignature,
     notificationEmail: typeof raw.notificationEmail === 'string' ? raw.notificationEmail.trim() : '',
     steps: steps.length ? steps : d.steps,
+    booking: {
+      ...normalizeBooking(raw),
+      title: text(raw.bookingTitle, d.booking.title, en.booking.title),
+      description: typeof raw.bookingDescription === 'string'
+        ? text(raw.bookingDescription, d.booking.description, en.booking.description)
+        : d.booking.description,
+    },
   }
 }
 

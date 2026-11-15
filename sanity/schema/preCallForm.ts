@@ -10,6 +10,8 @@ const TYPE_LABELS: Record<string, string> = {
   multiple: 'Choose several',
 }
 
+const HOURS = Array.from({ length: 25 }, (_, h) => ({ title: `${String(h).padStart(2, '0')}:00`, value: h }))
+
 const isChoice = (parent?: { type?: string }) => parent?.type === 'single' || parent?.type === 'multiple'
 
 const question = defineArrayMember({
@@ -117,6 +119,7 @@ export const preCallForm = defineType({
     { name: 'questions', title: 'Steps & Questions', default: true },
     { name: 'intro', title: 'Intro' },
     { name: 'thanks', title: 'Thank You' },
+    { name: 'booking', title: 'Booking Calendar' },
     { name: 'notifications', title: 'Notifications' },
   ],
   fields: [
@@ -136,6 +139,74 @@ export const preCallForm = defineType({
     defineField({ name: 'successTitle', title: 'Title', type: 'string', group: 'thanks' }),
     defineField({ name: 'successText', title: 'Message', type: 'text', rows: 6, group: 'thanks' }),
     defineField({ name: 'successSignature', title: 'Signature', type: 'string', group: 'thanks' }),
+    defineField({
+      name: 'bookingTitle',
+      title: 'Step title',
+      type: 'string',
+      group: 'booking',
+      description: 'Title of the last step, where the visitor picks a day and time. Empty = "Choose a time".',
+    }),
+    defineField({ name: 'bookingDescription', title: 'Short description', type: 'string', group: 'booking' }),
+    defineField({
+      name: 'bookingDays',
+      title: 'Available days',
+      type: 'array',
+      group: 'booking',
+      of: [{ type: 'string' }],
+      options: {
+        list: [
+          { title: 'Sunday', value: 'sun' },
+          { title: 'Monday', value: 'mon' },
+          { title: 'Tuesday', value: 'tue' },
+          { title: 'Wednesday', value: 'wed' },
+          { title: 'Thursday', value: 'thu' },
+          { title: 'Friday', value: 'fri' },
+          { title: 'Saturday', value: 'sat' },
+        ],
+      },
+      initialValue: ['sun', 'mon', 'tue', 'wed', 'thu'],
+      description: 'Days visitors can book. Nothing ticked = Sunday to Thursday.',
+    }),
+    defineField({
+      name: 'bookingStartHour',
+      title: 'First time (Cairo time)',
+      type: 'number',
+      group: 'booking',
+      options: { list: HOURS.slice(0, 24) },
+      initialValue: 10,
+      description: 'Empty = 10:00. Each time is one hour.',
+    }),
+    defineField({
+      name: 'bookingEndHour',
+      title: 'Times end at (Cairo time)',
+      type: 'number',
+      group: 'booking',
+      options: { list: HOURS.slice(1) },
+      initialValue: 18,
+      description: 'Empty = 18:00. Example: 10:00 to 18:00 gives times from 10:00 to 17:00.',
+      validation: (r) =>
+        r.custom<number>((v, ctx) => {
+          const start = (ctx.document as { bookingStartHour?: number } | undefined)?.bookingStartHour
+          return v == null || start == null || v > start || 'Must be later than the first time.'
+        }),
+    }),
+    defineField({
+      name: 'bookingDaysAhead',
+      title: 'How many days ahead visitors can book',
+      type: 'number',
+      group: 'booking',
+      initialValue: 60,
+      description: 'Empty = 60 days.',
+      validation: (r) => r.integer().min(1).max(365),
+    }),
+    defineField({
+      name: 'bookingBlockedDates',
+      title: 'Closed days',
+      type: 'array',
+      group: 'booking',
+      of: [{ type: 'date', options: { dateFormat: 'DD MMM YYYY' } }],
+      description: 'Days off (holidays, travel). Visitors see these days as not available.',
+    }),
     defineField({
       name: 'notificationEmail',
       title: 'Send new submissions to',

@@ -22,6 +22,9 @@ export const preCallSubmission = defineType({
       },
       initialValue: 'new',
     }),
+    defineField({ name: 'slotCairo', title: 'Booked time (Cairo)', type: 'string', readOnly: true }),
+    defineField({ name: 'visitorTime', title: "Booked time (visitor's time zone)", type: 'string', readOnly: true }),
+    defineField({ name: 'slot', title: 'Booked time', type: 'datetime', readOnly: true, hidden: true }),
     defineField({ name: 'name', title: 'Name', type: 'string', readOnly: true }),
     defineField({ name: 'email', title: 'Email', type: 'string', readOnly: true }),
     defineField({
@@ -57,11 +60,11 @@ export const preCallSubmission = defineType({
     { title: 'Newest first', name: 'newest', by: [{ field: 'submittedAt', direction: 'desc' }] },
   ],
   preview: {
-    select: { name: 'name', email: 'email', status: 'status', date: 'submittedAt' },
-    prepare({ name, email, status, date }) {
+    select: { name: 'name', email: 'email', status: 'status', date: 'submittedAt', slotCairo: 'slotCairo' },
+    prepare({ name, email, status, date, slotCairo }) {
       const badge = status === 'booked' ? '✓' : status === 'closed' ? '—' : '●'
       const when = date ? new Date(date).toLocaleDateString('en-GB') : ''
-      return { title: `${badge} ${name || 'No name'}`, subtitle: [email, when].filter(Boolean).join(' · ') }
+      return { title: `${badge} ${name || 'No name'}`, subtitle: slotCairo ? `🗓 ${slotCairo}` : [email, when].filter(Boolean).join(' · ') }
     },
   },
 })

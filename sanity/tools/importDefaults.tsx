@@ -99,7 +99,7 @@ function ImportDefaults() {
   async function importPreCallForm() {
     const exists = await client.fetch<number>('count(*[_id in ["preCallForm", "drafts.preCallForm"]])')
     if (exists > 0) return
-    const { notificationEmail, steps, ...texts } = defaultPreCallForm
+    const { notificationEmail, steps, booking, ...texts } = defaultPreCallForm
     await client.createIfNotExists({
       _id: 'preCallForm',
       _type: 'preCallForm',

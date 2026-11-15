@@ -184,6 +184,38 @@ textarea.input { resize: vertical; min-height: 96px; line-height: 1.7; }
   font-style: italic; font-size: 20px; color: var(--primary);
 }
 
+/* ── Booking calendar ── */
+.calendar { display: flex; flex-direction: column; gap: 14px; }
+.calHead, .calGrid { width: 100%; max-width: 400px; }
+.calHead { display: flex; align-items: center; justify-content: space-between; }
+.calMonth { font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 500; color: var(--foreground); text-transform: capitalize; }
+.calNav {
+  width: 34px; height: 34px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;
+  background: transparent; border: 1px solid var(--border); color: var(--foreground); cursor: pointer;
+  transition: border-color .2s, color .2s;
+}
+.calNav:hover:not(:disabled) { border-color: var(--primary); color: var(--primary); }
+.calNav:disabled { opacity: .3; cursor: default; }
+.calGrid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+.calWeekday {
+  text-align: center; font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--gold-deep); padding-bottom: 4px;
+}
+.calDay {
+  width: 100%; max-width: 46px; justify-self: center; aspect-ratio: 1; border-radius: 50%; border: 1px solid transparent; background: transparent;
+  font-family: 'Montserrat', sans-serif; font-size: 13px; color: var(--foreground); opacity: .3;
+  cursor: default; transition: border-color .2s, background .2s, color .2s;
+}
+.calDayOpen { opacity: 1; cursor: pointer; background: rgba(243,240,232,.6); border-color: var(--border); }
+.calDayOpen:hover { border-color: var(--primary); }
+.calDay:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+.calDayOn, .calDayOn:hover { background: var(--primary); border-color: var(--primary); color: #fff; }
+.calTimes { display: flex; flex-direction: column; margin-top: 6px; }
+.calEmpty { font-size: 13px; opacity: .75; }
+.choiceTaken, .choiceTaken:hover { opacity: .45; cursor: not-allowed; border-color: var(--border); }
+.takenLabel { font-size: 10px; letter-spacing: .1em; text-transform: uppercase; }
+.hasError .calDayOpen { border-color: rgba(179,38,30,.45); }
+
 /* ── Responsive ── */
 @media (max-width: 1000px) {
   .layout { grid-template-columns: 1fr; gap: 40px; padding-top: 140px; }
@@ -195,6 +227,7 @@ textarea.input { resize: vertical; min-height: 96px; line-height: 1.7; }
   .stepLabel { display: none; }
   .stepCurrent .stepLabel { display: inline; }
   .choice { width: 100%; }
+  .calTimes .choice { width: auto; }
   .nextBtn { padding: 14px 22px; }
   .success { padding: 44px 22px; }
 }

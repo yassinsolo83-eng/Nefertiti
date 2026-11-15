@@ -15,6 +15,8 @@ import { openWhatsapp } from '@/lib/openWhatsapp'
 import Link from '@/components/LocLink'
 import Img from '@/components/Img'
 import { useLocale, useUi } from '@/components/LocaleProvider'
+import BookingCalendar from '@/components/BookingCalendar'
+import { BOOKING_STEP_KEY } from '@/lib/booking'
 
 const DRAFT_KEY = 'nefertiti-pre-call-draft'
 
@@ -43,7 +45,11 @@ function clearDraft() {
 export default function PreCallForm({ form }: Props) {
   const locale = useLocale()
   const t = useUi().preCall
-  const steps = form.steps
+  // The booking calendar is always the last step
+  const steps = [
+    ...form.steps,
+    { _key: BOOKING_STEP_KEY, title: form.booking.title, description: form.booking.description, questions: [] as PreCallQuestion[] },
+  ]
   const [stepIdx, setStepIdx] = useState(0)
   const [answers, setAnswers] = useState<PreCallAnswers>({})
   const [errors, setErrors] = useState<Record<string, string>>({})
@@ -53,6 +59,9 @@ export default function PreCallForm({ form }: Props) {
   const [waUrl, setWaUrl] = useState('')
   const [company, setCompany] = useState('') // honeypot
   const [loaded, setLoaded] = useState(false)
+  const [slot, setSlot] = useState<number | null>(null)
+  const [slotError, setSlotError] = useState('')
+  const [booked, setBooked] = useState<number[] | null>(null)
   const cardRef = useRef<HTMLDivElement>(null)
 
   // Restore an unfinished form
@@ -71,6 +80,22 @@ export default function PreCallForm({ form }: Props) {
 
   const step = steps[stepIdx]
   const isLast = stepIdx === steps.length - 1
+  const isBooking = step._key === BOOKING_STEP_KEY
+
+  // Fresh booked times each time the calendar step opens
+  async function loadBooked() {
+    setBooked(null)
+    try {
+      const res = await fetch('/api/pre-call/slots', { cache: 'no-store' })
+      const data = await res.json()
+      setBooked(Array.isArray(data?.booked) ? data.booked : [])
+    } catch {
+      setBooked([])
+    }
+  }
+  useEffect(() => {
+    if (isBooking) loadBooked()
+  }, [isBooking])
 
   function scrollToCard() {
     const el = cardRef.current
@@ -95,6 +120,12 @@ export default function PreCallForm({ form }: Props) {
   }
 
   function checkStep() {
+    if (isBooking) {
+      if (slot) return true
+      setSlotError(t.booking.pickTime)
+      document.getElementById('q-booking')?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      return false
+    }
     const found: Record<string, string> = {}
     for (const q of step.questions) {
       const err = validateQuestion(q, answers, t.errors)
@@ -138,7 +169,12 @@ export default function PreCallForm({ form }: Props) {
       const res = await fetch(`/api/pre-call?lang=${locale}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ answers, company }),
+        body: JSON.stringify({
+          answers,
+          company,
+          slot: slot ? new Date(slot).toISOString() : null,
+          timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+        }),
       })
       const data = await res.json().catch(() => ({}))
       if (res.ok) {
@@ -146,6 +182,13 @@ export default function PreCallForm({ form }: Props) {
         setSent(true)
         if (data.whatsappUrl && !openWhatsapp(data.whatsappUrl)) setWaUrl(data.whatsappUrl)
         scrollToCard()
+        return
+      }
+      // The chosen time is no longer free: show the calendar again with fresh times
+      if (data?.slotError) {
+        setSlot(null)
+        setSlotError(t.booking.slotTaken)
+        loadBooked()
         return
       }
       // The server found a missing answer on an earlier step: take the visitor there
@@ -218,6 +261,20 @@ export default function PreCallForm({ form }: Props) {
         <h2 className={s.stepTitle}>{step.title}</h2>
         {step.description && <p className={s.stepDesc}>{step.description}</p>}
 
+        {isBooking ? (
+          <div className={s.questions}>
+            <BookingCalendar
+              settings={form.booking}
+              booked={booked}
+              value={slot}
+              error={slotError}
+              onChange={(v) => {
+                setSlot(v)
+                setSlotError('')
+              }}
+            />
+          </div>
+        ) : (
         <div className={s.questions}>
           {step.questions.map((q) => (
             <Question
@@ -231,6 +288,7 @@ export default function PreCallForm({ form }: Props) {
             />
           ))}
         </div>
+        )}
 
         {/* Honeypot field: invisible to people, bots tend to fill it */}
         <input

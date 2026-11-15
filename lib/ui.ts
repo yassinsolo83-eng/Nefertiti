@@ -39,6 +39,12 @@ const en = {
     consent: 'By sending this form you agree that we use your answers to prepare our call, as described in our', privacy: 'Privacy Policy',
     back: 'Back', required: 'Required', sending: 'Sending…', continue: 'Continue', requiredAria: 'required', chooseAll: 'Choose all that apply',
     other: 'Other', specify: 'Please specify', otherAria: (l: string) => `${l} — other`, answerPh: 'Your answer',
+    booking: {
+      tzNote: (tz: string) => `Times are shown in your time zone (${tz}).`, booked: 'Booked', loading: 'Loading times…',
+      pickDay: 'Choose a day to see the available times.', noTimes: 'There are no available times at the moment. Please message us on WhatsApp.',
+      pickTime: 'Please choose a time.', slotTaken: 'Sorry, this time was just booked. Please choose another one.',
+      prevMonth: 'Previous month', nextMonth: 'Next month', dateLocale: 'en-GB',
+    },
   },
   contact: {
     interested: (n: string) => `I'm interested in the retreat "${n}". `,
@@ -180,6 +186,12 @@ const it: typeof en = {
     consent: 'Inviando questo modulo accetti che usiamo le tue risposte per preparare la nostra call, come descritto nella nostra', privacy: 'Informativa sulla privacy',
     back: 'Indietro', required: 'Obbligatorio', sending: 'Invio in corso…', continue: 'Continua', requiredAria: 'obbligatorio', chooseAll: 'Scegli tutte le risposte che valgono',
     other: 'Altro', specify: 'Specifica', otherAria: (l: string) => `${l} — altro`, answerPh: 'La tua risposta',
+    booking: {
+      tzNote: (tz: string) => `Gli orari sono mostrati nel tuo fuso orario (${tz}).`, booked: 'Prenotato', loading: 'Caricamento orari…',
+      pickDay: 'Scegli un giorno per vedere gli orari disponibili.', noTimes: 'Al momento non ci sono orari disponibili. Scrivici su WhatsApp.',
+      pickTime: 'Scegli un orario.', slotTaken: 'Ci dispiace, questo orario è appena stato prenotato. Scegline un altro.',
+      prevMonth: 'Mese precedente', nextMonth: 'Mese successivo', dateLocale: 'it-IT',
+    },
   },
   contact: {
     interested: (n: string) => `Sono interessato/a al ritiro "${n}". `,

@@ -21,7 +21,7 @@ const TRANSLATABLE: Record<string, string[] | '*'> = {
   pageTexts: '*',
   seo: ['metaTitle', 'metaDescription'],
   preCallForm: [
-    'eyebrow', 'title', 'intro', 'submitLabel', 'successTitle', 'successText', 'successSignature',
+    'eyebrow', 'title', 'intro', 'submitLabel', 'successTitle', 'successText', 'successSignature', 'bookingTitle', 'bookingDescription',
     'steps.title', 'steps.description', 'steps.questions.label', 'steps.questions.help', 'steps.questions.placeholder', 'steps.questions.options',
   ],
 }

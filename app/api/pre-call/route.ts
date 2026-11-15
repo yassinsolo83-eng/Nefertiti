@@ -14,6 +14,7 @@ import {
 import { projectId, dataset, apiVersion } from '@/sanity/env'
 import { isLocale, type Locale } from '@/lib/i18n'
 import { getUi } from '@/lib/ui'
+import { formatCairo, formatFull, generateSlots, isValidTimeZone } from '@/lib/booking'
 
 // Server-only client with write access. The token never reaches the browser.
 const writeClient = createClient({
@@ -148,6 +149,15 @@ export async function POST(req: Request) {
     return NextResponse.json({ errors }, { status: 422 })
   }
 
+  // The chosen time must be one of the open times right now
+  const slot = typeof body.slot === 'string' ? Date.parse(body.slot) : NaN
+  if (!Number.isFinite(slot) || !generateSlots(form.booking).includes(slot)) {
+    return NextResponse.json({ slotError: 'invalid' }, { status: 422 })
+  }
+  const visitorTz = isValidTimeZone(body.timeZone) ? body.timeZone : ''
+  const slotCairo = formatCairo(slot)
+  const visitorTime = visitorTz ? `${formatFull(slot, visitorTz)} (${visitorTz})` : ''
+
   const all = form.steps.flatMap((s) => s.questions)
   const pick = (type: 'name' | 'email') => {
     const q = all.find((qq) => qq.type === type && typeof answers[qq._key] === 'string' && answers[qq._key])
@@ -156,19 +166,28 @@ export async function POST(req: Request) {
   const name = pick('name')
   const email = pick('email')
   const rows = buildRows(form, answers)
+  rows.push({ step: form.booking.title, question: 'Booked time (Cairo)', answer: slotCairo })
+  if (visitorTime) rows.push({ step: form.booking.title, question: "Booked time (visitor's time zone)", answer: visitorTime })
 
   try {
-    // An ID containing a dot keeps the document private (readable only with a token)
+    // An ID containing a dot keeps the document private (readable only with a token).
+    // One ID per time: if someone booked this time a moment ago, Sanity refuses the second one.
     await writeClient.create({
-      _id: `preCall.${randomUUID()}`,
+      _id: `preCall.slot-${slot / 1000}`,
       _type: 'preCallSubmission',
       status: 'new',
+      slot: new Date(slot).toISOString(),
+      slotCairo,
+      visitorTime,
       name,
       email,
       answers: rows.map((r) => ({ _key: randomUUID().slice(0, 12), _type: 'answer', ...r })),
       submittedAt: new Date().toISOString(),
     })
   } catch (e) {
+    if ((e as { statusCode?: number })?.statusCode === 409) {
+      return NextResponse.json({ slotError: 'taken' }, { status: 409 })
+    }
     console.error('Pre-call form failed:', e instanceof Error ? e.message : String(e))
     return NextResponse.json({ error: 'Could not send the form' }, { status: 500 })
   }
@@ -184,7 +203,7 @@ export async function POST(req: Request) {
   let whatsappUrl: string | undefined
   try {
     const notifyPhone = await getNotifyWhatsappNumber()
-    const header = `🌸 New pre-call form — Nefertiti\n` + (locale === 'it' ? `Language: Italian\n` : '') + (name ? `From: ${name}\n` : '') + (email ? `Email: ${email}\n` : '')
+    const header = `🌸 New pre-call form — Nefertiti\n` + (locale === 'it' ? `Language: Italian\n` : '') + (name ? `From: ${name}\n` : '') + (email ? `Email: ${email}\n` : '') + `Time: ${slotCairo}\n`
     const body = rows.map((r) => `• ${r.question}\n${r.answer}`).join('\n\n')
     whatsappUrl = buildWhatsappUrl(`${header}\n${body}`, notifyPhone)
     await sendWhatsApp(`${header}\n${body}`, notifyPhone)
