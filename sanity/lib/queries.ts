@@ -29,7 +29,7 @@ import type { SeoFields, SeoPageKey } from '@/lib/seo'
 import { PRE_CALL_FORM_QUERY, normalizePreCallForm, type PreCallForm } from '@/lib/preCallForm'
 
 // ── Revalidation: Sanity data refreshes every 60 seconds ──
-const REVALIDATE = 60
+const REVALIDATE = 3600
 
 // ── Helper: light Sanity images ──
 // Images are stored in Sanity at the size they were uploaded (often several MB from a phone).
