@@ -721,7 +721,7 @@ export const pageTextDefaults = {
   footerTagline: 'Find your peace within.',
   footerLine1: 'You lead the transformation. We create the experience.',
   footerLine2: 'Based between Egypt & Italy.',
-  footerLocation: 'Cairo · Siwa · Everywhere',
+  footerLocation: 'Sheikh Zayed, Egypt',
   labelWhy: 'WHY EGYPT',
   labelWay: 'THE NEFERTITI WAY',
   labelHowItWorks: 'HOW IT WORKS',

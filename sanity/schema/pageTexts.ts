@@ -101,7 +101,7 @@ export const pageTexts = defineType({
     txt('footerTagline', 'Tagline', 'footer', 'Original: Find your peace within.'),
     txt('footerLine1', 'First line', 'footer', 'Original: You lead the transformation. We create the experience.'),
     txt('footerLine2', 'Second line', 'footer', 'Original: Based between Egypt & Italy.'),
-    txt('footerLocation', 'Location line', 'footer', 'Original: Cairo · Siwa · Everywhere'),
+    txt('footerLocation', 'Location line', 'footer', 'Original: Sheikh Zayed, Egypt'),
     txt('footerSignoff', 'Last line', 'footer', 'Original: Made with presence'),
 
     // ── Top bar ──

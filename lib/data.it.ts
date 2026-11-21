@@ -335,7 +335,7 @@ export const pageTextDefaultsIt: PageTexts = {
   footerTagline: 'Trova la tua pace interiore.',
   footerLine1: 'Tu guidi la trasformazione. Noi creiamo l\'esperienza.',
   footerLine2: 'Con sede tra Egitto e Italia.',
-  footerLocation: 'Il Cairo · Siwa · Ovunque',
+  footerLocation: 'Sheikh Zayed, Egitto',
   labelWhy: 'PERCHÉ L\'EGITTO',
   labelWay: 'IL MODO NEFERTITI',
   labelHowItWorks: 'COME FUNZIONA',
