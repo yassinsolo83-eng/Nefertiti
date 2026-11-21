@@ -1,7 +1,7 @@
 'use client'
 
 import BrandLogo from '@/components/BrandLogo'
-import { ArrowUpRight, Mail, MapPin, MessageCircle } from 'lucide-react'
+import { ArrowUpRight, IdCard, Mail, MapPin, MessageCircle } from 'lucide-react'
 import { useSiteSettings } from '@/components/SiteSettingsProvider'
 import { BrandBand } from '@/components/Motif'
 import Link from '@/components/LocLink'
@@ -57,6 +57,7 @@ export default function SiteFooter() {
             <a href={whatsappLink} target="_blank" rel="noopener noreferrer"><MessageCircle size={14} /> WhatsApp</a>
           )}
           <p><MapPin size={14} /> {texts?.footerLocation}</p>
+          <Link href="/card"><IdCard size={14} /> {t.card}</Link>
           {socials.map(([label, url]) => (
             <a key={url} href={url} target="_blank" rel="noopener noreferrer">
               <ArrowUpRight size={14} /> {label}

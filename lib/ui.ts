@@ -141,7 +141,7 @@ const en = {
     closeMenu: 'Close menu', openMenu: 'Open menu', home: 'Nefertiti — home', main: 'Main', mainNavigation: 'Main navigation',
     search: 'Search', searchPlaceholder: 'Search pages...', closeSearch: 'Close search', noResults: 'No results found', pageType: 'Page', languageEn: 'English', languageIt: 'Italiano',
   },
-  footer: { navigate: 'Navigate', contact: 'Contact', terms: 'Terms & Conditions', privacy: 'Privacy Policy', cookies: 'Cookies', rights: 'Nefertiti Retreats' },
+  footer: { navigate: 'Navigate', contact: 'Contact', card: 'Business card', terms: 'Terms & Conditions', privacy: 'Privacy Policy', cookies: 'Cookies', rights: 'Nefertiti Retreats' },
   cookie: { label: 'Cookie notice', text: 'We use only the cookies the site needs to work. No advertising or tracking cookies.', more: 'Learn more', ok: 'Got it' },
   retreatBar: { label: 'Upcoming retreat', next: 'Next retreat', view: 'View', close: 'Close announcement' },
   search: {
@@ -294,7 +294,7 @@ const it: typeof en = {
     closeMenu: 'Chiudi il menu', openMenu: 'Apri il menu', home: 'Nefertiti — home', main: 'Principale', mainNavigation: 'Navigazione principale',
     search: 'Cerca', searchPlaceholder: 'Cerca nelle pagine...', closeSearch: 'Chiudi la ricerca', noResults: 'Nessun risultato', pageType: 'Pagina', languageEn: 'English', languageIt: 'Italiano',
   },
-  footer: { navigate: 'Naviga', contact: 'Contatti', terms: 'Termini e condizioni', privacy: 'Informativa sulla privacy', cookies: 'Cookie', rights: 'Nefertiti Retreats' },
+  footer: { navigate: 'Naviga', contact: 'Contatti', card: 'Biglietto da visita', terms: 'Termini e condizioni', privacy: 'Informativa sulla privacy', cookies: 'Cookie', rights: 'Nefertiti Retreats' },
   cookie: { label: 'Informativa sui cookie', text: 'Usiamo solo i cookie necessari al funzionamento del sito. Nessun cookie pubblicitario o di tracciamento.', more: 'Scopri di più', ok: 'Ho capito' },
   retreatBar: { label: 'Prossimo ritiro', next: 'Prossimo ritiro', view: 'Vedi', close: 'Chiudi l\'annuncio' },
   search: {
