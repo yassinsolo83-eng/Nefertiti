@@ -15,6 +15,8 @@ import { projectId, dataset, apiVersion } from '@/sanity/env'
 import { isLocale, type Locale } from '@/lib/i18n'
 import { getUi } from '@/lib/ui'
 import { formatCairo, formatFull, generateSlots, isValidTimeZone } from '@/lib/booking'
+import { sendVisitorConfirmation } from '@/lib/visitorConfirmation'
+import { getSiteSettings } from '@/sanity/lib/queries'
 
 // Server-only client with write access. The token never reaches the browser.
 const writeClient = createClient({
@@ -197,6 +199,23 @@ export async function POST(req: Request) {
     await sendNotification(form, rows, name, email)
   } catch (e) {
     console.error('Pre-call email failed:', e instanceof Error ? e.message : String(e))
+  }
+
+  // Confirmation email to the visitor: same rule, the booking is already saved
+  try {
+    const settings = await getSiteSettings()
+    await sendVisitorConfirmation({
+      locale,
+      name,
+      email,
+      slot,
+      visitorTz,
+      replyTo: form.notificationEmail || '',
+      contactEmail: settings.contactEmail,
+      whatsappNumber: settings.whatsappNumber,
+    })
+  } catch (e) {
+    console.error('Pre-call confirmation email failed:', e instanceof Error ? e.message : String(e))
   }
 
   // Same rule for WhatsApp: already saved, so a failure is only logged
