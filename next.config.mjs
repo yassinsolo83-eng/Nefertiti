@@ -10,7 +10,7 @@ const nextConfig = {
   // Every page file sits in app/[lang], so English paths are rewritten to /en/... behind the scenes.
   async rewrites() {
     // English pages: one plain rule pair per top-level page (no regular expressions)
-    const pages = ['about', 'collaborations', 'contact', 'destinations', 'experiences', 'how-it-works', 'partners', 'pre-call', 'privacy', 'retreats', 'services', 'terms']
+    const pages = ['about', 'card', 'collaborations', 'contact', 'destinations', 'experiences', 'how-it-works', 'partners', 'pre-call', 'privacy', 'retreats', 'services', 'terms']
     return {
       beforeFiles: [
         { source: '/', destination: '/en' },

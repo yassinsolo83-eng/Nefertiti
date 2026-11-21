@@ -1,0 +1,37 @@
+/* ── Digital business card page ── */
+
+.wrap {
+  max-width: 1100px; margin: 0 auto;
+  padding: 160px max(28px, 6vw) 120px;
+}
+.wrap :global(.eyebrow) { margin-top: 8px; }
+
+.title {
+  font-family: 'Cormorant Garamond', serif; font-weight: 500;
+  font-size: clamp(40px, 6vw, 76px); line-height: 1;
+  letter-spacing: -.02em; color: var(--primary);
+  margin: 18px 0 16px;
+}
+
+.lead {
+  max-width: 620px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(18px, 2vw, 22px); line-height: 1.6;
+  color: var(--foreground);
+}
+
+.cards {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px;
+  margin-top: 48px;
+}
+.card {
+  display: block; width: 100%; height: auto;
+  border-radius: 12px;
+  box-shadow: 0 14px 34px rgba(107, 58, 78, .22);
+}
+
+.actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 44px; }
+
+@media (max-width: 820px) {
+  .cards { grid-template-columns: 1fr; }
+}

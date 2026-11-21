@@ -67,6 +67,11 @@ const en = {
     faqAlt: 'A quiet ritual moment', faqAside: 'Still have a question? Send us a message above and our team will get back to you.', askWa: 'Ask on WhatsApp',
     faqLabel: 'FREQUENTLY ASKED', faqTitle: 'Frequently Asked Questions',
   },
+  card: {
+    eyebrow: 'BUSINESS CARD', title: 'Nefertiti Retreats', lead: 'Retreat production and destination experiences in Egypt.',
+    frontAlt: 'Nefertiti Retreats business card, front', backAlt: 'Nefertiti Retreats business card, back',
+    save: 'Save contact', whatsapp: 'Chat on WhatsApp', email: 'Send an email',
+  },
   meta: {
     siteTitle: 'Nefertiti | Luxury Wellness Retreats in Egypt',
     siteDescription: 'Nefertiti produces luxury wellness retreats in Egypt for coaches, facilitators and retreat leaders — from the Pyramids of Giza and Luxor to the Red Sea, Siwa and the desert.',
@@ -83,6 +88,7 @@ const en = {
     destinations: { title: 'Destinations — Where We Take Your Retreat in Egypt', description: 'Cairo, the Red Sea, Luxor, Siwa, the desert and more: explore every destination where Nefertiti produces wellness retreats in Egypt.', notFound: 'Destination not found', detailTitle: (t: string) => `Wellness Retreats in ${t}` },
     preCall: { title: 'Pre-Call Form — Share Your Retreat Vision', description: 'Tell us about your community and the retreat you would like to create in Egypt, so we can make our discovery call as useful and personal as possible.', story: 'Tell us your story.' },
     terms: { title: 'Terms & Conditions', description: 'The terms that apply when you use the Nefertiti Retreats website and request our retreat production services.' },
+    card: { title: 'Business Card', description: 'Contact details for Nefertiti Retreats: retreat production and destination experiences in Egypt.' },
     privacy: { title: 'Privacy Policy', description: 'How Nefertiti Retreats collects, uses and protects your personal data, and how to exercise your rights.' },
   },
   error: { eyebrow: '◆ Something went wrong', heading: 'We could not load this page.', text: 'Please try again in a moment. If it keeps happening, contact us and we will help right away.', retry: 'Try again', contact: 'Contact us' },
@@ -214,6 +220,11 @@ const it: typeof en = {
     faqAlt: 'Un momento di rituale silenzioso', faqAside: 'Hai ancora una domanda? Scrivici qui sopra e il nostro team ti risponderà.', askWa: 'Chiedi su WhatsApp',
     faqLabel: 'DOMANDE FREQUENTI', faqTitle: 'Domande frequenti',
   },
+  card: {
+    eyebrow: 'BIGLIETTO DA VISITA', title: 'Nefertiti Retreats', lead: 'Produzione di ritiri ed esperienze di destinazione in Egitto.',
+    frontAlt: 'Biglietto da visita di Nefertiti Retreats, fronte', backAlt: 'Biglietto da visita di Nefertiti Retreats, retro',
+    save: 'Salva contatto', whatsapp: 'Scrivici su WhatsApp', email: 'Invia un’email',
+  },
   meta: {
     siteTitle: 'Nefertiti | Ritiri di benessere di lusso in Egitto',
     siteDescription: 'Nefertiti produce ritiri di benessere di lusso in Egitto per coach, facilitatori e guide di ritiri: dalle Piramidi di Giza e Luxor al Mar Rosso, Siwa e il deserto.',
@@ -230,6 +241,7 @@ const it: typeof en = {
     destinations: { title: 'Destinazioni — Dove portiamo il tuo ritiro in Egitto', description: 'Il Cairo, il Mar Rosso, Luxor, Siwa, il deserto e altro ancora: scopri tutte le destinazioni in cui Nefertiti produce ritiri di benessere in Egitto.', notFound: 'Destinazione non trovata', detailTitle: (t: string) => `Ritiri di benessere: ${t}` },
     preCall: { title: 'Modulo pre-call — Condividi la visione del tuo ritiro', description: 'Raccontaci della tua community e del ritiro che vorresti creare in Egitto, così da rendere la nostra call conoscitiva il più utile e personale possibile.', story: 'Raccontaci la tua storia.' },
     terms: { title: 'Termini e condizioni', description: 'I termini che si applicano quando utilizzi il sito Nefertiti Retreats e richiedi i nostri servizi di produzione di ritiri.' },
+    card: { title: 'Biglietto da visita', description: 'I contatti di Nefertiti Retreats: produzione di ritiri ed esperienze di destinazione in Egitto.' },
     privacy: { title: 'Informativa sulla privacy', description: 'Come Nefertiti Retreats raccoglie, utilizza e protegge i tuoi dati personali e come esercitare i tuoi diritti.' },
   },
   error: { eyebrow: '◆ Qualcosa è andato storto', heading: 'Non siamo riusciti a caricare questa pagina.', text: 'Riprova tra un momento. Se il problema persiste, contattaci e ti aiuteremo subito.', retry: 'Riprova', contact: 'Contattaci' },
