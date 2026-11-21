@@ -228,6 +228,7 @@ export default function PreCallForm({ form }: Props) {
         {waUrl && (
           <a className="button button-gold" href={waUrl} target="_blank" rel="noopener noreferrer" style={{ marginRight: 12 }}>{t.sendWa}</a>
         )}
+        <Link href="/card" className="button button-gold" style={{ marginRight: 12 }}>{t.viewCard}</Link>
         <Link href="/" className="button button-gold">{t.backHome}</Link>
       </div>
     )

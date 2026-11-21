@@ -37,6 +37,7 @@ const en = {
     needLook: 'Some answers need a second look.', errGeneric: 'Something went wrong. Please try again, or message us on WhatsApp.', errConnect: 'Could not send your answers. Please check your connection and try again.',
     sendWa: 'Send details on WhatsApp', backHome: 'Back to home', stepOf: (i: number, n: number) => `Step ${i} of ${n}`,
     consent: 'By sending this form you agree that we use your answers to prepare our call, as described in our', privacy: 'Privacy Policy',
+    viewCard: 'View our business card',
     back: 'Back', required: 'Required', sending: 'Sending…', continue: 'Continue', requiredAria: 'required', chooseAll: 'Choose all that apply',
     other: 'Other', specify: 'Please specify', otherAria: (l: string) => `${l} — other`, answerPh: 'Your answer',
     booking: {
@@ -190,6 +191,7 @@ const it: typeof en = {
     needLook: 'Alcune risposte vanno riviste.', errGeneric: 'Qualcosa è andato storto. Riprova oppure scrivici su WhatsApp.', errConnect: 'Impossibile inviare le tue risposte. Controlla la connessione e riprova.',
     sendWa: 'Invia i dettagli su WhatsApp', backHome: 'Torna alla home', stepOf: (i: number, n: number) => `Passo ${i} di ${n}`,
     consent: 'Inviando questo modulo accetti che usiamo le tue risposte per preparare la nostra call, come descritto nella nostra', privacy: 'Informativa sulla privacy',
+    viewCard: 'Vedi il nostro biglietto da visita',
     back: 'Indietro', required: 'Obbligatorio', sending: 'Invio in corso…', continue: 'Continua', requiredAria: 'obbligatorio', chooseAll: 'Scegli tutte le risposte che valgono',
     other: 'Altro', specify: 'Specifica', otherAria: (l: string) => `${l} — altro`, answerPh: 'La tua risposta',
     booking: {
